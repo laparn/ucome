@@ -1,0 +1,22 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+	</head>
+
+	<body>
+	        <!-- standard/mini_menu.templ -->
+		<!-- BEGIN MINI_MENU -->
+		<!-- MINI_MENU -->
+		     <!-- BEGIN MINI_MENU_ENTRY --><!-- END MINI_MENU_ENTRY -->
+		     <!-- BEGIN MNMN_SECTION --><!-- SECTION -->
+			  <a href="${url}">${content}</a> <font color="#ff0000">-</font> 
+		     <!-- /MNMN_SECTION --><!-- END MNMN_SECTION -->
+		     <!-- BEGIN ACTIVE_MNMN_SECTION --><!-- MNMN_ACTIVESECTION -->
+			  <a href="${url}">${content}</a>  <font color="#ff0000">-</font> 
+		     <!-- /ACTIVE_MNMN_SECTION --><!-- END ACTIVE_MNMN_SECTION -->
+		<!-- /MINI_MENU -->
+		<!-- END MINI_MENU -->
+		</div>
+	</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- vim: set syntax=html: -->
+<!-- yes, you may use another editor, but, vim is BETTER -->
+
+<html>
+<head>
+<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+</head>
+
+<body>
+			<!-- BEGIN CONTENT --><!-- CONTENT -->CONTENT<!-- /CONTENT --><!-- END CONTENT -->
+</body>
+</html>

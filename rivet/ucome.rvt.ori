@@ -1,0 +1,94 @@
+<?
+global ROOT FAS_VIEW_CGI FAS_VIEW_URL FAS_VIEW_URL2 FAS_VIEW_URL1 FAS_UPLOAD_CGI
+set ::ROOT
+set ::FAS_VIEW_CGI
+set ::FAS_VIEW_URL
+set ::FAS_VIEW_REWRITE_URL $FAS_VIEW_URL
+set ::FAS_UPLOAD_CGI $FAS_VIEW_CGI
+set ::FAS_VIEW_URL1 $FAS_VIEW_URL
+set ::FAS_VIEW_URL2 "$FAS_VIEW_URL"
+set test "/any"
+global ROOT FAS_VIEW_CGI FAS_VIEW_URL FAS_VIEW_URL2 FAS_VIEW_URL1 FAS_UPLOAD_CGI
+set file [fas_get_value file -noe -nos -default "$test"]
+fas_fastdebug {ucome.tcl - file -> $file}
+# I should do something here to ensure that file is within the tree
+# some cleaning procedure to avoid any attack to the file system.
+set file [add_root $file]
+# I remove all .. of the filename, and check that
+# it stays under $ROOT
+set file [normalise $file]
+set action [fas_get_value action -noe -nos -default "view"]
+global ::_cgi_uservar
+set ::_cgi_uservar(action) "$action"
+fas_fastdebug {ucome.tcl - action -> $action}
+# Put all cgi var in the debug
+debug_cgi_uservar
+
+if { ![check_root $file] } {
+	not_binary::content_display fashtml "<html><head><title>[translate "Error in "] ${FAS_VIEW_CGI}</title><body>[translate "You are not allowed to access this file"]<br></body></html>"
+} else {
+	# now I extract the environment associated with the file
+	global ::fas_env ::conf
+	read_full_env $file ::fas_env
+	# Then I can get the session
+	if { [catch { fas_session::open_session ::fas_env } error_string ] } {
+		fas_display_error $error_string ::fas_env
+	}
+	# So from there, I have the following available arrays :
+	#   conf : all configuration info for the program
+	#   fas_env : variables associated with the current file
+	#   fas_session::session : session informations
+	#   _cgi_uservar : all variable imported
+	#   _cgi_cookie : all cookies imported
+
+	# Getting the current language
+	international::init_language [fas_get_value language -default en]
+	# I extract the filetype from the file extension
+	set filetype [guess_filetype $file ::conf ::fas_env]
+
+	# Who is asking for the file
+	set current_user [fas_user::find_user_name]
+	fas_stat::append_stat
+
+	# I am going to test if this action is or not allowed
+	if { ![fas_user::allowed_action $file $action ::fas_env] } {
+		if { [string trim ${current_user}] == "" } {
+			fas_display_error "[translate "Only logged users are allowed to"] [translate $action] [translate "on"] [rm_root $file]. [translate "Please"], <a href=\"${FAS_VIEW_URL}?file=[rm_root2 $file]&action=login_form\">[translate "log in"]</a>.<br>" ::fas_env -f $file
+		} else { 
+			fas_display_error "[translate "Sorry,"] ${current_user} [translate "is not allowed to "] [translate $action] [rm_root $file]<BR>" ::fas_env -f $file
+		}
+	} else {
+		# and now I display
+		# I try to see if the result exists or not
+		if { [fas_depend::check_complete_dependencies $file ::fas_env] } {
+			if { [catch { display_file $filetype $file ::fas_env ::conf } error] } {
+				not_binary::content_display fashtml "<center><h1>An error just occured</h1></center><pre>$error<br />$::errorInfo</pre>"
+			}
+		} else {
+			set final_filetype [fas_depend::get_final_filetype ::fas_env $file]
+			if { $final_filetype == "" } {
+				if { [catch { display_file $filetype $file ::fas_env ::conf } error] } {
+					not_binary::content_display fashtml "<center><h1>An error just occured</h1></center><pre>$error<br />$::errorInfo</pre>"
+				}
+			} else {
+				set final_filename [fas_depend::get_final_filename]
+				main_log "Using cache for direct display of [rm_root $file] in $final_filetype"
+				# For get_real_filename to take directly
+				# the cache_name, I need to have a list
+				# with at least 2 elements.
+				lappend conf(filetype_list) "$final_filetype" "$final_filetype" 
+				if { $final_filename != "" } {
+					binary::display_cache $final_filetype $final_filename ::fas_env 
+				} else {
+					if { [catch { display_file $filetype $file ::fas_env ::conf } error] } {
+						not_binary::content_display fashtml "<center><h1>An error just occured</h1></center><pre>$error<br />$::errorInfo</pre>"
+					}
+				}
+			}
+		}
+	}
+	# and I save the session
+	catch { fas_session::write_session }
+}
+end_debug
+?>

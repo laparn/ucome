@@ -1,0 +1,2 @@
+global.template standard.template global.title "Template for the form for setting authorisation for a file" global.title.fr "Canevas html pour le formulaire de gestion des autorisations d'un fichier" title.type file title.cgi_uservar.action title menu.type file menu.cgi_uservar.action treedir content.type html allow.type file allow.cgi_uservar.action show_action_list
+

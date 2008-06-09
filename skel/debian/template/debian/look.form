@@ -1,0 +1,1 @@
+add.templatedir /template/debian sub.txt.perso_tcl "/template/debian/style/style.tcl" sub.pdf.cgi_uservar.txt.perso_tcl "" sub.ginclude_dir "" sub.pdf.cgi_uservar.txt.ginclude_dir ""

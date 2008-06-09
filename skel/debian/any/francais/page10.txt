@@ -1,0 +1,17 @@
+Inclus des outils de développements
+pour les langages de programmations majeurs et pour d'autres moins connus tels que:
+ * C,
+ * C++,
+ * ObjectiveC,
+ * Java,
+ * Python,
+ * Perl,
+ * Smalltalk,
+ * LISP,
+ * Scheme,
+ * Haskell,
+ * Troll-emacs,
+ * ADA,
+ * Tcl/Tk,
+ * Ruby,
+ * etc ;

@@ -1,0 +1,4 @@
+Inclus le système de préparation de document TeX/LaTeX ,
+ * des polices et outils PostScript et Type1,
+ * l'interpréteur PostScript Ghostscript(TM)
+ * et un environnement de développement complet XML/SGML/HTML ;

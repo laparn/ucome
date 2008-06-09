@@ -1,0 +1,68 @@
+Installation
+============
+
+Dépendances :
+	tcllib, tclcurl, rivet (pour le mode rivet)
+
+	Sur Debian installez ces programmes via cette commande :
+		apt-get install tclcurl tcllib rivet
+
+(Les variables sont à modifier dans le Makefile)
+
+Pour tous les modes définir la variable
+	INSTALL_DIR
+
+Configurer et installer un des modes au choix :
+	tclhttpd, cgi-bin ou rivet
+
+En mode tclhttpd :
+	make tclhttpd
+
+En mode cgi-bin :
+	définir les variables : INSTALL_CGI_DIR, CGI_URL_DIR, WEB_USER, WEB_GROUP 
+	make cgi
+
+En mode rivet :
+	ATTENTION : utilisé une version 1.x d'Apache !
+
+	Installer rivet (exemple sous debian : apt-get install rivet).
+
+	Configurer rivet, pour cela :
+
+	1. copier le fichier ecim.conf créé par "make rivet" dans /etc/apache/
+	2. editez le fichier /etc/apache/httpd.conf pour y ajouter la ligne suivante :
+
+		Include /etc/apache/ecim.conf
+	
+	La valeur ROOT_DIR est le chemin vers le répertoire rivet de UCome.
+	
+	ensuite, sudo apachectl restart
+
+	Dans le Makefile, définir les variables WEB_USER, WEB_GROUP, RIVET_DIR, RIVET_URL, RIVET_CGI
+
+	make rivet
+
+make site
+
+URL d'accès
+===========
+
+en mode tclhttpd :
+	http://localhost:8015/ucome?file=/any/
+
+en mode cgi-bin :
+	http://localhost/cgi-bin/CGI_URL_DIR/ucome.cgi?file=/any/
+
+en mode rivet :
+	http://localhost/RIVET_URL/ucome.rvt?file=/any/
+
+
+
+Directory
+=========
+
+skel/ucome/
+	Fichier de base de UCOME
+
+skel/doc/
+	Documentation de UCOME

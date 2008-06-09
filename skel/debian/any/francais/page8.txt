@@ -1,0 +1,14 @@
+Inclus tous les utilitaires GNU :
+ * éditeurs 
+   * emacs, 
+   * vi.
+ * clients réseaux
+   * telnet,
+   * ftp,
+   * finger.
+ * des navigateurs web,
+ * des outils de sécurité
+   * gpg,
+   * ssh.
+ * des clients e-mails,
+ * et tous les petits outils auxquels vous pourriez penser ;

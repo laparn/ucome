@@ -1,0 +1,80 @@
+UCOME FAQ
+
+1. What is UCome ?
+Hum ! Difficult.
+Goal :
+ * The goal is to create a generic "transform engine" with a web interface. The idea is the following. Every day, you manage files with different formats (graphic, html, text, word, xml, latex, pdf, ps, ...). From my point of view, a key of today organisation is the sharing of information. In fact, in an enterprise (or a group), you can say that an information does not exist if it is not shared. From another point of view, it is very easy to be buried by informations today. So you must find a way to share and organise informations.
+
+Manager point of view :
+ * UCome is a document management system with a web interface. It allows to share and manage documents having a lot of different format (text, txt2ml, html, doc, excel, pdf, gif, jpeg, png, Open Office, ...) through a web interface. It is very easy to add new file format to manage. Management means add, modify, delete, view. Today it does not manage authorisation and groupware but it will in the future.
+
+Detailed point of view :
+ * Today intranets are the natural way to share informations. Mana will allow to integrate, present, sort, search, manage informations on an intranet. A key property is that input informations will be highly inhomogeneous. I like text files, you prefer soffice word ones, and somebody else msword one, and another latex, or xml, or html, or I do not know what. Mana will try to help to organise these inhomogeneous informations in a coherent set.
+
+2. Where does it come from ?
+Linbox/Free&ALter Soft wrote for TeleDiffusion de France a nice system allowing to create "electronic rolling newspapers". This system is fully managed from internet. So you have a basic interface for editing, copying, adding, ... files. You have a file management interface which is fairly close from UCoMe. 
+
+Informations such as meteo, news, horoscopes, ... are taken from internet and  integrated in the "newspaper" through many transformation layers. These transformations are made statically (with a make and a Makefile). It seemed at start a good idea, however it shown harder and harder to manage.
+
+UCoMe is a totally, fully rewritten software, and from an architectural point of view it has nothing to see. In fact, the architecture used is the summary of all experience I get in writting web applications for years.
+
+3. Will it work for me ?
+UCoMe was developped under linux. However, great cares were taken for having a generic engine. Basically, it should work on any operating system where tcl 8.4 runs. So it should work on any unix and any windows. You also need an http server. I used apache for the development that works also on any of the afore mentioned operating system. It works also with the embedded tclhttpd and with the rivet modules for apache.
+
+4. What is the licence ?
+LGPL licence.
+
+1. Why are you writing this bad program while a marvellous, incredible, zope with much more functions exists and much better programmed and structured ?
+ * I am mad,
+ * When I looked at zope, I saw some drawbacks :
+   * there is a special markup language (in fact there are 2). I do not want to learn a new language every 10 minutes. If it was python, I would, because I can use it for much more, but I see no reason to add yet another language. In mana, you program in tcl, if you write an html it is html and that's all. Ok you must mark the different section in your file, but that's all.
+   * no official international Zope. As you noticed in reading this file, I am french. I love english (special note for my german friends, I also much love german), I have no problem for using it when working. But it is not the case of many of our customers. They must have a native french interface for everything. I do not want to write again in dtml all Zope interfaces translated in french.
+   * Zope is a blackbox. You do not know how files are stored inside. And it means that it is not simple to regurlaly save, differentially save, maintain with vi, in case of problems. I love files, I want files. (OK you can export the internal Zope database in xml and work manually on it).
+
+4. What are the file types that are currently supported ?
+Right now :
+ * text,
+ * txt2ml,
+ * tmpl (html without a menu bar),
+ * html,
+ * pdf,
+ * gif,
+ * png,
+ * jpeg,
+ * directories,
+ * order_dir : when asking for the display of this directory, a file of the directory is displayed, at the next display, it will be the next file, and so forth. So files will be diplayed as a "rolling newspaper".
+ * order : a file giving a file to display in another directory. It may contain a file, an url, and also the display speeds for theese files.
+
+With the external fas-converter, program you also get :
+ * doc,
+ * excel.
+
+With the "auto-cache" feature Star Office files. To manage them upload the original file (toto.sxw) , and then upload the corresponding html file (toto.sxw.html).
+
+So files with these filetypes may be integrated seemlessly in an intranet.
+
+4. How does it work ?
+The base of UCome is the display of a file. When asking for a file, UCome will do the following thing :
+ * look if the file may be directly displayed, then, the file will be directly sent (gif, png, jpeg, pdf, ...),
+ * if the file requires to be transformed before being displayed, UCome will search for the next file type for this file, try to do the transformation, cache the result of the transformation,
+ * the 2 last points will be repeated till reaching a file directly displayable.
+
+All operations are cached in UCome. Before doing any transformation, UCome looks if the result exists or not. If it does, and if all dependency conditions are fullfilled, then the transformation is not done, and the next step is done.
+
+So you now understand, why I speak of a Transform Engine. Mana is a tool for transforming files.
+
+Mana is as strongly object oriented as possible without any tcl extension. It means that for each file type, the possible next types are defined, the possible actions, and the transformations for this file type, as well as a final display procedure.
+
+It occured that this way to see a cgi programm (a transformation of a document into another, "ad nauseam") seems to be a VERY powerful and generic concept. Strangely enough it also works for actions on file.
+
+Just consider the copy of a file. Well, we are going to say that in fact, it is a filetype. So for each file type, we must define a transformation procedure for going to this copy type. It will be 2copy. Then when arriving in copy, we use a standard html window. And we ask for the display in html of this content. So we define a 2html transformation in copy. And we jump at the standard html procedure.
+
+When writing a programm for a new file type, one of the biggest work is to really track the dependencies when writing a transformation for this file type. Obviously, there are functions for that.
+
+5. Oh god it is so slow, what can I do ?
+When you run UCome as a cgi program under Apache, it is slow. It is slow because at every run, the tcl interpreter is started and all the code is sourced and then, and only then the real work starts.
+When you run UCome under tclhttpd, it is much, much, much faster as only the real work is done. However, it is not as mature as the cgi.
+There is a very easy way to accelerate things under apache. You run the flatten action. flatten will put a static version of the site in the cache directory in the flatten subdirectory. You can choose the final target url of the site. Then you have only static pages for viewing the site. You may run a flatten automatically every night and just have people cruising through these static pages.
+
+6. How do I debug ?
+There is a fas_debug.tcl file. Look in it. You can allow or disallow debug for all files or file by file. The debug may also be written in a file in /tmp.

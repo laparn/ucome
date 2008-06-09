@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- vim: set syntax=html: -->
+<!-- yes, you may use another editor, but, vim is BETTER -->
+
+<html>
+<head>
+<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="fas:/template/standard/css/standard.css" title="Blue standard" />
+</head>
+
+<body>
+<br />
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+  <tr> 
+    <td colspan="3" class="pos1" height="55" valign="middle"> 
+      <div class="topbox"><h2>UCome - Your Content Management</h2></div>
+    </td>
+  </tr>
+  <tr> 
+  <td>
+   <table width="100%" border="0" cellpadding="0" cellspacing="0" class="topnav">
+    <tr>
+  	      <td align="left" class="head">
+		  	&nbsp;Login as : <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;
+		  </td>
+    	  <td align="right"> 
+			<a href="fas:${file}&action=login_form" class="topmenu" title="Login">&nbsp;::Login::&nbsp;</a><!-- BEGIN ALLOW --><!-- END ALLOW --></td>
+	</tr>
+   </table>
+   </td>
+  </tr>
+  <tr> 
+    <td> 
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr> 
+          <td valign="top" width="150"> <br />
+		  	<div>
+		<!-- BEGIN MENU -->
+		<!-- MENU -->
+          	  <div class="headbox">Menu</div>
+		     <!-- BEGIN SECTION -->
+		     <!-- SECTION -->
+			  <a class="leftmenu" href="${url}">${content}</a> 
+		     <!-- /SECTION -->
+		     <!-- END SECTION -->
+		     <!-- BEGIN ACTIVESECTION -->
+		     <!-- ACTIVESECTION -->
+			  <a class="activeleftmenu" href="${url}">${content}</a> 
+		     <!-- /ACTIVESECTION -->
+		     <!-- END ACTIVESECTION -->
+		     <!-- BEGIN SUBSECTION -->
+		     <!-- SUBSECTION -->
+			  <a class="leftmenu" href="${url}">&nbsp;&nbsp;${content}</a> 
+		     <!-- /SUBSECTION -->
+		     <!-- END SUBSECTION -->
+		     <!-- BEGIN ACTIVESUBSECTION -->
+		     <!-- ACTIVESUBSECTION -->
+			  <a class="activeleftmenu" href="${url}">&nbsp;&nbsp;${content}</a> 
+		     <!-- /ACTIVESUBSECTION -->
+		     <!-- END ACTIVESUBSECTION -->
+		     <!-- BEGIN SUBSUBSECTION -->
+		     <!-- SUBSUBSECTION -->
+			  <a class="leftmenu" href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+		     <!-- /SUBSUBSECTION -->
+		     <!-- END SUBSUBSECTION -->
+		     <!-- BEGIN ACTIVESUBSUBSECTION -->
+		     <!-- ACTIVESUBSUBSECTION -->
+			  <a class="activeleftmenu" href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+		     <!-- /ACTIVESUBSUBSECTION -->
+		     <!-- END ACTIVESUBSUBSECTION -->
+
+		     <!-- BEGIN MENU_ENTRY -->
+		     <!-- END MENU_ENTRY -->
+              
+		<!-- /MENU -->
+		<!-- END MENU -->
+              
+			  <br />
+			  
+			  <div class="dynacontent">
+			  <!-- BEGIN PATH --><!-- END PATH -->
+			  <!-- Questions or Comments? Advice for me or from me? Please <a href="http://www.oswd.org/email.phtml?user=Phlash" class="dash" title="email the author">email me.</a>-->
+			  </div>	
+              
+            </div>
+          </td>
+          <td valign="top"> <br />
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tr> 
+                <td width="10"></td>
+                <td valign="top" class="mainbox"> 
+			<!-- BEGIN CONTENT --><!-- CONTENT -->CONTENT<!-- /CONTENT --><!-- END CONTENT -->
+                </td>
+                <td width="145" valign="top" class="dynabox">Todo
+				<br />
+				<br />
+				<!-- BEGIN TODO --><!-- END TODO -->
+				<div class="headbox">&nbsp;Created by  <a class="dash" href="http://linbox.com" title="Linbox/Free&amp;ALter Soft">Linbox/Free&amp;ALter Soft</a></div>
+				<div class="dynacontent">Technopole Metz 2000<br>152, rue de Grigy<br>57070 METZ<br>
+Etablissement :<br>32, bd Paul Vaillant-Couturier<br>93100 MONTREUIL<br>
+E-mail :<br>arnaud.laprevote@<br>linbox.com<br></div>
+
+				
+				</td>
+              </tr>
+            </table>
+			<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>	
+
+  <tr class="pos1"> 
+    <td height="20" colspan="2" class="head" align="right">Freely adapted from <a href="http://oswd.com">OSWD</a> Sliqua design shareright &copy; 2002 Phlash &nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

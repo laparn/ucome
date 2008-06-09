@@ -1,0 +1,8 @@
+Vous voulez en savoir plus ?
+Visitez simplement http://www.debian..org/ .
+Si vous avez besoin d'informations ou d'une aide quelconque :
+ * joignez le canal IRC #debian sur irc.debian.org
+ * ou l'une des listes de diffusion de Debian.
+ 
+Pour plus d'informations: http://www.debian.org/MailingLists/subscribe .
+

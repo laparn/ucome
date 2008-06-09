@@ -1,0 +1,84 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+		<!-- fr/nomenu.tmpl -->
+	</head>
+
+	<body bgcolor="white" alink="#660033" vlink="#999900" >
+		<!-- fr/nomenu.tmpl -->	
+		<table border="0" cellpadding="0" cellspacing="0" align="left" width="800" >
+			<tr>
+				<td width="800"><img src="fas:/fas_view/any/images/espaceur.gif" width="800" height="1"></td>
+			</tr>
+			<tr height="30">
+				<td bgcolor="#660033" height="30"><a href="fas:/fas_view/any/fr"><img src="fas:/fas_view/any/images/logo_top.gif" width="800" height="81" border=0></A></td>
+			</tr>
+			<tr valign="top">
+					<!-- BEGIN MENU -->
+					<!-- MENU -->
+						<!-- BEGIN SECTION -->
+						<!-- SECTION -->
+						<!-- /SECTION -->
+						<!-- END SECTION -->
+						<!-- BEGIN ACTIVESECTION -->
+						<!-- ACTIVESECTION -->
+						<!-- /ACTIVESECTION -->
+						<!-- END ACTIVESECTION -->
+						<!-- BEGIN SUBSECTION -->
+						<!-- SUBSECTION -->
+						<!-- /SUBSECTION -->
+						<!-- END SUBSECTION -->
+						<!-- BEGIN ACTIVESUBSECTION -->
+						<!-- ACTIVESUBSECTION -->
+						<!-- /ACTIVESUBSECTION -->
+						<!-- END ACTIVESUBSECTION -->
+						<!-- BEGIN SUBSUBSECTION -->
+						<!-- SUBSUBSECTION -->
+						<!-- /SUBSUBSECTION -->
+						<!-- END SUBSUBSECTION -->
+						<!-- BEGIN ACTIVESUBSUBSECTION -->
+						<!-- ACTIVESUBSUBSECTION -->
+						<!-- /ACTIVESUBSUBSECTION -->
+						<!-- END ACTIVESUBSUBSECTION -->
+						<!-- BEGIN MENU_ENTRY -->
+						<!-- END MENU_ENTRY -->
+					<!-- /MENU -->
+					<!-- END MENU -->
+				<td width="100%">
+						<BR>
+						<!-- BEGIN CONTENT --><!-- CONTENT -->CONTENU<!-- /CONTENT --><!-- END CONTENT -->
+				</td>
+			</tr>
+			<tr>
+				<td>
+		<TABLE WIDTH=100%>
+
+						<!-- BEGIN BOTTOM -->
+						<!-- BOTTOM -->
+			<tr >
+				<td colspan=3><hr width=100%></td>
+			</tr>
+			<tr>
+				<td valign="top"><font size="1">Free&amp;ALter Soft - Technopole Metz 2000 - 152, rue de Grigy - 57070 METZ<br>
+Etablissement : 32, bd Paul Vaillant-Couturier - 93100 MONTREUIL<br>
+E-mail : arnaud.laprevote@freealter.com<br>
+Siren : 410 293 435 Siret: 410 293 435 00021 APE: 721Z </font></td>
+				<td valign="top">&nbsp;</td>
+				<td valign="top" align="right"><font size="1">
+T&eacute;l : (+33) (0)3 87 75 55 21 - Fax : (+33) (0)3 87 75 19 26<br>
+T&eacute;l : (+33) (0)1 48 57 62 33 - Fax : (+33) (0)1 48 57 90 75<br>
+
+Copyright Free&amp;ALter Soft 2001<br>
+Reproduction et copie autoris&eacute;es sans modifications. </font></td>
+			</tr>
+			<!-- /BOTTOM -->
+			<!-- END BOTTOM -->
+		</TABLE>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>

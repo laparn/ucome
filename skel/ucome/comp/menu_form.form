@@ -1,0 +1,4 @@
+global.template standard.template global.title "Block definitions for the template for looking at a text file" global.title.fr "Définition des blocs pour le canevas permettant de visualiser un fichier texte" title.type file title.cgi_uservar.action title menu.type file menu.cgi_uservar.action menu content.type html allow.type file allow.cgi_uservar.action show_action_list allow.cgi_uservar.from view whoami.type file whoami.cgi_uservar.action whoami path.type file path.cgi_uservar.action path
+
+
+

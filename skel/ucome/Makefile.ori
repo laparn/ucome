@@ -1,0 +1,80 @@
+# I create target cgi, tclhttpd, rivet, site
+# Where skel directory content will be copied
+INSTALL_SITE_DIR=/tmp/ucometest
+# The directory in which the file fas_display.tcl may be found
+FAS_PROG_ROOT=$(shell pwd)/../tcl
+
+# Where cgi file will be set-up and corresponding url
+INSTALL_CGI_DIR=/usr/lib/cgi-bin/ucometest
+CGI_URL=/cgi-bin/ucometest/ucome.cgi
+
+# Where TCLHTTPD files are and corresponding url
+INSTALL_TCLHTTPD_DIR=./tclhttpd
+TCLHTTPD_URL=http://$(shell hostname):8015/ucome
+
+# Where RIVET files are and corresponding url
+INSTALL_RIVET_DIR=/var/www
+RIVERT_URL=/rivet
+
+WEB_USER=www-data
+WEB_GROUP=www-data
+
+FAS_VIEW_FILENAME=ucome.cgi
+TCLHTTPD_FILENAME=ucome
+
+all:
+	-rm -Rf any/code
+	mkdirhier any/code/tcl
+	cp -R ../tcl/* any/code/tcl
+	cp ../${FAS_VIEW_FILENAME} any/code
+	mkdirhier any/code/.mana
+	echo "menu.name \"Source code\" menu.order 5 menu.auto 1 txt4index.ignore 1 linestoshow 5" > any/code/.mana/.val
+	-rm -Rf $(INSTALL_DIR)
+	mkdirhier $(INSTALL_DIR)
+	cp -R * $(INSTALL_DIR)
+	mkdirhier $(INSTALL_DIR)/.mana
+	cp .mana/.val $(INSTALL_DIR)/.mana/.val
+	chown -R $(WEB_USER):$(WEB_GROUP) $(INSTALL_DIR)
+	mkdirhier $(INSTALL_CGI_DIR)
+	rm $(INSTALL_DIR)/Makefile
+	cp -R ../${FAS_VIEW_FILENAME} $(INSTALL_CGI_DIR)/$(FAS_VIEW_FILENAME)
+	chmod u+rx $(INSTALL_CGI_DIR)/$(FAS_VIEW_FILENAME)
+	echo "set ROOT $(INSTALL_DIR)" > $(INSTALL_CGI_DIR)/conf.tcl
+	echo "set FAS_PROG_ROOT $(FAS_PROG_ROOT)" >> $(INSTALL_CGI_DIR)/conf.tcl
+	echo "set FAS_VIEW_URL $(CGI_URL)/$(FAS_VIEW_FILENAME)" >> $(INSTALL_CGI_DIR)/conf.tcl
+	chown -R $(WEB_USER):$(WEB_GROUP) $(INSTALL_CGI_DIR)
+	-rm -R $(INSTALL_DIR)/CVS
+	-rm -R $(INSTALL_DIR)/any/CVS
+	-rm -R $(INSTALL_DIR)/any/doc/CVS
+	-rm -R $(INSTALL_DIR)/any/code/CVS
+	-rm -R $(INSTALL_DIR)/any/code/tcl/CVS
+	-rm -R $(INSTALL_DIR)/any/code/tcl/mimeprocs/CVS
+	cd $(INSTALL_DIR); $(INSTALL_DIR)/fixperms
+	rm $(INSTALL_DIR)/fixperms
+	
+tclhttpd:
+	-rm -Rf any/code
+	mkdirhier any/code/tcl
+	cp -R ../tcl/* any/code/tcl
+	cp ../${FAS_VIEW_FILENAME} any/code
+	mkdirhier any/code/.mana
+	echo "menu.name \"Source code\" menu.order 5 menu.auto 1" > any/code/.mana/.val
+	-rm -Rf $(INSTALL_DIR)
+	mkdirhier $(INSTALL_DIR)
+	cp -R * $(INSTALL_DIR)
+	mkdirhier $(INSTALL_DIR)/.mana
+	cp .mana/.val $(INSTALL_DIR)/.mana/.val
+	rm $(INSTALL_DIR)/Makefile
+	-rm -R $(INSTALL_DIR)/CVS
+	-rm -R $(INSTALL_DIR)/any/CVS
+	-rm -R $(INSTALL_DIR)/any/doc/CVS
+	-rm -R $(INSTALL_DIR)/any/code/CVS
+	-rm -R $(INSTALL_DIR)/any/code/tcl/CVS
+	-rm -R $(INSTALL_DIR)/any/code/tcl/mimeprocs/CVS
+	cd $(INSTALL_DIR); $(INSTALL_DIR)/fixperms
+	rm $(INSTALL_DIR)/fixperms
+	echo "set ROOT $(INSTALL_DIR)" > ../tclhttpd/custom/conf.tcl
+	echo "set FAS_PROG_ROOT $(FAS_PROG_ROOT)" >>  ../tclhttpd/custom/conf.tcl
+	echo "set FAS_VIEW_URL /ucome" >> ../tclhttpd/custom/conf.tcl
+	echo "set FAS_VIEW_URL2 \"http://`hostname`:8017/ucome\"" >> ../tclhttpd/custom/conf.tcl 
+

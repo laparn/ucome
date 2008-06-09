@@ -1,0 +1,9 @@
+Inclus des jeux
+Avec des dizaines de jeux de tous types :
+ * éducatifs (plusieurs dizaines d'activités pour tous les ages),
+ * arcades 2D,
+ * arcades 3D (simulateur de combats, courses en 3D, glissades sur les pentes enneigées, ...),
+ * puzzles,
+ * sports (billard, ...),
+ * simulation,
+ * etc ...

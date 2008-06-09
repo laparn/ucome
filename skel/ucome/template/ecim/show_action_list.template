@@ -1,0 +1,8 @@
+<html>
+	<body>
+		<!-- BEGIN CURRENT_BLOCK --><!--END CURRENT_BLOCK -->
+		<!-- BEGIN STANDARD_BLOCK -->
+		<a class="nav" href="${url}">${text}</a><font color="red">|</font>
+		<!-- END STANDARD_BLOCK -->
+	</body>
+</html>

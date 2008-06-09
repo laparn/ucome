@@ -1,0 +1,144 @@
+<!-- vim: set syntax=html: -->
+<!-- vim: set ts=1: -->
+<!-- yes, you may use another editor, but, vim is BETTER -->
+<html>
+ <head>
+  <title>
+			<!-- BEGIN TITLE -->TITRE<!-- END TITLE -->
+  </title>
+  <link href="fas:/template/Pretension/css/style.css" rel="stylesheet" type="text/css" />
+ </head>
+
+ <body>
+
+  <!-- body table -->
+  <table align="center" valign="top" border="0" cellpadding="8" cellspacing="0" width="85%">
+   <!-- top header -->
+   <tr>
+    <td valign="center" width="25%" colspan="2">
+     <!-- title table -->
+     <table align="center" bgcolor="#000000" border="0" cellpadding="1" cellspacing="0" width="100%">
+      <tr>
+       <td valign="center">
+        <table bgcolor="#ffffff" border="0" cellpadding="8" cellspacing="0" width="100%">
+         <tr>
+          <td valign="center">
+           <h1>&nbsp;UCOME - Your Content Management !</h1>
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+     <!-- end title table -->
+    </td>
+   </tr>
+   <!-- end top header -->
+ 
+   <tr>
+    <!-- left column -->
+    <td valign="top" width="25%">
+     <!-- sidebox -->
+					<!-- BEGIN MENU --><!-- END MENU -->
+     <!-- end sidebox -->
+					<br />
+     <!-- sidebox -->
+     <table bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+       <td>
+        <table border="0" cellpadding="3" cellspacing="1" width="100%">
+         <tr>
+          <td bgcolor="#cccccc">
+           &nbsp;File menu
+          </td>
+         </tr>
+         <tr>
+          <td bgcolor="#ffffff">
+           &nbsp;<span class="small">o</span>
+           <a class="nav" href="fas:${file}&action=login_form">Login as :</a><!-- BEGIN WHOAMI --><!-- END WHOAMI -->
+           <br />
+												<!-- BEGIN ALLOW --><!-- END ALLOW -->
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+     <!-- end sidebox -->
+     <br />
+
+				</td>
+    <!-- end left column -->
+
+    <!-- right column -->
+    <td valign="top" width="75%">
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+       <td valign="top" width="100%">
+
+        <!-- story -->
+        <table align="center" bgcolor="#000000" border="0" cellPadding="0" cellSpacing="0" width="100%">
+         <tr>
+          <td>
+           <table border="0" cellpadding="8" cellspacing="1" width="100%">
+            <tr>
+             <td bgcolor="#ffffff">
+													<!-- BEGIN PATH --><!-- END PATH --><br>
+													<!-- BEGIN CONTENT --><!-- END CONTENT -->
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+        </table>
+        <!-- end story -->
+
+        <br />
+        <!-- story -->
+        <table align="center" bgcolor="#000000" border="0" cellPadding="0" cellSpacing="0" width="100%">
+         <tr>
+          <td>
+           <table border="0" cellpadding="8" cellspacing="1" width="100%">
+            <tr>
+             <td bgcolor="#ffffff" colspan="2">
+              <p>
+               Content questions? <a href="mailto:questions@ucome.org">press me</a>.
+               
+              </p>
+
+              <p>
+               Technical questions?
+               <a href="mailto:info@ucome.org">Touch me</a> gently.
+              </p>
+             </td>
+            </tr>
+           </table>
+          </td>
+         </tr>
+        </table>
+        <!-- end story -->
+
+       </td>
+      </tr>
+     </table>
+    </td>
+    <!-- end right column -->
+   </tr>
+
+   <tr>
+    <td align="middle" colspan="2">
+     <!-- footer -->
+     <tr>
+      <td align="middle" colspan="2">
+       <span class="footer">
+        Look inspired by Pretension at <a href="http://www.oswd.org">OSWD</a> &copy; Copyleft 2001 - krsna77 - Thanks a lot krsna77 - I hope you will enjoy seeing your design here
+       </span>
+      </td>
+     </tr>
+     <!-- end footer -->
+    </td>
+   </tr>
+  </table>
+  <!-- end body table -->
+ </body>
+</html>

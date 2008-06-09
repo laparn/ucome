@@ -1,0 +1,2 @@
+title.width 50 global.title {Block definitions for a todo item} global.template todo.template head_title.type block head_title.no_edit 1 date.width 16 menu.type file menu.no_edit 1 title.textentry 1 menu.cgi_uservar.action menu title.type txt content.type txt date.textentry 1 head_title.block title date.type txt global.title.fr {Définition des blocs pour une page de type "A faire"} content.cols 80  content.rows 20 allow.type file allow.cgi_uservar.action show_action_list allow.no_edit 1 whoami.type file whoami.cgi_uservar.action whoami whoami.no_edit 1
+

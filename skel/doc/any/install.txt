@@ -1,0 +1,147 @@
+UCome - Installing
+
+''Author :'' 
+''Arnaud LAPREVOTE''
+Free&ALter Soft
+Email : arnaud dot laprevote at linbox dot com
+
+4. Dependencies
+The following software and libraries are required :
+ * tcl8.4,
+ * tcllib beyond 1.3,
+ * either a web server supporting cgi (developped with apache),
+ * or tclhttpd (a version being provided with the current code),
+ * you may run ucome within the rivet plugin for apache. In this case you need Rivet. It was developped with Rivet 1.1 .
+
+If you wish to display source code (whatever it is), you need vim. TclCurl may be useful if you wish to use the functions related to automatic download of files on the web.
+
+5. Global setup
+First untar the archive somewhere. Beware, the tcl directory within ucome, should be readable from the user used by the web server.
+
+UCome is provided with a Makefile that is supposed to handle the biggest part of the setup. However, you need to provide this Makefile the paths where you wish the different component to be stored.
+
+The different targets in the Makefile are the following :
+ * site : target for installing the dummy test site files,
+ * cgi : the simplest (and slowest) version of ucome a cgi,
+ * rivet : rivet is a module for apache allowing to have tcl programs loaded and executed from within the apache server (like php). The rivet version of ucome is the fastest.
+ * tclhttpd : tclhttpd is a web server fully written in tcl. Here ucome is embarqued within tclhttpd. The version of tclhttpd that is provided is "naked" many files and procedures were removed to just provide a minimal execution environment for tclhttpd.
+
+I advice you to first start by setting up the site, then the cgi version (very easy to set up, very slow), then tclhttpd (easy to set up, mean speed) and/or rivet version (not so difficult to set up, fairly fast).
+
+Before having any program, you need to have the basic file environment set up. Ucome requires a precise file and directory organisation for working, especially for caching files. The skel target is a skeleton of a typical ucome file organisation. To set it up, just indicate in the Makefile, the ''INSTALL_DIR'' . By default, it is /tmp/ucometest, not a bad choice for testing.
+
+Type :
+=====================
+make site
+=====================
+
+You may also need to change the variables ''WEB_USER'' and ''WEB_GROUP'' for matching the user and group used by the web server for running. As the cgi (tclhttpd, rivet program) writes files, it must be allowed to write in the ''INSTALL_DIR'' .
+Then look in /tmp/ucometest and you will discover the file/directory organisation.
+
+
+6. cgi version
+In the Makefile, just edit the variables :
+================
+INSTALL_CGI_DIR
+CGI_URL_DIR
+================
+By default, it is the debian cgi-bin directory which is used for storing the cgi where a directory ucometest is created. But you may indicate another place, as long as it is a cgi directory. 
+You also need to indicate the cgi url of the cgi-bin directory. In the default case, if ''INSTALL_CGI_DIR'' is /usr/lib/cgi-bin/ucometest, the ''CGI_URL_DIR'' is /cgi-bin/ucometest.
+
+Then type :
+=============
+make cgi
+=============
+And that's it. 
+
+Just try now :
+===============================
+http://machine_name/cgi-bin/ucometest/ucome.cgi
+===============================
+As an url from within a browser and you should see a page appearing.
+
+7. Set up of tclhttpd version
+I integrated a naked version of tclhttpd with just what is required for having ucome running. To start it you just need to :
+
+======================
+make tclhttpd
+======================
+
+You now just need to start tclhttpd. There are 2 scripts for that in mana/tcl/utils :
+ * tclhttpd.sh : just run ./tclhttpd.sh and tclhttpd will start.
+ * tclhttpd : this is a script for init.d . Just point on the directory where tclhttpd.sh is, and voila.
+
+If you did not touch to tclhttpd configuration files, you should have something on port 8015 :
+=========================
+http://localhost:8015/ucome
+==========================
+
+8. Rivet version
+First, you need Rivet installed. If you have an existing package in your distribution, it is done in some minutest. If not, please refer to the Rivet instructions on the Rivet web site (tcl rivet in google for finding it).  Concerning debian, if you are under woody, you will need tcl8.4, either grasp a backport, or from the source, it compiles very nicely.
+
+Change in the Makefile, the variables ''RIVET_DIR'' and ''RIVET_URL''. ''RIVET_DIR'' represents the directory where ucome.rvt will be placed. ''RIVET_URL'' represents the url of the directory where ucome.rvt is placed.
+
+Then :
+=======================
+make rivet
+=======================
+It will give you 2 lines to add in your httpd.conf like :
+======================
+RivetServerConf GlobalInitScript "source /where/ucome/was/untared/rvt/ucome-initscript.tcl"
+RivetServerConf BeforeScript "source /where/ucome/was/untared/rvt/ucome-beforescript.tcl"
+======================
+
+
+7. File organisation
+If you respect what was proposed above, you should not need to do what is proposed hereunder. However, it details the manual installation of each part of UCoMe instead of an automatic set up.
+
+You may put any portion (directory and subdirectory) of your harddisk in use from UCome. Before doing complex things, we are going to do simple one, and create a test example in /tmp.
+
+Just copy in /tmp/ucometest the content of the skel directory of UCome. You get :
+
+====================================
+/tmp --- /ucometest --- /any       : directory where we are going to put all data
+             |
+             |------ /cache     : when a file will be transformed, it will be
+             |                    cached there
+             |------ /icons     : the basic icons of the system
+             |
+             |------ /session   : session files will be stored there
+             |
+             |------ /style     : style files for txt2ml
+             |
+             |------ /template  : templates for the management web interface
+	     |
+	     |------ /comp      : all "form" files for composite files are defined there.
+==================================
+
+Now copy ucome.cgi in a cgi-bin/ucometest directory, make the cgi executable  :
+============================
+cp fas_view.cgi /home/httpd/cgi-bin/ucometest/ucome.cgi
+chmod ugo+rx /home/httpd/cgi-bin/ucometest/ucome.cgi
+============================
+
+Edit /home/httpd/cgi-bin/ucometest/ucome.cgi and change the ROOT, FAS_VIEW_CGI, FAS_VIEW_URL and FAS_PROG_ROOT as necessary. Here we should have :
+============================
+set ROOT /tmp/ucometest
+
+# When doing an test from the command line,
+# uncomment the 2 following lines to force debug
+#set DEBUG 1; set DEBUG_ALL 1
+#cgi_debug -on
+
+set FAS_VIEW_CGI ucome.cgi
+set FAS_VIEW_URL /cgi-bin/ucometest/${FAS_VIEW_CGI} 
+
+############### SOURCING OF ALL PROCEDURES
+############### NORMALLY NOTHING TO CHANGE FROM HERE
+set FAS_PROG_ROOT /usr/local/ucome/tcl
+====================================
+
+You can now start UCome. Just go in a web browser and enter the url :
+'''http://localhost/cgi-bin/ucometest/fas_view.cgi?file=/any'''
+You will see the first page of the site. You can click test, ...
+
+Or
+'''http://localhost/cgi-bin/ucometest/fas_view.cgi?file=/any&action=edit_form'''
+Here you have the administration interface of UCome.

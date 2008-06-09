@@ -1,0 +1,9 @@
+Installation
+Si vous désirez installer Debian GNU/Linux :
+ * vous pouvez télécharger les disquettes d'installation depuis ftp://ftp.debian.org/ ,
+ * puis démarrer une installation par le réseau,
+ * ou commander des CDs Debian.
+ 
+Debian ne vend pas de CDs mais fournit des images de CDs officielles que de nombreux vendeurs pressent et vendent. Pour les détails à propos des images de CD, allez simplement à http://www.debian.org/CD/ .
+
+

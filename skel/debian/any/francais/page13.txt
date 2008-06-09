@@ -1,0 +1,2 @@
+Inclus GIMP,
+Le Programme de Manipulation d'Images de GNU (une alternative libre à Photoshop (TM)) ;

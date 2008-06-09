@@ -1,0 +1,229 @@
+# Websh script
+
+web::initializer {
+        global FAS_PROG_ROOT
+        global FAS_HOSTNAME
+	set FAS_PROG_ROOT /home/arnaud/svn/ucome_ecim/tcl 
+	set FAS_HOSTNAME d430
+	# In mod_rewrite case, you change FAS_VIEW_REWRITE_URL is /ucome for example
+	
+	########
+	# Specific tcl rivet initialisation
+	########
+        global conf
+	set conf(websh) 1
+	set conf(mod_rewrite) 0
+	global conf
+	global FAS_VIEW_CGI
+	#set FAS_UPLOAD_CGI $FAS_VIEW_CGI
+	global FAS_UPLOAD_CGI
+	global filetype_list
+	
+	# Debugging of opened files - comment for suppressing
+	# opened file debugginga
+	global DEBUG_OPEN
+	set DEBUG_OPEN 0
+	rename open oriOpen
+	rename close oriClose
+	
+	########
+	# end of specific websh initialisation
+	########
+	
+	source ${FAS_PROG_ROOT}/fas_debug_procedures.tcl
+	source ${FAS_PROG_ROOT}/fas_main_log.tcl
+	source ${FAS_PROG_ROOT}/fas_basic_proc.tcl
+	package require md5
+	#source ${FAS_PROG_ROOT}/md5.tcl
+	source ${FAS_PROG_ROOT}/atemt.tcl
+	source ${FAS_PROG_ROOT}/fas_env.tcl
+	source ${FAS_PROG_ROOT}/fas_name_and_dir.tcl
+	source ${FAS_PROG_ROOT}/fas_menu.tcl
+	source ${FAS_PROG_ROOT}/fas_display.tcl
+	source ${FAS_PROG_ROOT}/fas_display_error.tcl
+	source ${FAS_PROG_ROOT}/fas_session.tcl
+	source ${FAS_PROG_ROOT}/fas_depend.tcl
+	source ${FAS_PROG_ROOT}/fas_user.tcl
+	source ${FAS_PROG_ROOT}/fas_openoffice.tcl
+	source ${FAS_PROG_ROOT}/fas_init.tcl
+	source ${FAS_PROG_ROOT}/fas_domp.tcl
+	source ${FAS_PROG_ROOT}/fas_domp.tcl
+	source ${FAS_PROG_ROOT}/fas_stat.tcl
+	source ${FAS_PROG_ROOT}/fas_cache.tcl
+	
+	
+	# source files for internationalization
+	foreach file [glob -nocomplain ${FAS_PROG_ROOT}/i18n/*.tcl ] {
+		source $file
+	}
+	
+	# All source files for handling different file types are source hereunder
+	foreach file [glob -nocomplain ${FAS_PROG_ROOT}/mimeprocs/*.tcl ] {
+		source $file
+	}
+	
+	source ${FAS_PROG_ROOT}/fas_debug.tcl
+	# This function will import all values in _cgi_uservar
+	proc cgi_input { current_data } {
+		global _cgi_uservar
+		array unset _cgi_uservar
+		array set _cgi_uservar [list]
+		foreach param [web::param -names] {
+			set _cgi_uservar($param) [web::param $param]
+			fas_debug "ucome.ws3::cgi_input $param => $_cgi_uservar($param)"
+    		}
+		foreach param [web::formvar -names] {
+			set _cgi_uservar($param) [web::formvar $param]
+			fas_debug "ucome.ws3::cgi_input $param => $_cgi_uservar($param)"
+    		}
+		fas_debug_parray _cgi_uservar "ucome.ws3::cgi_input _cgi_uservar =>"
+	}
+	
+	# Now
+        global test
+	set test "/any/index.txt"
+	global IN_COMP ERROR_LOOP errors errstr
+	set IN_COMP 0
+	set ERROR_LOOP 0
+	set errors 0
+	set errstr ""
+		
+	if { [info exists fas_env] } {
+		unset fas_env
+	}
+	
+	
+	init_debug
+	
+	# I startup all initialisation procedures
+	global filetype_list
+	foreach filetype $filetype_list {
+		if { [llength [info command ${filetype}::init]] > 0 }  {
+			fas_debug "ucome.tcl::UCome - ${filetype}::init"
+			${filetype}::init
+		}
+	}
+	cgi_input "dummy"
+}
+
+web::command default {
+	global ROOT FAS_VIEW_CGI FAS_VIEW_URL FAS_VIEW_URL2 FAS_VIEW_URL1 FAS_UPLOAD_CGI test
+	set ROOT /var/lib/ucome
+	set FAS_VIEW_CGI ucome.ws3
+	set FAS_VIEW_URL "/$FAS_VIEW_CGI"
+	set FAS_VIEW_REWRITE_URL $FAS_VIEW_URL
+	set FAS_UPLOAD_CGI $FAS_VIEW_CGI
+	set FAS_VIEW_URL1 $FAS_VIEW_URL
+	set FAS_VIEW_URL2 "$FAS_VIEW_URL"
+
+	# Directly taken from the initialisation procedure
+	global test
+	global IN_COMP ERROR_LOOP errors errstr
+	set IN_COMP 0
+	set ERROR_LOOP 0
+	set errors 0
+	set errstr ""
+		
+	if { [info exists fas_env] } {
+		unset fas_env
+	}
+	
+	init_debug
+	# Cookie context initialisation
+	#web::cookiecontext fas_context
+	
+	# I startup all initialisation procedures
+	global filetype_list
+	foreach filetype $filetype_list {
+		if { [llength [info command ${filetype}::init]] > 0 }  {
+			fas_debug "ucome.tcl::UCome - ${filetype}::init"
+			${filetype}::init
+		}
+	}
+	cgi_input "dummy"
+	######################
+
+	set file [fas_get_value file -noe -nos -default "$test"]
+	fas_fastdebug {ucome.tcl - file -> $file}
+	
+	set file [add_root $file]
+	# I remove all .. of the filename, and check that
+	# it stays under $ROOT => protection against attack
+	set file [normalise $file]
+	set action [fas_get_value action -noe -nos -default "view"]
+	global ::_cgi_uservar
+	set ::_cgi_uservar(action) "$action"
+	fas_fastdebug {ucome.tcl - action -> $action}
+	# Put all cgi var in the debug
+	debug_cgi_uservar
+	
+	if { ![check_root $file] } {
+		not_binary::content_display fashtml "<html><head><title>[translate "Error in "] ${FAS_VIEW_CGI}</title><body>[translate "You are not allowed to access this file"]<br></body></html>"
+	} else {
+		# now I extract the environment associated with the file
+		global ::fas_env ::conf
+		read_full_env $file ::fas_env
+		# Then I can get the session
+		if { [catch { fas_session::open_session ::fas_env } error_string ] } {
+			fas_display_error $error_string ::fas_env
+		}
+		# So from there, I have the following available arrays :
+		#   conf : all configuration info for the program
+		#   fas_env : variables associated with the current file
+		#   fas_session::session : session informations
+		#   _cgi_uservar : all variable imported
+		#   _cgi_cookie : all cookies imported
+	
+		# Getting the current language
+		international::init_language [fas_get_value language -default en]
+		# I extract the filetype from the file extension
+		set filetype [guess_filetype $file ::conf ::fas_env]
+	
+		# Who is asking for the file
+		set current_user [fas_user::find_user_name]
+		fas_stat::append_stat
+	
+		# I am going to test if this action is or not allowed
+		if { ![fas_user::allowed_action $file $action ::fas_env] } {
+			if { [string trim ${current_user}] == "" } {
+				fas_display_error "[translate "Only logged users are allowed to"] [translate $action] [translate "on"] [rm_root $file]. [translate "Please"], <a href=\"${FAS_VIEW_URL}?file=[rm_root2 $file]&action=login_form\">[translate "log in"]</a>.<br>" ::fas_env -f $file
+			} else { 
+				fas_display_error "[translate "Sorry,"] ${current_user} [translate "is not allowed to "] [translate $action] [rm_root $file]<BR>" ::fas_env -f $file
+			}
+		} else {
+			# and now I display
+			# I try to see if the result exists or not
+			if { [fas_depend::check_complete_dependencies $file ::fas_env] } {
+				if { [catch { display_file $filetype $file ::fas_env ::conf } error] } {
+					not_binary::content_display fashtml "<center><h1>An error just occured</h1></center><pre>$error<br />$::errorInfo</pre>"
+				}
+			} else {
+				set final_filetype [fas_depend::get_final_filetype ::fas_env $file]
+				if { $final_filetype == "" } {
+					if { [catch { display_file $filetype $file ::fas_env ::conf } error] } {
+						not_binary::content_display fashtml "<center><h1>An error just occured</h1></center><pre>$error<br />$::errorInfo</pre>"
+					}
+				} else {
+					set final_filename [fas_depend::get_final_filename]
+					main_log "Using cache for direct display of [rm_root $file] in $final_filetype"
+					# For get_real_filename to take directly
+					# the cache_name, I need to have a list
+					# with at least 2 elements.
+					lappend conf(filetype_list) "$final_filetype" "$final_filetype" 
+					if { $final_filename != "" } {
+						binary::display_cache $final_filetype $final_filename ::fas_env 
+					} else {
+						if { [catch { display_file $filetype $file ::fas_env ::conf } error] } {
+							not_binary::content_display fashtml "<center><h1>An error just occured</h1></center><pre>$error<br />$::errorInfo</pre>"
+						}
+					}
+				}
+			}
+		}
+		# and I save the session
+		# catch { fas_session::write_session }
+	}
+	end_debug
+}
+
+web::dispatch

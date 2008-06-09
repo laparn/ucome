@@ -1,0 +1,2 @@
+Stabilité
+Debian n'est pas soumis à la pression commerciale et ne sortira pas de nouvelle version, peut-être instable, juste parce que le marché le demande. Les mainteneurs de Debian testent minutieusement le système et tentent de supprimer tous les défauts connus avant de délivrer toute nouvelle version.

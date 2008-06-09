@@ -1,0 +1,4 @@
+Inclus dans Debian GNU/Linux
+Debian GNU/Linux rentre tout juste dans '''6''' CDs 
+  * binaires précompilés pour une plateforme,
+  * sans les sources !

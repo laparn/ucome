@@ -1,0 +1,328 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+		<!-- fr/order_dir.tmpl -->
+	</head>
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+<!-- fr/order_dir.tmpl -->
+<div align=center>
+        <h1>
+                <!-- BEGIN TOP_TITLE -->
+                <!-- TOP_TITLE -->
+                <!-- /TOP_TITLE -->
+                <!-- END TOP_TITLE -->
+        </h1>
+	<b><!-- BEGIN MESSAGE --><!-- END MESSAGE --></b>
+</div>
+
+<!-- BEGIN CREATE_FORM -->
+<!-- CREATE_FORM -->
+<TABLE BORDER=0>
+	<form action="${FAS_VIEW_CGI}" method="post">
+		<input type="hidden" name="action" value="new">
+		<input type="hidden" name="file" value="${dir}">
+		<input type="hidden" name="debug" value="${DEBUG}">
+		<TR VALIGN="MIDDLE" >
+			<TD>Nouvelle page de journal</TD>
+			<TD><input name="filetype" value="order" type="hidden">
+					<!-- BEGIN FILETYPE_OPTION -->
+					<!-- END FILETYPE_OPTION -->
+				Fichier à faire défiler<input name="target_filename" value="" width="40" >
+				<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+			</TD>
+		</TR>
+	</form>
+</TABLE>
+<!-- /CREATE_FORM -->
+<!-- END CREATE_FORM -->
+<!-- BEGIN START_FORM -->
+<!-- START_FORM -->					
+<form action="fas_view.cgi" method=post>
+	<input type="hidden" name="action" value="edit">
+	<input type="hidden" name="file" value="${dir}">
+	<input type="hidden" name="debug" value="${DEBUG}">
+<!-- /START_FORM -->
+<!-- END START_FORM -->
+        <div align=center>
+                <table>
+                        <!-- BEGIN FILE_TABLE_HEADER -->
+                        <!-- FILE_TABLE_HEADER -->
+                        <tr bgcolor=#E0E0E0>
+                                <!-- BEGIN FILE_HEADER -->
+                                <!-- FILE_HEADER -->
+                                <td>
+                                        <b>Nom du fichier</b>
+                                </td>
+                                <!-- /FILE_HEADER -->
+                                <!-- END FILE_HEADER -->
+                                <!-- BEGIN SHORTNAME_HEADER -->
+                                <!-- SHORTNAME_HEADER -->
+                                <td>
+                                        <b>Nom</b>
+                                </td>
+                                <!-- /SHORTNAME_HEADER -->
+                                <!-- END SHORTNAME_HEADER -->
+                                <!-- BEGIN ORDER_NAME_HEADER -->
+                                <!-- ORDER_NAME_HEADER -->
+                                <td>
+                                        <b>Ordre</b>
+                                </td>
+                                <!-- /ORDER_NAME_HEADER -->
+                                <!-- END ORDER_NAME_HEADER -->
+                                <!-- BEGIN START_TIME_HEADER -->
+                                <!-- START_TIME_HEADER -->
+                                <td>
+                                        <b>Délai<br>départ</b>
+                                </td>
+                                <!-- /START_TIME_HEADER -->
+                                <!-- END START_TIME_HEADER -->
+                                <!-- BEGIN END_TIME_HEADER -->
+                                <!-- END_TIME_HEADER -->
+                                <td>
+                                        <b>Délai<br>fin</b>
+                                </td>
+                                <!-- /END_TIME_HEADER -->
+                                <!-- END END_TIME_HEADER -->
+                                <!-- BEGIN ROLLING_SPEED_HEADER -->
+                                <!-- ROLLING_SPEED_HEADER -->
+                                <td>
+                                        <b>Vitesse</b>
+                                </td>
+                                <!-- /ROLLING_SPEED_HEADER -->
+                                <!-- END ROLLING_SPEED_HEADER -->
+                                <!-- BEGIN URI_HEADER -->
+                                <!-- URI_HEADER -->
+                                <td>
+                                        <b>Page défilant</b>
+                                </td>
+                                <!-- /URI_HEADER -->
+                                <!-- END URI_HEADER -->
+                                <!-- BEGIN EXTENSION_HEADER -->
+                                <!-- EXTENSION_HEADER -->
+                                <td>
+                                        <b>Ext.</b>
+                                </td>
+                                <!-- /EXTENSION_HEADER -->
+                                <!-- END EXTENSION_HEADER -->
+                                <!-- BEGIN FILETYPE_HEADER -->
+                                <!-- FILETYPE_HEADER -->
+                                <td>
+                                        <b>Type</b>
+                                </td>
+                                <!-- /FILETYPE_HEADER -->
+                                <!-- END FILETYPE_HEADER -->
+                                <!-- BEGIN TITLE_HEADER -->
+                                <!-- TITLE_HEADER -->
+                                <td>
+                                        <b>Titre</b>
+                                </td>
+                                <!-- /TITLE_HEADER -->
+                                <!-- END TITLE_HEADER -->
+                                <!-- BEGIN DELETE_HEADER -->
+                                <!-- DELETE_HEADER -->
+                                <td>
+                                        <b>Suppr.</b>
+                                </td>
+                                <!-- /DELETE_HEADER -->
+                                <!-- END DELETE_HEADER -->
+                                <!-- BEGIN EDIT_HEADER -->
+                                <!-- EDIT_HEADER -->
+                                <td>
+                                        <b>Editer</b>
+                                </td>
+                                <!-- /EDIT_HEADER -->
+                                <!-- END EDIT_HEADER -->
+                                <!-- BEGIN COPY_HEADER -->
+                                <!-- COPY_HEADER -->
+                                <td>
+                                        <b>Copier</b>
+                                </td>
+                                <!-- /COPY_HEADER -->
+                                <!-- END COPY_HEADER -->
+                                <!-- BEGIN PROPERTIES_HEADER -->
+                                <!-- PROPERTIES_HEADER -->
+                                <td>
+                                        <b>Prop.</b>
+                                </td>
+                                <!-- /PROPERTIES_HEADER -->
+                                <!-- END PROPERTIES_HEADER -->
+                                <!-- BEGIN DEFAULT_HEADER -->
+                                <!-- DEFAULT_HEADER -->
+                                <td>
+                                        <b>$content</b>
+                                </td>
+                                <!-- /DEFAULT_HEADER -->
+                                <!-- END DEFAULT_HEADER -->
+				<!-- BEGIN HEADER_CELL -->
+				<!-- END HEADER_CELL -->
+                        </tr>
+                        <!-- /FILE_TABLE_HEADER -->
+                        <!-- END FILE_TABLE_HEADER -->
+                        <!-- BEGIN FILE_LIST -->
+                        <!-- FILE_LIST -->
+                        <tr bgcolor=#C0FFC0>
+                                <!-- BEGIN FILE -->
+                                <!-- FILE -->
+                                <td>
+                                        <A HREF="${FAS_VIEW_CGI}?file=$file">$file</A>
+                                </td>
+                                <!-- /FILE -->
+                                <!-- END FILE -->
+                                <!-- BEGIN TITLE -->
+                                <!-- TITLE -->
+                                <td>
+                                        $title
+                                </td>
+                                <!-- /TITLE -->
+                                <!-- END TITLE -->
+                                <!-- BEGIN SHORTNAME -->
+                                <!-- SHORTNAME -->
+                                <td>
+                                        $shortname
+                                </td>
+                                <!-- /SHORTNAME -->
+                                <!-- END SHORTNAME -->
+                                <!-- BEGIN ORDER_NAME -->
+                                <!-- ORDER_NAME -->
+                                <td>
+					<input type="hidden" name="ori_${counter}" value="${order_name}"><input name="short_${counter}" value="${order_name}" size="6">
+                                </td>
+                                <!-- /ORDER_NAME -->
+                                <!-- END ORDER_NAME -->
+                                <!-- BEGIN EXTENSION -->
+                                <!-- EXTENSION -->
+                                <td>
+                                        <A HREF="${FAS_VIEW_CGI}?file=$file">$extension</A>
+                                </td>
+                                <!-- /EXTENSION -->
+                                <!-- END EXTENSION -->
+                                <!-- BEGIN FILETYPE -->
+                                <!-- FILETYPE -->
+                                <td>
+                                        <A HREF="${FAS_VIEW_CGI}?file=${file}"><IMG SRC="${icons_url}/${filetype}.gif" BORDER="0" ALT="${filetype}" WIDTH="20" HEIGHT="22"></A>
+                                </td>
+                                <!-- /FILETYPE -->
+                                <!-- END FILETYPE -->
+                                <!-- BEGIN DIR -->
+                                <!-- DIR -->
+                                <td>
+                                        <A HREF="${FAS_VIEW_CGI}?file=$dir">$dir</A>
+                                </td>
+                                <!-- /DIR -->
+                                <!-- END DIR -->
+                                <!-- BEGIN SIZE -->
+                                <!-- SIZE -->
+                                <td>
+                                        $size
+                                </td>
+                                <!-- /SIZE -->
+                                <!-- END SIZE -->
+                                <!-- BEGIN MTIME -->
+                                <!-- MTIME -->
+                                <td>
+                                        $mtime
+                                </td>
+                                <!-- /MTIME -->
+                                <!-- END MTIME -->
+                                <!-- BEGIN URI -->
+                                <!-- URI -->
+                                <td>
+                                        $uri
+                                </td>
+                                <!-- /URI -->
+                                <!-- END URI -->
+                                <!-- BEGIN START_TIME -->
+                                <!-- START_TIME -->
+                                <td>
+                                        $start_time
+                                </td>
+                                <!-- /START_TIME -->
+                                <!-- END START_TIME -->
+                                <!-- BEGIN END_TIME -->
+                                <!-- END_TIME -->
+                                <td>
+                                        $end_time
+                                </td>
+                                <!-- /END_TIME -->
+                                <!-- END END_TIME -->
+                                <!-- BEGIN ROLLING_SPEED -->
+                                <!-- ROLLING_SPEED -->
+                                <td>
+                                        $rolling_speed
+                                </td>
+                                <!-- /ROLLING_SPEED -->
+                                <!-- END ROLLING_SPEED -->
+				<!-- BEGIN DELETE -->
+				<!-- DELETE -->
+                                <td align=center>
+                                        <A HREF="${FAS_VIEW_CGI}?action=delete_form&file=$file">
+                                                <IMG SRC="${icons_url}/delete.gif" border=0 alt="delete" width="20" height="20"></A>
+                                </td>
+				<!-- !DELETE -->
+				<!-- END DELETE -->
+				<!-- BEGIN EDIT -->
+				<!-- EDIT -->
+                                <td align=center>
+                                        <A HREF="${FAS_VIEW_CGI}?action=edit_form&file=${file}"><IMG SRC="${icons_url}/edit.gif" border=0 alt="edit" width="20" height="20"></A>
+                                </td>
+				<!-- /EDIT -->
+				<!-- END EDIT -->
+				<!-- BEGIN COPY -->
+				<!-- COPY -->
+                                <td align=center>
+                                        <A HREF="${FAS_VIEW_CGI}?action=copy_form&file=$file">
+                                                <IMG SRC="${icons_url}/copy.gif" border=0 alt="copy" width="20" height="20"></A>
+                                </td>
+				<!-- /COPY -->
+				<!-- END COPY -->
+				<!-- BEGIN PROPERTIES -->
+				<!-- PROPERTIES -->
+                                <td align=center>
+                                        <A HREF="${FAS_VIEW_CGI}?level=user&action=prop_form&file=$file">
+                                                <IMG SRC="${icons_url}/properties.gif" border=0 alt="prop" width="20" height="20"></A>
+                                </td>
+				<!-- /PROPERTIES -->
+				<!-- END PROPERTIES -->
+				<!-- BEGIN FILE_CELL -->
+				<!-- END FILE_CELL -->
+                        </tr>
+                        <!-- /FILE_LIST -->
+                        <!-- END FILE_LIST -->
+                        <!-- BEGIN FILE_LIST_ODD -->
+                        <!-- FILE_LIST_ODD -->
+                        <tr bgcolor=#FFC0FF>
+				<!-- BEGIN FILE_CELL -->
+				<!-- END FILE_CELL -->
+                        </tr>
+                        <!-- /FILE_LIST_ODD -->
+                        <!-- END FILE_LIST_ODD -->
+			<!-- BEGIN ALL_FILE_ROWS -->
+			<!-- ALL_FILE_ROWS -->
+				<!-- BEGIN FILE_ROW -->
+				<!-- END FILE_ROW -->
+			<!-- /ALL_FILE_ROWS -->
+			<!-- END ALL_FILE_ROWS -->
+                </table>
+<!-- BEGIN END_FORM -->
+<!-- END_FORM -->
+                <table>
+                        <tr>
+                                <td>
+                                        <input type=image name="Order" src="${icons_url}/ok.gif" border="0">
+
+                                </td>
+                                <td>
+                                        <A HREF="${FAS_VIEW_CGI}?file=$dir&action=edit_form">
+                                                <IMG SRC="${icons_url}/cancel.gif" BORDER=0 ALT="Annuler">
+                                        </A>
+                                </td>
+                        </tr>
+                </table>
+<!-- /END_FORM -->
+<!-- END END_FORM -->
+        </div>
+</form>
+</body>
+</html>

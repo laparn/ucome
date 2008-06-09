@@ -1,0 +1,96 @@
+set ROOT ""
+set FAS_PROG_ROOT 
+set FAS_VIEW_CGI ""
+set FAS_VIEW_URL ""
+set FAS_HOSTNAME ""
+# In mod_rewrite case, you change FAS_VIEW_REWRITE_URL is /ucome for example
+set FAS_VIEW_REWRITE_URL $FAS_VIEW_URL
+
+########
+# Specific tcl rivet initialisation
+########
+set conf(tclrivet) 1
+set conf(mod_rewrite) 0
+global conf
+global FAS_VIEW_CGI
+set FAS_UPLOAD_CGI $FAS_VIEW_CGI
+global FAS_UPLOAD_CGI
+global filetype_list
+# I need to save it to re-initialise due to FAS_VIEW_URL
+# setting to FAS_VIEW_URL2 when transforming in pdf
+set FAS_VIEW_URL1 $FAS_VIEW_URL
+set FAS_VIEW_URL2 "$FAS_VIEW_URL"
+global FAS_PROG_ROOT FAS_VIEW_URL FAS_VIEW_URL2 FAS_VIEW_URL1
+
+# Debugging of opened files - comment for suppressing
+# opened file debugging
+set DEBUG_OPEN 1
+rename open oriOpen
+rename close oriClose
+
+########
+# end of specific tcl rivet initialisation
+########
+
+source ${FAS_PROG_ROOT}/fas_debug_procedures.tcl
+source ${FAS_PROG_ROOT}/fas_main_log.tcl
+source ${FAS_PROG_ROOT}/fas_basic_proc.tcl
+package require md5
+#source ${FAS_PROG_ROOT}/md5.tcl
+source ${FAS_PROG_ROOT}/atemt.tcl
+source ${FAS_PROG_ROOT}/fas_env.tcl
+source ${FAS_PROG_ROOT}/fas_name_and_dir.tcl
+source ${FAS_PROG_ROOT}/fas_menu.tcl
+source ${FAS_PROG_ROOT}/fas_display.tcl
+source ${FAS_PROG_ROOT}/fas_display_error.tcl
+source ${FAS_PROG_ROOT}/fas_session.tcl
+source ${FAS_PROG_ROOT}/fas_depend.tcl
+source ${FAS_PROG_ROOT}/fas_user.tcl
+source ${FAS_PROG_ROOT}/fas_openoffice.tcl
+source ${FAS_PROG_ROOT}/fas_init.tcl
+source ${FAS_PROG_ROOT}/fas_domp.tcl
+source ${FAS_PROG_ROOT}/fas_domp.tcl
+source ${FAS_PROG_ROOT}/fas_stat.tcl
+source ${FAS_PROG_ROOT}/fas_cache.tcl
+
+
+# source files for internationalization
+foreach file [glob -nocomplain ${FAS_PROG_ROOT}/i18n/*.tcl ] {
+	source $file
+}
+
+# All source files for handling different file types are source hereunder
+foreach file [glob -nocomplain ${FAS_PROG_ROOT}/mimeprocs/*.tcl ] {
+	source $file
+}
+
+source ${FAS_PROG_ROOT}/fas_debug.tcl
+proc cgi_input { current_data } {
+	upvar $current_data data
+	global _cgi_uservar
+	array set _cgi_uservar [var all]
+}
+
+# Now
+set test "/any/index.txt"
+global IN_COMP ERROR_LOOP errors errstr
+set IN_COMP 0
+set ERROR_LOOP 0
+set errors 0
+set errstr ""
+	
+if { [info exists fas_env] } {
+	unset fas_env
+}
+
+
+init_debug
+
+# I startup all initialisation procedures
+global filetype_list
+foreach filetype $filetype_list {
+	if { [llength [info command ${filetype}::init]] > 0 }  {
+		fas_debug "ucome.tcl::UCome - ${filetype}::init"
+		${filetype}::init
+	}
+}

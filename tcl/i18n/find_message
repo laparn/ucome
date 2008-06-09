@@ -1,0 +1,95 @@
+#!/usr/bin/tclsh8.3
+# This program allows to prepare the message catalog before translation
+# All translated messages are listed in source files and
+# it is looked if they were or not previously translated
+
+proc find_message_list_in_file { file } {
+	set message_list [list]
+	set fid [open $file]
+	set content [read $fid]
+	close $fid
+	foreach line [split $content "\n"] {
+		while { [string length $line] != 0 } {
+			if { [regexp {translate *"([^"]+)"(.*)$} $line match message line] } {
+				lappend message_list [list $file $message]
+				# I continue
+			} else {
+				set line ""
+			}
+		}
+	}
+	return $message_list
+}
+
+proc check_message_list { message_lol language } {
+
+	array set new_translation ""
+	set previous_file ""
+
+	set fid [open ${language}.tcl w]
+
+	puts $fid "namespace eval ${language} {"
+	puts $fid "	variable _"
+	foreach message_list  $message_lol  {
+		set message [lindex $message_list 1]
+		set current_file [lindex $message_list 0]
+		# I display that it is a new file the message of which
+		# I am looking at
+		if { $current_file != $previous_file } {
+			puts $fid "\n# $current_file"
+			puts "Processing messages of $current_file"
+		}
+		set previous_file $current_file
+		# Is it in the current catalog ?
+		if { [info exists ${language}::_($message)] } {
+			set translated [set ${language}::_($message)]
+		} else {
+			set translated ""
+		}
+		# Was it previously seen ?
+		if { ![info exists new_translation($message) ] } {
+			# No, then ok I take it in charge
+			set new_translation($message) $translated 
+			puts $fid "	set \"_($message)\" \"${translated}\""
+		}
+	}
+
+	# I must verify that there are not string existing in the original file
+	# and that are not present in the files.
+	puts $fid "\n\n############################"
+	puts $fid "# Translated messages that are not in program files"
+	puts $fid "############################"
+	foreach message [array names ${language}::_] {
+		if { ![info exists new_translation($message)] } {
+			puts $fid "	set \"_($message)\" \"[set ${language}::_($message)]\""
+		}
+	}
+	puts $fid "}"
+	close $fid
+}
+
+set tcl_file_list [glob -nocomplain -directory .. *.tcl]
+#puts $tcl_file_list
+
+set message_lol [list]
+
+foreach file $tcl_file_list {
+	eval lappend message_lol [find_message_list_in_file $file]
+}
+set tcl_file_list [glob -nocomplain -directory ../mimeprocs *.tcl]
+foreach file $tcl_file_list {
+	eval lappend message_lol [find_message_list_in_file $file]
+}
+
+#puts $message_lol
+
+set language_list [list fr]
+foreach language $language_list {
+	source ${language}.tcl
+	file copy "${language}.tcl" "${language}.tcl.[clock format [clock seconds] -format "%Y%m%d-%H%S" ]"
+	#file delete "${language}.tcl"
+
+	check_message_list $message_lol $language
+}
+
+

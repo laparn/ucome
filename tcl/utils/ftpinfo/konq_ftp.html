@@ -1,0 +1,441 @@
+
+<!-- WRITTEN WITH VIM 5 http://www.vim.org/ -->
+<HTML>
+<HEAD>
+
+<STYLE>
+<!--
+A {text-decoration: none}
+A:hover {text-decoration: none; color: #FF6666 }  
+BODY,TD,P,B {font-family: arial, helvetica, sans-serif}
+H1, H2, H3, H4, H5, H6 {font-family: arial, helvetica, sans-serif}
+PRE, TT {font-family: courier, sans-serif}
+
+
+    .osdn-foottext {
+color: #cccccc;
+       font-family: verdana, arial, sans-serif;
+       font-size: 12px;
+       text-decoration: none;
+       text-align: center;}
+-->
+</STYLE>
+
+<TITLE>Geocrawler.com - kfm-devel - Bug#26071: ftp to sites outside firewall fails to connect</TITLE> 
+
+<script language="javascript">
+<!--
+brokenLayers = (navigator.appName.substring(0,8) == 'Netscape' && parseFloat(navigator.appVersion) <= 4.01);
+WebTV = (navigator.appName.indexOf('WebTV Plus') != -1);
+// -->
+</script>
+
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" LINK="#0000CD" TOPMARGIN="0" BOTTOMMARGIN="0" LEFTMARGIN="0" RIGHTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" VLINK="#777799" ALINK="#FF6666" TEXT="#000000" BACKGROUND="/img/geocrawler-bg.gif">
+
+
+<!-- OSDN navbar -->
+
+<style type="text/css">
+<!--
+.osdn-search {
+font-size: 10px;
+font-family: verdana, arial, sans-serif;
+}
+.osdn-button {
+margin-top: 1px;
+margin-bottom: 1px;
+}
+select.osdn-search {
+text-align: center;
+}
+.osdn-navtext {
+color: #777;
+font-family: verdana, arial, sans-serif;
+font-size: 10px;
+}
+small.osdn-navtext {
+color: #777;
+font-family: verdana, arial, sans-serif;
+font-size: 10px;
+}
+.osdn-foottext {
+color: #666666; 
+font-family: verdana, arial, sans-serif; 
+font-size: 12px;
+text-align: center;
+} 
+-->
+</style>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+<form action="http://www.osdn.com/osdnsearch.pl" method="GET">
+<tr bgcolor="#999999">
+<td colspan="5"><img src="http://images.osdn.com/blank.gif" width="1" height="1" alt=""></td>
+</tr>
+<tr bgcolor="#eeeeee">
+<td nowrap class="osdn-navtext"><small class="osdn-navtext">&nbsp;&nbsp;<a href="http://www.osdn.com" class="osdn-navtext" title="The Open Source Development Network"><b>OSDN:</b></a>&nbsp;
+ <script LANGUAGE="JavaScript">
+   url = new Array(4);
+   title = new Array(4);
+   url[0] = "tools.devchannel.org";
+   url[1] = "hardware.devchannel.org";
+   url[2] = "hpc.devchannel.org";
+   url[3] = "webservices.devchannel.org";
+
+   title[0] = "Development Tools";
+   title[1] = "Hardware";
+   title[2] = "High Performance";
+   title[3] = "Webservices";
+   index = Math.floor(Math.random() * url.length);
+   document.write("<A HREF=\"http:\/\/");
+   document.write(url[index]);
+   document.write("\" class=\"osdn-navtext\" style=\"text-decoration:none\"><font>" + title[index] + "<\/FONT><\/A> - ");
+   </SCRIPT>
+   <noscript>
+   <a HREF="http://devchannel.org/" class="osdn-navtext" style="text-decoration:none"><font >DevChannel</font></a> -
+   </noscript>
+
+		<a href="http://www.osdn.com/newsletters/" class="osdn-navtext" style="text-decoration:none"><font >Newsletters</font></a> - 
+		<a href="http://www.thinkgeek.com" class="osdn-navtext" style="text-decoration:none"><font>Shop</font></a>
+
+		&nbsp;</small>
+
+		</td>
+<td align="right" valign="middle" width="100%" class="osdn-navtext"><small class="osdn-navtext"><b>SEARCH:</b>&nbsp;</small></td>
+<td align="right" valign="middle" nowrap class="osdn-navtext"><small>
+<select name="site" class="osdn-search">
+<option value="all" SELECTED>All OSDN Sites</option>
+<option value="">-----------</option>
+<option value="Freshmeat">freshmeat</option>
+<option value="Linux.com">Linux.com</option>
+<option value="LinuxGram">LinuxGram</option>
+<option value="NewsForge">NewsForge</option>
+<option value="OSDN">OSDN.com</option>
+<option value="OSDN PriceCompare">OSDN PriceCompare</option>
+<option value="Slashcode">Slashcode</option>
+<option value="Slashdot">Slashdot</option>
+<option value="SourceForge.net">SourceForge.net</option>
+</select></small></td>
+<td nowrap valign="middle" class="osdn-navtext"><small class="osdn-navtext">&nbsp;<input type="text" name="query" size="12" class="osdn-search">&nbsp;</small></td>
+<td nowrap width="35"><input type="image" border="0" name="Submit" value="GO" src="http://images.osdn.com/go.gif" alt="Go" width="30" height="20" align="middle" class="osdn-button"></td>
+</tr>
+<tr bgcolor="#999999">
+<td colspan="5"><img src="http://images.osdn.com/blank.gif" width="1" height="1" alt=""></td>
+</tr>
+</form>
+</table>
+
+
+<!-- end OSDN navbar --> 
+    
+<TABLE cellpadding="5" cellspacing="5" border="0" width="100%" align="center">
+	<TR>
+		<TD align="left"><IMG src="/img/geocrawler-title.gif" alt="Geocrawler" width="239" height="61"></TD>
+
+		<!-- BANNER start -->
+		<TD align="center">
+<!-- begin banner ad -->
+<table border=0 cellpadding=0><tr><td>
+<script language="javascript">
+<!--
+document.write('<iframe frameborder="0" scrolling="no" marginwidth="0" marginheight="0" width="728" height="90" src="http://ads.osdn.com//?op=iframe&site_id=14&position=1">');
+document.write('</iframe>');
+// -->
+</script>
+<noscript>
+<iframe frameborder="0" scrolling="no" marginwidth="0" marginheight="0" width="728" height="90" src="http://ads.osdn.com//?op=iframe&site_id=14&position=1"></iframe>
+</noscript>
+</td></tr></table>
+<!-- end banner ad -->
+</TD>
+		<!-- BANNER end -->
+	</TR>
+</TABLE>
+
+<TABLE cellspacing="0" cellpadding="0" width="100%" border="0">
+	<TR valign="middle" bgcolor="#666699">
+		<TD colspan="2"><IMG src="/img/pixel.gif" width="1" height="1" alt=""></TD>
+	</TR>
+
+	<TR valign="middle" bgcolor="#e8e2ef">
+		<TD height="20">
+			<FONT color="#000000" face="Arial, Helvetica" size="2">&nbsp;&nbsp; 
+			<A href="/"><FONT color="#000000"><B>Home</B></FONT></A> | 
+			<A href="/privacy/"><FONT color="#000000"><B>Privacy Statement</B></FONT></A> | 
+			<A href="/about/"><FONT color="#000000"><B>About</B></FONT></A>
+		</TD>
+
+		<TD align="right" valign="bottom">
+					</TD>
+	</TR>
+
+	<TR valign="middle" bgcolor="#666699">
+		<TD colspan="2"><IMG src="/img/pixel.gif" width="1" height="3" alt=""></TD>
+	</TR>
+</TABLE>
+
+<BASE HREF="http://www.geocrawler.com/archives/3/312/2001/6/50/6069424/">
+
+
+<TABLE BORDER=0 WIDTH="96%" ALIGN="center" CELLSPACING="2" CELLPADDING="2">
+
+	<TR>
+
+
+		<TD HEIGHT="90%" VALIGN=TOP>
+			<FONT FACE="ARIAL,HELVETICA" SIZE=2>
+
+
+<TABLE WIDTH="100%" CELLPADDING=3>
+	<TR>
+		<TD>
+			<FONT FACE="ARIAL,HELVETICA" SIZE=2>
+			<A HREF="/lists/3/"><IMG SRC="/img/ofolder.png" HEIGHT=13 WIDTH=15 BORDER=0> &nbsp;Mailing Lists</A><BR>
+			&nbsp; &nbsp; <A HREF="/lists/3/KDE/"><IMG SRC="/img/ofolder.png" HEIGHT=13 WIDTH=15 BORDER=0> &nbsp;KDE</A><BR>
+			&nbsp; &nbsp; &nbsp; &nbsp; <A HREF="/lists/3/KDE/312/0/"><IMG SRC="/img/ofolder.png" HEIGHT=13 WIDTH=15 BORDER=0> &nbsp;<B>kfm-devel - K File Manager Developers</B></A><BR>
+		</TD><TD ROWSPAN=2 BGCOLOR="#EFEFEF" NOWRAP><B>Archive</B><BR>			<A HREF="/archives/3/312/2002/"><IMG SRC="/img/cfolder.png" HEIGHT=13 WIDTH=15 BORDER=0>&nbsp;2002 (15 msgs)</A><BR>
+			<A HREF="/archives/3/312/2001/"><IMG SRC="/img/cfolder.png" HEIGHT=13 WIDTH=15 BORDER=0>&nbsp;2001 (12557 msgs)</A><BR>
+			<A HREF="/archives/3/312/2000/"><IMG SRC="/img/cfolder.png" HEIGHT=13 WIDTH=15 BORDER=0>&nbsp;2000 (14340 msgs)</A><BR>
+			<A HREF="/archives/3/312/1999/"><IMG SRC="/img/cfolder.png" HEIGHT=13 WIDTH=15 BORDER=0>&nbsp;1999 (1016 msgs)</A><BR>
+		</TD>
+	</TR>
+	<TR>
+		<TD ALIGN=LEFT>
+		                
+		</TD>
+	</TR>
+			</FORM>
+</TABLE>
+
+<H3>Thread: <A HREF="/mail/thread.php3?subject=Bug%2326071%3A+ftp+to+sites+outside+firewall+fails+to+connect&list=312">Bug#26071: ftp to sites outside firewall fails to connect</A></H3><P>
+			<B><A HREF="/mail/msg_raw.php3?msg_id=6069424">Print</A><table cellspacing="0" cellpadding="2" width="100%">
+			<tr><td align=CENTER bgcolor="#666699">
+			<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BGCOLOR="#FFFFFF">
+			<TR BGCOLOR="#666699"><TD><FONT COLOR="#FFFFFF">Message: 6069424</TD></TR>
+			<TR><TD><PRE>FROM: Nick Thompson<BR>DATE: 06/29/2001&nbsp;01:36:51<BR>SUBJECT:  Bug#26071: ftp to sites outside firewall fails to connect<P>&nbsp;<P><PRE><FONT FACE="COURIER">David,
+
+The other David (yes, Faure) fixed it. It is possible to disable passive mode in
+kio_ftprc, which does the trick. I assumed this somehow keeps the socket range
+firewall vaild. I take your point about the 1803 port not being valid until
+you're shuttled off, as you put it, but I would have expected to get connection
+refused. In this case telnet just stops and waits indefinately, which smacks of
+the packets being dumped at the firewall.
+
+Anyway, tis fixed, but thanks for your help.
+
+Nick.
+
+David Bishop wrote:
+
+&gt; ftp is on port 21, so to test it, try 'telnet 148.88.2.11 21', not 1803.
+&gt; The 1803 is almost definetly a "temp" port, that it shuttles you to after
+&gt; making the connection, and won't be valid for any other process.  Of course,
+&gt; I could also be talking out of my butt :-)  (it's been too long since dealing
+&gt; with this crap).
+&gt;
+&gt; HTH,
+&gt;
+&gt; David (not Faure) Bishop
+&gt;
+&gt; On Thursday 28 June 2001 06:40, Nick Thompson wrote:
+&gt; &gt; David,
+&gt; &gt;
+&gt; &gt; I think this is the relevant output:
+&gt; &gt;
+&gt; &gt; [snip]
+&gt; &gt; kio_ftp: cwd /sites/sunsite.uio.no/pub/unix/Linux/Mandrake/8.0/i586/
+&gt; &gt; kio_ftp: resp&gt; 250 Current directory now
+&gt; &gt; /sites/sunsite.uio.no/pub/unix/Linux/Mandrake/8.0/i586
+&gt; &gt; kio_ftp:
+&gt; &gt; kio_ftp: type A
+&gt; &gt; kio_ftp: resp&gt; 200 Type set to A
+&gt; &gt; kio_ftp:
+&gt; &gt; kio_ftp: EPSV
+&gt; &gt; kio_ftp: resp&gt; 500 Unknown command `EPSV'
+&gt; &gt; kio_ftp:
+&gt; &gt; kio_ftp: disabling use of EPSV
+&gt; &gt; kio_ftp: PASV
+&gt; &gt; kio_ftp: resp&gt; 227 Entering Passive Mode (148,88,2,11,11,7)
+&gt; &gt; kio_ftp:
+&gt; &gt; kdecore (KSocket): Trying to connect to Inet 148.88.2.11 port 1803
+&gt; &gt; kdecore (KSocket): Socket 6 created
+&gt; &gt;
+&gt; &gt; I tried a command line telnet:
+&gt; &gt;
+&gt; &gt; Nick-&gt; telnet 148.88.2.11 1803
+&gt; &gt; Trying 148.88.2.11...
+&gt; &gt;
+&gt; &gt; It hangs right there. Maybe this is just a firewall issue with that socket,
+&gt; &gt; but it used to work in konqi and it still works in netscape and commandline
+&gt; &gt; ftp (so it must be possible):
+&gt; &gt;
+&gt; &gt; Nick-&gt; ftp 148.88.2.11
+&gt; &gt; Connected to 148.88.2.11.
+&gt; &gt; 220 UK Mirror Service FTP server version 1.4 ready
+&gt; &gt; Name (148.88.2.11:nickthom): anonymous
+&gt; &gt; 331 Guest login ok: please send your email address as the password
+&gt; &gt; Password:
+&gt; &gt; 230-  Welcome to the UK Mirror Service funded by JISC
+&gt; &gt; 230-  More information can be found at our web site:
+&gt; &gt; <A href="http://www.mirror.ac.uk/" target="_NEW">http://www.mirror.ac.uk/</A> 230-  Please send comments or questions to
+&gt; &gt; &lt;EMAIL: PROTECTED&gt;
+&gt; &gt; 230 Logged in for anonymous FTP
+&gt; &gt; ftp&gt; ls
+&gt; &gt; 200 Data port set
+&gt; &gt; 150 About to open data connection
+&gt; &gt; collections
+&gt; &gt; indexes
+&gt; &gt; sites
+&gt; &gt; ukms
+&gt; &gt; 226 Transfer complete
+&gt; &gt; 35 bytes received in 0.011 seconds (3.21 Kbytes/s)
+&gt; &gt;
+&gt; &gt; Hope that gets us somewhere,
+&gt; &gt; Nick.
+&gt; &gt;
+&gt; &gt; David Faure wrote:
+&gt; &gt; &gt; On Thursday 21 June 2001 18:14, Nick Thompson wrote:
+&gt; &gt; &gt; &gt; Still doesn't work. I updated from CVS today and it still behves the
+&gt; &gt; &gt; &gt; same. I notice in my initial report I gave the date as 20000518. Should
+&gt; &gt; &gt; &gt; have been 20010518, but you can make it 20010621 now.
+&gt; &gt; &gt; &gt;
+&gt; &gt; &gt; &gt; I have an extra clue though. Its not that kio_ftp can't talk to the ftp
+&gt; &gt; &gt; &gt; server. I tried to ftp to a site that was down today and it correctly
+&gt; &gt; &gt; &gt; told me that it couldn't connect. Then I connected to a site that was
+&gt; &gt; &gt; &gt; up. It definately connects to the specified server, but non of the
+&gt; &gt; &gt; &gt; directories/files are displayed and the dir listing never completes or
+&gt; &gt; &gt; &gt; times out. I connected to ftp.mirror.co.uk over 30 mins ago and the KDE
+&gt; &gt; &gt; &gt; cog is still spinning...
+&gt; &gt; &gt;
+&gt; &gt; &gt; Can you get kio_ftp's debug output ?
+&gt; &gt; &gt; See <A href="http://www.konqueror.org/bug.html," target="_NEW">http://www.konqueror.org/bug.html,</A> section HTTP - the same
+&gt; &gt; &gt; instructions can be applied for FTP.
+&gt;
+&gt; --
+&gt; "To me vi is Zen.  To use vi is to practice zen. Every command is
+&gt; a koan. Profound to the user, unintelligible to the uninitiated.
+&gt; You discover truth everytime you use it." &lt;EMAIL: PROTECTED&gt;
+&gt;
+&gt; &lt;EMAIL: PROTECTED&gt;
+
+--
+   _  _______  __ __
+  / \/ / / __\/ // /\ Nick Thompson          | Agere Systems Ltd
+ /    / / /__/ _  / / &lt;EMAIL: PROTECTED&gt; | Microelectronics House
+/_/\_/_/____/_/\_\/  Tel: +44 1344 865951   | Kingswood, Kings Ride
+\_\/\_\____\_\/ \_\  Fax: +44 1344 865959   | Ascot, Berkshire SL5 8AD
+
+
+
+
+		</PRE></TD></TR></TABLE></TD></TR></TABLE>
+<P>
+		</TD>
+		<TD width=165 valign=top>
+<center>
+
+
+<iframe src="http://ads.osdn.com/?op=iframe&position=2&site_id=14" height="600" width="160" 
+frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling="no">
+</iframe>
+<br>
+<br>
+<br>
+<table WIDTH="100%" BORDER="0"><tr>
+<td BGCOLOR="#666699"><table WIDTH="100%" BORDER="0"><tr>
+<td BGCOLOR="#666699"><font COLOR="#FFFFFF"><b>Sponsored Content
+</b></td></tr><tr>
+<td>
+<!-- AD POSITION 7 --> <iframe src="//ads.osdn.com/?op=iframe&position=3&site_id=14" height="200" width="165" frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling="no">
+<a href="http://sfads.osdn.com/cgi-bin/ad_default.pl?click&position=7"><img src="//sfads.osdn.com/cgi-bin/ad_default.pl?display&position=7" border=0></a>
+</iframe>
+<!-- end ad position7 -->
+</td></tr></table></td></tr></table>
+
+</TD>
+	</TR>
+</TABLE>
+
+<P>
+<!-- start OSDN Footer -->
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr bgcolor="#999999">
+<td><img src="http://sourceforge.net/images/blank.gif" width="1" height="1" alt=""></td>
+</tr>
+<tr align="center" valign="middle">
+<td height="50" class="osdn-foottext">&copy; Copyright 2002 - <a href="http://www.osdn.com/" class="legallink">OSDN</a> Open Source Development Network, All Rights Reserved<br>
+<a href="http://geocrawler.com/about/" class="legallink">About Geocrawler</a>&nbsp;&#149;&nbsp;
+<a href="http://www.osdn.com/about.shtml"  class="legallink">About OSDN</a>
+geo&nbsp;&#149;&nbsp;
+<a href="http://www.osdn.com/privacy.shtml" class="legallink">Privacy Statement</a>
+&nbsp;&#149;&nbsp;
+<a href="http://www.osdn.com/terms.shtml" class="legallink">Terms of Use</a> &nbsp;&#149;&nbsp; 
+<a href="http://www.osdn.com/advertise" class="legallink">Advertise</a> &nbsp;&#149;&nbsp; 
+
+<a href="http://selfserve.osdn.com/introduction.html" class="legallink">Self Serve Ad System</a> &nbsp;&#149;&nbsp; 
+
+
+
+<a href="http://sourceforge.net/docman/display_doc.php?docid=7632&group_id=1" class="legallink">Contact Us</a></td>
+</tr>
+<tr bgcolor="#999999">
+<td><img src="http://sourceforge.net/images/blank.gif" width="1" height="1" alt=""></td>
+</tr>
+</table>
+<!-- end OSDN Footer -->
+<P>	
+<CENTER>
+	<!-- BANNER start -->
+	
+<!-- begin banner ad -->
+<table border=0 cellpadding=0><tr><td>
+<script language="javascript">
+<!--
+document.write('<iframe frameborder="0" scrolling="no" marginwidth="0" marginheight="0" width="728" height="90" src="http://ads.osdn.com//?op=iframe&site_id=14&position=5">');
+document.write('</iframe>');
+// -->
+</script>
+<noscript>
+<iframe frameborder="0" scrolling="no" marginwidth="0" marginheight="0" width="728" height="90" src="http://ads.osdn.com//?op=iframe&site_id=14&position=5"></iframe>
+</noscript>
+</td></tr></table>
+<!-- end banner ad -->
+	<!-- BANNER end -->
+</CENTER>
+<script language="javascript1.2">
+<!--
+function osdn_resize() {
+  if (innerWidth != origWidth || innerHeight != origHeight) {
+  for(var i=1;i<3;i++) 
+    document.layers['adlayer'+i].moveToAbsolute(document.layers['adilayer'+i].pageX,document.layers['adilayer'+i].pageY);
+  }
+}
+if ((!brokenLayers) && document.layers) {
+  origWidth = innerWidth;
+  origHeight = innerHeight;
+  onResize=osdn_resize;
+}
+// -->
+</script>
+
+      <!-- image audit code -->
+      <script LANGUAGE="JAVASCRIPT">
+      <!--
+      now = new Date();
+      tail = now.getTime();
+      document.write("<IMG SRC='http://images-aud.geocrawler.com/pc.gif?l,");
+      document.write(tail);
+      document.write("' WIDTH=1 HEIGHT=1 BORDER=0>");
+      //-->
+      </SCRIPT>
+      <noscript>
+     <img src="http://images-aud.geocrawler.com/pc.gif?l,42250"
+      WIDTH=1 HEIGHT=1 BORDER=0>
+      </noscript>
+      <!-- end audit code -->
+
+</BODY>
+</HTML>
+<!-- end page -->

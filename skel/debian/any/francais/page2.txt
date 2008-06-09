@@ -1,0 +1,2 @@
+Liberté
+Debian est entièrement composé de Logiciels Libres. Par Logiciels Libres, nous ne voulons pas simplement dire gratuits, mais également souligner la Liberté de les utiliser comme bon vous semble, de les partager avec vos amis, d'en lire et modifier le code source et de redistribuer ces changements.  Cela signifie que Debian peut être utilisé sans limitations, même en environnement commercial ! Debian est la plus grande collection de Logiciels Libres prêts à installer disponible sur Internet.

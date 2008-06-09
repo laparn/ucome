@@ -1,0 +1,65 @@
+<HTML>
+<!-- vim: set syntax=html: -->
+	<HEAD>
+		<TITLE><!-- BEGIN TITLE --><!-- END TITLE --></TITLE>
+		<!-- edit_form.order.tmpl -->
+	</HEAD>
+	<BODY bgcolor="#fffbf0"  bgcolor="#FFFFFF">
+		<!-- edit_form.order.tmpl -->	
+		<!-- TEngine section : TITLE, FORM -->
+		<!-- TEngine variables in FORM : order, start_time, end_time, rooll_speed -->
+   <table bgcolor="#e0e0e0" width="100%" cellpadding="1" cellspacing="0" border="0">
+     <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#ffffff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td>                      
+                   <div align="Center">                   
+	<!-- BEGIN FORM -->
+		<FORM ACTION="${FAS_VIEW_CGI}" METHOD=POST >
+			<INPUT TYPE=HIDDEN NAME="file" VALUE="${export_filename}">
+			<INPUT TYPE=HIDDEN NAME="action" VALUE="edit">
+			<H2>Edition de la page défilante ${order}</H2>
+			<TABLE BORDER="0">
+				<TR>
+					<TD><B>Fichier à faire défiler</B></TD>
+					<TD><input name="uri" value="${uri}" size="50">
+					<!-- I should add a way to select the file in a graphical way -->
+					<!-- input type="image" name="select_file" src="${icons_url}/ok.gif" border="0"--></TD>
+				</TR>
+				<TR>
+					<TD><B>Délai au départ</B></TD>
+					<TD><input name="start_time" value="$start_time" size="4"></TD>
+				</TR>
+				<TR>
+					<TD><B>Délai à la fin</B></TD>
+					<TD><input name="end_time" value="$end_time" size="4"></TD>
+				</TR>
+				<TR>
+					<TD><B>Vitesse de défilement</B></TD>
+					<TD><input name="rooll_speed" value="$rooll_speed" size="4"></TD>
+				</TR>
+				<TR>
+					<TD COLSPAN="2" ALIGN="center">
+					<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+					<a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}">
+						<img src="${icons_url}/cancel.gif" border="0" alt="Annuler">
+					</a>
+					</TD>
+				</TR>
+			</TABLE>
+		</FORM>
+	<!-- END FORM -->
+                     </div>
+                   </td>
+                 </tr>
+               </tbody>             
+             </table>
+           </td>
+         </tr>
+       </tbody>       
+     </table>
+	</BODY>
+</HTML>

@@ -1,0 +1,383 @@
+<HTML><HEAD>
+<META NAME="generator" CONTENT="txt2ml v1.4b">
+<TITLE>Tutoriel txt2ml</TITLE>
+</HEAD>
+<BODY  >
+<CENTER><H1>Tutoriel txt2ml</H1></CENTER><P></P><P> txt2ml est un convertisseur texte vers html. Pour l'utiliser, tcl et la librairie tcLex doivent etre installés sur votre ordinateur.</P><P> Usage : txt2ml -f nom_fichier_texte&nbsp;&nbsp;(le résultat sera sur la sortie standard)</P><P> ou	txt2ml -f nom_fichier_texte -o nom_fichier_html</P><P></P><A HREF="#1."><H1>1. Titres </H1></A>
+<A HREF="#1.1."><H2>1.1. Titre du document </H2></A>
+<A HREF="#1.2."><H2>1.2. Titre de section </H2></A>
+<A HREF="#2."><H1>2. Listes </H1></A>
+<A HREF="#3."><H1>3. Images </H1></A>
+<A HREF="#4."><H1>4. Liens </H1></A>
+<A HREF="#4.1."><H2>4.1. Liens directs </H2></A>
+<A HREF="#4.2."><H2>4.2. Liens personnalisés </H2></A>
+<A HREF="#4.3."><H2>4.3. Remarque générale sur les liens </H2></A>
+<A HREF="#5."><H1>5. Barre de séparation </H1></A>
+<A HREF="#6."><H1>6. Tableaux </H1></A>
+<A HREF="#7."><H1>7. Gras, Italique, Souligné, Barré </H1></A>
+<A HREF="#8."><H1>8. Sommaire </H1></A>
+<A HREF="#9."><H1>9. Insertion de code html </H1></A>
+<A HREF="#10."><H1>10. Texte préformaté </H1></A>
+<A HREF="#11."><H1>11. Options </H1></A>
+<A HREF="#11.1."><H2>11.1. Fond de page </H2></A>
+<A HREF="#11.2."><H2>11.2. Titre </H2></A>
+<A HREF="#11.3."><H2>11.3. Contenu </H2></A>
+<A HREF="#11.4."><H2>11.4. Feuilles de style </H2></A>
+<A HREF="#11.5."><H2>11.5. Code pour insertion </H2></A>
+<A HREF="#11.6."><H2>11.6. Aide </H2></A>
+<A HREF="#12."><H1>12. Fonctionnalités avancées </H1></A>
+<A HREF="#12.1."><H2>12.1. Tableaux </H2></A>
+<A HREF="#12.2."><H2>12.2. Option -perso </H2></A>
+<A HREF="#13."><H1>13. Récapitulatif </H1></A>
+<A HREF="#13.1."><H2>13.1. Options </H2></A>
+<A HREF="#13.2."><H2>13.2. Equivalences texte-html </H2></A>
+
+<HR>
+<P></P>
+<A NAME="1."></A>
+<H1>1. Titres</H1>
+
+<A NAME="1.1."></A>
+<H2>1.1. Titre du document</H2>
+<P> La première ligne du document est considérée comme le titre de la page.</P><P></P>
+<A NAME="1.2."></A>
+<H2>1.2. Titre de section</H2>
+<P> Les titres débutent par un nombre suivi d'un point (ex : "1. Titre paragraphe"). Un sous-titre débute par un nombre suivi d'un point puis d'un second nombre suivi d'un autre point (ex : "1.2. Sous-titre"). Et ainsi de suite pour les sous sous-titre. </P><P></P>
+<A NAME="2."></A>
+<H1>2. Listes</H1>
+<P> Elles commencent par un des symboles "+", "-", ou "*". Ce symbole est précédé pour un ou plusieurs espaces. Le nombre d'espaces correspond au niveau de liste.</P><P></P><P> Exemple :</P><P> "Les fruits proposés :</P><TABLE BORDER=0><TR><TD COLSPAN=1>&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=2 >+ pommes</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;- printanières</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;- tardives</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=2 >+ poires&nbsp;&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=2 >+ abricots "</TD>
+</TR>
+</TABLE>
+<P></P><P> deviendra</P><P></P><P> Les fruits proposés :</P><UL><LI> pommes</LI>
+<UL><LI> printanières</LI>
+<LI> tardives</LI>
+</UL>
+<LI> poires</LI>
+<LI> abricots</LI>
+</UL>
+<P></P>
+<A NAME="3."></A>
+<H1>3. Images</H1>
+<P> Les mots du texte dont l'extension est .gif, .jpg, .jpeg ou .png sont considérés comme des images et sont automatiquement chargées dans le document. </P><P> Exemple : "Ceci montre une image&nbsp;&nbsp;new.gif" donnera "Ceci montre une image <IMG SRC="new.gif">"</P><P></P><P> Si le nom d'une image est seul sur une ligne alors cette image est chargée et se trouve centrée dans le document. Si la ligne suivante commence par le mot "Fig" alors cette ligne est considérée comme un commentaire de l'image précédente et se trouve centrée (comme l'image).</P><P> Exemple :</P><P>&nbsp;&nbsp;new.gif</P><P> Fig: Jolie image, n'est ce pas?</P><P> deviendra</P><CENTER><IMG SRC="new.gif"></CENTER>
+<CENTER><I>Fig: Jolie image, n'est ce pas?</I></CENTER>
+<P></P><P> Remarque : Pour qu'une image ne soit pas chargée dans le document, il suffit de placer un "!" devant son nom. Exemple :&nbsp;&nbsp;!new.gif deviendra&nbsp;&nbsp;new.gif .</P><P></P>
+<A NAME="4."></A>
+<H1>4. Liens</H1>
+
+<A NAME="4.1."></A>
+<H2>4.1. Liens directs</H2>
+<P> Les textes tels&nbsp;&nbsp;http://www.freealter.com ou&nbsp;&nbsp;ftp://ftp.lip6.fr sont transformés en liens cliquables vers l'adresse indiquée.</P><P> Exemple : ' http://www.freealter.com ou&nbsp;&nbsp;ftp://ftp.lip6.fr' deviendront <A HREF="http://www.freealter.com">http://www.freealter.com</A> ou <A HREF="ftp://ftp.lip6.fr">ftp://ftp.lip6.fr</A></P><P> De même&nbsp;&nbsp;file:/chemin/fichier deviendra un lien vers le fichier,&nbsp;&nbsp;mailto:nom@adresse.org un lien pour un envoi de mail ou encore&nbsp;&nbsp;news:nom.du.newsgroup pour un lien vers un newsgroup.</P><P> Pour mettre un lien relatif, la syntaxe est&nbsp;&nbsp;url:fichier . Par exemple&nbsp;&nbsp;url:./tutoriel.html deviendra <A HREF="./tutoriel.html">./tutoriel.html</A> .</P><P></P>
+<A NAME="4.2."></A>
+<H2>4.2. Liens personnalisés</H2>
+<P> Si vous souhaitez avoir votre propre texte pour le lien, il vous faut utiliser la syntaxe suivante : 'nom du lien'=lien; le nom du lien est entouré de simples cotes.</P><P>&nbsp;&nbsp;Ainsi le texte "Merci de visiter&nbsp;&nbsp;'notre site'=http://www.freealter.com" apparaitra comme "Merci de visiter <A HREF="http://www.freealter.com">notre site</A>" ou encore "voici&nbsp;&nbsp;'mon mail'=mailto:damien@chrisment.org" deviendra "voici <A HREF="mailto:damien@chrisment.org">mon mail</A>"</P><P> Les apostrophes sont supportées dans le nom du lien (pas d'espace avant l'apostrophe). Exemple : "la météo&nbsp;&nbsp;'l'été comme l'hiver'=http://www.meteo.fr" deviendra "la météo <A HREF="http://www.meteo.fr">l'été comme l'hiver</A>". </P><P></P>
+<A NAME="4.3."></A>
+<H2>4.3. Remarque générale sur les liens</H2>
+<P> Si vous souhaitez qu'un texte correspondant à un lien ne soit pas pris comme tel, vous devez faire précéder ce texte de "!". Ainsi "! http://www.freealter.com" apparaitra sous la forme&nbsp;&nbsp;http://www.freealter.com</P><P></P>
+<A NAME="5."></A>
+<H1>5. Barre de séparation</H1>
+<P> Une ligne commencant par deux tirets "--" ou plus indique une barre de séparation.</P><P> Exemple :</P><P>&nbsp;&nbsp;--</P><P> donnera</P><HR>
+<P></P>
+<A NAME="6."></A>
+<H1>6. Tableaux</H1>
+<P> Le caractère permettant de créer des tableaux est le pipe "|".</P><P> Un tableau commence par un certain nombre de "|". Ce nombre moins 1 correspond à l'épaisseur de la bordure du tableau (donc un seul pipe donne un tableau sans contour). </P><P> Chaque case du tableau est séparée par un "|". </P><P> Une ligne de texte correspond à une ligne de tableau. </P><P> Un tableau est fini quand on ne rencontre plus de lignes de texte débutant par un "|".</P><P></P><P> Exemple : </P><P>&nbsp;&nbsp;|| case une | case 2 | case 3</P><P>&nbsp;&nbsp;| seconde ligne | case 2 |case 3</P><P>&nbsp;&nbsp;| dernière ligne | case 2 |case 3</P><P></P><P> deviendra</P><P></P><TABLE BORDER=1><TR><TD COLSPAN=1> case une </TD>
+<TD COLSPAN=1> case 2 </TD>
+<TD COLSPAN=1> case 3</TD>
+</TR>
+<TR><TD COLSPAN=1> seconde ligne </TD>
+<TD COLSPAN=1> case 2 </TD>
+<TD COLSPAN=1>case 3</TD>
+</TR>
+<TR><TD COLSPAN=1> dernière ligne </TD>
+<TD COLSPAN=1> case 2 </TD>
+<TD COLSPAN=1>case 3</TD>
+</TR>
+</TABLE>
+<P></P><P> Si une ligne de votre tableau n'a pas le meme nombre de cases que la première ligne alors elle est automatiquement complétée par des cases vides. </P><P></P><P> Exemple : </P><P>&nbsp;&nbsp;|| case une | case 2 | case 3</P><P>&nbsp;&nbsp;| seconde ligne</P><P>&nbsp;&nbsp;| dernière ligne | case 2 |case 3</P><P></P><P> deviendra</P><P></P><TABLE BORDER=1><TR><TD COLSPAN=1> case une </TD>
+<TD COLSPAN=1> case 2 </TD>
+<TD COLSPAN=1> case 3</TD>
+</TR>
+<TR><TD COLSPAN=1> seconde ligne</TD>
+<TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=1> dernière ligne </TD>
+<TD COLSPAN=1> case 2 </TD>
+<TD COLSPAN=1>case 3</TD>
+</TR>
+</TABLE>
+<P></P><P> Les pipes du tableau peuvent être immédiatement suivis d'un nombre. Ce nombre correspond au nombre de colonnes que la case va occuper (par défaut pas de nombre = 1 colonne).</P><P></P><P> Exemple : </P><P>&nbsp;&nbsp;||2 case double | case suivante | case 4</P><P>&nbsp;&nbsp;| seconde ligne | seconde case </P><P>&nbsp;&nbsp;|3 case à 3 colonnes&nbsp;&nbsp;new.gif</P><P>&nbsp;&nbsp;| dernière ligne |2 case double | dernière case</P><P></P><P> deviendra</P><P></P><TABLE BORDER=1><TR><TD COLSPAN=2 >case double </TD>
+<TD COLSPAN=1> case suivante </TD>
+<TD COLSPAN=1> case 4</TD>
+</TR>
+<TR><TD COLSPAN=1> seconde ligne </TD>
+<TD COLSPAN=1> seconde case </TD>
+<TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=3 >case à 3 colonnes <IMG SRC="new.gif"></TD>
+<TD COLSPAN=1>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=1> dernière ligne </TD>
+<TD COLSPAN=2 >case double </TD>
+<TD COLSPAN=1> dernière case</TD>
+</TR>
+</TABLE>
+<P></P><P> Comme vous pouvez le constater sur l'exemple précédent, une case de tableau peut contenir des images (ou même des liens).</P><P></P>
+<A NAME="7."></A>
+<H1>7. Gras, Italique, Souligné, Barré</H1>
+<P> Pour afficher un texte en&nbsp;&nbsp;gras, italique, souligné, ou encore barré, il suffit de le placer entre un certain nombre de simples cotes (de chaque coté du texte!) :</P><UL><LI> 2 simples cotes pour le mettre en <B>gras</B>.</LI>
+<LI> 3 simples cotes pour le mettre en <I>italique</I>.</LI>
+<LI> 4 simples cotes pour le mettre en <U>souligné</U>.</LI>
+<LI> 5 simples cotes pour le mettre en <S>barré</S>.</LI>
+</UL>
+<P></P><P> Les gras, italique, souligné et barré fonctionnent sur plusieurs lignes.</P><P></P>
+<A NAME="8."></A>
+<H1>8. Sommaire</H1>
+<P> Le sommaire du document avec liens vers les paragraphes peut être ajouté où vous le souhaitez dans le document html produit. Pour cela, la ligne de texte doit comporter uniquement le mot clé summary et celui ci doit être placé en début de ligne. </P><P> L'option -summary_level ou -s permet de régler le niveau de paragraphes (3 par défaut) à inclure dans le sommaire.</P><P></P>
+<A NAME="9."></A>
+<H1>9. Insertion de code html</H1>
+<P> Des fichiers contenant du code html (par exemple un pied de page) peuvent etre insérés à l'endroit où vous le souhaitez. Pour cela, la ligne de texte doit commencer par le mot clé include suivit du nom d'un fichier possédant une extension .htm ou .html . Le contenu du fichier sera alors recopié à l'endroit courant.</P><P></P>
+<A NAME="10."></A>
+<H1>10. Texte préformaté</H1>
+<P> Le marqueur de début et de fin de texte préformaté est une suite d'au moins 4 = qui se suivent en début de ligne.</P><P> Exemple : </P><PRE>
+ ====
+Ceci est un texte préformaté
+	sur plusieurs lignes
+	+ et l'ensemble du texte
+	+ reste tel quel
+ ====
+</PRE>
+<P></P><P> deviendra :</P><PRE>
+Ceci est un texte préformaté
+	sur plusieurs lignes
+	+ et l'ensemble du texte
+	+ reste tel quel
+</PRE>
+<P></P>
+<A NAME="11."></A>
+<H1>11. Options</H1>
+
+<A NAME="11.1."></A>
+<H2>11.1. Fond de page</H2>
+<P> Pour ajouter un fond de page, vous pouvez utiliser l'option -background "fichier" (ou -bg "fichier") pour charger une image, ou bien -background "#abcdef" (-bg) avec abcdef correspondant à la valeur de votre couleur favorite.</P><P></P>
+<A NAME="11.2."></A>
+<H2>11.2. Titre</H2>
+<P> Pour donner un titre à la page web, il y a l'option -title "nom du titre" (ou -t "nom du titre"). Si vous n'activez pas cette option alors la première ligne de votre fichier texte est considérée comme le titre du document.</P><P> Par défaut le titre est aussi affiché centré en haut de la page web. Si vous souhaitez que le titre ne soit pas repris au début du document html alors vous pouvez utiliser l'option -no_title_inside ou -nti.</P><P></P>
+<A NAME="11.3."></A>
+<H2>11.3. Contenu</H2>
+<P> Une liste des titres de section avec lien vers chacun de ses titres peut etre ajoutée en début (option -top_content ou -top) ou en fin (-bottom_content ou -bottom) du document html produit. Pour afficher cette liste en début ET en fin du document html on peut utiliser l'option -contents ou -ct.</P><P></P>
+<A NAME="11.4."></A>
+<H2>11.4. Feuilles de style</H2>
+<P> Vous pouvez utiliser vos propres feuilles de style pour vos pages. L'option est -css "nom_du_fichier". Ce fichier doit commencer avec la balise <STYLE> et finir avec </STYLE> ou contenir un tag&nbsp;&nbsp;<LINK>.</P><P></P>
+<A NAME="11.5."></A>
+<H2>11.5. Code pour insertion</H2>
+<P> Il est possible de produire du code html sans les tags HTML, HEAD et BODY. Cela permet la création de fichiers html (par exemple un pied de page) que l'on pourra insérer dans d'autres pages grace à la commande include nom_fichier. L'option est -no_head ou -nh.</P><P></P>
+<A NAME="11.6."></A>
+<H2>11.6. Aide</H2>
+<P> L'aide sur l'usage de txt2ml peut être affichée en utilisant l'option -help ou -h.</P><P></P>
+<A NAME="12."></A>
+<H1>12. Fonctionnalités avancées</H1>
+
+<A NAME="12.1."></A>
+<H2>12.1. Tableaux</H2>
+<P> Les tableaux présentés plus haut ont toutefois une limite. Ils ne peuvent pas contenir de listes, ni de tableaux (notamment car on a une ligne de tableau par ligne de texte). Pour palier à cela, on dispose d'une seconde sorte de tableaux avec une syntaxe quelque peu modifiée.</P><P></P><P> Un tableau de ce type commence par la chaine "@@|". Comme dans les tableaux précédents, le nombre de pipes ("|") moins 1 indique l'épaisseur du contour du tableau. Ces pipes peuvent etre suivis par un nombre indiquant le nombre de colonnes occupées par la case. Chaque case est séparée par un "|". Pour avoir une case vide, placez un espace après le pipe de la case. Le nombre d'espace saisi entre 2 cases est pris en compte dans la largeur de la case.</P><P></P><P> On passe à une nouvelle ligne de tableau à chaque fois qu'une ligne commence par la chaine "@|". Si une ligne n'a pas le meme nombre de cases que la première du tableau alors on la complète avec des cases vides.</P><P> La chaine "|@@" correspond à la marque de fin du tableau.</P><P></P><P> Si vous souhaitez placer une liste ou un autre tableau (obligatoirement un tableau dit évolué, pas un de la version de base) dans une case, vous devez placer cette case seule sur une ligne. Pour ajouter d'autres cases dans la meme ligne il vous suffit d'ajouter une ligne commençant avec un pipe. Pour marquer la fin d'une ligne de tableau, placez "@|" au début d'une nouvelle ligne de texte ou fermez la table courante par la chaine "|@@".</P><P></P><P> Le contenu d'une case commence après le premier espace suivant le pipe. Ainsi, pour commencer une liste dans une case, n'oubliez pas d'ajouter un espace avant votre marqueur de liste (+,-,*).</P><P></P><P> La compréhension sera plus facile avec des exemples : </P><P></P><P> Exemple 1 :</P><P></P><P> "@@||2 Tableau évolué avec 2 tableaux à l'intérieur"</P><P> "@| @@|3 tableau sans contour"</P><P> "@| un | deux | trois"</P><P> "@|3 3 cases pour moi"</P><P> "|@@"</P><P> "| @@||2 tableau de droite"</P><P> "@| une | et deux"</P><P> "@|&nbsp;&nbsp;new.gif trois | quatre"</P><P> "@|2 2 cases pour moi "</P><P> "|@@"</P><P> "|@@"</P><P></P><P> donnera</P><TABLE BORDER=1><TR><TD COLSPAN=2> Tableau évolué avec 2 tableaux à l'intérieur<BR></TD></TR>
+<TR><TD COLSPAN=1><TABLE BORDER=0><TR><TD COLSPAN=3> tableau sans contour<BR></TD></TR>
+<TR><TD COLSPAN=1> un </TD>
+<TD COLSPAN=1> deux </TD>
+<TD COLSPAN=1> trois</TD>
+</TR>
+<TR><TD COLSPAN=3> 3 cases pour moi<BR></TD></TR></TABLE>
+</TD><TD COLSPAN=1><TABLE BORDER=1><TR><TD COLSPAN=2> tableau de droite<BR></TD></TR>
+<TR><TD COLSPAN=1> une </TD>
+<TD COLSPAN=1> et deux</TD>
+</TR>
+<TR><TD COLSPAN=1> <IMG SRC="new.gif"> trois </TD>
+<TD COLSPAN=1> quatre</TD>
+</TR>
+<TR><TD COLSPAN=2> 2 cases pour moi <BR></TD></TR></TABLE>
+</TD></TR></TABLE>
+<P></P><P> Exemple 2 : </P><P></P><P> "@@||2 Tableau second type"</P><P> "@|&nbsp;&nbsp;+ liste dans un tableau"</P><P> " + autre item"</P><P> "&nbsp;&nbsp; toujours dans le meme item"</P><P> "&nbsp;&nbsp; + sous liste"</P><P> "| @@|||2 Nouveau tableau"</P><P> "@|&nbsp;&nbsp;une | deux"</P><P> "@|2 double trois "</P><P> "@|2&nbsp;&nbsp;new.gif quatre"</P><P> "|@@	"</P><P> "@|2 Waouuu c'est cool !!"</P><P> "|@@	"</P><P></P><P> deviendra</P><TABLE BORDER=1><TR><TD COLSPAN=2> Tableau second type<BR></TD></TR>
+<TR><TD COLSPAN=1><UL><LI> liste dans un tableau</LI>
+</UL>
+<UL><LI> autre item</LI>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;toujours dans le meme item</P><UL><LI> sous liste</LI>
+</UL>
+</UL>
+</TD><TD COLSPAN=1><TABLE BORDER=2><TR><TD COLSPAN=2> Nouveau tableau<BR></TD></TR>
+<TR><TD COLSPAN=1>&nbsp;&nbsp;une </TD>
+<TD COLSPAN=1> deux</TD>
+</TR>
+<TR><TD COLSPAN=2> double trois <BR></TD></TR>
+<TR><TD COLSPAN=2> <IMG SRC="new.gif"> quatre<BR></TD></TR></TABLE>
+</TD></TR>
+<TR><TD COLSPAN=2> Waouuu c'est cool !!<BR></TD></TR></TABLE>
+<P></P>
+<A NAME="12.2."></A>
+<H2>12.2. Option -perso</H2>
+<P> Il est possible de modifier certaines propriétés de txt2ml. Cela est possible en indiquant votre propre fichier de personnalisation avec l'option -perso (ou -p) suivie du nom du fichier. Votre fichier perso doit toutefois respecter la syntaxe du fichier perso.tcl fourni en exemple avec txt2ml, fichier contenant une copie des valeurs utilisées par défaut. Cette option doit donc être utilisée avec précaution.</P><P></P>
+<A NAME="13."></A>
+<H1>13. Récapitulatif</H1>
+
+<A NAME="13.1."></A>
+<H2>13.1. Options</H2>
+<TABLE BORDER=1><TR><TD COLSPAN=2 >Usage : txt2ml [OPTIONS]... -f nom_fichier_texte</TD>
+</TR>
+<TR><TD COLSPAN=1> -file, -f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TD>
+<TD COLSPAN=1> Nom du fichier texte.</TD>
+</TR>
+<TR><TD COLSPAN=1> -output_file, -o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Nom du fichier html produit. Par défaut le code html produit est envoyé sur la sortie standard.</TD>
+</TR>
+<TR><TD COLSPAN=1> -title, -t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Titre de la page web.</TD>
+</TR>
+<TR><TD COLSPAN=1> -no_title_inside, -nti&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Le titre de la page ne réapparait pas dans la page, mais il est toujours utilisé pour le marqueur de titre de page.</TD>
+</TR>
+<TR><TD COLSPAN=1> -no_auto_index, -nai&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> La numérotation des titres n'est pas automatiquement générée. Les valeurs du fichier txt sont conservées.</TD>
+</TR>
+<TR><TD COLSPAN=1> -no_head, -nh		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Pas de tags HTML, HEAD, BODY dans la page. Utilisé pour produire des fichiers que l'on peut inclure dans une autre page.</TD>
+</TR>
+<TR><TD COLSPAN=1> -background, -bg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Fond de la page web. Pas de fond par défaut.</TD>
+</TR>
+<TR><TD COLSPAN=1> -css&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Nom du fichier qui contient la définition de style. Ce fichier doit commencer par la balise <STYLE> et finir par </STYLE>, ou contenir une balise <LINK >.</TD>
+</TR>
+<TR><TD COLSPAN=1> -perso, -p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Nom du fichier tcl qui contient votre fichier de personnalisation. Attention : cette option n'est pas celle pour les feuilles de styles et n'est à utiliser que par des utilisateurs avertis.</TD>
+</TR>
+<TR><TD COLSPAN=1> -contents, -ct&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Ajoute des liens vers les différents paragraphes au sommet et au pied de la page. Option équivalente à -top_content -bottom_content.</TD>
+</TR>
+<TR><TD COLSPAN=1> -top_content, -top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Ajoute au sommet de la page des liens vers les paragraphes.</TD>
+</TR>
+<TR><TD COLSPAN=1> -bottom_content, -bottom&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Ajoute au pied de la page des liens vers les paragraphes.</TD>
+</TR>
+<TR><TD COLSPAN=1> -summary_level, -s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Niveau maximum de titres à inclure dans le sommaire. 3 par défaut.</TD>
+</TR>
+<TR><TD COLSPAN=1> -help, -h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TD>
+<TD COLSPAN=1> Affiche l'aide.</TD>
+</TR>
+</TABLE>
+<P></P>
+<A NAME="13.2."></A>
+<H2>13.2. Equivalences texte-html</H2>
+<TABLE BORDER=1><TR><TD COLSPAN=1> TEXTE </TD>
+<TD COLSPAN=1> HTML</TD>
+</TR>
+<TR><TD COLSPAN=1> 1ere ligne du fichier		</TD>
+<TD COLSPAN=1> Titre de la page</TD>
+</TR>
+<TR><TD COLSPAN=1> 1. Titre paragraphe	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Titre de paragraphe</TD>
+</TR>
+<TR><TD COLSPAN=1> 3.2. Sous-Titre paragraphe	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1> Sous-Titre de paragraphe</TD>
+</TR>
+<TR><TD COLSPAN=1> Listes :<BR><P></P><P> "Les fruits proposés :</P><TABLE BORDER=0><TR></TD><TD COLSPAN=1>&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=2 >+ pommes</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;- printanières</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;- tardives</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=2 >+ poires&nbsp;&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=2 >+ abricots "</TD>
+</TR></TABLE>
+</TD><TD COLSPAN=1>
+<BR><P> Les fruits proposés :</P><UL><LI> pommes</LI>
+<UL><LI> printanières</LI>
+<LI> tardives</LI>
+</UL>
+<LI> poires</LI>
+<LI> abricots</LI>
+</UL>
+</TD></TR>
+<TR><TD COLSPAN=1> Images :<BR><P></P><P> "Ceci montre une image&nbsp;&nbsp;new.gif"</P><P> "Ceci montre une image&nbsp;&nbsp;!new.gif"</P><P></P><P> " new.gif"</P><P> "Fig: Jolie image, n'est ce pas?"</P><P></P></TD><TD COLSPAN=1>
+<BR><P></P><P> Ceci montre une image <IMG SRC="new.gif"></P><P> Ceci montre une image&nbsp;&nbsp;new.gif</P><P></P><CENTER><IMG SRC="new.gif"></CENTER>
+<CENTER><I>Fig: Jolie image, n'est ce pas?</I></CENTER>
+<P> (l'image et le commentaire sont centrés)</P></TD></TR>
+<TR><TD COLSPAN=1>&nbsp;
+<BR><PRE>
+''gras''
+
+'''italique'''
+
+''''souligné''''
+
+'''''barré'''''
+</PRE>
+</TD><TD COLSPAN=1>
+<BR><P> <B>gras</B></P><P></P><P> <I>italique</I></P><P></P><P> <U>souligné</U></P><P></P><P> <S>barré</S></P><P></P></TD></TR>
+<TR><TD COLSPAN=1> Liens :<BR><P></P><P> " http://www.freealter.com ou&nbsp;&nbsp;ftp://ftp.lip6.fr"</P><P></P><P> " url:tutoriel.html ou&nbsp;&nbsp; url:new.gif"</P><P></P><P> "Merci de visiter&nbsp;&nbsp;'notre site'=http://www.freealter.com"</P><P></P><P> "! http://www.freealter.com"</P></TD><TD COLSPAN=1>
+<BR><P>&nbsp;&nbsp;<A HREF="http://www.freealter.com">http://www.freealter.com</A> ou <A HREF="ftp://ftp.lip6.fr">ftp://ftp.lip6.fr</A></P><P></P><P> " <A HREF="tutoriel.html">tutoriel.html</A> ou&nbsp;&nbsp;<A HREF="new.gif">new.gif</A>"</P><P></P><P> Merci de visiter <A HREF="http://www.freealter.com">notre site</A></P><P></P><P>&nbsp;&nbsp;http://www.freealter.com</P></TD></TR>
+<TR><TD COLSPAN=1> Barre de séparation<BR><P> "--"</P></TD><TD COLSPAN=1>
+<BR><HR>
+</TD></TR>
+<TR><TD COLSPAN=1> Tableaux simples<BR><P></P><P> "||2 case double | case suivante | case 4"</P><P> "| seconde ligne | seconde case" </P><P> "|3 case à 3 colonnes&nbsp;&nbsp;new.gif"</P><P> "| dernière ligne |2 case double | dernière case"</P></TD><TD COLSPAN=1>
+<BR><TABLE BORDER=1><TR></TD><TD COLSPAN=2 >case double </TD>
+<TD COLSPAN=1> case suivante </TD>
+<TD COLSPAN=1> case 4</TD>
+</TR>
+<TR><TD COLSPAN=1> seconde ligne </TD>
+<TD COLSPAN=1> seconde case </TD>
+<TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=3> case à 3 colonnes <IMG SRC="new.gif"><BR></TD><TD COLSPAN=1>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=1> dernière ligne </TD>
+<TD COLSPAN=2 >case double </TD>
+<TD COLSPAN=1> dernière case</TD>
+</TR></TABLE>
+</TD></TR>
+<TR><TD COLSPAN=1> summary<BR></TD><TD COLSPAN=1>Inclu le sommaire à l'endroit courant<BR></TD></TR>
+<TR><TD COLSPAN=1> "include toto.html"<BR></TD><TD COLSPAN=1>Inclu le texte de toto.html à l'endroit courant<BR></TD></TR>
+<TR><TD COLSPAN=1> -background "fichier" (ou -bg "fichier")<BR><P> -background "#abcdef" (-bg)</P></TD><TD COLSPAN=1>Charge une image de fond.<BR><P> Charge une couleur de fond.</P></TD></TR>
+<TR><TD COLSPAN=1> Tableaux évolués<BR><P></P><P> "@@||2 Tableau évolué avec 2 tableaux à l'intérieur"</P><P> "@| @@|3 tableau sans contour"</P><P> "@| un | deux | trois"</P><P> "@|3 3 cases pour moi"</P><P> "|@@"</P><P> "| @@||2 tableau de droite"</P><P> "@| une | et deux"</P><P> "@|&nbsp;&nbsp;new.gif trois | quatre"</P><P> "@|2 2 cases pour moi "</P><P> "|@@"</P><P> "|@@"</P></TD><TD COLSPAN=1>
+<BR><TABLE BORDER=1><TR><TD COLSPAN=2> Tableau évolué avec 2 tableaux à l'intérieur<BR></TD></TR>
+<TR><TD COLSPAN=1><TABLE BORDER=0><TR><TD COLSPAN=3> tableau sans contour<BR></TD></TR>
+<TR><TD COLSPAN=1> un </TD>
+<TD COLSPAN=1> deux </TD>
+<TD COLSPAN=1> trois</TD>
+</TR>
+<TR><TD COLSPAN=3> 3 cases pour moi<BR></TD></TR></TABLE>
+</TD><TD COLSPAN=1><TABLE BORDER=1><TR><TD COLSPAN=2> tableau de droite<BR></TD></TR>
+<TR><TD COLSPAN=1> une </TD>
+<TD COLSPAN=1> et deux</TD>
+</TR>
+<TR><TD COLSPAN=1> <IMG SRC="new.gif"> trois </TD>
+<TD COLSPAN=1> quatre</TD>
+</TR>
+<TR><TD COLSPAN=2> 2 cases pour moi <BR></TD></TR></TABLE>
+</TD></TR></TABLE>
+</TD><P></P></TR></TABLE>
+</BODY></HTML>

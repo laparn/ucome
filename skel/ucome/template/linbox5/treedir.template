@@ -1,0 +1,57 @@
+<html>
+<!-- vim: set syntax=html: -->
+<head>
+<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+<title><!-- BEGIN TITLE -->treedir2 - title<!-- END TITLE --></title>
+</head>
+
+<body bgcolor="white" >
+
+<!-- BEGIN DIRTREE --><!-- DIRTREE -->
+
+<!-- BEGIN DIR -->
+<!-- DIR -->
+<!-- BEGIN SPACE --><!-- SPACE -->
+&nbsp;&nbsp;&nbsp;
+<!-- /SPACE --><!-- END SPACE -->
+<a href="$url">
+<img src="${icons_url}/folder.gif" border="0">$content</a><br />
+<!-- /DIR -->
+<!-- END DIR -->
+
+<!-- BEGIN ACTIVEDIR -->
+<!-- ACTIVEDIR -->
+<!-- BEGIN ACTIVESPACE --><!-- ACTIVESPACE -->
+&nbsp;&nbsp;&nbsp;
+<!-- /ACTIVESPACE --><!-- END ACTIVESPACE --> 
+<a class="activeleftmenu" href="$url">
+<img src="${icons_url}/folder.open.gif"  border="0">$content</A><br />
+<!-- /ACTIVEDIR -->
+<!-- END ACTIVEDIR -->
+
+<!-- BEGIN EXACTDIR -->
+<!-- EXACTDIR -->
+<!-- BEGIN EXACTSPACE --><!-- EXACTSPACE -->
+&nbsp;&nbsp;&nbsp;
+<!-- /EXACTSPACE --><!-- END EXACTSPACE -->
+<a class="activeleftmenu" href="$url">
+<img src="${icons_url}/folder.open.gif" border="0"><b>$content</b></a><br />
+<!-- /EXACTDIR -->
+<!-- END EXACTDIR -->
+<!-- BEGIN CURRENTDIR -->
+<!-- END CURRENTDIR -->
+<!-- /DIRTREE --><!-- END DIRTREE -->
+<br /><br />
+
+<!-- BEGIN CACHE -->
+<ul class="text">
+<li><a class="leftmenu" HREF="fas:${export_filename}&action=clean_cache_form">Clean the cache</a></li>
+<li><a class="leftmenu" HREF="fas:${export_filename}&action=flatten">Flatten the site</a></li>
+<li><a class="leftmenu" HREF="fas:${export_filename}&action=txt4index_tree">Prepare indexing</a></li>
+<li><a class="leftmenu" HREF="fas:${export_filename}&action=create_index">Index</a></li>
+</ul>
+
+<!-- END CACHE -->
+
+</body>
+</html>

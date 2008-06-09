@@ -1,0 +1,29 @@
+<html>
+<!-- vim: set syntax=html: -->
+  <head>
+    <title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+    <!-- dir.tmpl -->
+  </head>
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+<!-- menu_form.tmpl -->
+<!-- BEGIN FORM --><!-- FORM --><div align=center>
+        <h1>
+		Menu edition for ${export_filename}
+        </h1>
+</div>
+<form action="${FAS_VIEW_CGI}" method="post">
+	<input type="hidden" name="action" value="menu_form">
+	<input type="hidden" name="file" value="${export_filename}">
+	<input type="hidden" name="from" value="${from}">
+        <div align=center>
+		<!-- BEGIN INMENU --><!-- INMENU --><!-- /INMENU --><!-- END INMENU -->
+		<BR>
+		<!-- BEGIN OUTMENU --><!-- OUTMENU --><!-- /OUTMENU --><!-- END OUTMENU -->
+		<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+		<a href="fas:${export_filename}"><img src="${icons_url}/cancel.gif" border="0"></a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Store" name="store_name">
+	</div>
+</form><!-- /FORM --><!-- END FORM -->
+</body>
+</html>

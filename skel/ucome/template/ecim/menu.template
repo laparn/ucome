@@ -1,0 +1,92 @@
+<!-- vim: set syntax=html: -->
+<!-- vim: set ts=1: -->
+<!-- yes, you may use another editor, but, vim is BETTER -->
+<html>
+ <head>
+  <title>
+			<!-- BEGIN TITLE -->TITRE<!-- END TITLE -->
+  </title>
+ </head>
+
+ <body>
+		<!-- debug/menu.tmpl --> 
+		<!-- BEGIN MENU -->
+		<!-- MENU -->
+		   <form method=post action="$FAS_VIEW_CGI">
+					   <select name="file" size=1>
+		     				<!-- BEGIN SECTION0 -->
+		     				<!-- SECTION0 -->
+			  						<option value="${current_filename}">${content}
+		     				<!-- /SECTION0 -->
+		     				<!-- END SECTION0 -->
+		     				<!-- BEGIN ACTIVESECTION0 -->
+		     				<!-- ACTIVESECTION0 -->
+			  						<option value="${current_filename}">&gt; ${content}
+											<!-- /ACTIVESECTION0 -->
+											<!-- END ACTIVESECTION0 -->
+		     				<!-- BEGIN EXACTSECTION0 -->
+		     				<!-- EXACTSECTION0 -->
+			  						<option value="${current_filename}">&gt;&gt; ${content}
+											<!-- /EXACTSECTION0 -->
+											<!-- END EXACTSECTION0 -->
+											<!-- BEGIN SECTION1 -->
+											<!-- SECTION1 -->
+			  						<option value="${current_filename}">&nbsp;&nbsp;${content}
+											<!-- /SECTION1 -->
+											<!-- END SECTION1 -->
+											<!-- BEGIN ACTIVESECTION1 -->
+											<!-- ACTIVESECTION1 -->
+			  						<option value="${current_filename}">&nbsp;&nbsp;&gt; ${content}
+											<!-- /ACTIVESECTION1 -->
+											<!-- END ACTIVESECTION1 -->
+											<!-- BEGIN EXACTSECTION1 -->
+											<!-- EXACTSECTION1 -->
+			  						<option value="${url}">&nbsp;&nbsp;&gt;&gt; ${content}
+											<!-- /EXACTSECTION1 -->
+											<!-- END EXACTSECTION1 -->
+											<!-- BEGIN SECTION2 -->
+											<!-- SECTION2 -->
+			  						<option value="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}
+											<!-- /SECTION2 -->
+											<!-- END SECTION2 -->
+											<!-- BEGIN ACTIVESECTION2 -->
+											<!-- ACTIVESECTION2 -->
+			  						<option value="${url}">&nbsp;&nbsp;&nbsp;&nbsp;&gt; ${content}
+											<!-- /ACTIVESECTION2 -->
+											<!-- END ACTIVESECTION2 -->
+											<!-- BEGIN EXACTSECTION2 -->
+											<!-- EXACTSECTION2 -->
+			  						<option value="${url}">&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt; ${content}
+											<!-- /EXACTSECTION2 -->
+											<!-- END EXACTSECTION2 -->
+
+											<!-- BEGIN GENERIC_SECTION -->
+											<!-- GENERIC_SECTION -->
+											<option value="${url}">
+			  						<!-- BEGIN GENERIC_SPACE -->&nbsp;&nbsp;<!-- END GENERIC_SPACE -->
+			  						${content}
+											<!-- /GENERIC_SECTION -->
+											<!-- END GENERIC_SECTION -->
+											<!-- BEGIN GENERIC_ACTIVESECTION -->
+											<!-- GENERIC_ACTIVESECTION -->
+											<option value="${url}">
+			  						<!-- BEGIN GENERIC_ACTIVESPACE -->&nbsp;&nbsp;<!-- END GENERIC_ACTIVESPACE -->
+			  						&gt; ${content}
+											<!-- /GENERIC_ACTIVESECTION -->
+											<!-- END GENERIC_ACTIVESECTION -->
+											<!-- BEGIN GENERIC_EXACTSECTION -->
+											<!-- GENERIC_EXACTSECTION --><option value="${url}">
+			  						<!-- BEGIN GENERIC_EXACTSPACE --><!-- GENERIC_EXACTSPACE -->&nbsp;&nbsp;<!-- /GENERIC_EXACTSPACE --><!-- END GENERIC_EXACTSPACE -->
+			  						&gt;&gt; ${content}
+											<!-- /GENERIC_EXACTSECTION -->
+											<!-- END GENERIC_EXACTSECTION -->
+											<!-- BEGIN MENU_ENTRY -->
+											<!-- END MENU_ENTRY -->
+							</select>
+							<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+					</form>
+		<!-- /MENU -->
+		<!-- END MENU -->
+	</body>
+</html>
+

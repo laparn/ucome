@@ -1,0 +1,2 @@
+global.template standard.template global.title "Edition of a form file" global.title.fr "Edition d'un fichier de type form" title.type file title.cgi_uservar.action title menu.type file menu.cgi_uservar.action treedir menu.cgi_uservar_import.treedir.url_start 1 content.type html allow.type file allow.cgi_uservar.action show_action_list whoami.type file whoami.cgi_uservar.action whoami
+

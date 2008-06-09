@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html><head>
+
+<title>Slacksite.com - Active FTP vs. Passive FTP, Appendix 1</title><style type="text/css">
+<!--
+ A {text-decoration: none}
+ a:hover { text-decoration: underline }
+ p {margin: 3px 6px 6px 6px}
+-->
+</style></head>
+
+<body bgcolor="#ffffff" link="#000066" vlink="#000066" alink="#000066" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0">
+<!-- Main Table Start -->
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tbody><tr>
+<td valign="top"><!-- Inside Primary Table Start --><table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tbody><tr>
+<td bgcolor="#000066" valign="top" colspan="2"><img src="ftp-appendix1_files/header.gif" width="610" height="58" alt="Slacksite.com"></td>
+</tr>
+<tr>
+<td bgcolor="#ffffff" valign="top" colspan="2"><img src="ftp-appendix1_files/spacer.gif" width="610" height="1" alt=" "></td>
+</tr>
+<tr>
+<td bgcolor="#000000" valign="top" colspan="2" align="left">
+
+<!-- Black Bar Table Start -->
+<table cellspacing="0" cellpadding="0" width="610" border="0">
+<tbody><tr>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/about.html"><img src="ftp-appendix1_files/aboutslacksite.gif" width="125" height="22" alt="About Slacksite" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/contact.html"><img src="ftp-appendix1_files/contactus.gif" width="105" height="22" alt="Contact Us" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/discussion"><img src="ftp-appendix1_files/discussion.gif" width="105" height="22" alt="Discussion" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/search"><img src="ftp-appendix1_files/search.gif" width="80" height="22" alt="Search" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/legal.html"><img src="ftp-appendix1_files/legalinfo.gif" width="95" height="22" alt="Legal Info" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/advertising.html"><img src="ftp-appendix1_files/advertising.gif" width="100" height="22" alt="About Slacksite" border="0"></a></td>
+</tr>
+</tbody></table>
+<!-- Black Bar Table End -->
+</td>
+</tr>
+
+<tr><!-- Start Menu Column -->
+<td bgcolor="#9999ff" valign="top"><font face="Arial, Verdana, Helvetica" size="+0"><strong>
+</strong></font><p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/">Home</a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/apache/">Apache Documents </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/solaris/">Solaris Documents </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/technotes/">Solaris TechNotes </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/slackware/">Slackware Documents </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/other/">Other Technical Docs </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/humour/">Humour </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/logos.html">Logos </a></strong></font></p>
+
+<!-- Begin Stupid Graphics -->
+
+<hr width="80%">
+<p align="center">
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp-appendix1_files/apachebutton.gif" alt="Apache on Linux Slackware" width="120" height="53" vspace="10" border="1">
+</strong></font></p>
+<p align="center">
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp-appendix1_files/vi_anim.gif" alt="Powered by vi" border="1" width="90" height="28" hspace="0" vspace="4">
+</strong></font></p>
+<p align="center">
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp-appendix1_files/php.gif" alt="Powered by PHP" border="1" width="88" height="31" hspace="0" vspace="4">
+</strong></font></p>
+<p align="center">
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp-appendix1_files/mysql-05.gif" alt="Powered by mySQL" border="1" width="88" height="31" hspace="0" vspace="4">
+</strong></font></p>
+<hr width="80%">
+
+<!-- End Stupid Graphics -->
+<p>
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp-appendix1_files/spacer.gif" width="1" height="350">
+</strong></font></p>
+</td><!-- End Menu Column --><!-- Start Main Content Cell -->
+<td bgcolor="#ffffff" valign="top">
+
+<center>
+<br>
+<h1>Active FTP vs. Passive FTP, Appendix 1</h1>
+</center>
+
+<br>
+<h3>Introduction</h3>
+<p>
+This appendix will describe methods used to configure various popular FTP 
+servers to limit the number of passive ports they will listen on.  As 
+mentioned in the main text, FTP server admins will almost definitely need 
+to support passive FTP in order to allow the greatest number of clients to 
+access their FTP resources.  In order to support passive FTP, however, a 
+large number of high-numbered ports on the server must be opened through a 
+firewall.  Luckily, most FTP servers all this port range to be specified 
+so as to limit exposure to attacks.
+</p>
+
+<br>
+<h3>ProFTPd</h3>
+<p>
+ProFTPd, <a href="http://www.proftpd.net/">http://www.proftpd.net</a>, is 
+an increasingly popular FTP server due to its modularity and Apache-style 
+configuration directives.  ProFTPd also supports virtual hosts "out of the 
+box", causing it to become one of the most common FTP servers used by web 
+hosting companies.
+</p>
+<p>
+As of version 1.20RC3 and later (current version as of this writing is 
+1.2.4), ProFTPd supports a directive called <code>PassivePorts</code>.  
+The <code>PassivePorts</code> directive is usually used in a global 
+context in the <code>proftpd.conf</code> file (the location of which 
+varies depending on how ProFTPd was configured and installed).  
+<code>PassivePorts</code> takes two arguments, the minimum port number and 
+the maximum port number, as in the below example:
+</p><pre>PassivePorts 51000 51999
+</pre>
+
+<p>
+The ProFTPd documentation has the following to say about the 
+<code>PassivePorts</code> directive:
+</p><blockquote>
+PassivePorts restricts the range of ports from which the server will 
+select when sent the PASV command from a client.  The server will randomly 
+choose a number from within the specified range until an open port is 
+found.  Should no open ports be found within the given range, the server 
+will default to a normal kernel-assigned port, and a message logged.
+<br><br>
+The port range selected must be in the non-privileged range (eg. greater 
+than or equal to 1024);  it is STRONGLY RECOMMENDED that the choosen range 
+be large enough to handle many simultaneous passive connections (for 
+example, 49152-65534, the IANA-registered ephemeral port range).
+</blockquote>
+
+<p>
+If you are attempting to use SSH port forwarding to securely tunnel the 
+FTP command channel over an SSH connection (so that passwords are not sent 
+in clear text), be aware that you must set the 
+<code>AllowForeignAddress</code> directive to "on" in the 
+<code>proftpd.conf</code> file.  If this is not set and a tunnelled 
+connection is attempted, ProFTPd will log a message similar to the 
+following:
+</p><pre>SECURITY VIOLATION: Passive connection from a.b.c.d rejected
+</pre>
+
+<p>
+<font color="RED">Important Note: Please read and understand the 
+documentation about the <code>AllowForeignAddress</code> directive before 
+implementing it.  This can open your FTP server up to bounce attacks.  It 
+is strongly recommended that this option not be set on systems being used 
+as anonymous FTP servers.</font>
+</p>
+
+<hr width="80%">
+
+<!-- Formatting Spaces: Do Not Remove -->                                
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+            </td><!-- End Main Content Cell -->
+</tr>
+</tbody></table>
+<!-- Inside Primary Table End -->
+</td>
+</tr>
+</tbody></table>
+<!-- Main Table End -->
+</body></html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!-- vim: set syntax=html: -->
+<head>
+  <title>CACHE CLEANING</title>
+  <!-- clean_cache_form.tmpl -->
+</head>
+  <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+   <!-- clean_cache_form.tmpl -->
+   <table bgcolor="#e0e0e0" width="100%" cellpadding="1" cellspacing="0" border="0">
+     <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#ffffff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td>                      
+                   <div align="Center">                   
+                     <h2>Cache cleaning</h2>
+                       <b>You are going to clean all files from the cache.</b><br> </b>                    
+                       <!-- BEGIN FORM --><!-- /FORM -->
+                        <A HREF="fas:${export_filename}&action=clean_cache"><IMG SRC="${icons_url}/ok.gif" border="0" alt="Cache cleaning"></A>&nbsp;
+                        <a href="fas:${export_filename}"><img src="${icons_url}/cancel.gif" border="0" alt="Cancel"></a>
+                         </form>
+    	               <!-- /FORM -->
+    	               <!-- END FORM -->
+                     </div>
+                   </td>
+                 </tr>
+               </tbody>             
+             </table>
+           </td>
+         </tr>
+       </tbody>       
+     </table>
+  </body>
+</html>

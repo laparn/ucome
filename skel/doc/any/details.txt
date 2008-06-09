@@ -1,0 +1,82 @@
+UCome - A new way to see web sites
+
+''Author :'' 
+''Arnaud LAPREVOTE''
+Free&ALter Soft
+152, rue de Grigy 
+57070 METZ
+tel: 03 87 63 76 35 - 06 11 36 15 30
+fax : 03 87 56 19 93
+Email : arnaud.laprevote@freealter.com
+
+1. Introduction
+If you are in a hurry, well, jump to the install part and to the using part. What I expose hereunder is more the spirit of UCome than anything else. Maybe you do not want to know what and why I created UCome, you just want to use it.
+
+Today intranets are the natural way to share informations. UCome will allow to integrate, present, sort, search, manage informations on an intranet. It is then a Content Management system (in fact it is ''You''r ''Con''tent ''M''anagement). A key property is that input informations will be highly inhomogeneous. I like text files, you prefer soffice writer ones, and somebody else msword one, and another latex, or xml, or html, or I do not know what. UCome will try to help to organise (display and more) these inhomogeneous informations in a coherent set.
+
+The goal is to create a generic "transform engine" with a web interface. The idea is the following. Every day, you manage files with different formats (graphic, html, text, word, xml, latex, pdf, ps, ...). From my point of view, a key of today organisation is the sharing of information. In fact, in an enterprise (or a group), you can say that an information does not exist if it is not shared. From another point of view, it is very easy to be buried by informations today. So you must find a way to share and organise informations.
+
+Script language are "glue" languages. Languages that do not try to do everything, but allow to "glue" different programs, different libraries in a single coherent application, that may have a graphical interface. This web application tryes to extend this concept to the management of data in a web site. It will not do everything. No. It will allow to "glue" all intelligent programs that exist to publish existing data on the web as easily as possible. For example, you can see the code of UCome directly in this web site. Just click on the "Source code" menu item in the menu. You will see the real code with syntax highlighting. The syntax highlighting is done by vim (thanks folks). So vim was "integrated" in UCome to help present source codes. It will allow you to work as little code as possible to jump in the application. Once you jumped in, you will benefit of all the other modules that exist. For example, as soon as you are able to output html, you will benefit of the automatic creation of the menu depending of the place of the file in the directories.
+
+What it means today is that, Linbox/Free&ALter Soft deals with some filetype and some actions. Now, there is the rest : we do not provide a tex filetype, a gnuplot filetype, an xml filetype, a sgml filetype, an autocad, a dxf, a xfig, a tiff, a ...  filetype. Because you use more these applications than we do, then you are much more able to have them fit in this environment. And if there is a real integration problem, it means we missed something and we will try to correct that.
+
+UCome tryes to be :
+ * small (please, help me  add and REMOVE code from UCome),
+ * very quickly efficient from a user and programmer point of view,
+ * extremely useful,
+ * easy and fun to extend,
+ * allowing the reuse of code.
+
+This is done with some fairly extreme choices :
+ * a UCome site is only based on files. No database. This has drawbacks : it is harder to get the list of last modified files, or to do some complex queries. It has enormous advantages. Easy to port. Easy to set up. Easy to back up, to synchronize, to administer. Strictly respect the structure of your hard disk, and easily transform part of your hard disk, with existing file in a web site. As a unix guru said once to me : "file is a very powerful and underused concept".
+ * with each file and directories, "properties" are defined. A property is a variable attached to a file. All the right management in UCome is done with properties, the style used for displaying a file is a property, the name in the menu of a file, the order in the menu, ... all that are properties. There are a lot of "programmer" properties that are used to know where cache, icons, template, ... are stored. There are default values for all. Properties are inherited from the top to the bottom. Properties defined at the root of a site are defined (if not overwritten) for all files of the site.
+ * UCome is fully template based. The goal is to have a real separation between the look designer, the content providers, the webmaster and the programmer. So there is no special, new, nice, blablabla, template language. The only tag to know is <!-- BEGIN BLOCK_NAME -->xxxxx<-- END BLOCK_NAME --> which allows to create a block in a template. That's all. What will be put in each block is defined in a "form file" or directly in a program.
+ * Caching is agressively done. Cache hits are defined by defining the "dependencies" of a cached file. There are functions for a programmer to define on which files a file depends. If the dependencies are no more met, the file is worked out and cached.
+ * for those who did not notice my poor english, I am not a native english speaker. Then UCome comes directly as being internationalised (basically english (I mean Bruxelles English :=) and french). Please, feel free to contribute more languages.
+
+UCome must be improved in terms of performance and speed. I much improved the performance thanks to the integration of tclhttpd and rivet, but there is still work to be done. 
+
+
+4. What are the file types that are currently supported ?
+Right now :
+ * text,
+ * txt2ml,
+ * tmpl (html without a menu bar),
+ * html,
+ * pdf,
+ * csv,
+ * gif,
+ * png,
+ * jpeg,
+ * tcl (in fact any code with syntax highlighting defined in vim),
+ * python,
+ * directories,
+ * order_dir : when asking for the display of this directory, a file of the directory is displayed, at the next display, it will be the next file, and so forth. So files will be diplayed as a "rolling newspaper".
+ * order : a file giving a file to display in another directory. It may contain a file, an url, and also the display speeds for theese files.
+ * sxw, sxc, sxi when having Open Office.
+
+With the external fas-converter, program you also get :
+ * doc,
+ * excel.
+
+With the "auto-cache" feature Star Office files. To manage them upload the original file (toto.sxw) , and then upload the corresponding html file (toto.sxw.html).
+
+So files with these filetypes may be integrated seemlessly in an intranet.
+
+4. How does it work ?
+The base of mana is the display of a file. When asking for a file, mana will do the following thing :
+ * look if the file may be directly displayed, then, the file will be directly sent,
+ * if the file requires to be transformed before being displayed, mana will search for the next file type for this file, try to do the transformation, cache the result of the transformation,
+ * the 2 last points will be repeated till reaching a file directly displayable.
+
+All operations are cached in mana. Before doing any transformation, mana looks if the result exists or not. If it does, and if all dependency conditions are fullfilled, then the transformation is not done, and the next step is done.
+
+So you now understand, why I speak of a Transform Engine. UCome is a tool for transforming files.
+
+UCome is as strongly object oriented as possible without any tcl extension. It means that for each file type, the possible next types are defined, the possible actions, and the transformations for this file type, as well as a final display procedure.
+
+It occured that this way to see a cgi programm (a transformation of a document into another, "ad nauseam") seems to be a VERY powerful and generic concept. Strangely enough it also works for actions on file.
+
+Just consider the copy of a file. Well, we are going to say that in fact, it is a filetype. So for each file type, we must define a transformation procedure for going to this copy type. It will be 2copy. Then when arriving in copy, we use a standard html window. And we ask for the display in html of this content. So we define a 2html transformation in copy. And we jump at the standard html procedure.
+
+When writing a programm for a new file type, one of the biggest work is to really track the dependencies when writing a transformation for this file type. Obviously, there are functions for that.

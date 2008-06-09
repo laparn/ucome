@@ -1,0 +1,5 @@
+Le système d'exploitation universel
+1. Qu'est-ce que Debian GNU/Linux?
+Debian est un système d'exploitation (OS) libre pour votre ordinateur -- il consiste en l'ensemble des programmes et utilitaires le faisant fonctionner. 
+Au coeur de chaque système se trouve le noyau, le programme le plus essentiel à l'ordinateur : il s'occupe de la gestion de base et vous permet de démarrer d'autres programmes. 
+Debian est actuellement basé sur le noyau Linux et inclut plus de 9500 paquets d'utilitaires et de logiciels. Près de 1000 développeurs travaillent dur pour maintenir le haut niveau de qualité de Debian.

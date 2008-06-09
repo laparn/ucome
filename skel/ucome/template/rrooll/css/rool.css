@@ -1,0 +1,49 @@
+/*** ############# CSS FOR ROOLL ############## ***/
+h1 {
+	padding-top:0px;
+	padding-bottom:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+	text-align:center;
+}
+
+td {
+	font-size: 55px;
+}
+
+body {
+	font-size: 55px;
+	/*background-image: url(fas:/template/standard/internet/fas_golf_paper.png);*/
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#top {
+	position:fixed;
+	top : 0px;
+	left: 0px;
+	width: 100%;
+	height: 5Opx;
+}
+
+#data {
+	position:fixed;
+	width:100%;
+	top: 150px;
+	bottom: 10px;
+	font-size:55px;
+	overflow:hidden;
+}
+#logo {
+	position:fixed;
+	top:0px;
+	left:0px;
+}
+
+.bigsize {
+	font-size: 55px;
+}
+
+.content {
+	padding:5px;
+}

@@ -1,0 +1,47 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->treedir2 - title<!-- END TITLE --></title>
+                <link rel="stylesheet" type="text/css" href="css/gila.css" title="Gila stylesheet" />
+                <link rel="stylesheet" type="text/css" href="css/color-scheme.css" title="Gila stylesheet" />
+	</head>
+
+	<body bgcolor="white" >
+		<!-- sinorca/treedir.tmpl -->	
+		<!-- BEGIN DIRTREE --><!-- DIRTREE -->
+		<div class="sideBarTitle">Tree</div>
+			<!-- BEGIN DIR -->
+			<!-- DIR -->
+				<A HREF="$url">
+				<!-- BEGIN SPACE --><!-- SPACE -->&nbsp;&nbsp;&nbsp;<!-- /SPACE --><!-- END SPACE -->
+                		<IMG SRC="${icons_url}/folder.gif" BORDER="0">$content</A>
+			<!-- /DIR -->
+			<!-- END DIR -->
+			<!-- BEGIN ACTIVEDIR -->
+			<!-- ACTIVEDIR -->
+				<A CLASS="thisPage" HREF="$url">
+				<!-- BEGIN ACTIVESPACE --><!-- ACTIVESPACE -->&nbsp;&nbsp;&nbsp;<!-- /ACTIVESPACE --><!-- END ACTIVESPACE --> 
+                		<IMG SRC="${icons_url}/folder.open.gif"  BORDER="0">$content</A>
+			<!-- /ACTIVEDIR -->
+			<!-- END ACTIVEDIR -->
+			<!-- BEGIN EXACTDIR -->
+			<!-- EXACTDIR -->
+				<A CLASS="thisPage" HREF="$url">
+				<!-- BEGIN EXACTSPACE --><!-- EXACTSPACE -->&nbsp;&nbsp;&nbsp;<!-- /EXACTSPACE --><!-- END EXACTSPACE -->
+                		<IMG SRC="${icons_url}/folder.open.gif"  BORDER="0"><b>$content</b></A>
+                
+			<!-- /EXACTDIR -->
+			<!-- END EXACTDIR -->
+			<!-- BEGIN CURRENTDIR -->
+			<!-- END CURRENTDIR -->
+			<!-- /DIRTREE --><!-- END DIRTREE -->
+			<!-- BEGIN CACHE -->
+			<div class="sideBarTitle">Actions</div>
+			<A class="thisPage" HREF="fas:${export_filename}&action=clean_cache_form">Clean the cache</A>
+			<A class="thisPage" HREF="fas:${export_filename}&action=flatten">Flatten the site</A>
+			<A class="thisPage" HREF="fas:${export_filename}&action=txt4index_tree">Prepare indexing</A>
+			<A class="thisPage" HREF="fas:${export_filename}&action=create_index">Index</A>
+		<!-- END CACHE -->
+	</body>
+</html>

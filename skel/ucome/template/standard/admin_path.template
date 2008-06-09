@@ -1,0 +1,17 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+
+	<body>
+	        <!-- sliqua/path.tmpl -->
+		<!-- BEGIN PATH --><!-- PATH -->
+		     <!-- BEGIN SECTION --><!-- SECTION --><a href="fas:${path}&action=edit_form">${content}</a>&gt;<!-- /SECTION --><!-- END SECTION -->
+		     <!-- BEGIN ENDSECTION --><!-- ENDSECTION -->${content}<!-- /ENDSECTION --><!-- END ENDSECTION -->
+		     <!-- BEGIN PATH_ENTRY --><!-- END PATH_ENTRY -->
+		<!-- /PATH --><!-- END PATH -->
+	</body>
+</html>
+

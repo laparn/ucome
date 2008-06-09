@@ -1,0 +1,4 @@
+2005/05/03 - Work on mod_rewrite for having "nice" urls instead of awful ones.
+ * rivet/rivet-initscript.tcl
+ * fashtml.tcl
+ * fas_basic_proc.tcl => fas_set_cookie if mod_rewrite is on.

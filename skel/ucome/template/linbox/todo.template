@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim: set syntax=html: -->
+<!-- yes, you may use another editor, but, vim is BETTER -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=iso-8859-1" />
+    <meta name="author" content="inspired by haran from Sinorca OSWD" />
+    <link rel="stylesheet" type="text/css" href="fas:/template/linbox/css/sinorca-linbox.css" title="Grey boxes stylesheet" />
+    <link rel="stylesheet" type="text/css" href="fas:/template/linbox/css/color-scheme.css" />
+    <title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <!-- todo.tmpl -->
+</head>
+<body>
+<!-- todo.tmpl -->
+    <div id="top"></div>
+  
+    <!-- ###### Header ###### -->
+
+    <div id="upperMenuBar">
+      <div class="LHS">
+        &nbsp;Login as : <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;|&nbsp;
+        <a href="fas:${file}&action=login_form" class="topmenu" title="Login">Login</a>
+      </div>
+      <div class="RHS">
+      <!-- BEGIN PATH --><!-- END PATH -->
+      </div>
+    </div>
+
+    <div id="header"><a href="http://www.linbox.com"><img src="fas:/template/linbox/img/logo_linbox_small.png" alt="Logo linbox"></a></div>
+
+    <form id="headerSearch" action="./index.html" method="get">
+      <div>
+        <!-- input type="text" class="text" value="Search..." / -->
+      
+        <!-- ###### Dynamic text box version:
+        <input class="text" type="text" value="Search..."
+               onFocus="if (this.value == 'Search...') this.value=''; else this.select();"
+               onBlur="if (this.value == '') this.value='Search...';" />
+             ###### -->
+
+        <!-- input type="submit" class="submit" value="GO" / -->
+      </div>
+    </form>
+
+    <div id="lowerMenuBar">
+         <!-- BEGIN ALLOW --><!-- END ALLOW -->
+    </div>
+
+    <!-- ###### Side Boxes ###### -->
+    <!-- BEGIN MENU -->
+    <!-- END MENU -->
+    <!-- BEGIN TODO --><!-- END TODO -->
+    <!-- div class="sideMenuBox lighterBG" -->
+    <div class="sideTextBox" >
+        Questions or Comments? Advice for me or from me? Please <a href="mailto:info@no-spam-ucome.org" class="dash" title="email the author">email me.</a>
+    </div>
+
+    <!-- ###### Body Text ###### -->
+
+    <div id="bodyText">
+		<!-- FORM START --><!-- BEGIN FORM_START --><form ACTION="${FAS_VIEW_CGI}" METHOD=POST ><input TYPE=HIDDEN NAME="file" VALUE="${export_filename}"><input TYPE=HIDDEN NAME="action" VALUE="edit"><!--END FORM_START --><!-- /FORM_START -->
+		<div align="center"><h1><!-- BEGIN TITLE --><!-- END TITLE --></h1></div>
+		<div ><!-- BEGIN DATE --><!-- END DATE --></div>
+		<div ><!-- BEGIN CONTENT --><!-- END CONTENT --></div>
+		<!-- BEGIN FORM_END --><!-- FORM_END -->
+		<center><table WIDTH="100%" >
+			<tr>
+			<td ALIGN=CENTER COLSPAN="3">
+			<table>
+				<tr>
+				<td><input type="image" name="ok" src="${icons_url}/ok.gif" border="0"></td>
+
+				<td><a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}"><img SRC="${icons_url}/cancel.gif" ALT="Annuler" BORDER=0 ></a></td>
+				</tr>
+			</table>
+			</td>
+			</tr>
+		</table></center>
+
+	</form><!-- /FORM_END --><!--END FORM_END -->
+    </div>
+    <!-- ###### Footer ###### -->
+    <div id="footerMAIN">
+      <div id="footerLS">UCome - Created by  <a href="http://linbox.com" title="Linbox/Free&amp;ALter Soft">Linbox/Free&amp;ALter Soft</a>
+      </div>
+      <div id="footerRS">Look closely adapted from <a href="http://oswd.com">OSWD</a> Sinorca design shareright &copy; 2003 Haran. Thank you Haran.&nbsp;
+      </div>
+    </div>
+  </body>
+</html>

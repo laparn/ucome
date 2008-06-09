@@ -1,0 +1,82 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="fas:/template/standard/css/standard.css" title="Blue standard" />
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+
+	<body>
+	        <!-- standard/menu.templ -->
+		<!-- BEGIN MENU -->
+		<!-- MENU -->
+          	  <div class="headbox">Menu</div>
+		     <!-- BEGIN MENU_ENTRY -->
+		     <!-- END MENU_ENTRY -->
+
+		     <!-- The same thing but for a new menu system based on numbers -->
+		     <!-- BEGIN SECTION0 -->
+		     <!-- SECTION0 -->
+			  <a class="leftmenu" href="${url}">${content}</a> 
+		     <!-- /SECTION0 -->
+		     <!-- END SECTION0 -->
+		     <!-- BEGIN ACTIVESECTION0 -->
+		     <!-- ACTIVESECTION0 -->
+			  <a class="activeleftmenu" href="${url}">${content}</a> 
+		     <!-- /ACTIVESECTION0 -->
+		     <!-- END ACTIVESECTION0 -->
+		     <!-- BEGIN EXACTSECTION0 -->
+		     <!-- EXACTSECTION0 -->
+			  <a class="exactleftmenu" href="${url}">${content}</a> 
+		     <!-- /EXACTSECTION0 -->
+		     <!-- END EXACTSECTION0 -->
+		     <!-- BEGIN SECTION1 -->
+		     <!-- SECTION1 -->
+			  <a class="leftmenu" href="${url}">&nbsp;&nbsp;${content}</a> 
+		     <!-- /SECTION1 -->
+		     <!-- END SECTION1 -->
+		     <!-- BEGIN ACTIVESECTION1 -->
+		     <!-- ACTIVESECTION1 -->
+			  <a class="activeleftmenu" href="${url}">&nbsp;&nbsp;${content}</a> 
+		     <!-- /ACTIVESECTION1 -->
+		     <!-- END ACTIVESECTION1 -->
+		     <!-- BEGIN EXACTSECTION1 -->
+		     <!-- EXACTSECTION1 -->
+			  <a class="exactleftmenu" href="${url}">&nbsp;&nbsp;${content}</a> 
+		     <!-- /EXACTSECTION1 -->
+		     <!-- END EXACTSECTION1 -->
+		     <!-- BEGIN SECTION2 -->
+		     <!-- SECTION2 -->
+			  <a class="leftmenu" href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+		     <!-- /SECTION2 -->
+		     <!-- END SECTION2 -->
+		     <!-- BEGIN ACTIVESECTION2 -->
+		     <!-- ACTIVESECTION2 -->
+			  <a class="activeleftmenu" href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+		     <!-- /ACTIVESECTION2 -->
+		     <!-- END ACTIVESECTION2 -->
+		     <!-- BEGIN EXACTSECTION2 -->
+		     <!-- EXACTSECTION2 -->
+			  <a class="exactleftmenu" href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+		     <!-- /EXACTSECTION2 -->
+		     <!-- END EXACTSECTION2 -->
+		     <!-- BEGIN GENERIC_SECTION -->
+		     <!-- GENERIC_SECTION -->
+			  <a class="leftmenu" href="${url}"><!-- BEGIN GENERIC_SPACE --><!-- GENERIC_SPACE -->&nbsp;&nbsp;<!-- /GENERIC_SPACE --><!-- END GENERIC_SPACE -->${content}</a> 
+                     <!-- /GENERIC_SECTION -->
+		     <!-- END GENERIC_SECTION -->
+		     <!-- BEGIN GENERIC_ACTIVESECTION -->
+		     <!-- GENERIC_ACTIVESECTION -->
+			  <a class="activeleftmenu" href="${url}"><!-- BEGIN GENERIC_ACTIVESPACE --><!-- GENERIC_ACTIVESPACE -->&nbsp;&nbsp;<!-- /GENERIC_ACTIVESPACE --><!-- END GENERIC_ACTIVESPACE -->${content}</a> 
+                     <!-- /GENERIC_ACTIVESECTION -->
+		     <!-- END GENERIC_ACTIVESECTION -->
+		     <!-- BEGIN GENERIC_EXACTSECTION -->
+		     <!-- GENERIC_EXACTSECTION -->
+			  <a class="exactleftmenu" href="${url}"><!-- BEGIN GENERIC_EXACTSPACE --><!-- GENERIC_EXACTSPACE -->&nbsp;&nbsp;<!-- /GENERIC_EXACTSPACE --><!-- END GENERIC_EXACTSPACE -->${content}</a> 
+                     <!-- /GENERIC_EXACTSECTION -->
+		     <!-- END GENERIC_EXACTSECTION -->
+		<!-- /MENU -->
+		<!-- END MENU -->
+		</div>
+	</body>
+</html>

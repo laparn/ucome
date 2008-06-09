@@ -1,0 +1,305 @@
+<html><head><!-- $ Last Modified: $Date: 1996/08/13 02:11:09 $: --><title>Example Code - Socket server and client</title>
+
+<link rev="made" href="mailto:hops@sco.com"></head>
+
+
+<body bgcolor="#fffff0" text="#000000">
+
+<h1>
+Example Code - Socket server and client
+</h1>
+
+<p>
+This is code from a simple echo server and client posted to the Newsgroup by
+Ray Tripamer (ray@asci.com).  I've commented it to make it a little clearer
+why its doing what it is and to serve as something of an example of what
+you have to do to implement socket servers and clients in Tcl.
+</p>
+
+<h2> Echo Client</h2>
+This implements a client that opens a server connection, sends messages 
+from stdin, receives server replies and sends them to stdout. 
+
+<code>
+</code><pre>#!/usr/local/bin/tclsh7.5
+
+# Read data from a channel (the server socket) and put it to stdout
+# this implements receiving and handling (viewing) a server reply 
+proc read_sock {sock} {
+  set l [gets $sock]
+  puts stdout "ServerReply:$l"
+}
+
+# Read a line of text from stdin and send it to the echoserver socket,
+# on eof stdin closedown the echoserver client socket connection
+# this implements sending a message to the Server.
+proc read_stdin {wsock} {
+  global  eventLoop
+  set l [gets stdin]
+  if {[eof stdin]} {
+    close $wsock             ;# close the socket client connection
+    set eventLoop "done"     ;# terminate the vwait (eventloop)
+  } else {
+    puts $wsock $l           ;# send the data to the server
+  }
+}
+
+# open the connection to the echo server...
+set eshost "scoda"
+set esport 9999
+
+# this is a synchronous connection: 
+# The command does not return until the server responds to the 
+#  connection request
+set esvrSock [socket $eshost $esport]
+
+#if {[eof $esvrSock]} { # connection closed .. abort }
+
+# Setup monitoring on the socket so that when there is data to be 
+# read the proc "read_sock" is called
+fileevent $esvrSock readable [list read_sock $esvrSock]
+
+# configure channel modes
+# ensure the socket is line buffered so we can get a line of text 
+# at a time (Cos thats what the server expects)...
+# Depending on your needs you may also want this unbuffered so 
+# you don't block in reading a chunk larger than has been fed 
+#  into the socket
+# i.e fconfigure $esvrSock -blocking off
+
+fconfigure $esvrSock -buffering line
+
+# set up our keyboard read event handler: 
+#   Vector stdin data to the socket
+fileevent stdin readable [list read_stdin $esvrSock]
+
+# message indicating connection accepted and we're ready to go 
+puts "EchoServerClient Connected to echo server"
+puts "...what you type should be echoed."
+
+# wait for and handle either socket or stdin events...
+vwait eventLoop
+
+puts "Client Finished"
+
+</pre>
+
+Another option is to do an asynchronous client connection 
+<pre><code>
+set esvrSock [socket -async $eshost $esport]
+
+# .... do whatever that we can't connect synchronously... 
+
+# resync with the connection, 
+#Socket becomes writable when connection available
+fileevent $esvrSock writable { set connect 1 }
+vwait connect   
+    # will 'block' here till connection up (or eof or error)
+
+fileevent $esvrSock writable {}    ;# remove previous handler
+
+if {[eof $esvrSock]} { # connection closed .. abort }
+
+# set translation, buffering  and/or blocking modes
+fconfigure $esvrSock -translation {auto crlf} -buffering line
+    ...
+</code>
+</pre>
+
+
+
+
+<!---------------------------------------------------------------->
+<hr>
+
+<h2> Echo Server</h2>
+    Server that reflects its client messages back to the source
+
+<pre><code>
+#!/usr/local/bin/tclsh7.5
+
+set svcPort 9999
+
+# Implement the service
+# This example just writes the info back to the client...
+proc doService {sock msg} {
+    # puts $sock "echosrv:$l"
+     puts $sock "$l"
+}
+
+# Handles the input from the client and  client shutdown
+proc  svcHandler {sock} {
+  set l [gets $sock]    ;# get the client packet
+  if {[eof $sock]} {    ;# client gone or finished
+     close $sock        ;# release the servers client channel
+  } else {
+    doService $sock $l
+  }
+}
+
+# Accept-Connection handler for Server. 
+# called When client makes a connection to the server
+# Its passed the channel we're to communicate with the client on, 
+# The address of the client and the port we're using
+#
+# Setup a handler for (incoming) communication on 
+# the client channel - send connection Reply and log connection
+proc accept {sock addr port} {
+  
+  # if {[badConnect $addr]} {
+  #     close $sock
+  #     return
+  # }
+
+  # Setup handler for future communication on client socket
+  fileevent $sock readable [list svcHandler $sock]
+
+  # Read client input in lines, disable blocking I/O
+  fconfigure $sock -buffering line -blocking 0
+
+  # Send Acceptance string to client
+  puts $sock "$addr:$port, You are connected to the echo server."
+  puts $sock "It is now [exec date]"
+
+  # log the connection
+  puts "Accepted connection from $addr at [exec date]"
+}
+
+
+# Create a server socket on port $svcPort. 
+# Call proc accept when a client attempts a connection.
+socket -server accept $svcPort
+vwait events    ;# handle events till variable events is set
+
+</code>
+</pre>
+
+<!---------------------------------------------------------------->
+<hr>
+<h2>Background</h2>
+Heres some background from Jan Wieck (wieck@sapserv.debis.de)
+of the concepts involved with Socket library calls generally and 
+how that maps into Tcl. It may help illuminate some of the above.
+<p>
+     Socket below means STREAM socket in AF_INET (Internet domain)
+
+</p><p>    What's a socket?  A  socket  is  bidirectional  communication
+    channel.   Bidirectional,  because  it  allows  sending  and
+    receiving.  A socket is identified from the process point  of
+    view  by  a  handle (file descriptor in UNIX). On the network
+    side it's identified by a network host  address  AND  a  port  number.   
+    It's  created  by  the  system call socket(2). 
+    When  socket(2)  returns  a  valid  handle  (file  descriptor),  
+    it has already  assigned  the  network  address  and  a  dynamically
+    allocated port number that isn't in use by  another  socket  on
+    your  local system. This combination of host address and port
+    number is called the socket name.
+</p>
+
+<p>  To  connect  two  sockets,   to   form   something   like   a
+    bidirectional  pipe,  a program must call connect(2) with the
+    socket name of the remote socket given in  sockaddr.  Because
+    it's  very  difficult,  to  guess  the dynamic port number,
+    there is way to change the  'name' of a socket.
+    The system call to  do that is bind(2). 
+    Bind has some restrictions.  The port
+    number you want must not be in use by any other socket on the
+    local  system.  Thus,  it's guaranteed, that all socket names
+    all over the world are unique and name only one single handle
+    in  a process (as long as all the host addresses are unique).
+    Only  the superuser can bind to a port number below 1024 as these
+    are allocated as 'system' services and we don't want to allow
+    spoofing of these..
+</p>
+
+<p>  Since  normally a server is sitting somewhere around, waiting
+    for a client that wants to connect, it's usual  to  give  the
+    server  socket  a  fixed name. Fixed name in this case means,
+    that the server will create a  socket  and  bind  it  to  the
+    current  host  address  and  a  fixed  port  number. The file
+    /etc/services is a list of hopefully all  the  port numbers 
+    for standard services
+</p>
+
+<p>    So let's fire up the server.
+    </p><ul>
+    <li> The  server  process  first  calls  socket(2) to create a
+        socket with a partly random name.
+
+    </li><li> the server calls bind(2) to  give  the  socket  a
+        fixed name, that will be used later by the clients.
+
+    </li><li> Third, the server tells the kernel, that it is willing to
+        accept incoming connection requests by calling listen(2).
+
+    </li></ul>
+
+<p>   In Tcl, all the three steps are performed if you issue
+</p><pre>        socket -server {command} port
+</pre>
+    Port  must  be  the  port number the client will use in it's
+    connection request (see below).
+
+<p> What we now have is a server socket. Back to C.  This  socket
+    becomes  readable when a  client  wants to connect.  But the
+    readability in this case doesn't mean that you can read  data
+    from  it. It's a hack to tell the server process that there's
+    someone knocking at the door.  So let's take a  look  at  the
+    client.
+</p>
+
+<p>  A  client  process  too creates a socket. But it doesn't care
+    about the socket name (except for special purposes that  deal
+    with security).  So it leaves it untouched and directly tries
+    to establish the connection using connect(2). The  connect(2)
+    system  call  needs  the  remote  socket  name  of the server
+    socket. The server explicitly  'named' it's  socket (host+port),
+    so  this isn't any problem.
+</p>
+
+<p> At  this  moment,  the  server  socket  becomes readable. The
+    server now calls accept(2) on it's socket. accept(2)  creates
+    a  new socket, again with a dynamically assigned port number. This
+    new  socket  and  the  socket  in   the   client   form   the
+    bidirectional   pipe.  accept(2)  returns  the  handle  (file
+    descriptor) of the new socket and fills  a  buffer  with  the
+    socket name of the clients socket.
+</p>
+
+<p>  In  Tcl,  the two steps for the client (calling socket(2) and
+    connect(2)) are performed if you issue
+</p><pre>        socket host port
+</pre>
+
+<p>   What you might miss in Tcl  is  the  accept  step.  But  it's
+    there.   Because  accept(2) normally blocks until there is at
+    least one client that wants to connect, Tcl enforces that you
+    go  into the event driven world. After you created the server
+    socket, Tcl controls the readability of the server socket  in
+    it's  event loop. If it becomes readable, i.e. a client wants
+    to connect, Tcl does the accept(2) and calls command with all
+    the  information  given  by  accept(2).  So  command  will be
+    invoked one time for  every  client  that  connects  to  your
+    server.  But  this  requires, that the server get's back into
+    the event loop. So  you  have  to  switch  the  communication
+    socket  in the server (that one given as argument to command)
+    to nonblocking I/O and do everything in fileevent handlers.
+</p>
+
+<p> It  is  important,  that  a  server  process  is   completely
+    controlled by the event loop (default for Tk, using vwait in
+    Tcl).
+</p>
+
+
+
+<!---------------------------------------------------------------->
+<hr>
+<address>
+<a href="http://charmstr.pdev.sco.com/hops/hops.html">
+    <b>Hops</b></a>
+(<a href="mailto:hops@sco.com">hops@sco.com</a>)
+<i>$ Last Modified: $Date: 1996/08/13 02:11:09 $:</i>
+</address>
+
+</body></html>

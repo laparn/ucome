@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim: set syntax=html: -->
+<!-- yes, you may use another editor, but, vim is BETTER -->
+
+<!-- medianet/standard.tmpl -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=iso-8859-1" />
+    <link rel="stylesheet" type="text/css" href="fas:/template/medianet/css/medianet.css" title="Standard medianet stylesheet" />
+    <title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+  </head>
+
+  <body>
+<div class="bandeau">
+	<!-- div style="float: left;width: 224px; height: 72px; background-image: url(fas:/template/medianet/img/petit_logo_metz.png); background-repeat: no-repeat;"></div -->
+	<div >
+		<img style="float: left;" src="fas:/template/medianet/img/petit_logo_metz.png" alt=""><font style="font-size: 38px;">&nbsp; </font>
+		<strong style="vertical-align:middle;">
+			
+			<!-- BEGIN PATH --><!-- END PATH -->
+		</strong>
+
+	</div>
+</div>
+
+<div class="milieu">
+<!-- BEGIN CONTENT --><!-- END CONTENT -->
+</div>   
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+body {
+	background : #ffffff;
+	font-family : Verdana,Lucida,sans-serif;
+}
+
+body,tr,td {
+	font-size : 85%;
+}
+
+a {
+	color : #003399;
+	text-decoration : none;
+}
+
+a:hover {
+	text-decoration : underline;
+}
+
+tr.titleBarTop {
+	background : #003399;
+}
+
+tr.tableBody1 {
+	background : #eeeeee;
+}
+
+tr.tableBody2 {
+	background : #ffffff;
+}
+
+td.tableOutline1 {
+	background : #999999;
+}
+
+td.tableOutline2 {
+	background : #9999ff;
+}
+
+td.tableHead1 {
+	background : #dcdcdc;
+}
+
+tr.tableHead2 {
+	background : #ccccff;
+}
+
+td.footerOutline {
+	background : #a0b8c8;
+}
+
+tr.footerBody {
+	background : #ffffff;
+}
+
+.title {
+	font-size : 200%;
+	color : #ffffff;
+	font-weight : bold;
+}
+
+.heading {
+	font-size : 120%;
+	font-weight : bold;
+}

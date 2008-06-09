@@ -1,0 +1,40 @@
+Welcome to UCoMe
+
+''A small and efficient web content management system.''
+1. Features
+ * native management of text, html, gif, jpeg, png and pdf,
+ * integrated composite file type allowing to create small data sets in minutes,
+ * fas-converter allows management of word, excel and powerpoint files,
+ * full web management of files with user authorisations file by file, directory by directory,
+ * automatic generation of navigation from directory and file structure,
+ * to each file a set of variables is associated allowing simple and efficient extension programmation,
+ * wiki functions but with a much nicer look and a more organized structure of the site,
+ * a special mode allows to create "rolling" newspaper from the web content,
+ * fully internationalised (english and french today). Easy additions of new languages.
+
+''ORGANIZE KNOWLEDGE and INFORMATION SHARING QUICKLY AND EASILY THANKS TO UCOME.''
+2. Benefits
+ * Get informations organized and published on your intranet instantaneously,
+ * No tools required for publishing informations,
+ * Files get integrated in your intranet architecture immediatly,
+ * Put your files in their native format on your server, they are automatically converted and integrated in your site,
+ * Navigation in the site is automatically created from the place you dropped your file,
+ * After software installation, UCoMe will be immediatly useful,
+ * Allow everybody in your company to share their knowledge and informations,
+ * All the previous cost 0, but is worth 30000$/E anywhere else,
+
+ * Adapt the look in minutes,
+ * Each member of your company becomes the webmaster of its section.
+3. What is it?
+ * a content management software for heterogeneous documents only file based (no database to set up),
+ * full web. Non web documents will be automatically converted in web formats,
+ * for developpers, UCoMe is also a web application programming platform for and in tcl.
+4. Why was it created ?
+ * we needed a system for web site creations. It must be able to generate from the file / directory structure the whole site. It must be easy to manage, to save, to restore, to use for everybody.
+5. Why is it free ?
+ * Best things in life are free
+ * 'Free&ALter Soft'=http://freealter.com is a service company, not a pure editor. We also do not have the size and the power to market this software
+ * We use it to develop custom solutions for our customers. They want it to benefits to as much people as possible
+ * Customers are secured by the openness of the software
+ * Such an application needs adaptation and add-on. The best way to get as much as possible for everybody is to open the code
+ * We are a free / open software company, we benefit so much of the works of the other that we MUST give something back

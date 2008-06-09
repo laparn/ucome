@@ -1,0 +1,1 @@
+add.templatedir /template/linbox add.txt.perso_tcl /template/linbox/style/linbox_com_light.tcl add.pdf.cgi_uservar.txt.perso_tcl /template/linbox/style/linbox_com.tcl add.txt.ginclude_dir /template/linbox/part  add.pdf.cgi_uservar.txt.ginclude_dir /template/linbox/part-print

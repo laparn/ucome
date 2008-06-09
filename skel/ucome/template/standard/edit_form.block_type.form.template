@@ -1,0 +1,236 @@
+<!-- edit_form.block_type.form.tmpl -->
+<!-- BEGIN TOP_FORM -->
+<center><b>Editing form file : ${export_filename}</b><br>
+Current template is : ${form_template_name}<br></center>
+  <FORM ACTION="${FAS_VIEW_CGI}" METHOD=POST >
+    <INPUT TYPE="HIDDEN" NAME="file" VALUE="${export_filename}">
+    <INPUT TYPE="HIDDEN" NAME="action" VALUE="edit">
+    <INPUT TYPE="HIDDEN" NAME="template_name" VALUE="${form_template_name}">
+    <INPUT TYPE="HIDDEN" NAME="sub_action" VALUE="validate">
+<!-- END TOP_FORM -->
+<div align="center">
+<table border="0" cellpadding="0" cellspacing="0"><tr><td>
+    <!-- BEGIN BLOCK -->
+    <table bgcolor="#000000" cellpadding="1" cellspacing="0" border="0" width="100%">
+      <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#ffffff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td colspan="2"><font size="+1"><b>${block_name}</b></font></td>
+		 <td align="right"><select name="${block_name}">
+                   <!-- BEGIN OPTION -->
+                   <option>${block_type}
+		   <!-- END OPTION -->
+                   <!-- BEGIN OPTION_SELECTED -->
+                   <option selected>${block_type}
+		   <!-- END OPTION_SELECTED -->
+                   <!-- BEGIN CURRENT_OPTION -->
+                   <!-- END CURRENT_OPTION -->
+                 </td>
+               </tr>
+	       <tr>
+                 <td><input name="${block_name}.not_edit" value="1" type="checkbox" ${checked_no_edit}></td>
+		 <td>Not editable</td>
+	       </tr>
+                 <!-- BEGIN CURRENT_DISPLAY_OPTIONS -->
+                 <!-- END CURRENT_DISPLAY_OPTIONS -->   
+             </tbody>             
+           </table>
+         </td>
+       </tr>
+      </tbody>       
+    </table>
+    <!-- END BLOCK -->
+    <!-- BEGIN UNKNOWN_TEMPLATE_BLOCK -->
+    <table bgcolor="#000000" width="100%" cellpadding="1" cellspacing="0" border="0">
+      <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#e0e0ff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td colspan="3">Unknown template block</td>
+               </tr>
+               <tr>
+                 <td colspan="2"><font size="+1"><b>${block_name}</b></font></td>
+		 <td align="right"><select name="${block_name}">
+                   <!-- BEGIN CURRENT_OPTION -->
+                   <!-- END CURRENT_OPTION -->
+                 </td>
+               </tr>
+	       <tr>
+                 <td><input name="${block_name}.not_edit" value="1" type="checkbox" ${checked_no_edit}></td>
+		 <td>Not editable</td>
+               </tr>
+                 <!-- BEGIN CURRENT_DISPLAY_OPTIONS -->
+                 <!-- END CURRENT_DISPLAY_OPTIONS -->                      
+             </tbody>             
+           </table>
+         </td>
+       </tr>
+      </tbody>       
+    </table>
+    <!-- END UNKNOWN_TEMPLATE_BLOCK -->
+    <!-- BEGIN UNKNOWN_FORM_BLOCK -->
+    <table bgcolor="#000000" width="100%" cellpadding="1" cellspacing="0" border="0">
+      <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#ffa0a0" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td colspan="3">Block defined in the form but not in the template</td>
+               </tr>
+               <tr>
+                 <td colspan="2"><font size="+1"><b>${block_name}</b></font></td>
+		 <td align="right"><select name="${block_name}">
+                   <!-- BEGIN CURRENT_OPTION -->
+                   <!-- END CURRENT_OPTION -->
+                 </td>
+               </tr>
+	       <tr>
+                 <td><input name="${block_name}.not_edit" value="1" type="checkbox" ${checked_no_edit}></td>
+		 <td>Not editable</td>
+               </tr>
+                 <!-- BEGIN CURRENT_DISPLAY_OPTIONS -->
+                 <!-- END CURRENT_DISPLAY_OPTIONS -->                      
+             </tbody>             
+           </table>
+         </td>
+       </tr>
+      </tbody>       
+    </table>
+    <!-- END UNKNOWN_FORM_BLOCK -->
+    <!-- BEGIN BLOCK.PRINT -->
+    <table bgcolor="#000000" width="100%" cellpadding="1" cellspacing="0" border="0">
+      <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#ffffff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td><font size="+1"><b>${block_name}</b></font></td>
+		 <td align="right">${current_block_type}</td>
+               </tr>
+	       <tr>
+                 <td><img src="icons:${not_edit}.gif"></td>
+                 <INPUT TYPE="HIDDEN" NAME="${block_name}.no_edit" VALUE="${no_edit}">
+		 <td>Not editable</td>
+	       </tr>
+                 <!-- BEGIN CURRENT_DISPLAY_OPTIONS -->
+                 <!-- END CURRENT_DISPLAY_OPTIONS -->   
+             </tbody>             
+           </table>
+         </td>
+       </tr>
+      </tbody>       
+    </table>
+    <!-- END BLOCK.PRINT -->
+    <!-- BEGIN CURRENT_BLOCK -->
+    <!-- END CURRENT_BLOCK -->
+    <!-- BEGIN GENERIC_DISPLAY_OPTIONS -->
+    <!-- GENERIC_DISPLAY_OPTIONS -->
+                  <tr>
+                    <td><input name="${block_name}.width.here" value="1" type="checkbox" ${checked_width}></td>
+                    <td>Text entry width</td>
+                    <td align="right"><input name="${block_name}.width" value="$width" size="6"></td>
+                  </tr>
+                  <tr>
+                    <td><input name="${block_name}.height.here" value="1" type="checkbox" ${checked_height}></td>
+                    <td>Text area height</td>
+                    <td align="right"><input name="${block_name}.height" value="$height" size="6"></td>
+                  </tr>
+                  <tr>
+                    <td><input name="${block_name}.cols.here" value="1" type="checkbox" ${checked_cols}></td>
+                    <td>Text area width</td>
+                    <td align="right"><input name="${block_name}.cols" value="${cols}" size="6"></td>
+                  </tr>
+    <!-- /GENERIC_DISPLAY_OPTIONS -->
+    <!-- END GENERIC_DISPLAY_OPTIONS -->
+    <!-- BEGIN GENERIC_PRINT_OPTIONS -->
+    <!-- GENERIC_PRINT_OPTIONS -->
+                  <tr>
+                    <td>Text entry width : </td>
+                    <td><input name="${block_name}.width" value="${width}" type="hidden">${width}</td>
+                  </tr>
+                  <tr>
+                    <td>Text area height : </td>
+                    <td><input name="${block_name}.height" value="${height}" type="hidden" >${height}</td>
+                  </tr>
+                  <tr>
+                    <td>Text area width : </td>
+                    <td><input name="${block_name}.cols" value="${cols}" type="hidden">${cols}</td>
+                  </tr>
+    <!-- /GENERIC_PRINT_OPTIONS -->
+    <!-- END GENERIC_PRINT_OPTIONS -->
+    <!-- BEGIN BLOCK_DISPLAY_OPTIONS -->
+    <!-- BLOCK_DISPLAY_OPTIONS -->
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>Block to take the content from</td>
+                    <td align="right"><select name="${block_name}.block" >
+			<!-- BEGIN BLOCK_OPTION -->
+				<option>$block_name
+			<!-- END BLOCK_OPTION -->
+			<!-- BEGIN BLOCK_OPTION_SELECTED -->
+				<option selected>$block_name
+			<!-- END BLOCK_OPTION_SELECTED -->
+                        <!-- BEGIN CURRENT_BLOCK_OPTION -->
+			<!-- END CURRENT_BLOCK_OPTION -->
+			</select>
+                    </td>
+                  </tr>
+    <!-- /BLOCK_DISPLAY_OPTIONS -->
+    <!-- END BLOCK_DISPLAY_OPTIONS -->
+    <!-- BEGIN BLOCK_PRINT_OPTIONS -->
+    <!-- BLOCK_PRINT_OPTIONS -->
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>Block to take the content from</td>
+                    <td align="right">$block_name
+                    </td>
+                  </tr>
+    <!-- /BLOCK_PRINT_OPTIONS -->
+    <!-- END BLOCK_PRINT_OPTIONS -->
+    <!-- BEGIN FILE_DISPLAY_OPTIONS -->
+    <!-- FILE_DISPLAY_OPTIONS -->
+        <!-- FILE_DISPLAY_OPTION --><!-- BEGIN FILE_DISPLAY_OPTION -->
+                  <tr>
+                    <td><input name="${block_name}.${param}.here" value="1" type="checkbox" checked></td>
+                    <td>${param}</td>
+                    <td align="right"><input name="${block_name}.${param}" value="${content}" width="20"></td>
+                  </tr>
+	<!-- END FILE_DISPLAY_OPTION --><!-- /FILE_DISPLAY_OPTION -->
+        <!-- FILE_PRINT_OPTION --><!-- BEGIN FILE_PRINT_OPTION -->
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>${param}</td>
+                    <td align="right">${content}</td>
+                  </tr>
+	<!-- END FILE_PRINT_OPTION --><!-- /FILE_PRINT_OPTION -->
+        <!-- CURRENT_FILE_OPTION --><!-- BEGIN CURRENT_FILE_OPTION --><!-- END CURRENT_FILE_OPTION --><!-- /CURRENT_FILE_OPTION --> 
+    <!-- /FILE_DISPLAY_OPTIONS -->
+    <!-- END FILE_DISPLAY_OPTIONS -->
+</td></tr></table>
+</div>
+<!-- BEGIN BOTTOM_FORM -->
+<!-- /BOTTOM_FORM -->
+     <CENTER>
+	<TABLE>
+	  <TR>
+	    <TD>
+	      <input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+	     </TD>	     
+             <TD>
+               <a href="${FAS_VIEW_CGI}?action=edit_form&file=${export_filename}">
+		   <img src="${icons_url}/cancel.gif" border="0" alt="Annuler">
+		</a>
+             </TD>
+           </TR>
+        </TABLE>
+     </CENTER>
+   </form>
+<!-- /BOTTOM_FORM -->
+<!-- END BOTTOM_FORM -->

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!-- vim: set syntax=html: -->
+  <head>
+    <title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+    <!-- fr/prop_form_user.tmpl -->
+  </head>
+  <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+   <!-- fr/prop_form_user.tmpl -->
+   <!-- BEGIN FORM --><!-- /FORM -->
+   <div align="left">
+   <table bgcolor="#ffffff" border="0">
+	<tr>
+		<td bgcolor="#e0e0e0">Utilisateur</a></td>
+		<td ><a href="fas:${export_filename}&action=prop_form&level=webmaster">Webmaster</a></td>
+		<td ><a href="fas:${export_filename}&action=prop_form&level=admin">Administrateur</a></td>
+	</tr>
+   </table>
+   </div>
+   <table bgcolor="#e0e0e0" width="100%" cellpadding="1" cellspacing="0" border="0">
+     <tbody>
+       <tr>
+         <td>
+      	   <table bgcolor="#ffffff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td>                      
+                   <div align="Center">                   
+                     <h2>Propriétés de <b><!-- BEGIN FILENAME --><!-- END FILENAME --></b></h2>                    
+                     <form action="${FAS_VIEW_CGI}" method="Post">
+                       <input type="hidden" name="file" value="${export_filename}">
+                       <input type="hidden" name="action" value="prop">
+                       <input type="hidden" name="debug" value="$DEBUG">
+                       <table width="100%" border="1">
+                         <tr bgcolor="#e0e0e0">
+                           <td><b>Nom</b></td>
+                           <td><b>Description</b></td>
+                           <td><b>Her. ?</b></td>
+                           <td><b>Valeur héritée</b></td>
+                           <td><b>Pr. ?</b></td>
+                           <td><b>Valeur propre</b></td>
+		         </tr>
+                         <!-- BEGIN TYPE_LINE --><!-- TYPE_LINE -->
+                         <tr bgcolor="#e0e0e0">
+                           <td colspan="6"><b>Propriétés pour le type : <FONT COLOR="#0000FF">${TYPE}</FONT></b></td>
+                         </tr>
+                         <!-- /TYPE_LINE --><!-- END TYPE_LINE -->
+                         <!-- BEGIN PROP_LINE --><!-- PROP_LINE -->
+                         <tr>
+                           <td>${PROP_NAME}</td>
+                           <td>${PROP_DESCRIPTION}</td>
+                           <td><input type="checkbox" name="${COUNTER}_inhcbx" value="${INHERITED_FLAG}" ${I_FLAG_STRING}></td>
+                           <td>${INHERITED_VALUE}&nbsp;</td>
+                           <td><input type="checkbox" name="${COUNTER}_cbx" value="${LOCAL_FLAG}" ${L_FLAG_STRING}></td>
+                           <td><input name="${COUNTER}_val" value="${LOCAL_VALUE}" size="15"><input type="hidden" name="${COUNTER}_prop" value="${PROP_NAME}"></td>
+			 </tr>
+                         <!-- /PROP_LINE --><!-- END PROP_LINE -->
+                         <!-- BEGIN CURRENT_LINE --><!-- END CURRENT_LINE -->
+                       </table>
+                       <table>
+                         <tr>
+                           <td width="50%" align=right>
+                             <input type="image" name="Prop" src="${icons_url}/ok.gif" border="0">
+                           </td>
+                           <td width="50%" align="left">
+                             <a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}"><img src="${icons_url}/cancel.gif" border="0" alt="Annuler"></a>
+                           </td>
+                         </tr>
+                       </table>
+                     </form>
+    	               <!-- /FORM -->
+    	               <!-- END FORM -->
+                   </div>
+                   </td>
+                 </tr>
+               </tbody>             
+             </table>
+           </td>
+         </tr>
+       </tbody>       
+     </table>
+  </body>
+</html>

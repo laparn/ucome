@@ -1,0 +1,413 @@
+Tutoriel txt2ml
+
+
+
+txt2ml est un convertisseur texte vers html. Pour l'utiliser, tcl et la librairie tcLex doivent etre installés sur votre ordinateur.
+Usage : txt2ml -f nom_fichier_texte  (le résultat sera sur la sortie standard)
+ou	txt2ml -f nom_fichier_texte -o nom_fichier_html
+
+
+summary
+--
+
+1. Titres
+1.1. Titre du document
+La première ligne du document est considérée comme le titre de la page.
+
+1.2. Titre de section
+Les titres débutent par un nombre suivi d'un point (ex : "1. Titre paragraphe"). Un sous-titre débute par un nombre suivi d'un point puis d'un second nombre suivi d'un autre point (ex : "1.2. Sous-titre"). Et ainsi de suite pour les sous sous-titre. 
+
+
+2. Listes
+Elles commencent par un des symboles "+", "-", ou "*". Ce symbole est précédé pour un ou plusieurs espaces. Le nombre d'espaces correspond au niveau de liste.
+
+Exemple :
+"Les fruits proposés :
+|   |2 + pommes
+| |    |  - printanières
+| |    |  - tardives
+| |2 + poires  
+| |2 + abricots "
+
+deviendra
+
+Les fruits proposés :
+    + pommes
+	- printanières
+	- tardives
+    + poires
+    + abricots
+
+
+3. Images
+Les mots du texte dont l'extension est .gif, .jpg, .jpeg ou .png sont considérés comme des images et sont automatiquement chargées dans le document. 
+Exemple : "Ceci montre une image !new.gif" donnera "Ceci montre une image new.gif"
+
+Si le nom d'une image est seul sur une ligne alors cette image est chargée et se trouve centrée dans le document. Si la ligne suivante commence par le mot "Fig" alors cette ligne est considérée comme un commentaire de l'image précédente et se trouve centrée (comme l'image).
+Exemple :
+!new.gif
+Fig: Jolie image, n'est ce pas?
+deviendra
+new.gif
+Fig: Jolie image, n'est ce pas?
+
+Remarque : Pour qu'une image ne soit pas chargée dans le document, il suffit de placer un "!" devant son nom. Exemple : !!new.gif deviendra !new.gif .
+ 
+
+4. Liens
+4.1. Liens directs
+Les textes tels !http://www.freealter.com ou !ftp://ftp.lip6.fr sont transformés en liens cliquables vers l'adresse indiquée.
+Exemple : '!http://www.freealter.com ou !ftp://ftp.lip6.fr' deviendront http://www.freealter.com ou ftp://ftp.lip6.fr
+De même !file:/chemin/fichier deviendra un lien vers le fichier, !mailto:nom@adresse.org un lien pour un envoi de mail ou encore !news:nom.du.newsgroup pour un lien vers un newsgroup.
+Pour mettre un lien relatif, la syntaxe est !url:fichier . Par exemple !url:./tutoriel.html deviendra url:./tutoriel.html .
+ 
+4.2. Liens personnalisés
+Si vous souhaitez avoir votre propre texte pour le lien, il vous faut utiliser la syntaxe suivante : 'nom du lien'=lien; le nom du lien est entouré de simples cotes.
+ Ainsi le texte "Merci de visiter !'notre site'=http://www.freealter.com" apparaitra comme "Merci de visiter 'notre site'=http://www.freealter.com" ou encore "voici !'mon mail'=mailto:damien@chrisment.org" deviendra "voici 'mon mail'=mailto:damien@chrisment.org"
+Les apostrophes sont supportées dans le nom du lien (pas d'espace avant l'apostrophe). Exemple : "la météo !'l'été comme l'hiver'=http://www.meteo.fr" deviendra "la météo 'l'été comme l'hiver'=http://www.meteo.fr". 
+
+4.3. Remarque générale sur les liens
+Si vous souhaitez qu'un texte correspondant à un lien ne soit pas pris comme tel, vous devez faire précéder ce texte de "!". Ainsi "!!http://www.freealter.com" apparaitra sous la forme !http://www.freealter.com
+
+
+5. Barre de séparation
+Une ligne commencant par deux tirets "--" ou plus indique une barre de séparation.
+Exemple :
+ --
+donnera
+--
+
+
+6. Tableaux
+Le caractère permettant de créer des tableaux est le pipe "|".
+Un tableau commence par un certain nombre de "|". Ce nombre moins 1 correspond à l'épaisseur de la bordure du tableau (donc un seul pipe donne un tableau sans contour). 
+Chaque case du tableau est séparée par un "|". 
+Une ligne de texte correspond à une ligne de tableau. 
+Un tableau est fini quand on ne rencontre plus de lignes de texte débutant par un "|".
+
+Exemple : 
+ || case une | case 2 | case 3
+ | seconde ligne | case 2 |case 3
+ | dernière ligne | case 2 |case 3
+
+deviendra
+
+|| case une | case 2 | case 3
+| seconde ligne | case 2 |case 3
+| dernière ligne | case 2 |case 3
+
+
+Si une ligne de votre tableau n'a pas le meme nombre de cases que la première ligne alors elle est automatiquement complétée par des cases vides. 
+
+Exemple : 
+ || case une | case 2 | case 3
+ | seconde ligne
+ | dernière ligne | case 2 |case 3
+
+deviendra
+
+|| case une | case 2 | case 3
+| seconde ligne
+| dernière ligne | case 2 |case 3
+
+
+Les pipes du tableau peuvent être immédiatement suivis d'un nombre. Ce nombre correspond au nombre de colonnes que la case va occuper (par défaut pas de nombre = 1 colonne).
+
+Exemple : 
+ ||2 case double | case suivante | case 4
+ | seconde ligne | seconde case 
+ |3 case à 3 colonnes !new.gif
+ | dernière ligne |2 case double | dernière case
+
+deviendra
+
+||2 case double | case suivante | case 4
+| seconde ligne | seconde case 
+|3 case à 3 colonnes new.gif
+| dernière ligne |2 case double | dernière case
+
+Comme vous pouvez le constater sur l'exemple précédent, une case de tableau peut contenir des images (ou même des liens).
+
+
+7. Gras, Italique, Souligné, Barré
+Pour afficher un texte en  gras, italique, souligné, ou encore barré, il suffit de le placer entre un certain nombre de simples cotes (de chaque coté du texte!) :
+  - 2 simples cotes pour le mettre en ''gras''.
+  - 3 simples cotes pour le mettre en '''italique'''.
+  - 4 simples cotes pour le mettre en ''''souligné''''.
+  - 5 simples cotes pour le mettre en '''''barré'''''.
+
+Les gras, italique, souligné et barré fonctionnent sur plusieurs lignes.
+
+
+7. Sommaire
+Le sommaire du document avec liens vers les paragraphes peut être ajouté où vous le souhaitez dans le document html produit. Pour cela, la ligne de texte doit comporter uniquement le mot clé summary et celui ci doit être placé en début de ligne. 
+L'option -summary_level ou -s permet de régler le niveau de paragraphes (3 par défaut) à inclure dans le sommaire.
+
+
+7. Insertion de code html
+Des fichiers contenant du code html (par exemple un pied de page) peuvent etre insérés à l'endroit où vous le souhaitez. Pour cela, la ligne de texte doit commencer par le mot clé include suivit du nom d'un fichier possédant une extension .htm ou .html . Le contenu du fichier sera alors recopié à l'endroit courant.
+
+
+8. Texte préformaté
+Le marqueur de début et de fin de texte préformaté est une suite d'au moins 4 = qui se suivent en début de ligne.
+Exemple : 
+====
+ ====
+Ceci est un texte préformaté
+	sur plusieurs lignes
+	+ et l'ensemble du texte
+	+ reste tel quel
+ ====
+====
+
+deviendra :
+====
+Ceci est un texte préformaté
+	sur plusieurs lignes
+	+ et l'ensemble du texte
+	+ reste tel quel
+====
+
+8. Options
+8.1. Fond de page
+Pour ajouter un fond de page, vous pouvez utiliser l'option -background "fichier" (ou -bg "fichier") pour charger une image, ou bien -background "#abcdef" (-bg) avec abcdef correspondant à la valeur de votre couleur favorite.
+
+8.2. Titre
+Pour donner un titre à la page web, il y a l'option -title "nom du titre" (ou -t "nom du titre"). Si vous n'activez pas cette option alors la première ligne de votre fichier texte est considérée comme le titre du document.
+Par défaut le titre est aussi affiché centré en haut de la page web. Si vous souhaitez que le titre ne soit pas repris au début du document html alors vous pouvez utiliser l'option -no_title_inside ou -nti.
+
+8.3. Contenu
+Une liste des titres de section avec lien vers chacun de ses titres peut etre ajoutée en début (option -top_content ou -top) ou en fin (-bottom_content ou -bottom) du document html produit. Pour afficher cette liste en début ET en fin du document html on peut utiliser l'option -contents ou -ct.
+
+8.4. Feuilles de style
+Vous pouvez utiliser vos propres feuilles de style pour vos pages. L'option est -css "nom_du_fichier". Ce fichier doit commencer avec la balise <STYLE> et finir avec </STYLE> ou contenir un tag  <LINK>.
+
+8.5. Code pour insertion
+Il est possible de produire du code html sans les tags HTML, HEAD et BODY. Cela permet la création de fichiers html (par exemple un pied de page) que l'on pourra insérer dans d'autres pages grace à la commande include nom_fichier. L'option est -no_head ou -nh.
+
+8.6. Aide
+L'aide sur l'usage de txt2ml peut être affichée en utilisant l'option -help ou -h.
+
+
+9. Fonctionnalités avancées
+9.1. Tableaux
+Les tableaux présentés plus haut ont toutefois une limite. Ils ne peuvent pas contenir de listes, ni de tableaux (notamment car on a une ligne de tableau par ligne de texte). Pour palier à cela, on dispose d'une seconde sorte de tableaux avec une syntaxe quelque peu modifiée.
+
+Un tableau de ce type commence par la chaine "@@|". Comme dans les tableaux précédents, le nombre de pipes ("|") moins 1 indique l'épaisseur du contour du tableau. Ces pipes peuvent etre suivis par un nombre indiquant le nombre de colonnes occupées par la case. Chaque case est séparée par un "|". Pour avoir une case vide, placez un espace après le pipe de la case. Le nombre d'espace saisi entre 2 cases est pris en compte dans la largeur de la case.
+
+On passe à une nouvelle ligne de tableau à chaque fois qu'une ligne commence par la chaine "@|". Si une ligne n'a pas le meme nombre de cases que la première du tableau alors on la complète avec des cases vides.
+La chaine "|@@" correspond à la marque de fin du tableau.
+
+Si vous souhaitez placer une liste ou un autre tableau (obligatoirement un tableau dit évolué, pas un de la version de base) dans une case, vous devez placer cette case seule sur une ligne. Pour ajouter d'autres cases dans la meme ligne il vous suffit d'ajouter une ligne commençant avec un pipe. Pour marquer la fin d'une ligne de tableau, placez "@|" au début d'une nouvelle ligne de texte ou fermez la table courante par la chaine "|@@".
+
+Le contenu d'une case commence après le premier espace suivant le pipe. Ainsi, pour commencer une liste dans une case, n'oubliez pas d'ajouter un espace avant votre marqueur de liste (+,-,*).
+
+La compréhension sera plus facile avec des exemples : 
+
+Exemple 1 :
+
+"@@||2 Tableau évolué avec 2 tableaux à l'intérieur"
+"@| @@|3 tableau sans contour"
+"@| un | deux | trois"
+"@|3 3 cases pour moi"
+"|@@"
+"| @@||2 tableau de droite"
+"@| une | et deux"
+"@| !new.gif trois | quatre"
+"@|2 2 cases pour moi "
+"|@@"
+"|@@"
+
+donnera
+@@||2 Tableau évolué avec 2 tableaux à l'intérieur
+@| @@|3 tableau sans contour
+@| un | deux | trois
+@|3 3 cases pour moi
+|@@
+| @@||2 tableau de droite
+@| une | et deux
+@| new.gif trois | quatre
+@|2 2 cases pour moi 
+|@@
+|@@
+
+
+Exemple 2 : 
+
+"@@||2 Tableau second type"
+"@|  + liste dans un tableau"
+" + autre item"
+"   toujours dans le meme item"
+"   + sous liste"
+"| @@|||2 Nouveau tableau"
+"@|  une | deux"
+"@|2 double trois "
+"@|2 !new.gif quatre"
+"|@@	"
+"@|2 Waouuu c'est cool !!"
+"|@@	"
+
+deviendra
+@@||2 Tableau second type
+@|  + liste dans un tableau
+ + autre item
+   toujours dans le meme item
+   + sous liste
+| @@|||2 Nouveau tableau
+@|  une | deux
+@|2 double trois 
+@|2 new.gif quatre
+|@@	
+@|2 Waouuu c'est cool !!
+|@@	
+
+
+9.2. Option -perso
+Il est possible de modifier certaines propriétés de txt2ml. Cela est possible en indiquant votre propre fichier de personnalisation avec l'option -perso (ou -p) suivie du nom du fichier. Votre fichier perso doit toutefois respecter la syntaxe du fichier perso.tcl fourni en exemple avec txt2ml, fichier contenant une copie des valeurs utilisées par défaut. Cette option doit donc être utilisée avec précaution.
+
+
+10. Récapitulatif
+10.1. Options
+||2 Usage : txt2ml [OPTIONS]... -f nom_fichier_texte
+| -file, -f                   | Nom du fichier texte.
+| -output_file, -o            | Nom du fichier html produit. Par défaut le code html produit est envoyé sur la sortie standard.
+| -title, -t                  | Titre de la page web.
+| -no_title_inside, -nti      | Le titre de la page ne réapparait pas dans la page, mais il est toujours utilisé pour le marqueur de titre de page.
+| -no_auto_index, -nai        | La numérotation des titres n'est pas automatiquement générée. Les valeurs du fichier txt sont conservées.
+| -no_head, -nh		      | Pas de tags HTML, HEAD, BODY dans la page. Utilisé pour produire des fichiers que l'on peut inclure dans une autre page.
+| -background, -bg            | Fond de la page web. Pas de fond par défaut.
+| -css                        | Nom du fichier qui contient la définition de style. Ce fichier doit commencer par la balise <STYLE> et finir par </STYLE>, ou contenir une balise <LINK >.
+| -perso, -p                  | Nom du fichier tcl qui contient votre fichier de personnalisation. Attention : cette option n'est pas celle pour les feuilles de styles et n'est à utiliser que par des utilisateurs avertis.
+| -contents, -ct              | Ajoute des liens vers les différents paragraphes au sommet et au pied de la page. Option équivalente à -top_content -bottom_content.
+| -top_content, -top          | Ajoute au sommet de la page des liens vers les paragraphes.
+| -bottom_content, -bottom    | Ajoute au pied de la page des liens vers les paragraphes.
+| -summary_level, -s          | Niveau maximum de titres à inclure dans le sommaire. 3 par défaut.
+| -help, -h                   | Affiche l'aide.
+
+
+
+10.2. Equivalences texte-html
+@@|| TEXTE | HTML
+@| 1ere ligne du fichier		| Titre de la page
+@| 1. Titre paragraphe	                | Titre de paragraphe
+@| 3.2. Sous-Titre paragraphe	        | Sous-Titre de paragraphe
+@| Listes :
+
+"Les fruits proposés :
+@@|   |2 + pommes
+@| |    |  - printanières
+@| |    |  - tardives
+@| |2 + poires  
+@| |2 + abricots "
+|@@
+| 
+Les fruits proposés :
+    + pommes
+	- printanières
+	- tardives
+    + poires
+    + abricots
+@| Images :
+
+"Ceci montre une image !new.gif"
+"Ceci montre une image !!new.gif"
+
+"!new.gif"
+"Fig: Jolie image, n'est ce pas?"
+
+| 
+
+Ceci montre une image new.gif
+Ceci montre une image !new.gif
+
+new.gif
+Fig: Jolie image, n'est ce pas?
+(l'image et le commentaire sont centrés)
+@| 
+====
+''gras''
+
+'''italique'''
+
+''''souligné''''
+
+'''''barré'''''
+====
+|
+''gras''
+
+'''italique'''
+
+''''souligné''''
+
+'''''barré'''''
+
+@| Liens :
+
+"!http://www.freealter.com ou !ftp://ftp.lip6.fr"
+
+"!url:tutoriel.html ou !url:new.gif"
+
+"Merci de visiter !'notre site'=http://www.freealter.com"
+
+"!!http://www.freealter.com"
+|
+ http://www.freealter.com ou ftp://ftp.lip6.fr
+
+" url:tutoriel.html ou url:new.gif"
+
+Merci de visiter 'notre site'=http://www.freealter.com
+
+!http://www.freealter.com
+@| Barre de séparation
+"--"
+|
+--
+@| Tableaux simples
+
+"||2 case double | case suivante | case 4"
+"| seconde ligne | seconde case" 
+"|3 case à 3 colonnes !new.gif"
+"| dernière ligne |2 case double | dernière case"
+|
+@@||2 case double | case suivante | case 4
+@| seconde ligne | seconde case 
+@|3 case à 3 colonnes new.gif
+@| dernière ligne |2 case double | dernière case
+|@@
+@| summary
+| Inclu le sommaire à l'endroit courant
+@| "include toto.html"
+| Inclu le texte de toto.html à l'endroit courant
+@| -background "fichier" (ou -bg "fichier")
+-background "#abcdef" (-bg)
+| Charge une image de fond.
+Charge une couleur de fond.
+@| Tableaux évolués
+
+"@@||2 Tableau évolué avec 2 tableaux à l'intérieur"
+"@| @@|3 tableau sans contour"
+"@| un | deux | trois"
+"@|3 3 cases pour moi"
+"|@@"
+"| @@||2 tableau de droite"
+"@| une | et deux"
+"@| !new.gif trois | quatre"
+"@|2 2 cases pour moi "
+"|@@"
+"|@@"
+|
+@@||2 Tableau évolué avec 2 tableaux à l'intérieur
+@| @@|3 tableau sans contour
+@| un | deux | trois
+@|3 3 cases pour moi
+|@@
+| @@||2 tableau de droite
+@| une | et deux
+@| new.gif trois | quatre
+@|2 2 cases pour moi 
+|@@
+|@@
+
+|@@
+

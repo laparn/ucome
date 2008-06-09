@@ -1,0 +1,290 @@
+# Please only modify ucome.tcl.ori and use make to create the ucome.tcl file
+Url_PrefixInstall /ucome UCome
+
+set conf(tclhttpd) 1
+set FAS_VIEW_CGI ucome
+set FAS_UPLOAD_CGI ucomupload
+
+#set TCLHTTPD_FID [open /tmp/tclhttpd_start.log w]
+#puts $TCLHTTPD_FID "custom/ucome.tcl - starting at [clock format [clock seconds]]"
+
+set CONFDIR 
+if { [file readable [file join $CONFDIR conf.tcl]] } {
+	source [file join $CONFDIR conf.tcl]
+	# puts $TCLHTTPD_FID "custom/ucome.tcl - sourcing conf.tcl"
+} else {
+	set ROOT 
+
+	# FAS_PROG_ROOT is the directory where all tcl 
+	# procedures are stored
+	#set FAS_PROG_ROOT /home/ludo/source/mana/tcl
+	set FAS_VIEW_URL /${FAS_VIEW_CGI}
+	set FAS_VIEW_URL2 "http://[info hostname]/${FAS_VIEW_CGI}"
+}
+# puts $TCLHTTPD_FID "custom/ucome.tcl -\n\tROOT => $ROOT\n\tFAS_PROG_ROOT => $FAS_PROG_ROOT\n\tFAS_VIEW_URL => $FAS_VIEW_URL\n\tFAS_VIEW_URL2 => $FAS_VIEW_URL2"
+# close $TCLHTTPD_FID
+# I need to save it to re-initialise due to FAS_VIEW_URL
+# setting to FAS_VIEW_URL2 when transforming in pdf
+set FAS_VIEW_URL1 $FAS_VIEW_URL
+
+package require md5
+
+source ${FAS_PROG_ROOT}/fas_debug_procedures.tcl
+source ${FAS_PROG_ROOT}/fas_main_log.tcl
+source ${FAS_PROG_ROOT}/fas_basic_proc.tcl
+source ${FAS_PROG_ROOT}/atemt.tcl
+source ${FAS_PROG_ROOT}/fas_env.tcl
+source ${FAS_PROG_ROOT}/fas_name_and_dir.tcl
+source ${FAS_PROG_ROOT}/fas_menu.tcl
+source ${FAS_PROG_ROOT}/fas_display.tcl
+source ${FAS_PROG_ROOT}/fas_display_error.tcl
+source ${FAS_PROG_ROOT}/fas_session.tcl
+source ${FAS_PROG_ROOT}/fas_depend.tcl
+source ${FAS_PROG_ROOT}/fas_user.tcl
+source ${FAS_PROG_ROOT}/fas_openoffice.tcl
+source ${FAS_PROG_ROOT}/fas_stat.tcl
+source ${FAS_PROG_ROOT}/fas_init.tcl
+source ${FAS_PROG_ROOT}/fas_domp.tcl
+source ${FAS_PROG_ROOT}/fas_stat.tcl
+source ${FAS_PROG_ROOT}/fas_cache.tcl
+
+# source files for internationalization
+foreach file [glob -nocomplain ${FAS_PROG_ROOT}/i18n/*.tcl ] {
+	source $file
+}
+
+# All source files for handling different file types are source hereunder
+foreach file [glob -nocomplain ${FAS_PROG_ROOT}/mimeprocs/*.tcl ] {
+	#Stderr "custom/ucome.tcl - sourcing $file"
+	source $file
+}
+
+source ${FAS_PROG_ROOT}/fas_debug.tcl
+##################################################
+# Just to say that we are not here displayin a comp
+set IN_COMP 0
+set ERROR_LOOP 0
+array set _cgi_uservar [list]
+array set fas_env [list]
+
+# No data (pre or post) where loaded till now
+set post_data_loaded 0
+
+proc cgi_input { current_data } {
+	upvar $current_data data
+	global _cgi_uservar
+	global post_data_loaded 
+
+	if !$post_data_loaded {
+		array set _cgi_uservar [list]
+		if { [info exist data(query) ] } {
+			fas_debug "ucome.tcl::cgi_input - $data(query)"
+			foreach {name value} [Url_DecodeQuery $data(query)] {
+				set _cgi_uservar($name) "$value"
+			}
+		}
+	}
+	set post_data_loaded 0
+}
+
+# This file will generate the home page for the gerant and the webmaster
+proc UCome { sock suffix } {
+	upvar #0 Httpd$sock data
+	global conf
+	set conf(sock) $sock
+
+	# Now
+	set test "/any/index.txt"
+
+	global IN_COMP ERROR_LOOP
+	set IN_COMP 0
+	set ERROR_LOOP 0
+
+	global _cgi_uservar
+	global post_data_loaded
+	if { !$post_data_loaded } {
+		unset _cgi_uservar
+	}
+
+	global  FAS_VIEW_URL FAS_VIEW_URL1
+	set FAS_VIEW_URL $FAS_VIEW_URL1
+	
+	global fas_env
+	if { [info exists fas_env] } {
+		unset fas_env
+	}
+
+	init_debug
+	fas_init
+
+	# I startup all initialisation procedures
+	global filetype_list
+	foreach filetype $filetype_list {
+		if { [llength [info command ${filetype}::init]] > 0 }  {
+			fas_debug "ucome.tcl::UCome - ${filetype}::init"
+			${filetype}::init
+		}
+	}
+
+	cgi_input data
+
+	set file [fas_get_value file -noe -nos -default "$test"]
+	fas_debug "ucome.tcl - file -> $file"
+       	# I should do something here to ensure that file is within the tree
+       	# some cleaning procedure to avoid any attack to the file system.
+	set _cgi_uservar(file) $file
+	set file [add_root $file]
+	# I remove all .. of the filename, and check that
+	# it stays under $ROOT
+	set file [normalise $file]
+	# fas_debug_parray _cgi_uservar "ucome.tcl::UCome - all variables"
+	set action [fas_get_value action -noe -nos -default "view"]
+	set _cgi_uservar(action) "$action"
+	fas_debug "ucome.tcl - action -> $action"
+
+	if { ![check_root $file] } {
+		not_binary::content_display fashtml "<html><head><title>[translate "Error in "] ${FAS_VIEW_CGI}</title><body>[translate "You are not allowed to access this file"]<br></body></html>"
+	} else {
+		# now I extract the environment associated with the file
+		read_full_env $file fas_env
+		# Then I can get the session
+		if { [catch { fas_session::open_session fas_env } error_string ] } {
+			fas_display_error $error_string fas_env
+		}
+		# So from there, I have the following available arrays :
+		#   conf : all configuration info for the program
+		#   fas_env : variables associated with the current file
+		#   fas_session::session : session informations
+		#   _cgi_uservar : all variable imported
+		#   _cgi_cookie : all cookies imported
+
+		# Getting the current language
+		international::init_language [fas_get_value language -default en]
+		# I extract the filetype from the file extension
+		set filetype [guess_filetype $file conf fas_env]
+
+		# Who is asking for the file
+		fas_user::find_user_name
+		fas_stat::append_stat
+
+		# I am going to test if this action is or not allowed
+		if { ![fas_user::allowed_action $file $action fas_env] } {
+			fas_display_error "[translate "Sorry, you are not allowed to "] [translate $action] $file" fas_env
+		} else {
+			# and now I display
+			if { [fas_depend::check_complete_dependencies $file fas_env] } {
+				# and now I display
+				if { [catch { display_file $filetype $file fas_env conf } error] } {
+					if { $error == "fas_exit" } {
+						return ""
+					} else {
+						not_binary::content_display txt "<center><h1>An error just occured</h1></center><pre>$error</pre>"
+					}
+				}
+			} else {
+				set final_filetype [fas_depend::get_final_filetype fas_env $file]
+				if { $final_filetype == "" } {
+					if { [catch { display_file $filetype $file fas_env conf } error] } {
+						if { $error == "fas_exit" } {
+							return ""
+						} else {
+							not_binary::content_display txt "<center><h1>An error just occured</h1></center><pre>$error</pre>"
+						}
+					}
+				} else {
+					set final_filename [fas_depend::get_final_filename]
+					main_log "Using cache for direct display of [rm_root $file] in $final_filetype"
+					# For get_real_filename to take directly
+					# the cache_name, I need to have a list
+					# with at least 2 elements.
+					lappend conf(filetype_list) "$final_filetype" "$final_filetype" 
+					if { $final_filename != "" } {
+						binary::display_cache $final_filetype $final_filename fas_env 
+					} else {
+						if { [catch { display_file $filetype $file fas_env conf } error] } {
+							if { $error == "fas_exit" } {
+								return ""
+							} else {
+								not_binary::content_display txt "<center><h1>An error just occured</h1></center><pre>$error</pre>"
+							}
+						}
+					}
+				}
+			}
+		}
+		# and I save the session
+		catch { fas_session::write_session }
+	}
+	end_debug
+}
+
+# Now dealing with upload - I need to have the session directory,
+# to use it to store files temporarily there
+read_full_env $ROOT fas_env
+parray fas_env
+# Now get the session_dir
+set session_dir [add_root [fas_name_and_dir::get_session_dir]]
+# Now a upload domain
+package require httpd::upload
+puts "$session_dir"
+Upload_Url /ucomupload $session_dir UCome_upload -maxbytes 10000000 -maxfiles 100000
+
+# Now I need to define what will do the call back function
+proc UCome_upload { file_list value_list args } {
+	init_debug
+	fas_init
+	global conf
+	set conf(sock) [Httpd_CurrentSocket]
+
+	puts "UCOme_upload : file_list $file_list -- value_list $value_list -- args $args"
+	Stderr "UCOme_upload : file_list $file_list -- value_list $value_list -- args $args"
+	fas_debug "UCOme_upload : file_list $file_list -- value_list $value_list -- args $args"
+	set test "/any"
+	global _cgi_uservar
+	foreach {key value} $value_list {
+		set _cgi_uservar($key) $value
+		puts "ucome.tcl::UCome_upload $key -> $value"
+		fas_debug "ucome.tcl::UCome_upload $key -> $value"
+		Stderr "ucome.tcl::UCome_upload $key -> $value"
+	}
+	set file [fas_get_value file -noe -nos -default "$test"]
+	puts "ucome.tcl - file -> $file"
+	fas_debug "ucome.tcl - file -> $file"
+	Stderr "ucome.tcl - file -> $file"
+	set file [add_root $file]
+
+	# file is here a directory, where I should put the files. But first, do I have
+	# the right to do that ?
+	global fas_env
+	read_full_env $file fas_env
+
+	# Am I allowed to upload files there ?
+	fas_user::find_user_name
+	if { ![fas_user::allowed_action $file upload fas_env] } {
+		#return "You are not allowed to upload files !!"
+		set message "You are not allowed to upload files !!"
+	} else {
+		# So I am allowed, then I copy the files in this directory
+		set message ""
+		foreach { donotknow current_file } $file_list {
+			fas_debug "ucome.tcl::UCome_upload - $donotknow -> $current_file"
+			set real_filename [file join [add_root [::fas_name_and_dir::get_session_dir]] $current_file]
+			fas_debug "ucome.tcl::UCome_upload - file rename -force $real_filename $file"
+			file rename -force $real_filename $file
+			append message "[translate "Uploaded"] $current_file<br>"
+		}
+	}
+	set _cgi_uservar(message) $message
+	set _cgi_uservar(action) view
+	#puts "message -> $message"
+	Stderr "message -> $message"
+	#return $message
+	# So now I must display the file with a message
+	# What is the current socket ?
+	global post_data_loaded
+	set post_data_loaded 1
+
+	UCome $conf(sock) ""
+	# I should add a call to Ucome here to be seen
+}	
+

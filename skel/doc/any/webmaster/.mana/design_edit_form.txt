@@ -1,0 +1,1 @@
+menu.name "Design of edit form" menu.order 8

@@ -1,0 +1,4 @@
+global.template standard_todo.template global.title "Block definitions for the template for looking at a text file with a todo list after that" global.title.fr "Définition des blocs pour le canevas permettant de visualiser un fichier texte avec une liste à faire derrière" title.type file title.cgi_uservar.action title menu.type file menu.cgi_uservar.action menu content.type html todo.type file todo.cgi_uservar.action edit_form todo.cgi_uservar.noadd 1 todo.cgi_uservar.dir.title "A faire" todo.cgi_uservar.filename "/any/todo" todo.cgi_uservar.display "comp_elt.date.content,comp_elt.title.content" todo.cgi_uservar.dir.comp.desired_type todo todo.cgi_uservar.dir.template dir_todo_index_view.template allow.type file allow.cgi_uservar.action show_action_list whoami.type file whoami.cgi_uservar.action whoami
+
+
+

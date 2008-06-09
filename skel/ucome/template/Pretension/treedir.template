@@ -1,0 +1,95 @@
+<!-- vim: set syntax=html: -->
+<!-- vim: set ts=1: -->
+<!-- yes, you may use another editor, but, vim is BETTER -->
+<html>
+ <head>
+  <title>
+			<!-- BEGIN TITLE -->TITRE<!-- END TITLE -->
+  </title>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+ </head>
+
+ <body>
+		<!-- Pretension/treedir.tmpl --> 
+		<!-- BEGIN DIRTREE -->
+		<!-- DIRTREE -->
+     <table bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+       <td>
+        <table border="0" cellpadding="3" cellspacing="1" width="100%">
+         <tr>
+          <td bgcolor="#cccccc">
+           &nbsp;<span class="title">Tree</span>
+          </td>
+         </tr>
+         <tr>
+          <td bgcolor="#ffffff">
+		     				<!-- BEGIN DIR -->
+		     				<!-- DIR -->
+			  						&nbsp;<span class="small">
+											<!-- BEGIN SPACE --><!-- SPACE -->&nbsp;|&nbsp;<!-- /SPACE --><!-- END SPACE -->
+											</span><a class="nav" href="${url}"><IMG SRC="${icons_url}/folder.gif" BORDER="0">${content}</a> 
+           <br />
+		     				<!-- /DIR -->
+		     				<!-- END DIR -->
+											<!-- BEGIN ACTIVEDIR -->
+											<!-- ACTIVEDIR -->
+			  						&nbsp;<span class="small">
+											<!-- BEGIN ACTIVESPACE --><!-- ACTIVESPACE -->&nbsp;|&nbsp;<!-- /ACTIVESPACE --><!-- END ACTIVESPACE -->
+											</span><a class="nav" href="${url}"><IMG SRC="${icons_url}/folder.open.gif" BORDER="0">${content}</a> 
+           <br />
+											<!-- /ACTIVEDIR -->
+											<!-- END ACTIVEDIR -->
+											<!-- BEGIN EXACTDIR -->
+											<!-- EXACTDIR -->
+			  						&nbsp;<span class="small">
+											<!-- BEGIN EXACTSPACE --><!-- EXACTSPACE -->&nbsp;|&nbsp;<!-- /EXACTSPACE --><!-- END EXACTSPACE -->
+											&gt;&gt;</span><a class="nav" href="${url}"><IMG SRC="${icons_url}/folder.open.gif" BORDER="0">${content}</a> 
+           <br />
+											<!-- /EXACTDIR -->
+											<!-- END EXACTDIR -->
+											<!-- BEGIN CURRENTDIR -->
+											<!-- END CURRENTDIR -->
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+					<br />
+		<!-- /DIRTREE -->
+		<!-- END DIRTREE -->
+		<!-- BEGIN CACHE -->
+     <table bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+       <td>
+        <table border="0" cellpadding="3" cellspacing="1" width="100%">
+         <tr>
+          <td bgcolor="#cccccc">
+           &nbsp;<span class="title">Actions</span>
+          </td>
+         </tr>
+         <tr>
+          <td bgcolor="#ffffff">
+			  						&nbsp;<span class="small">o</span>
+											<a class="nav" href="fas:${export_filename}&action=clean_cache_form">Clean the cache</a>
+           <br />
+											&nbsp;<span class="small">o</span>
+											<a class="nav" href="fas:${export_filename}&action=flatten">Flatten the site</a>
+											<br />
+											&nbsp;<span class="small">o</span>
+											<a class="nav" href="fas:${export_filename}&action=txt4index_tree">Prepare indexing</a>
+											<br />
+											&nbsp;<span class="small">o</span>
+											<a class="nav" href="fas:${export_filename}&action=create_index">Index</a>
+											<br />
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+					<br />
+	</body>                  
+</html>                    
+

@@ -1,0 +1,61 @@
+<html>
+<!-- vim: set syntax=html: -->
+  <head>
+    <title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+    <!-- form.view.tmpl -->
+  </head>
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+        <!-- form.view.tmpl -->
+	<div align=center>
+		<h1>
+			<!-- BEGIN TOP_TITLE -->
+			<!-- TOP_TITLE -->
+			<!-- /TOP_TITLE -->
+			<!-- END TOP_TITLE -->
+		</h1>
+	</div> 
+        <div align=center>
+                <table>
+                        <tr bgcolor=#E0E0E0>
+                                <td>
+                                        <b>Name</b>
+                                </td>
+                                <td>
+                                        <b>Value</b>
+                                </td>
+                        </tr>
+                        <!-- BEGIN VALUE_LIST -->
+                        <!-- VALUE_LIST -->
+                        <tr bgcolor=#C0FFC0>
+                                <td>
+                                       $name 
+                                </td>
+                                <td>
+                                        $content
+                                </td>
+                        </tr>
+                        <!-- /VALUE_LIST -->
+                        <!-- END VALUE_LIST -->
+                        <!-- BEGIN VALUE_LIST_ODD -->
+                        <!-- VALUE_LIST_ODD -->
+                        <tr bgcolor=#FFC0FF>
+                                <td>
+                                       $name 
+                                </td>
+                                <td>
+                                        $content
+                                </td>
+                        </tr>
+                        <!-- /VALUE_LIST_ODD -->
+                        <!-- END VALUE_LIST_ODD -->
+			<!-- BEGIN ALL_VALUE_ROWS -->
+			<!-- ALL_VALUE_ROWS -->
+				<!-- BEGIN VALUE_ROW -->
+				<!-- END VALUE_ROW -->
+			<!-- /ALL_VALUE_ROWS -->
+			<!-- END ALL_VALUE_ROWS -->
+                </table>
+        </div>
+</body>
+</html>

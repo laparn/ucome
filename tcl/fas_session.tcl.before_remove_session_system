@@ -1,0 +1,315 @@
+# Session management with cgi.tcl
+# fas_env.tcl and cgi.tcl must be called before
+# The key session_dir must be defined in fas_env
+# Usage is the following :
+# Opening of a session :
+#  fas_session::open_session fas_env
+# If the session does not exist, it is created.
+# Then setting session variables :
+#  fas_session::setsession keyname value
+# You get the values in asking for :
+#  puts "$fas_session::session(keyname)"
+# Or :
+#  puts "[fas_session::setsession keyname]"
+# Finally at the end, the values must be stored
+#  fas_session::write_session
+# There is also a trick for having a string with all session variables
+# It is similar to ?xxx=yyy&zzz=www in a cgi call.
+#  fas_session::session_string
+# The idea is to use that when storing a file to change the name
+# it should allow to cache files using different session parameters
+
+# On start, I was always creating a lock file for a session filename.
+# It is just filing the session directory with useless empty files.
+# So I am going to try the following strategy :
+#  * I do not create a lock file.
+#  * If there is a demand for the same session but the file does not
+#    exist then I consider that there are no session variables
+#  * I will only write a session file if there are real session variables.
+# If this variable is set to 1 then sesssion is used
+# else it is fully neutral
+set conf(system.session) 1
+namespace eval fas_session {
+	global ::DEBUG_PROCEDURES
+	eval $::DEBUG_PROCEDURES
+
+	variable session
+	variable session_name
+	variable session_file_name
+	variable new_session
+
+	# session is an array
+	array unset session 
+	array set session ""
+	set new_session 0
+
+	proc init { } {
+		variable session
+		array unset session 
+		set new_session 0
+		array set session ""
+	}
+
+	# The goal here is to get all variables from a session
+	# or to create a new session and session file
+	# I suppose that I have a session directory.
+	# Variables will be stored in a file session,
+	# and will search in a variable or a cookie a fas_session string.
+	# This string will be the session name.
+	proc open_session { current_fas_env } {
+		fas_debug "fas_session::open_session - starting"
+		global conf
+		if { $conf(system.session) } {
+			upvar $current_fas_env fas_env
+			variable session_name
+			variable session_file_name
+			variable new_session
+			set session_name ""
+			set session_file_name ""
+			# Doest the fas_env(session_dir) variable exists ?
+			set session_dir [fas_name_and_dir::get_session_dir]
+			# OK I continue
+			# First, I try to import a fas_session variable
+			if { [catch { cgi_import fas_session } ] } {
+				# no fas_session found
+				# if { [catch { cgi_import_cookie fas_session } ] } 
+				# if there is no fas_session there must be an error
+				#global _cgi_cookie
+				#fas_debug_parray _cgi_cookie "fas_session::open_session - _cgi_cookie"
+				#set fas_session [fas_get_cookie fas_session]
+				if { [catch { set fas_session [fas_get_cookie fas_session] } cookie_error ] } {
+					# always no fas_session, then I create one
+					# it will be pid _ date
+					fas_debug "fas_session::open_session - no fas_session cookie found - error in fas_get_cookie : $cookie_error"
+					set session_name "[clock seconds]_[pid]_[expr int(100000000 * [string trimleft [expr rand()] 0])]"
+					# I test if it previously exists or not
+					set session_file_name [add_root [file join $session_dir $session_name]]
+					while { [file readable  $session_file_name ] } {
+						set session_name "[clock seconds]_[pid]_[expr int(10000000000 * rand())]"
+						set session_file_name [add_root [file join $session_dir $session_name]]
+					}
+					# I do not lock the file
+					# Now I lock the file
+					#set fid [open $session_file_name w]
+					#close $fid 
+					set new_session 1
+					fas_debug "fas_session::open_session - new session file : $session_file_name"
+				} else {
+					# I can import the session variables
+					set session_name $fas_session
+					set session_file_name [add_root [file join $session_dir $session_name]]
+					fas_debug "fas_session::open_session -1-$new_session - reading existing session file : $session_file_name"
+					read_session
+					set new_session 0
+				}
+			} else {
+				set session_name $fas_session
+				set session_file_name [add_root [file join $session_dir $session_name]]
+				fas_debug "fas_session::open_session - reading existing session file : $session_file_name"
+				read_session
+			}
+			fas_debug "fas_session;;open_session - new_session => $new_session"
+		}
+	}
+
+	# Now put in session all session variables
+	proc read_session { } {
+		global ::conf
+		if { ${::conf(system.session)} } {
+			variable session_file_name
+			variable session
+
+			if { $session_file_name != "" } {
+				if { [file readable $session_file_name] } {
+					if { [catch {read_env $session_file_name session}] } {
+						# I consider that it is an empty session
+						#error "fas_session::read_session - problem reading $session_file_name"
+						fas_debug "fas_session::read_session - cookie found but no session file and then no session variables"
+					} else {
+						fas_debug_parray session "fas_session::read_session - session"
+					}
+				}
+			}
+		}
+	}
+
+	# Write all sessions variables
+	proc write_session { } {
+		global ::conf
+		#puts "fas_session::write_session - entering write_session"
+		if { $conf(system.session) } {
+			variable session_file_name
+			variable session
+			#puts "fas_session::write_session - found $conf(system.session) - session_file_name is -- $session_file_name --"
+			
+			if { $session_file_name != "" } {
+				#puts "fas_session::write_session - going to write"
+				if { [llength [array names session]] == 0 } {
+					if { [file exists $session_file_name] } {
+						# Nothing in the session, I suppress everything
+						catch {file delete $session_file_name}
+					}
+				} else {
+					if { [catch { write_env $session_file_name session } ] } {
+						error "fas_session::write_session - problem writing $session_file_name"
+					}
+				}
+				#puts "fas_session::write_session - session written in $session_file_name"
+			}
+		}
+	}
+
+	# set a session variable
+	proc setsession { key args } {
+		global ::conf
+		if { $conf(system.session) } {
+			variable session
+
+			if { [llength $args] == 0 } {
+				if { [info exists session($key)] } {
+					return $session($key)
+				} else {
+					error "No session variable"
+				}
+			} else {
+				set session($key) [lindex $args 0]
+				return $session($key)
+			}
+		}
+	}
+
+	# Is it a session variable ?
+	proc exists { key } {
+		global ::conf
+		if { $conf(system.session) } {
+			variable session
+			if { [array name session $key] != "" } {
+				return 1
+			} else {
+				return 0
+			}
+		} else {
+			return 0
+		}
+	}
+
+	# Unset a session variable
+	proc unsetsession { key } {
+		global ::conf
+		if { $conf(system.session) } {
+			variable session
+			if { [exists $key] } {
+				unset session($key)
+			}
+		}
+	}
+
+		
+		
+	# Export session_name in a cookie
+	proc export_session { } {
+		variable session_name
+		variable new_session
+		fas_debug "fas_session::export_session - entering - new_session => $new_session"
+		if { $new_session } {
+			fas_debug "fas_session::export_session new session - export the cookie"
+
+			fas_set_cookie fas_session $session_name
+			
+		}
+	}
+		
+	# From a session array create a string to identify it
+	# In order to cache strings - only session important variables
+	# for a filetype are used
+	proc session_string { filetype } {
+		variable session
+		# First I get the list of important keys
+		if { [llength [info commands ${filetype}::important_session_keys]] == 1 } {
+			set session_keys [${filetype}::important_session_keys]
+		} else {
+			set session_keys ""
+		}
+		
+		# First I create a list of sublist (key / value)
+		# Then I order by key
+		# finally, I convert all that in something close to web
+		# import format
+		
+		# First list of sublist (key value)
+		set result ""
+		set counter 0
+		foreach  key $session_keys  {
+			if { [info exists session($key)] } {
+				lappend result "[list $key $session($key)]"
+				incr counter
+			}
+		}
+		if { $counter != 0 } {
+			# Then I order by key
+			set in [lsort -index 0 $result]
+
+			# Then convert it
+			# Directly stolen in cgi.tcl
+			regsub -all " " $in "+" in
+			regsub -all "%" $in "%25" in   ;# must preceed other subs that produce %
+			regsub -all ";" $in "%3B" in
+			regsub -all "," $in "%2C" in
+			regsub -all "\n" $in "%0D%0A" in
+			# I do not know the number here it is not 24, I should change
+			regsub -all "/" $in "+" in
+			regsub -all {[\\]} $in "+" in
+		} else {
+			set in ""
+		}
+
+		return $in		
+	}
+}	
+			
+# From an array create a string to identify it
+# In order to cache strings
+proc array_string { array_name } {
+
+	# if the array does not exists, I send back nothing
+	if { [catch { upvar $array_name current_array }]} {
+		return ""
+	}
+
+	# First I create a list of sublist (key / value)
+	# Then I order by key
+	# finally, I convert all that in something close to web
+	# import format
+	
+	# First list of sublist (key value)
+	set result ""
+	set counter 0
+	foreach { key value } [array get current_array] {
+		# But not the file
+		if { $key != "file" && $key != "fas_session" && $key != "order" } {
+			lappend result [list $key $value]
+			incr counter
+		}
+	}
+	if { $counter != 0 } {
+		# Then I order by key
+		set in [lsort -index 0 $result]
+
+		# Then convert it
+		# Directly stolen in cgi.tcl
+		regsub -all " " $in "+" in
+		regsub -all "%" $in "%25" in   ;# must preceed other subs that produce %
+		regsub -all ";" $in "%3B" in
+		regsub -all "," $in "%2C" in
+		regsub -all "\n" $in "%0D%0A" in
+		# I do not know the number here it is not 24, I should change
+		regsub -all "/" $in "+" in
+		regsub -all {[\\]} $in "+" in
+	} else {
+		set in ""
+	}
+
+	return $in		
+}
+
+		

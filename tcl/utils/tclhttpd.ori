@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# tclhttpd
+#
+
+NAME=tclhttpd
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DAEMON
+PIDFILE=/var/run/$NAME.pid
+
+trap "" 1
+export LANG=C
+export PATH
+
+case "$1" in
+  start)
+    echo -n "Starting web server: $NAME"
+    start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON
+    ;;
+
+  stop)
+    echo "Stopping web server: $NAME"
+    echo "killing process n° `ps ax | grep "httpd.tcl" | grep -v grep | grep 8017 | mawk '{print $1}'`"
+    kill -9 `ps ax | grep "httpd.tcl" | grep -v grep | grep 8017 | mawk '{print $1}'`
+    echo "killing process n° `ps ax | grep "httpd.tcl" | grep -v grep | mawk '{print $1}'`"
+    kill -9 `ps ax | grep "httpd.tcl" | grep -v grep | mawk '{print $1}'`
+    echo "killing process n° `ps ax | grep "ftpd-ucome" | grep -v grep | mawk '{print $1}'`"
+    kill -9 `ps ax | grep "ftpd-ucome" | grep -v grep | mawk '{print $1}'`
+
+    ;;
+
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop}"
+    exit 1
+    ;;
+esac
+
+if [ $? == 0 ]; then
+	echo .
+	exit 0
+else
+	echo failed
+	exit 1
+fi

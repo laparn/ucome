@@ -1,0 +1,11 @@
+    <form action="${FAS_VIEW_CGI}" method="post">
+      <div id="headerSearch">
+        <input type="hidden" name="file" value="${export_filename}" />
+	<input type="hidden" name="action" value="search" />
+        <input type="text" name="search_string" value="Search ..."
+               onFocus="if (this.value == 'Search ...') this.value=''; else this.select();"
+               onBlur="if (this.value == '') this.value='Search...';" />
+        <input type="submit" id="submit" value="GO" />
+      </div>
+    </form>
+

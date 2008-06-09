@@ -1,0 +1,64 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="fas:/template/standard/css/standard.css" title="Blue standard" />
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+
+	<body>
+	        <!-- standard/full_menu.template -->
+		<!-- BEGIN MENU --><!-- MENU -->
+          	  <H1>Plan du site - Test</H1>
+                     <div id='menuMarker'>&nbsp;</div>
+		     <!-- BEGIN MENU_ENTRY -->
+		     <!-- END MENU_ENTRY -->
+
+		     <!-- The same thing but for a new menu system based on numbers -->
+		     <!-- BEGIN LEVEL_START0 --><!-- LEVEL_START0 --><ul id="myMenu1" class="myBar"><!-- /LEVEL_START0 --><!-- END LEVEL_START0 -->
+		     <!-- BEGIN LEVEL_START --><!-- LEVEL_START --><ul  class='myBox'><!-- /LEVEL_START --><!-- END LEVEL_START -->
+		     <!-- BEGIN LEVEL_END --><!-- LEVEL_END --></ul><!-- /LEVEL_END --><!-- END LEVEL_END -->
+		     <!-- BEGIN SECTION0 -->
+		     <!-- SECTION0 -->
+			  <li><a href="${url}">${content}</a></li>
+                     <!-- /SECTION0 -->
+		     <!-- END SECTION0 -->
+		     <!-- BEGIN SOURCE_SECTION0 -->
+		     <!-- SOURCE_SECTION0 -->
+			  <li><a class='myBarLblA' href="${url}">${content}</a></li>
+                     <!-- /SOURCE_SECTION0 -->
+		     <!-- END SOURCE_SECTION0 -->
+		     <!-- BEGIN ACTIVESECTION0 -->
+		     <!-- ACTIVESECTION0 -->
+			  <li><a class='myBarLblA' href="${url}">${content}</a></li>
+                     <!-- /ACTIVESECTION0 -->
+		     <!-- END ACTIVESECTION0 -->
+		     <!-- BEGIN EXACTSECTION0 -->
+		     <!-- EXACTSECTION0 -->
+			  <li><a class='myBarLblA' href="${url}">${content}</a></li>
+                     <!-- /EXACTSECTION0 -->
+		     <!-- END EXACTSECTION0 -->
+		     <!-- BEGIN GENERIC_SECTION -->
+		     <!-- GENERIC_SECTION -->
+			  <!-- BEGIN GENERIC_SPACE --><!-- GENERIC_SPACE --><!-- /GENERIC_SPACE --><!-- END GENERIC_SPACE --><li><a href="${url}">${content}</a></li>
+                     <!-- /GENERIC_SECTION -->
+		     <!-- END GENERIC_SECTION -->
+		     <!-- BEGIN SOURCE_GENERIC_SECTION -->
+		     <!-- SOURCE_GENERIC_SECTION -->
+			  <!-- BEGIN SOURCE_GENERIC_SPACE --><!-- SOURCE_GENERIC_SPACE --><!-- /SOURCE_GENERIC_SPACE --><!-- END SOURCE_GENERIC_SPACE --><li><a class='myBoxLblA' href='${url}'>${content}</a></li>
+                     <!-- /SOURCE_GENERIC_SECTION -->
+		     <!-- END SOURCE_GENERIC_SECTION -->
+		     <!-- BEGIN GENERIC_ACTIVESECTION -->
+		     <!-- GENERIC_ACTIVESECTION -->
+			  <!-- BEGIN GENERIC_ACTIVESPACE --><!-- GENERIC_ACTIVESPACE --><!-- /GENERIC_ACTIVESPACE --><!-- END GENERIC_ACTIVESPACE --><li><i>&gt; <a  class='myBoxLblA' href="${url}">${content}</a></i></li> 
+                     <!-- /GENERIC_ACTIVESECTION -->
+		     <!-- END GENERIC_ACTIVESECTION -->
+		     <!-- BEGIN GENERIC_EXACTSECTION -->
+		     <!-- GENERIC_EXACTSECTION -->
+			  <!-- BEGIN GENERIC_EXACTSPACE --><!-- GENERIC_EXACTSPACE --><!-- /GENERIC_EXACTSPACE --><!-- END GENERIC_EXACTSPACE --><li><b>&gt;&gt; <a class="myBoxLblA" href="${url}">${content}</a><b></li> 
+                     <!-- /GENERIC_EXACTSECTION -->
+		     <!-- END GENERIC_EXACTSECTION -->
+		<!-- /MENU -->
+		<!-- END MENU -->
+	</body>
+</html>
