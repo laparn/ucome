@@ -1,0 +1,14 @@
+<html>
+	<body>
+		<table border=0 cellspacing=1 cellpadding=3>
+			<tr class="tableBody1">
+				<!-- BEGIN CURRENT_BLOCK --><!--END CURRENT_BLOCK -->
+				<!-- BEGIN STANDARD_BLOCK -->
+				<td align=center>
+					<a href="${url}" class="topmenu">${text}</a>&nbsp;
+				</td>
+				<!-- END STANDARD_BLOCK -->
+			</tr>
+		</table>
+	</body>
+</html>

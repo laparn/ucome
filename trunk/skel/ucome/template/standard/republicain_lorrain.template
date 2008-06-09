@@ -1,0 +1,27 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+	<body>
+		<style type="text/css">
+			h1 {
+				text-align:center;
+				font-size: 65px;
+			}
+			
+			h2 {
+				text-align:center;
+				font-size:55px;
+			}
+			
+			p {
+				font-size:55px;
+			}
+		</style>
+		<h1><!-- BEGIN TITLE --><!-- END TITLE --></h1>
+		<h1><!-- BEGIN TITLE_ARTICLE --><!-- END TITLE_ARTICLE --></h1>
+		<p><div style="float:right;"><!-- BEGIN IMAGE_ARTICLE --><!-- END IMAGE_ARTICLE --></div><!-- BEGIN CONTENT_ARTICLE --><!-- END CONTENT_ARTICLE --></p>
+	</body>
+</html>

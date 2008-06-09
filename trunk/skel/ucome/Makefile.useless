@@ -1,0 +1,89 @@
+# I create target cgi, tclhttpd, rivet, site
+# Where skel directory content will be copied
+INSTALL_DIR=/tmp/ucometest
+
+# Directory where ucome was set up (you will find ucome.cgi there)
+MANA_BASE=$(shell pwd)/..
+
+# The directory in which the file fas_display.tcl may be found
+FAS_PROG_ROOT=$(MANA_BASE)/tcl
+
+# Hostname (for http server)
+HOSTNAME = $(shell hostname)
+
+# Where cgi file will be set-up and corresponding url
+INSTALL_CGI_DIR=/usr/lib/cgi-bin/ucometest
+CGI_URL_DIR=/cgi-bin/ucometest
+
+# Where TCLHTTPD files are and corresponding url
+TCLHTTPD_DIR=$(MANA_BASE)/tclhttpd
+
+# String used for generating TCLHTTPD  shell script for starting tclhttpd in init.d
+TCLHTTPD_UTIL_STRING=$(subst /,\/,$(MANA_BASE)/tcl/utils/tclhttpd.sh)
+
+# Where RIVET files are and corresponding url
+RIVET_DIR=/var/www
+RIVERT_URL=/rivet
+RIVET_PROG_ROOT_STRING=$(subst /,\/,$(FAS_PROG_ROOT))
+RIVET_ROOT_STRING=$(subst /,\/,$(INSTALL_DIR))
+
+WEB_USER=www-data
+WEB_GROUP=www-data
+
+
+site:
+	-rm -Rf any/code
+	mkdirhier any/code/tcl
+	cp -R ../tcl/* any/code/tcl
+	cp ../${FAS_VIEW_FILENAME} any/code
+	mkdirhier any/code/.mana
+	echo "menu.name \"Source code\" menu.order 5 menu.auto 1 txt4index.ignore 1 linestoshow 5" > any/code/.mana/.val
+	-rm -Rf $(INSTALL_DIR)
+	mkdirhier $(INSTALL_DIR)
+	cp -R * $(INSTALL_DIR)
+	mkdirhier $(INSTALL_DIR)/.mana
+	cp .mana/.val $(INSTALL_DIR)/.mana/.val
+	chown -R $(WEB_USER):$(WEB_GROUP) $(INSTALL_DIR)
+	mkdirhier $(INSTALL_CGI_DIR)
+	rm $(INSTALL_DIR)/Makefile
+	-rm -R $(INSTALL_DIR)/CVS
+	-rm -R $(INSTALL_DIR)/any/CVS
+	-rm -R $(INSTALL_DIR)/any/doc/CVS
+	-rm -R $(INSTALL_DIR)/any/code/CVS
+	-rm -R $(INSTALL_DIR)/any/code/tcl/CVS
+	-rm -R $(INSTALL_DIR)/any/code/tcl/mimeprocs/CVS
+	cd $(INSTALL_DIR); $(INSTALL_DIR)/fixperms
+	rm $(INSTALL_DIR)/fixperms
+
+
+cgi:
+	cp -R $(MANA_BASE)/cgi-bin/ucome.cgi $(INSTALL_CGI_DIR)
+	chmod u+rx $(INSTALL_CGI_DIR)/$(FAS_VIEW_FILENAME)
+	echo "set ROOT $(INSTALL_DIR)" > $(INSTALL_CGI_DIR)/conf.tcl
+	echo "set FAS_PROG_ROOT $(FAS_PROG_ROOT)" >> $(INSTALL_CGI_DIR)/conf.tcl
+	echo "set FAS_VIEW_URL $(CGI_URL_DIR)/ucome.cgi" >> $(INSTALL_CGI_DIR)/conf.tcl
+	chown -R $(WEB_USER):$(WEB_GROUP) $(INSTALL_CGI_DIR)
+
+tclhttpd:
+	sed -e "s/^DAEMON/DAEMON=$(TCLHTTPD_UTIL_STRING)/" $(FAS_PROG_ROOT)/utils/tclhttpd.ori > $(FAS_PROG_ROOT)/utils/tclhttpd
+	echo "#############################################################"
+	echo "USE $(FAS_PROG_ROOT)/utils/tclhttpd as script to put in your init.d"
+	echo "#############################################################"
+	echo "set ROOT $(INSTALL_DIR)" > $(MANA_BASE)/tclhttpd/custom/conf.tcl
+	echo "set FAS_PROG_ROOT $(FAS_PROG_ROOT)" >>  $(MANA_BASE)/tclhttpd/custom/conf.tcl
+	echo "set FAS_VIEW_URL /ucome" >> $(MANA_BASE)/tclhttpd/custom/conf.tcl
+	echo "set FAS_VIEW_URL2 \"http://$(HOSTNAME):8017/ucome\"" >> $(MANA_BASE)/tclhttpd/custom/conf.tcl 
+
+rivet:
+	cp $(MANA_BASE)/rivet/ucome.rvt $(RIVET_DIR)
+	sed -e "s/^set ROOT/set ROOT $(RIVET_ROOT_STRING)/" $(MANA_BASE)/rivet/ucome-initscript.tcl.ori > $(MANA_BASE)/rivet/ucome-initscript.tcl.1
+	sed -e "s/^set FAS_PROG_ROOT/set FAS_PROG_ROOT $(RIVET_PROG_ROOT_STRING)/" $(MANA_BASE)/rivet/ucome-initscript.tcl.1 > $(MANA_BASE)/rivet/ucome-initscript.tcl
+	rm $(MANA_BASE)/rivet/ucome-initscript.tcl.1
+	echo "#############################################################"
+	echo "Please append the 2 following lines to your httpd.conf"
+	echo "RivetServerConf GlobalInitScript \"source $(MANA_BASE)/rvt/ucome-initscript.tcl\""
+	echo "RivetServerConf BeforeScript \"source $(MANA_BASE)/rvt/ucome-beforescript.tcl\""
+	echo "And check that the rivet extension is properly working"
+	echo "#############################################################"
+
+

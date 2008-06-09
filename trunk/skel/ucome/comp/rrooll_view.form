@@ -1,0 +1,1 @@
+global.template rrooll.template global.title "Blocs of a file that is rroolling" global.title.fr "Blocs pour le canevas permettant de visualiser un fichier défilant" title.type file title.cgi_uservar.action title content.type html rrooll_param.type file rrooll_param.cgi_uservar.action rrooll_param

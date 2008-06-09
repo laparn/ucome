@@ -1,0 +1,19 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+
+	<body>
+	        <!-- sliqua/path.tmpl -->
+		<!-- BEGIN PATH -->
+		<!-- PATH -->
+		     <!-- BEGIN SECTION --><a href="fas:${path}">${content}</a>&gt;<!-- END SECTION -->
+		     <!-- BEGIN ENDSECTION --> ${content}<!-- END ENDSECTION -->
+		     <!-- BEGIN PATH_ENTRY --><!-- END PATH_ENTRY -->
+		<!-- /PATH -->
+		<!-- END PATH -->
+	</body>
+</html>
+

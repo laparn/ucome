@@ -1,0 +1,26 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+		<link rel="stylesheet" type="text/css" href="fas:/template/standard/css/rrooll.css" title="Rool standard" />
+  	<!-- rrooll.template -->
+	</head>
+	<body>
+
+		<script type="text/javascript" src="fas:/any/js/x_load.js"></script>
+		<script type='text/javascript'>
+			xInclude("fas:/any/js/rool.js");
+			<!-- BEGIN RROOLL_PARAM -->
+			<!-- unable to process rrool_param currently -->
+			<!-- END RROOLL_PARAM -->
+			window.onload = function() {
+				//scroll(start_delay,end_delay,scroll_delay);
+				scroll(4000, 4000, 20);
+			}
+		</script>
+
+		<!-- BEGIN CONTENT -->
+		<!-- END CONTENT -->	
+	</body>
+</html>

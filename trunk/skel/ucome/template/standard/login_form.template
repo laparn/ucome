@@ -1,0 +1,31 @@
+<html>
+<body>
+<!-- BEGIN FORM -->
+<!-- FORM -->
+<div align="center">
+	<form action="${FAS_VIEW_URL}" method="post">
+		<input type="hidden" name="action" value="login">
+		<input type="hidden" name="file" value="${file}">
+		<table border="0">
+				<tr>
+					<td><b>Login :</b></td>
+					<td><input size="20" name="name" ></td>
+				</tr>
+				<tr>
+					<td><b>Password :</b></td>
+					<td><input type="password" size="20" name="password" ></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+						<a href="fas:${file}"><img src="${icons_url}/cancel.gif" border="0"></a>
+					</td>
+				</tr>
+		</table>
+	</form>
+	<a href="fas:${file}&action=logout">Logout</a>
+</div>
+<!-- /FORM -->
+<!-- END FORM -->
+</body>
+</html>

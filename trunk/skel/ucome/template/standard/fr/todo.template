@@ -1,0 +1,308 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<!-- vim: set syntax=html: -->
+<head>
+   <title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<STYLE type="text/css">
+body {
+margin-top : 10px; 
+margin-right : 20px; 
+margin-bottom : 20px; 
+margin-left : 20px; 
+font-family : Arial, Helvetica, sans-serif; 
+font-weight : normal; 
+} 
+
+
+a.dash:link {
+border-bottom : 1px dashed; 
+} 
+
+a.dash:visited {
+border-bottom :  1px dashed; 
+} 
+
+a.dash:hover {
+border-bottom :  1px solid; 
+} 
+
+h1 , h2 , h3 , h4 , h5 , h6 {
+font-family : "Trebuchet MS", Verdana, "Lucida Sans", Arial, Geneva, Helvetica, Helv, "Myriad Web", Syntax, sans-serif; 
+font-weight : normal; 
+} 
+
+.head , .headbox , .dynabox , a.leftmenu , a.activeleftmenu, a.topmenu {
+font-weight : bold; 
+text-decoration : none; 
+font-size : 80%; 
+font-family : Verdana, "Lucida Sans", Arial, Geneva, Helvetica, Helv, "Myriad Web", Syntax, sans-serif; 
+} 
+
+a 																	{color : #000000; } 
+.topnav a:hover, .dynabox .headbox a:hover							{color : #ffffff; }
+
+.pos0 , body 														{background-color : #ffffff; color : #000000; } 
+.pos1 , .mainbox , .dynabox , a.leftmenu:link , a.leftmenu:visited 	{background-color : #d0e1f5; border : #000000; color : #000000; } 
+a.activeleftmenu:link , a.activeleftmenu:visited 	{background-color : #98c2f0; border : #000000; color : #000000; } 
+.pos2 , .topnav , a.leftmenu:hover	{background-color : #98c2f0; color : #000000; border : #000000; } 
+
+a.activeleftmenu:hover 	{background-color : #7d9fc4; color : #000000; border : #000000; } 
+
+.neg0 																{background-color : #000000; } 
+.neg1 , a.topmenu:hover												{background-color : #4d75a0; color : #ffffff; border : #000000; } 
+.neg2 , .headbox , a.topmenu:link , a.topmenu:visited 				{background-color : #7d9fc4; color : #ffffff; border : #000000; } 
+
+a.leftmenu:link , a.activeleftmenu:link {
+display : block; 
+padding-top : 2px; 
+padding-right : 2px; 
+padding-bottom : 2px; 
+padding-left : 2px; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 1px; 
+border-bottom-width : 1px; 
+border-left-width : 1px; 
+width : 145px; 
+font-weight : normal; 
+text-align : left; 
+} 
+
+a.leftmenu:hover , a.activeleftmenu:hover  {
+display : block; 
+padding-top : 2px; 
+padding-right : 2px; 
+padding-bottom : 2px; 
+padding-left : 2px; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 1px; 
+border-bottom-width : 1px; 
+border-left-width : 1px; 
+width : 145px; 
+font-weight : normal; 
+text-align : left; 
+} 
+
+a.leftmenu:visited , a.activeleftmenu:visited {
+display : block; 
+padding-top : 2px; 
+padding-right : 2px; 
+padding-bottom : 2px; 
+padding-left : 2px; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 1px; 
+border-bottom-width : 1px; 
+border-left-width : 1px; 
+width : 145px; 
+font-weight : normal; 
+text-align : left; 
+} 
+
+a.topmenu:link {
+display : inline; 
+padding-top : 5px; 
+padding-right : 0; 
+padding-bottom : 5px; 
+padding-left : 0; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 0; 
+border-bottom-width : 0; 
+border-left-width : 1px; 
+text-align : center;  
+} 
+
+a.topmenu:hover {
+background-color : #4d75a0; 
+display : inline; 
+padding-top : 5px; 
+padding-right : 0; 
+padding-bottom : 5px; 
+padding-left : 0; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 0; 
+border-bottom-width : 0; 
+border-left-width : 1px; 
+text-align : center; 
+} 
+
+a.topmenu:visited {
+display : inline; 
+padding-top : 5px; 
+padding-right : 0; 
+padding-bottom : 5px; 
+padding-left : 0; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 0; 
+border-bottom-width : 0; 
+border-left-width : 1px; 
+text-align : center; 
+} 
+
+.headbox {
+display : block; 
+padding-top : 2px; 
+padding-right : 2px; 
+padding-bottom : 2px; 
+padding-left : 2px; 
+border-top-width : 1px; 
+border-right-width : 1px; 
+border-bottom-width : 1px; 
+border-left-width : 1px; 
+border-style : solid; 
+width : 145px; 
+text-align : left; 
+} 
+
+.topbox {
+border : 1px solid ;
+border-width : 1px 1px 1px 1px; 
+} 
+
+.topnav {
+border : solid ; 
+border-width : 1px 1px 1px 1px; 
+padding-top : 3px;
+padding-bottom : 0; 
+} 
+
+.mainbox {
+border : solid ; 
+border-width : 1px 1px 1px 1px; 
+padding-top : 5px; 
+padding-left : 5px; 
+padding-right : 5px; 
+padding-bottom : 5px; 
+} 
+
+.mainbox p {
+font-size : 85%; 
+} 
+
+.mainbox p a {
+font-weight : bold; 
+font-size : 90%; 
+} 
+
+.dynabox {
+border : 1px dashed ; 
+text-align : center; 
+} 
+
+.dynabox .headbox {
+border-style : dashed; 
+border-top-style : solid; 
+border-right-width : 0; 
+border-left-width : 0; 
+padding-top : 3px; 
+padding-left : 0; 
+padding-right : 0; 
+padding-bottom : 3px; 
+} 
+
+.dynacontent {
+padding-top : 3px; 
+padding-left : 5px; 
+padding-right : 5px; 
+padding-bottom : 3px; 
+text-align : left; 
+font-size : 70%; 
+font-weight : normal; 
+}
+</STYLE>
+   <!-- todo.tmpl -->
+</head>
+<body bgcolor="#FFFFFF">
+<!-- todo.tmpl -->
+<br />
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+  <tr> 
+    <td colspan="3" class="pos1" height="55" valign="middle"> 
+      <div class="topbox"><h2>UCome - Votre gestion de contenus</h2></div>
+    </td>
+  </tr>
+  <tr> 
+  <td>
+   <table width="100%" border="0" cellpadding="0" cellspacing="0" class="topnav">
+    <tr>
+  	      <td align="left" class="head">
+		  	&nbsp;
+		  </td>
+    	  <td align="right"> 
+			<a href="auth_mana/fas_view.cgi?file=${filename}" class="topmenu" title="Login">&nbsp;::Login::&nbsp;</a><a href="fas:${file}" class="topmenu" title="view current file">&nbsp;::Voir::&nbsp;</a><a href="fas:${file}&action=edit_form" class="topmenu" title="Editer">&nbsp;::Editer::&nbsp;</a><a href="fas:${dir}" class="topmenu" title="Repertoire">&nbsp;::Répertoire::&nbsp;</a><a href="fas:${dir}&action=edit_form" class="topmenu" title="Edition du repertoire">&nbsp;::Edition du répertoire::&nbsp;</a>
+		  </td>
+	</tr>
+   </table>
+   </td>
+  </tr>
+  <tr> 
+    <td> 
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr> 
+          <td valign="top" width="150"> <br />
+		  	<div>
+		<!-- BEGIN MENU -->
+		<!-- MENU -->
+		<!-- /MENU -->
+		<!-- END MENU -->
+              
+			  <br />
+			  
+			  <div class="dynacontent">
+			  Des questions, des commentaires ? Merci de me les <a href="mailto:arnaud.laprevote@freealter.com" class="dash" title="email the author">mailer .</a>
+			  </div>	
+              
+            </div>
+          </td>
+          <td valign="top"> <br />
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tr> 
+                <td width="10"></td>
+                <td valign="top" class="mainbox"> 
+			<!-- FORM START --><!-- BEGIN FORM_START --><form ACTION="${FAS_VIEW_CGI}" METHOD=POST ><input TYPE=HIDDEN NAME="file" VALUE="${export_filename}"><input TYPE=HIDDEN NAME="action" VALUE="edit"><!--END FORM_START --><!-- /FORM_START -->
+			<div align="center"><h1><!-- BEGIN TITLE --><!-- END TITLE --></h1></div>
+			<div class="headbox"><!-- BEGIN DATE --><!-- END DATE --></div>
+			<div class="dynacontent"><!-- BEGIN CONTENT --><!-- END CONTENT --></div>
+		<!-- BEGIN FORM_END --><!-- FORM_END -->
+		<center><table WIDTH="100%" >
+			<tr>
+			<td ALIGN=CENTER COLSPAN="3">
+			<table>
+				<tr>
+				<td><input type="image" name="ok" src="${icons_url}/ok.gif" border="0"></td>
+
+				<td><a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}"><img SRC="${icons_url}/cancel.gif" ALT="Annuler" BORDER=0 ></a></td>
+				</tr>
+			</table>
+			</td>
+			</tr>
+		</table></center>
+
+	</form><!-- /FORM_END --><!--END FORM_END -->
+                </td>
+              </tr>
+            </table>
+			<br />
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>	
+
+  <tr class="pos1">
+    <td height="20" colspan="2" class="head" align="right">
+	UCome - Créé par  <a class="dash" href="http://freealter.com" title="Free&amp;ALter Soft">Free&amp;ALter Soft</a>
+  </td>
+  </tr>
+  <tr class="pos1"> 
+    <td height="20" colspan="2" class="head" align="right">Adapté librement de <a href="http://oswd.org">OSWD</a> Sliqua design shareright &copy; 2002 Phlash &nbsp;</td>
+  </tr>
+</table>
+<!-- /todo.tmpl -->
+</body>
+</html>

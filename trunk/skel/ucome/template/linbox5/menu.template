@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="description" content="Linbox-Free&amp;ALter Soft est une SSII sp&eacute;cialis&eacute; dans les logiciels libres (SSLL), depuis sa cr&eacute;ation en 1996." />
+<link rel="stylesheet" type="text/css" href="/ucome.rvt?file=/template/linbox5/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/ucome.rvt?file=/template/linbox5/css/links.css" />
+<script type="text/javascript">
+if (document.layers) {
+	document.getElementsByTagName('link')[0].href = 'null';
+	document.getElementsByTagName('link')[1].href = 'null';
+}
+</head>
+<body>
+
+<!-- BEGIN MENU --><!-- MENU --><!-- /template/linbox5/menu.template -->
+
+<!-- BEGIN SECTION0 --><!-- SECTION0 -->
+<div class="menu_1"><span class="menu_1_title"><a href="${url}">${content}</a></span></div>
+<!-- /SECTION0 --><!-- END SECTION0 -->
+
+<!-- BEGIN ACTIVESECTION0 --><!-- ACTIVESECTION0 --> 
+<div class="menu_1_sel"><span class="menu_1_title"><a href="${url}">${content}</a></span></div>
+<!-- /ACTIVESECTION0 --><!-- END ACTIVESECTION0 -->
+
+<!-- BEGIN EXACTSECTION0 --><!-- EXACTSECTION0 -->
+<div class="menu_1_sel"><span class="menu_1_title"><a href="${url}">${content}</a></span></div>
+<!-- /EXACTSECTION0 --><!-- END EXACTSECTION0 -->
+
+<!-- BEGIN SECTION1 --><!-- SECTION1 -->
+<div class="menu_2"><a href="${url}">${content}</a></div>
+<!-- /SECTION1 --><!-- END SECTION1 -->
+
+<!-- BEGIN ACTIVESECTION1 --><!-- ACTIVESECTION1 -->
+<div class="menu_2"><a href="${url}">${content}</a></div>
+<!-- /ACTIVESECTION1 --><!-- END ACTIVESECTION1 -->
+
+<!-- BEGIN EXACTSECTION1 --><!-- EXACTSECTION1 -->
+<div class="menu_2"> >> <a href="${url}">${content}</a></div>
+<!-- /EXACTSECTION1 --><!-- END EXACTSECTION1 -->
+
+<!-- BEGIN SECTION2 --><!-- SECTION2 -->
+<div class="menu_3"><a href="${url}">${content}</a></div>
+<!-- /SECTION2 --><!-- END SECTION2 -->
+
+<!-- BEGIN ACTIVESECTION2 --><!-- ACTIVESECTION2 -->
+<div class="menu_3"><a href="${url}">${content}</a></div>
+<!-- /ACTIVESECTION2 --><!-- END ACTIVESECTION2 -->
+
+<!-- BEGIN EXACTSECTION2 --><!-- EXACTSECTION2 -->
+<div class="menu_3"><a href="${url}">${content}</a></div>
+<!-- /EXACTSECTION2 --><!-- END EXACTSECTION2 -->
+
+<!-- BEGIN GENERIC_SECTION --><!-- GENERIC_SECTION -->
+<div class="menu_4"><a href="${url}">${content}</a></div>
+<!-- /GENERIC_SECTION --><!-- END GENERIC_SECTION -->
+
+<!-- BEGIN GENERIC_ACTIVESECTION --><!-- GENERIC_ACTIVESECTION -->
+<div class="menu_4"><a href="${url}">${content}</a></div>
+<!-- /GENERIC_ACTIVESECTION --><!-- END GENERIC_ACTIVESECTION -->
+
+<!-- BEGIN GENERIC_EXACTSECTION --><!-- GENERIC_EXACTSECTION -->
+<div class="menu_4"><a href="${url}">${content}</a></div>
+<!-- /GENERIC_EXACTSECTION --><!-- END GENERIC_EXACTSECTION -->
+
+<!-- BEGIN MENU_ENTRY --><!-- END MENU_ENTRY -->
+
+<!-- /MENU --><!-- END MENU -->
+
+</body>
+</html>

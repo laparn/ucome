@@ -1,0 +1,46 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<link rel="stylesheet" type="text/css" href="fas:/template/standard/css/standard.css" title="Blue standard" />
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+
+	<body>
+	        <!-- standard/full_menu.template -->
+		<!-- BEGIN MENU --><!-- MENU -->
+          	  <H1>Plan du site - Test</H1>
+                     <div id='menu_main'>&nbsp;</div>
+                     <script language="javascript" src="fas:/template/standard/js/domMenu_min.js"></script>
+                     <script language="javascript">
+			domMenu_data.set('menu_main', new Hash(
+		     <!-- BEGIN MENU_ENTRY --><!-- END MENU_ENTRY -->
+		     <!-- BEGIN LEVEL_START --><!-- END LEVEL_START -->
+		     <!-- BEGIN LEVEL_END -->),<!-- END LEVEL_END -->
+		     <!-- BEGIN LAST_LEVEL_END -->)<!-- END LAST_LEVEL_END -->
+		     <!-- BEGIN GENERIC_SECTION -->
+                     <!-- BEGIN GENERIC_SPACE -->   <!-- END GENERIC_SPACE -->${number}, new Hash( "contents", "${content}", "uri", "${url}"),<!-- END GENERIC_SECTION -->
+		     <!-- BEGIN LAST_GENERIC_SECTION --> // last_generic_section
+                     <!-- BEGIN LAST_GENERIC_SPACE -->   <!-- END LAST_GENERIC_SPACE -->${number}, new Hash( "contents", "${content}", "uri", "${url}")<!-- END LAST_GENERIC_SECTION -->
+                     <!-- BEGIN SOURCE_GENERIC_SECTION -->
+		     <!-- BEGIN SOURCE_GENERIC_SPACE -->   <!-- END SOURCE_GENERIC_SPACE -->${number}, new Hash( "contents", "${content}", "uri", "${url}", <!-- END SOURCE_GENERIC_SECTION -->
+                     <!-- BEGIN LAST_SOURCE_GENERIC_SECTION -->
+		     <!-- BEGIN LAST_SOURCE_GENERIC_SPACE -->   <!-- END LAST_SOURCE_GENERIC_SPACE -->${number}, new Hash( "contents", "${content}", "uri", "${url}", <!-- END LAST_SOURCE_GENERIC_SECTION -->
+		     );
+                     domMenu_settings.set('menu_main', new Hash(
+                        'subMenuWidthCorrection', -1,
+                        'verticalSubMenuOffsetX', -1,
+	                'verticalSubMenuOffsetY', -1,
+	                'horizontalSubMenuOffsetX', 1,
+		        'openMouseoverMenuDelay', 300,
+		        'closeMouseoutMenuDelay', 500,
+                        'expandMenuArrowUrl', '/ucome.rvt?file=/template/standard/css/arrow.gif'
+                     ));
+		     </script>
+                     <script language="javascript">
+                         domMenu_activate('menu_main');
+                     </script>
+		<!-- /MENU -->
+		<!-- END MENU -->
+	</body>
+</html>

@@ -1,0 +1,213 @@
+<html>
+<!-- vim: set syntax=html: -->
+  <head>
+    <title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+    <!-- dir.tmpl -->
+  </head>
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- linbox5 dir.tmpl -->
+<div>
+        <h1>
+                <!-- BEGIN TOP_TITLE -->
+                <!-- TOP_TITLE -->
+                <!-- /TOP_TITLE -->
+                <!-- END TOP_TITLE -->
+        </h1>
+	<b><!-- BEGIN MESSAGE --><!-- END MESSAGE --></b>
+</div>
+
+<!-- BEGIN START_FORM -->
+<!-- START_FORM -->
+<form action="/${FAS_VIEW_CGI}" method="post">
+	<input type="hidden" name="action" value="select_file">
+	<input type="hidden" name="file" value="${dir}">
+	<input type="hidden" name="debug" value="${DEBUG}">
+<!-- /START_FORM -->
+<!-- END START_FORM -->
+        <div>
+                <table border="0" style="text-align:center;margin-left:auto;margin-right:auto;">
+                        <!-- BEGIN FILE_TABLE_HEADER --> <!-- FILE_TABLE_HEADER --> <tr style="background-color:#E0E0E0;"> <!-- BEGIN HEADER_CELL --> <!-- END HEADER_CELL -->
+                        </tr> <!-- /FILE_TABLE_HEADER --> <!-- END FILE_TABLE_HEADER -->
+                                <!-- BEGIN FILE_HEADER --><!-- FILE_HEADER --> <td>
+                                        <b>File name</b>
+                                </td> <!-- /FILE_HEADER --><!-- END FILE_HEADER --> <!-- BEGIN SHORTNAME_HEADER --><!-- SHORTNAME_HEADER --> <td>
+                                        <b>Name</b>
+                                </td> <!-- /SHORTNAME_HEADER --><!-- END SHORTNAME_HEADER --> <!-- BEGIN EXTENSION_HEADER --><!-- EXTENSION_HEADER --> <td>
+                                        <b>Ext.</b>
+                                </td> <!-- /EXTENSION_HEADER --><!-- END EXTENSION_HEADER --> <!-- BEGIN FILETYPE_HEADER --><!-- FILETYPE_HEADER --> <td>
+                                        <b>Type</b>
+                                </td> <!-- /FILETYPE_HEADER --><!-- END FILETYPE_HEADER --> <!-- BEGIN TITLE_HEADER --><!-- TITLE_HEADER --> <td>
+                                        <b>Title</b>
+                                </td> <!-- /TITLE_HEADER --><!-- END TITLE_HEADER --> <!-- BEGIN DELETE_HEADER --><!-- DELETE_HEADER --> <td>
+                                        <b>Del.</b>
+                                </td> <!-- /DELETE_HEADER --><!-- END DELETE_HEADER --> <!-- BEGIN EDIT_HEADER --><!-- EDIT_HEADER --> <td>
+                                        <b>Edit</b>
+                                </td> <!-- /EDIT_HEADER --><!-- END EDIT_HEADER --> <!-- BEGIN COPY_HEADER --><!-- COPY_HEADER --> <td>
+                                        <b>Copy</b>
+                                </td> <!-- /COPY_HEADER --><!-- END COPY_HEADER --> <!-- BEGIN PROPERTIES_HEADER --><!-- PROPERTIES_HEADER --> <td>
+                                        <b>Prop.</b>
+                                </td> <!-- /PROPERTIES_HEADER --><!-- END PROPERTIES_HEADER --> <!-- BEGIN ALLOW_HEADER --><!-- ALLOW_HEADER --> <td>
+                                        <b>Rights</b>
+                                </td> <!-- /ALLOW_HEADER --><!-- END ALLOW_HEADER --> <!-- BEGIN SELECT_ON_HEADER --><!-- SELECT_ON_HEADER --> <td>
+                                        <b>Incl.</b>
+                                </td> <!-- /SELECT_ON_HEADER --><!-- END SELECT_ON_HEADER --> <!-- BEGIN FAX_NAME_HEADER --><!-- FAX_NAME_HEADER --> <td>
+                                        <b>Fax</b>
+                                </td> <!-- /FAX_NAME_HEADER --><!-- END FAX_NAME_HEADER --> <!-- BEGIN FASENV.MENU.NAME_HEADER --><!-- FASENV.MENU.NAME_HEADER --> <td>
+					<b>Name</b>
+                                </td> <!-- /FASENV.MENU.NAME_HEADER --><!-- END FASENV.MENU.NAME_HEADER --> <!-- BEGIN FASENV.MENU.ORDER_HEADER --><!-- FASENV.MENU.ORDER_HEADER --> <td>
+					<b>Order</b>
+                                </td> <!-- /FASENV.MENU.ORDER_HEADER --><!-- END FASENV.MENU.ORDER_HEADER --> <!-- BEGIN DEFAULT_HEADER --> <!-- DEFAULT_HEADER --> <td>
+                                        <b>$content</b>
+                                </td> <!-- /DEFAULT_HEADER --> <!-- END DEFAULT_HEADER --> <!-- /tr --> <!-- /FILE_TABLE_HEADER --> <!-- EEE FILE_TABLE_HEADER -->
+                        <!-- BEGIN FILE_LIST --><!-- FILE_LIST --><tr style="background-color:#fce6e0;"> <!-- BEGIN FILE_CELL --> <!-- END FILE_CELL -->
+				</tr><!-- /FILE_LIST --><!-- END FILE_LIST -->
+                                <!-- BEGIN FILE --><!-- FILE --> <td>
+                                        <a href="fas:$file">$file</a>
+                                </td> <!-- /FILE --><!-- END FILE -->
+                                <!-- BEGIN TITLE --><!-- TITLE --> <td>
+                                        $title
+                                </td> <!-- /TITLE --><!-- END TITLE -->
+                                <!-- BEGIN SHORTNAME --><!-- SHORTNAME --> <td>
+                                        <a href="fas:$file">$shortname</a>
+                                </td> <!-- /SHORTNAME --><!-- END SHORTNAME -->
+                                <!-- BEGIN EXTENSION --><!-- EXTENSION --> <td>
+                                        <a href="fas:$file">$extension</a>
+                                </td> <!-- /EXTENSION --><!-- END EXTENSION -->
+                                <!-- BEGIN FILETYPE --><!-- FILETYPE --> <td>
+                                        <a href="fas:${file}"><img src="${icons_url}/${filetype}.gif" style="border:0;" alt="${filetype}" width="20" height="22" /></a>
+                                </td> <!-- /FILETYPE --><!-- END FILETYPE -->
+                                <!-- BEGIN DIR --><!-- DIR --> <td>
+                                        <a href="fas:$dir">$dir</a>
+                                </td> <!-- /DIR --><!-- END DIR -->
+                                <!-- BEGIN SIZE --><!-- SIZE --> <td>
+                                        $size
+                                </td> <!-- /SIZE --><!-- END SIZE -->
+                                <!-- BEGIN MTIME --><!-- MTIME --> <td>
+                                        $mtime
+                                </td> <!-- /MTIME --><!-- END MTIME -->
+                                <!-- BEGIN URI --><!-- URI --> <td>
+                                        $uri
+                                </td> <!-- /URI --><!-- END URI -->
+                                <!-- BEGIN START_TIME --><!-- START_TIME --> <td>
+                                        $start_time
+                                </td> <!-- /START_TIME --><!-- END START_TIME -->
+                                <!-- BEGIN END_TIME --><!-- END_TIME --> <td>
+                                        $end_time
+                                </td> <!-- /END_TIME --><!-- END END_TIME -->
+                                <!-- BEGIN ROLLING_SPEED --><!-- ROLLING_SPEED --> <td>
+                                        $rolling_speed
+                                </td> <!-- /ROLLING_SPEED --><!-- END ROLLING_SPEED -->
+				<!-- BEGIN DELETE --><!-- DELETE --> <td>
+                                        <a href="fas:${file}&action=delete_form&from=edit_form">
+                                                <img src="${icons_url}/delete.gif" border=0 alt="delete" width="20" height="20"></a>
+                                </td> <!-- !DELETE --><!-- END DELETE -->
+				<!-- BEGIN EDIT --><!-- EDIT --> <td>
+                                        <a href="fas:${file}&action=edit_form&from=edit_form"><img src="${icons_url}/edit.gif" border=0 alt="edit" width="20" height="20"></a>
+                                </td> <!-- /EDIT --><!-- END EDIT -->
+				<!-- BEGIN COPY --><!-- COPY --> <td>
+                                        <a href="fas:${file}&action=copy_form&from=edit_form">
+                                                <img src="${icons_url}/copy.gif" border=0 alt="copy" width="20" height="20"></a>
+                                </td> <!-- /COPY --><!-- END COPY -->
+				<!-- BEGIN PROPERTIES --><!-- PROPERTIES --> <td>
+                                        <a href="fas:${file}&level=user&action=prop_form&from=edit_form">
+                                                <img src="${icons_url}/properties.gif" border=0 alt="prop" width="20" height="20"></a>
+                                </td> <!-- /PROPERTIES --><!-- END PROPERTIES -->
+				<!-- BEGIN ALLOW --><!-- ALLOW --> <td>
+                                        <a href="fas:${file}&action=allow_action_form&from=edit_form">
+                                                <img src="${icons_url}/allow.png" border=0 alt="rights" width="22" height="22"></a>
+                                </td> <!-- /ALLOW --><!-- END ALLOW -->
+				<!-- BEGIN SELECT --><!-- SELECT --> <td>
+					<input type="hidden" name="file${counter}" value="${file}"><input type=checkbox name="checkbox${counter}" value=1>
+                                </td> <!-- /SELECT --><!-- END SELECT -->
+				<!-- BEGIN SELECT_ON --><!-- SELECT_ON --> <td>
+					<input type="hidden" name="file_on${counter}" value="${file}"><input type=checkbox name="checkbox_on${counter}" value=1 checked>
+                                </td> <!-- /SELECT_ON --><!-- END SELECT_ON -->
+				<!-- BEGIN TEMPLATE_DIR_IMG --><!-- TEMPLATE_DIR_IMG --> <td>
+                                        <a href="fas:/&action=change_look&look=${file}"><img src="fas:${file}/index.jpg"></a>
+                                </td> <!-- /TEMPLATE_DIR_IMG --><!-- END TEMPLATE_DIR_IMG -->
+                                <!-- BEGIN FAX_NAME --><!-- FAX_NAME --> <td>
+                                        <a href="fas:$file">$fax_name</a>
+                                </td> <!-- /FAX_NAME --><!-- END FAX_NAME -->
+                                <!-- BEGIN FIRST_FAX_PAGE --><!-- FIRST_FAX_PAGE --> <td>
+                                        <a href="fas:${file}"><img src="fas:${file}/${first_fax_page}.001&action=small"></a>
+                                </td> <!-- /FIRST_FAX_PAGE --><!-- END FIRST_FAX_PAGE -->
+				<!-- BEGIN COMP_ELT.DATE.CONTENT --><!-- COMP_ELT.DATE.CONTENT --> <td>
+					<a href="fas:${file}">${comp_elt.date.content}</a>
+                                </td> <!-- /COMP_ELT.DATE.CONTENT --><!-- END COMP_ELT.DATE.CONTENT -->
+				<!-- BEGIN COMP_ELT.TITLE.CONTENT --><!-- COMP_ELT.TITLE.CONTENT --> <td>
+					${comp_elt.title.content}
+                                </td> <!-- /COMP_ELT.TITLE.CONTENT --><!-- END COMP_ELT.TITLE.CONTENT -->
+				<!-- BEGIN FASENV.MENU.NAME --><!-- FASENV.MENU.NAME --> <td>
+					<input name="fasenv.menu.name.${counter}" value="${fasenv.menu.name}" width="20">
+                                </td> <!-- /FASENV.MENU.NAME --><!-- END FASENV.MENU.NAME -->
+				<!-- BEGIN FASENV.MENU.ORDER --><!-- FASENV.MENU.ORDER --> <td>
+					<input name="fasenv.menu.order.${counter}" value="${fasenv.menu.order}" width="3" size="3">
+                                </td> <!-- /FASENV.MENU.ORDER --><!-- END FASENV.MENU.ORDER -->
+				<!-- BEGIN IMAGE --><!-- IMAGE --> <td>
+					<img src="fas:${file}" >
+                                </td> <!-- /IMAGE --><!-- END IMAGE -->
+                        <!--/tr --><!-- /FILE_LIST --><!-- EEE FILE_LIST -->
+                        <!-- BEGIN FILE_LIST_ODD --> <!-- FILE_LIST_ODD --> <tr style="background-color:#dddddd;"> <!-- BEGIN FILE_CELL -->
+				<!-- END FILE_CELL -->
+                        </tr> <!-- /FILE_LIST_ODD --> <!-- END FILE_LIST_ODD -->
+			<!-- BEGIN ALL_FILE_ROWS --><!-- ALL_FILE_ROWS --> <!-- BEGIN FILE_ROW --> <!-- END FILE_ROW -->
+			<!-- /ALL_FILE_ROWS --><!-- END ALL_FILE_ROWS -->
+                </table>
+	</div>
+<!-- BEGIN END_FORM -->
+	<div style="text-align:center;">
+		<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+		<input type="image" name="cancel" src="${icons_url}/cancel.gif" border="0">
+		
+	</div>
+	</FORM>
+<!-- END END_FORM -->
+<!-- BEGIN CREATE_FORM -->
+<!-- CREATE_FORM -->
+<div><TABLE border=0>
+	<form action="/${FAS_VIEW_CGI}" method="post">
+		<input type="hidden" name="action" value="new">
+		<input type="hidden" name="file" value="${dir}">
+		<input type="hidden" name="debug" value="${DEBUG}">
+		<TR VALIGN="BOTTOM" >
+			<TD>New File&nbsp;&nbsp;Type :</TD>
+			<TD VALIGN="BOTTOM"><select name="filetype" >
+					<option>On extension
+					<!-- BEGIN FILETYPE_OPTION -->
+					<!-- FILETYPE_OPTION -->
+					<option>${option}
+					<!-- /FILETYPE_OPTION -->
+					<!-- END FILETYPE_OPTION -->
+				</select>
+				<input name="new_filename" value="" width="15">
+				<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+			</TD>
+		</TR>
+	</form>
+	<form action="${FAS_UPLOAD_CGI}" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="upload">
+		<input type="hidden" name="file" value="${dir}">
+		<input type="hidden" name="debug" value="${DEBUG}">
+		<TR VALIGN="BOTTOM" >
+			<TD>Send a file</TD>
+			<TD VALIGN="BOTTOM"><input type="file" name="uploaded_file" width="20"><input type="image" name="ok" src="${icons_url}/ok.gif" border="0"></TD>
+		</TR>
+	</form>
+</TABLE></div>
+<!-- /CREATE_FORM -->
+<!-- END CREATE_FORM -->
+<!-- BEGIN CHUNK_SECTION -->
+<!-- CHUNK_SECTION -->
+
+<!-- BEGIN PREVIOUS --><!-- PREVIOUS --><a href="fas:${dir}&${current_action}&chunk=${i}">&lt;</a> | <!-- /PREVIOUS --><!-- END PREVIOUS -->
+<!-- BEGIN CURRENT_CHUNK --><!-- CURRENT_CHUNK -->${i} | <!-- /CURRENT_CHUNK --><!-- END CURRENT_CHUNK -->
+<!-- BEGIN CHUNK --><!-- CHUNK --><a href="fas:${dir}&${current_action}&chunk=${i}">${i}</a> | <!-- /CHUNK --><!-- END CHUNK -->
+<!-- BEGIN NEXT_CHUNK --><!-- END NEXT_CHUNK -->
+<!-- BEGIN NEXT --><!-- NEXT --><a href="fas:${dir}&${current_action}&chunk=${i}">&gt;</a><!-- /NEXT --><!-- END NEXT -->
+
+<!-- /CHUNK_SECTION -->
+<!-- END CHUNK_SECTION -->
+</body>
+</html>

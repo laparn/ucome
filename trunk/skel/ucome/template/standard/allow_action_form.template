@@ -1,0 +1,131 @@
+<html>
+<!-- vim: set syntax=html: -->
+  <head>
+    <title><!-- BEGIN TITLE -->Management of authorisation for ${export_filename}<!-- END TITLE --></title>
+    <!-- allow_action_form.tmpl -->
+  </head>
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+<!-- allow_action_form.tmpl -->
+<!-- BEGIN TOP -->
+<div align=center>
+	
+        <h1><!-- BEGIN HEAD_TITLE -->Management of authorisation for ${export_filename}<!-- END HEAD_TITLE --></h1>
+	<!-- BEGIN MESSAGE --><!-- END MESSAGE -->
+	<b>Please choose the actions which you want to change the list of authorised users</b>
+</div>
+<div align=center>
+<form action="${FAS_VIEW_CGI}" method="post">
+	<input type="hidden" name="action" value="allow_action">
+	<input type="hidden" name="file" value="${export_filename}">
+<!-- END TOP -->
+        <table>
+                <tr bgcolor=#E0E0E0>
+			<td align="center" >
+				<b>Check</b>
+			</td>
+			<td align="center" >
+				<b>Action</b>
+			</td>
+			<td align="center" >
+				<b>Allowed user list</b>
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
+			<td align="center" >
+				<b>Check</b>
+			</td>
+			<td align="center" >
+				<b>Action</b>
+			</td>
+			<td align="center" >
+				<b>Allowed user list</b>
+			</td>
+                </tr>
+                <!-- BEGIN ACTION_LIST -->
+                <!-- ACTION_LIST -->
+		<!-- BEGIN ROW_START -->
+                <!-- tr bgcolor=#C0FFC0 -->
+		<!-- END ROW_START -->
+			<!-- BEGIN CHECK -->
+			<!-- CHECK -->
+			<td align=center>
+				<input type="hidden" name="action${counter}" value="${action}"><input type=checkbox name="checkbox${counter}" value=1>
+			</td>
+			<!-- /CHECK -->
+			<!-- END CHECK -->
+                        <!-- BEGIN ACTION -->
+                        <!-- ACTION -->
+                        <td>
+                               ${content} 
+                        </td>
+                        <!-- /ACTION -->
+                        <!-- END ACTION -->
+			<!-- BEGIN USER_LIST -->
+			<!-- USER_LIST -->
+                        <td>
+                                <!-- BEGIN USER -->${content}&nbsp;<!-- END USER -->
+				<!-- BEGIN NEW_USER -->&nbsp;<!-- END NEW_USER -->
+			</td>
+			<!-- /USER_LIST -->
+			<!-- END USER_LIST -->
+			<!-- BEGIN NEW_USER_LIST -->
+			<!-- END NEW_USER_LIST -->
+		<!-- BEGIN END_ROW -->
+                </tr>
+		<!-- END END_ROW -->
+		<!-- /ACTION_LIST -->
+		<!-- END ACTION_LIST -->
+		<!-- BEGIN NEW_ACTION_LIST -->
+		<!-- END NEW_ACTION_LIST -->
+        </table>
+	<!-- BEGIN BOTTOM -->
+	<div align="center">
+		<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+		<input type="image" name="cancel" src="${icons_url}/cancel.gif" border="0">
+		
+	</div>
+	<!-- END BOTTOM -->
+</form>
+	<!-- BEGIN ROW_0 -->
+		<!-- ROW_0 -->
+			<tr bgcolor="#C0FFC0">
+		<!-- /ROW_0 -->
+	<!-- END ROW_0 -->
+	<!-- BEGIN END_ROW_0 -->
+		<!-- END_ROW_0 -->
+			<td bgcolor="#E0E0E0">&nbsp;&nbsp;&nbsp;</td>
+		<!-- /END_ROW_0 -->
+	<!-- END END_ROW_0 -->
+	<!-- BEGIN ROW_1 -->
+		<!-- ROW_1 -->
+			<!-- tr bgcolor="#FFFFFF" -->
+		<!-- /ROW_1 -->
+	<!-- END ROW_1 -->
+	<!-- BEGIN END_ROW_1 -->
+		<!-- END_ROW_1 -->
+			</tr>
+		<!-- /END_ROW_1 -->
+	<!-- END END_ROW_1 -->
+	<!-- BEGIN ROW_2 -->
+		<!-- ROW_2 -->
+			<tr bgcolor="#FFFFFF">
+		<!-- /ROW_2 -->
+	<!-- END ROW_2 -->
+	<!-- BEGIN END_ROW_2 -->
+		<!-- END_ROW_2 -->
+			<td bgcolor="#E0E0E0">&nbsp;&nbsp;&nbsp;</td>
+		<!-- /ENDROW_2 -->
+	<!-- END END_ROW_2 -->
+	<!-- BEGIN ROW_3 -->
+		<!-- ROW_3 -->
+			<!-- tr bgcolor="#FFFFFF" -->
+		<!-- /ROW_3 -->
+	<!-- END ROW_3 -->
+	<!-- BEGIN END_ROW_3 -->
+		<!-- END_ROW_3 -->
+			</tr>
+		<!-- /ENDROW_3 -->
+	<!-- END END_ROW_3 -->
+</div>
+</body>
+</html>

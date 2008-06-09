@@ -1,0 +1,6 @@
+Inclus le système de fenêtrage X11
+accompagné de dizaines de gestionnaires de fenêtres et des environnements graphiques majeurs :
+ * Gnome, 
+ * KDE
+ * et une multitude d'autres environnements ;
+Vous trouverez ''L'' 'environnement adapter à votre ordinateur et votre utilisation.

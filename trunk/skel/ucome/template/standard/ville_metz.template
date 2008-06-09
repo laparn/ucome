@@ -1,0 +1,15 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+	<body>
+		<center><h1><!-- BEGIN TITLE --><!-- END TITLE --></h1>
+			<h2>Du <!-- BEGIN DATE-START --><!-- END DATE-START --> au <!-- BEGIN DATE-END --><!-- END DATE-END --></h2>
+			<h2><!-- BEGIN PLACE --><!-- END PLACE --></h2>
+			<h3><!-- BEGIN THEME1 --><!-- END THEME1 --></h3>
+		</center>
+		<!-- BEGIN CONTENT --><!-- END CONTENT -->
+	</body>
+</html>

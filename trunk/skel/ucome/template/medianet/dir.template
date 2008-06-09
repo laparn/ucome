@@ -1,0 +1,311 @@
+<html>
+<!-- vim: set syntax=html: -->
+  <head>
+    <title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+    <!-- dir.tmpl -->
+  </head>
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+<!-- dir.tmpl -->
+<div align=center>
+        <h1>
+                <!-- BEGIN TOP_TITLE -->
+                <!-- TOP_TITLE -->
+                <!-- /TOP_TITLE -->
+                <!-- END TOP_TITLE -->
+        </h1>
+	<b><!-- BEGIN MESSAGE --><!-- END MESSAGE --></b>
+</div>
+
+<!-- BEGIN START_FORM -->
+<!-- START_FORM -->
+<form action="${FAS_VIEW_CGI}" method="post">
+	<input type="hidden" name="action" value="select_file">
+	<input type="hidden" name="file" value="${dir}">
+	<input type="hidden" name="debug" value="${DEBUG}">
+<!-- /START_FORM -->
+<!-- END START_FORM -->
+        <div align=center>
+                <div>
+                        <!-- BEGIN FILE_TABLE_HEADER -->
+                        <!-- FILE_TABLE_HEADER -->
+                        <div style="background-color:#e0e0e0">
+                                <!-- BEGIN FILE_HEADER -->
+                                <!-- FILE_HEADER -->
+                                        <b>File name</b>
+                                <!-- /FILE_HEADER -->
+                                <!-- END FILE_HEADER -->
+                                <!-- BEGIN SHORTNAME_HEADER -->
+                                <!-- SHORTNAME_HEADER -->
+                                        <b>Name</b>
+                                <!-- /SHORTNAME_HEADER -->
+                                <!-- END SHORTNAME_HEADER -->
+                                <!-- BEGIN EXTENSION_HEADER -->
+                                <!-- EXTENSION_HEADER -->
+                                        <b>Ext.</b>
+                                <!-- /EXTENSION_HEADER -->
+                                <!-- END EXTENSION_HEADER -->
+                                <!-- BEGIN FILETYPE_HEADER -->
+                                <!-- FILETYPE_HEADER -->
+                                        <b>Type</b>
+                                <!-- /FILETYPE_HEADER -->
+                                <!-- END FILETYPE_HEADER -->
+                                <!-- BEGIN TITLE_HEADER -->
+                                <!-- TITLE_HEADER -->
+                                        <b>Title</b>
+                                <!-- /TITLE_HEADER -->
+                                <!-- END TITLE_HEADER -->
+                                <!-- BEGIN DELETE_HEADER -->
+                                <!-- DELETE_HEADER -->
+                                        <b>Del.</b>
+                                <!-- /DELETE_HEADER -->
+                                <!-- END DELETE_HEADER -->
+                                <!-- BEGIN EDIT_HEADER -->
+                                <!-- EDIT_HEADER -->
+                                        <b>Edit</b>
+                                <!-- /EDIT_HEADER -->
+                                <!-- END EDIT_HEADER -->
+                                <!-- BEGIN COPY_HEADER -->
+                                <!-- COPY_HEADER -->
+                                        <b>Copy</b>
+                                <!-- /COPY_HEADER -->
+                                <!-- END COPY_HEADER -->
+                                <!-- BEGIN PROPERTIES_HEADER -->
+                                <!-- PROPERTIES_HEADER -->
+                                        <b>Prop.</b>
+                                <!-- /PROPERTIES_HEADER -->
+                                <!-- END PROPERTIES_HEADER -->
+                                <!-- BEGIN ALLOW_HEADER -->
+                                <!-- ALLOW_HEADER -->
+                                        <b>Rights</b>
+                                <!-- /ALLOW_HEADER -->
+                                <!-- END ALLOW_HEADER -->
+                                <!-- BEGIN DEFAULT_HEADER -->
+                                <!-- DEFAULT_HEADER -->
+                                        <b>$content</b>
+                                <!-- /DEFAULT_HEADER -->
+                                <!-- END DEFAULT_HEADER -->
+				<!-- BEGIN HEADER_CELL -->
+				<!-- END HEADER_CELL -->
+                        </div>
+                        <!-- /FILE_TABLE_HEADER -->
+                        <!-- END FILE_TABLE_HEADER -->
+                        <!-- BEGIN FILE_LIST -->
+                        <!-- FILE_LIST -->
+                        <div class="cellulemessageclair">
+                                <!-- BEGIN FILE -->
+                                <!-- FILE -->
+                                &nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?file=$file">$file</A>]
+                                &nbsp;
+                                <!-- /FILE -->
+                                <!-- END FILE -->
+                                <!-- BEGIN TITLE -->
+                                <!-- TITLE -->
+                                &nbsp;
+                                        $title
+                                &nbsp;
+                                <!-- /TITLE -->
+                                <!-- END TITLE -->
+                                <!-- BEGIN SHORTNAME -->
+                                <!-- SHORTNAME -->
+                                &nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?file=$file">$shortname</A>]
+                                &nbsp;
+                                <!-- /SHORTNAME -->
+                                <!-- END SHORTNAME -->
+                                <!-- BEGIN EXTENSION -->
+                                <!-- EXTENSION -->
+                                &nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?file=$file">$extension</A>]
+                                &nbsp;
+                                <!-- /EXTENSION -->
+                                <!-- END EXTENSION -->
+                                <!-- BEGIN FILETYPE -->
+                                <!-- FILETYPE -->
+                                &nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?file=${file}"><IMG SRC="${icons_url}/${filetype}.gif" BORDER="0" ALT="${filetype}" WIDTH="20" HEIGHT="22"></A>]
+                                &nbsp;
+                                <!-- /FILETYPE -->
+                                <!-- END FILETYPE -->
+                                <!-- BEGIN DIR -->
+                                <!-- DIR -->
+                                &nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?file=$dir">$dir</A>]
+                                &nbsp;
+                                <!-- /DIR -->
+                                <!-- END DIR -->
+                                <!-- BEGIN SIZE -->
+                                <!-- SIZE -->
+                                &nbsp;
+                                        $size
+                                &nbsp;
+                                <!-- /SIZE -->
+                                <!-- END SIZE -->
+                                <!-- BEGIN MTIME -->
+                                <!-- MTIME -->
+                                &nbsp;
+                                        $mtime
+                                &nbsp;
+                                <!-- /MTIME -->
+                                <!-- END MTIME -->
+                                <!-- BEGIN URI -->
+                                <!-- URI -->
+                                &nbsp;
+                                        $uri
+                                &nbsp;
+                                <!-- /URI -->
+                                <!-- END URI -->
+                                <!-- BEGIN START_TIME -->
+                                <!-- START_TIME -->
+                                &nbsp;
+                                        $start_time
+                                &nbsp;
+                                <!-- /START_TIME -->
+                                <!-- END START_TIME -->
+                                <!-- BEGIN END_TIME -->
+                                <!-- END_TIME -->
+                                &nbsp;
+                                        $end_time
+                                &nbsp;
+                                <!-- /END_TIME -->
+                                <!-- END END_TIME -->
+                                <!-- BEGIN ROLLING_SPEED -->
+                                <!-- ROLLING_SPEED -->
+                                &nbsp;
+                                        $rolling_speed
+                                &nbsp;
+                                <!-- /ROLLING_SPEED -->
+                                <!-- END ROLLING_SPEED -->
+				<!-- BEGIN DELETE -->
+				<!-- DELETE -->
+                                &nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?action=delete_form&file=$file">
+                                                <IMG SRC="${icons_url}/delete.gif" border=0 alt="delete" width="20" height="20"></A>]
+                                &nbsp;
+				<!-- !DELETE -->
+				<!-- END DELETE -->
+				<!-- BEGIN EDIT -->
+				<!-- EDIT -->
+                                &nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?action=edit_form&file=${file}"><IMG SRC="${icons_url}/edit.gif" border=0 alt="edit" width="20" height="20"></A>]
+                                &nbsp;
+				<!-- /EDIT -->
+				<!-- END EDIT -->
+				<!-- BEGIN COPY -->
+				<!-- COPY -->
+                                &nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?action=copy_form&file=$file">
+                                                <IMG SRC="${icons_url}/copy.gif" border=0 alt="copy" width="20" height="20"></A>]
+                                &nbsp;
+				<!-- /COPY -->
+				<!-- END COPY -->
+				<!-- BEGIN PROPERTIES -->
+				<!-- PROPERTIES -->
+				&nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?level=user&action=prop_form&file=$file">
+                                                <IMG SRC="${icons_url}/properties.gif" border=0 alt="prop" width="20" height="20"></A>]
+                                &nbsp;
+				<!-- /PROPERTIES -->
+				<!-- END PROPERTIES -->
+				<!-- BEGIN ALLOW -->
+				<!-- ALLOW -->
+				&nbsp;
+                                        [<A HREF="${FAS_VIEW_CGI}?action=allow_action_form&file=$file">
+                                                <IMG SRC="${icons_url}/allow.png" border=0 alt="rights" width="22" height="22"></A>]
+                                &nbsp;
+				<!-- /ALLOW -->
+				<!-- END ALLOW -->
+				<!-- BEGIN SELECT -->
+				<!-- SELECT -->
+				&nbsp;
+					<input type="hidden" name="file${counter}" value="${file}"><input type=checkbox name="checkbox${counter}" value=1>
+                                &nbsp;
+				<!-- /SELECT -->
+				<!-- END SELECT -->
+				<!-- BEGIN TEMPLATE_DIR_IMG -->
+				<!-- TEMPLATE_DIR_IMG -->
+                                &nbsp;
+                                        [<a href="fas:/&action=change_look&look=${file}"><img src="fas:${file}/index.jpg"></a>]
+                                &nbsp;
+				<!-- /TEMPLATE_DIR_IMG -->
+				<!-- END TEMPLATE_DIR_IMG -->
+				<!-- BEGIN COMP_ELT.DATE.CONTENT -->
+				<!-- COMP_ELT.DATE.CONTENT -->
+                                &nbsp;
+					[<a href="${FAS_VIEW_CGI}?file=${file}">${comp_elt.date.content}</a>]
+                                &nbsp;
+				<!-- /COMP_ELT.DATE.CONTENT -->
+				<!-- END COMP_ELT.DATE.CONTENT -->
+				<!-- BEGIN COMP_ELT.TITLE.CONTENT -->
+				<!-- COMP_ELT.TITLE.CONTENT -->
+                                &nbsp;
+					${comp_elt.title.content}
+                                &nbsp;
+				<!-- /COMP_ELT.TITLE.CONTENT -->
+				<!-- END COMP_ELT.TITLE.CONTENT -->
+				<!-- BEGIN FILE_CELL -->
+				<!-- END FILE_CELL -->
+                        </div>
+                        <!-- /FILE_LIST -->
+                        <!-- END FILE_LIST -->
+                        <!-- BEGIN FILE_LIST_ODD -->
+                        <!-- FILE_LIST_ODD -->
+                        <div class="cellulemessagesombre">
+				<!-- BEGIN FILE_CELL -->
+				<!-- END FILE_CELL -->
+                        </div>
+                        <!-- /FILE_LIST_ODD -->
+                        <!-- END FILE_LIST_ODD -->
+			<!-- BEGIN ALL_FILE_ROWS -->
+			<!-- ALL_FILE_ROWS -->
+				<!-- BEGIN FILE_ROW -->
+				<!-- END FILE_ROW -->
+			<!-- /ALL_FILE_ROWS -->
+			<!-- END ALL_FILE_ROWS -->
+                </div>
+	</div>
+<!-- BEGIN END_FORM -->
+	<div align="center">
+		<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+		<input type="image" name="cancel" src="${icons_url}/cancel.gif" border="0">
+		
+	</div>
+	</FORM>
+<!-- END END_FORM -->
+<!-- BEGIN CREATE_FORM -->
+<!-- CREATE_FORM -->
+<div align=center><div BORDER=0>
+	<form action="${FAS_VIEW_CGI}" method="post">
+		<input type="hidden" name="action" value="new">
+		<input type="hidden" name="file" value="${dir}">
+		<input type="hidden" name="debug" value="${DEBUG}">
+		<div VALIGN="BOTTOM" >
+			<div>New File&nbsp;&nbsp;Type :</TD>
+			<div VALIGN="BOTTOM"><select name="filetype" >
+					<option>On extension
+					<!-- BEGIN FILETYPE_OPTION -->
+					<!-- FILETYPE_OPTION -->
+					<option>${option}
+					<!-- /FILETYPE_OPTION -->
+					<!-- END FILETYPE_OPTION -->
+				</select>
+				<input name="new_filename" value="" width="15">
+				<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+			</div>
+		</div>
+	</form>
+	<form action="${FAS_UPLOAD_CGI}" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="upload">
+		<input type="hidden" name="file" value="${dir}">
+		<input type="hidden" name="debug" value="${DEBUG}">
+		<div VALIGN="BOTTOM" >
+			<div>Send a file</div>
+			<div VALIGN="BOTTOM"><input type="file" name="uploaded_file" width="20"><input type="image" name="ok" src="${icons_url}/ok.gif" border="0"></div>
+		</div>
+	</form>
+</div></div>
+<!-- /CREATE_FORM -->
+<!-- END CREATE_FORM -->
+</body>
+</html>

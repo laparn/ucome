@@ -1,0 +1,148 @@
+<html>
+<!-- vim: set syntax=html: -->
+  <head>
+    <title>Management of authorisation for ${export_filename}</title>
+    <!-- allow_action.tmpl -->
+  </head>
+
+<body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+<!-- allow_action.tmpl -->
+<!-- BEGIN TOP -->
+<div align=center>
+        <h1>Management of authorisation for <!-- BEGIN ACTION -->${content} ,<!-- END ACTION --> on ${export_filename}</h1>
+	<b>Please choose the people which will be allowed to perform these actions on the current file or directory</b>
+</div>
+<div align=center>
+<form action="${FAS_VIEW_CGI}" method="post">
+	<input type="hidden" name="action" value="allow_action_final">
+	<input type="hidden" name="file" value="${export_filename}">
+	<!-- BEGIN EXPORT_ACTION -->
+	<!-- EXPORT_ACTION -->
+	<input type="hidden" name="action${counter}" value="${content}">
+	<!-- /EXPORT_ACTION -->
+	<!-- END EXPORT_ACTION -->
+
+<!-- END TOP -->
+        <table>
+                <tr bgcolor=#E0E0E0>
+			<td align="center" >
+				<b>Check</b>
+			</td>
+			<td align="center" >
+				<b>User</b>
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
+			<td align="center" >
+				<b>Check</b>
+			</td>
+			<td align="center" >
+				<b>User</b>
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
+			<td align="center" >
+				<b>Check</b>
+			</td>
+			<td align="center" >
+				<b>User</b>
+			</td>
+                </tr>
+                <!-- BEGIN USER_ROW -->
+                <!-- USER_ROW -->
+		<!-- BEGIN ROW_START -->
+                <!-- tr bgcolor=#C0FFC0 -->
+		<!-- END ROW_START -->
+			<!-- BEGIN CHECK -->
+			<!-- CHECK -->
+			<td align=center>
+				<input type="hidden" name="user${counter}" value="${user}"><!-- BEGIN CHECK_ON --><input type=checkbox name="checkbox${counter}" value=1 checked><!-- END CHECK_ON --><!-- BEGIN CHECK_OFF --><input type=checkbox name="checkbox${counter}" value=1><!-- END CHECK_OFF -->
+			</td>
+			<!-- /CHECK -->
+			<!-- END CHECK -->
+			<!-- BEGIN NEW_CHECK --><!-- END NEW_CHECK -->
+                        <!-- BEGIN USER -->
+                        <!-- USER -->
+                        <td>
+                               ${content} 
+                        </td>
+                        <!-- /USER -->
+                        <!-- END USER -->
+		<!-- BEGIN END_ROW -->
+                </tr>
+		<!-- END END_ROW -->
+		<!-- /USER_ROW -->
+		<!-- END USER_ROW -->
+		<!-- BEGIN NEW_USER_ROW -->
+		<!-- END NEW_USER_ROW -->
+		</tr>
+        </table>
+	<!-- BEGIN BOTTOM -->
+	<div align="center">
+		<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+		<input type="image" name="cancel" src="${icons_url}/cancel.gif" border="0">
+		
+	</div>
+	<!-- END BOTTOM -->
+</form>
+	<!-- BEGIN ROW_0 -->
+		<!-- ROW_0 -->
+			<tr bgcolor="#C0FFC0">
+		<!-- /ROW_0 -->
+	<!-- END ROW_0 -->
+	<!-- BEGIN END_ROW_0 -->
+		<!-- END_ROW_0 -->
+			<td bgcolor="#E0E0E0">&nbsp;&nbsp;&nbsp;</td>
+		<!-- /END_ROW_0 -->
+	<!-- END END_ROW_0 -->
+	<!-- BEGIN ROW_1 -->
+		<!-- ROW_1 -->
+			<!-- tr bgcolor="#FFFFFF" -->
+		<!-- /ROW_1 -->
+	<!-- END ROW_1 -->
+	<!-- BEGIN END_ROW_1 -->
+		<!-- END_ROW_1 -->
+			<td bgcolor="#E0E0E0">&nbsp;&nbsp;&nbsp;</td>
+		<!-- /END_ROW_1 -->
+	<!-- END END_ROW_1 -->
+	<!-- BEGIN ROW_2 -->
+		<!-- ROW_2 -->
+			<!-- tr bgcolor="#FFFFFF" -->
+		<!-- /ROW_2 -->
+	<!-- END ROW_2 -->
+	<!-- BEGIN END_ROW_2 -->
+		<!-- END_ROW_2 -->
+			</tr>
+		<!-- /ENDROW_2 -->
+	<!-- END END_ROW_2 -->
+	<!-- BEGIN ROW_3 -->
+		<!-- ROW_3 -->
+			<tr bgcolor="#FFFFFF">
+		<!-- /ROW_3 -->
+	<!-- END ROW_3 -->
+	<!-- BEGIN END_ROW_3 -->
+		<!-- END_ROW_3 -->
+			<td bgcolor="#E0E0E0">&nbsp;&nbsp;&nbsp;</td>
+		<!-- /ENDROW_3 -->
+	<!-- END END_ROW_3 -->
+	<!-- BEGIN ROW_4 -->
+		<!-- ROW_4 -->
+			<!-- tr bgcolor="#FFFFFF" -->
+		<!-- /ROW_4 -->
+	<!-- END ROW_4 -->
+	<!-- BEGIN END_ROW_4 -->
+		<!-- END_ROW_4 -->
+			<td bgcolor="#E0E0E0">&nbsp;&nbsp;&nbsp;</td>
+		<!-- /ENDROW_4 -->
+	<!-- END END_ROW_4 -->
+	<!-- BEGIN ROW_5 -->
+		<!-- ROW_5 -->
+			<!-- tr bgcolor="#FFFFFF" -->
+		<!-- /ROW_5 -->
+	<!-- END ROW_5 -->
+	<!-- BEGIN END_ROW_5 -->
+		<!-- END_ROW_5 -->
+			</tr>
+		<!-- /ENDROW_5 -->
+	<!-- END END_ROW_5 -->
+</div>
+</body>
+</html>

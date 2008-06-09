@@ -1,0 +1,18 @@
+Documentation de txt2ml and txt2mlsp
+
+txt2ml et txt2mlsp sont des convertisseurs de texte vers html. Ils ont de nombreuses utilisation :
+ * ils permettent de générer du "bel" html à l'intérieur d'une application web à partir d'une simple zone de saisie de texte. Le fait que vous puissiez choisir l'html associé avec un titre, les sous-titres, les images, les listes, ... permet d'intégrer la sortie de txt2ml dans de "jolies" page html.
+ * j'utilise personnellement txt2ml pour des rapports, des cours, des propositions clients, des lettres, ... Ceci est possible en utilisant txt2ml en conjonction avec htmldoc pour générer du pdf.
+
+Ces logiciels ont été construits afin d'avoir la propriété suivante : taper le, cela apparaîtra en html tel que vous voudriez que ce soit (what you type is what you wish).
+Même si l'on ne part que d'un texte, vous pouvez avoir des tables, des liens, des images, des titres, ...
+Tous les détails sont ici :
+ * url:tutorial.html
+ * url:recap.html
+
+Il y a 2 versions :
+ * txt2ml est la version complète permettant d'avoir des tables complexes (des tables contenant des tables ou des listes). tcl (>8.0) et tclLex sont nécessaires.
+ * txt2ml est une version en tcl seule avec seulement des tables simples (des tables dont les lignes correspondent à une seule ligne de texte).
+
+txt2ml a été spécifié par 'Arnaud LAPREVOTE'=mailto:arnaud.laprevote_no_spam@freealter.com (enlever _no_spam pour avoir l'adresse mail) et a été principalement programmé par 'Damien Chrisment'=mailto:damien.chrisment_no_spam@freealter.com .
+

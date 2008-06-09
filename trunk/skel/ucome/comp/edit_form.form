@@ -1,0 +1,3 @@
+global.template standard.template global.title "Block definition for the form for editing a file" global.title.fr "Définition des blocs pour le formulaire d'édition de fichier" title.type file title.cgi_uservar.action title menu.type file menu.cgi_uservar.action treedir menu.cgi_uservar_import.treedir.url_start 1 menu.cgi_uservar.treedir.template treedir.template content.type html allow.type file allow.cgi_uservar.action show_action_list allow.cgi_uservar.from edit_form whoami.type file whoami.cgi_uservar.action whoami path.type file path.cgi_uservar.action admin_path
+
+

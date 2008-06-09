@@ -1,0 +1,18 @@
+Dear all,
+
+I am right now trying to improve the ftpd module of stdlib in order to support the passive mode in ftp (PASV command). In this mode, instead of having one fix channel for receiving orders and a second fix one for transmitting data, the channel for transmitting the data is dynamic (the port number is dynamic). It is very used (mozilla, kde vfs, ...).
+
+I have a very strange problem :
+ * I use the same architecture than for the control channel,
+ * when entering in the PASV order, I search for a free port and I open a server hearing on this free port,
+ * I put a file event on the reading of the socket.
+
+And basically, it works . Code is available at the following url :
+
+But, I have a problem when I have a PASV command followed by a PORT command. In this case, you must dynamically create a socket having an origin at the local port specified by PASV and going to the port indicated by the PORT command. I have tryed to create 2 distincts sockets (one for each channel), I have tried to use a client channel (where both ends may be indicated). But it seems that what I really need is a server socket where I can indicate a "sending" port. 
+
+Does somebody have an idea (except good luck) or some other PASV implementation in tcl ?
+
+Best regards,
+
+Arnaud LAPREVOTE

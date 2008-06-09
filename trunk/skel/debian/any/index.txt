@@ -1,0 +1,7 @@
+Ucome for Debian
+
+Ucome is a small and easy system allowing to create a web site with just some files. You will find hereunder the text of the Debian flyers as a web site and ready to be showed as a rolling presentation. Just use a web browser in full screen mode and get your full rolling presentation in a snap.
+
+If you want to add a section, just edit manually main.order in the directory or  manually edit the file.
+
+ * french flyer split in multiple pages 'html'=fas:francais/page1.txt as a 'presentation'=fas:francais/main.order

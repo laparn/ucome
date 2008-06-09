@@ -1,0 +1,51 @@
+# cd mimeprocs
+# grep -h "conf(extension." * > /tmp/ex.txt
+proc all_extensions { } {
+	global conf
+	set conf(extension.c) code
+	set conf(extension.h) code
+	set conf(extension.cpp) code
+	set conf(extension.tcl) code
+	set conf(extension.cgi) code
+	set conf(extension.comp) comp
+	set conf(extension.com) comp
+	set conf(extension.css) css
+	set conf(extension.csv) csv
+	set conf(extension.doc) doc
+	set conf(extension.domp) domp
+	set conf(extension.fashtm) fashtml
+	set conf(extension.fashtml) fashtml
+	set conf(extension.form) form
+	set conf(extension.gif) gif
+	set conf(extension.htmf) htmf
+	set conf(extension.int) internet
+	set conf(extension.internet) internet
+	set conf(extension.jpg) jpeg
+	set conf(extension.jpeg) jpeg
+	set ::conf(extension.log) logfile
+	set ::conf(extension.log) logfile
+	set conf(extension.mpeg) mpeg
+	set conf(extension.mpg) mpeg
+	set conf(extension.avi) avi
+	set conf(extension.mp4) mp4
+	set conf(extension.order) order
+	set conf(extension.ord) order
+	set conf(extension.or) order
+	set ::conf(extension.password) password
+	set ::conf(extension.pass) password
+	set conf(extension.pdf) pdf
+	set conf(extension.png) png
+	set conf(extension.sxc) sxc
+	set conf(extension.sxd) sxd
+	set conf(extension.sxi) sxi
+	set conf(extension.sxw) sxw
+	set conf(extension.tmpl) tmpl
+	set conf(extension.html) tmpl
+	set conf(extension.htm) tmpl
+	set conf(extension.todo) todo
+	set conf(extension.txt) txt
+	set conf(extension.tcl) code
+	set conf(extension.ws3) code
+	set conf(extension.rvt) code
+	set conf(extension.js) js
+}

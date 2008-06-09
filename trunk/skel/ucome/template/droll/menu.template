@@ -1,0 +1,122 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+		<link  rel="stylesheet" type="text/css" href="fas:/template/droll/css/style.css" title="Standard stylesheet" />
+	</head>
+
+	<body  >
+	        <!-- droll/menu.tmpl -->
+		<!-- BEGIN MENU -->
+		<!-- MENU -->
+		<table border=0 cellpadding=2 cellspacing=0 width="100%">
+			<tr>
+				<td nowrap class="tableHead1">
+					<b>Menu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+				</td>
+			</tr>
+			<tr class=tableBody1>
+				<td>
+					<table border=0 cellpadding=1 cellspacing=0 width="100%">
+		     				<!-- BEGIN SECTION0 -->
+		     				<!-- SECTION0 -->
+						<tr>
+							<td><a href="${url}">&raquo;${content}</a></td>
+						</tr>
+		     				<!-- /SECTION0 -->
+		     				<!-- END SECTION0 -->
+						<!-- BEGIN ACTIVESECTION0 -->
+						<!-- ACTIVESECTION0 -->
+						<tr>
+							<td bgcolor="#e0e0e0"><a href="${url}">&raquo;${content}</a></td>
+						</tr>
+						<!-- /ACTIVESECTION0 -->
+						<!-- END ACTIVESECTION0 -->
+						<!-- BEGIN EXACTSECTION0 -->
+						<!-- EXACTSECTION0 -->
+						<tr>
+							<td bgcolor="#e0e0e0"><a href="${url}">&raquo;${content}</a></td>
+						</tr>
+						<!-- /EXACTSECTION0 -->
+						<!-- END EXACTSECTION0 -->
+						<!-- BEGIN SECTION1 -->
+						<!-- SECTION1 -->
+						<tr>
+							<td><a href="${url}">&nbsp;&nbsp;&raquo;${content}</a></td>
+						</tr>
+						<!-- /SECTION1 -->
+						<!-- END SECTION1 -->
+						<!-- BEGIN ACTIVESECTION1 -->
+						<!-- ACTIVESECTION1 -->
+						<tr>
+							<td bgcolor="#e0e0e0"><a href="${url}">&nbsp;&nbsp;&raquo;${content}</a></td>
+						</tr>
+						<!-- /ACTIVESECTION1 -->
+						<!-- END ACTIVESECTION1 -->
+						<!-- BEGIN EXACTSECTION1 -->
+						<!-- EXACTSECTION1 -->
+						<tr>
+							<td bgcolor="#e0e0e0"><a href="${url}">&nbsp;&nbsp;&raquo;${content}</a></td>
+						</tr>
+						<!-- /EXACTSECTION1 -->
+						<!-- END EXACTSECTION1 -->
+						<!-- BEGIN SECTION2 -->
+						<!-- SECTION2 -->
+						<tr>
+							<td><a href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;${content}</a></td>
+						</tr>
+						<!-- /SECTION2 -->
+						<!-- END SECTION2 -->
+						<!-- BEGIN ACTIVESECTION2 -->
+						<!-- ACTIVESECTION2 -->
+						<tr>
+							<td bgcolor="#e0e0e0"><a href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;${content}</a></td>
+						</tr>
+						<!-- /ACTIVESECTION2 -->
+						<!-- END ACTIVESECTION2 -->
+						<!-- BEGIN EXACTSECTION2 -->
+						<!-- EXACTSECTION2 -->
+						<tr>
+							<td bgcolor="#e0e0e0"><a href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;${content}</a></td>
+						</tr>
+						<!-- /EXACTSECTION2 -->
+						<!-- END EXACTSECTION2 -->
+						<!-- BEGIN GENERIC_SECTION -->
+						<!-- GENERIC_SECTION -->
+						<tr>
+							<td><a href="${url}"><!-- BEGIN GENERIC_SPACE -->&nbsp;&nbsp;<!-- END GENERIC_SPACE -->&raquo;${content}</a></td>
+						</tr>
+						<!-- /GENERIC_SECTION -->
+						<!-- END GENERIC_SECTION -->
+						<!-- BEGIN GENERIC_ACTIVESECTION -->
+						<!-- GENERIC_ACTIVESECTION -->
+						<tr>
+							<td bgcolor="#e0e0e0"><a href="${url}"><!-- BEGIN GENERIC_ACTIVESPACE -->&nbsp;&nbsp;<!-- END GENERIC_ACTIVESPACE -->&raquo;${content}</a></td>
+						</tr>
+						<!-- /GENERIC_ACTIVESECTION -->
+						<!-- END GENERIC_ACTIVESECTION -->
+						<!-- BEGIN GENERIC_EXACTSECTION -->
+						<!-- GENERIC_EXACTSECTION -->
+						<tr>
+							<td bgcolor="#e0e0e0"><a href="${url}"><!-- BEGIN GENERIC_EXACTSPACE -->&nbsp;&nbsp;<!-- END GENERIC_EXACTSPACE -->&raquo;${content}</a></td>
+						</tr>
+						<!-- /GENERIC_EXACTSECTION -->
+						<!-- END GENERIC_EXACTSECTION -->
+
+						<!-- BEGIN MENU_ENTRY -->
+						<!-- END MENU_ENTRY -->
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<!-- /MENU -->
+		<!-- END MENU -->
+		<!-- BEGIN CONTENT --><!-- END CONTENT -->
+		<!-- BEGIN BOTTOM --><!-- END BOTTOM -->
+	</body>
+</html>

@@ -1,0 +1,300 @@
+<HTML><HEAD>
+<META NAME="generator" CONTENT="txt2ml v1.4b">
+<TITLE>Txt2ml Tutorial</TITLE>
+</HEAD>
+<BODY  >
+<CENTER><H1>Txt2ml Tutorial</H1></CENTER><P></P><P> txt2ml and txt2mlsp are text to html converters. To use them, you need :</P><UL><LI> for txt2ml&nbsp;&nbsp;tcl (>8.0) and the tclLex package,</LI>
+<LI> for txt2mlsp only tcl (>8.0) is required.</LI>
+</UL>
+<P></P><P> Usage : txt2ml -f text_file_name&nbsp;&nbsp;(result is on the standard output)</P><P> ou	txt2ml -f text_file_name -o html_file_name</P><P></P><A HREF="#1."><H1>1. Titles </H1></A>
+<A HREF="#1.1."><H2>1.1. Document title </H2></A>
+<A HREF="#1.2."><H2>1.2. Section titles </H2></A>
+<A HREF="#2."><H1>2. Lists </H1></A>
+<A HREF="#3."><H1>3. Images </H1></A>
+<A HREF="#4."><H1>4. Links </H1></A>
+<A HREF="#4.1."><H2>4.1. Direct links </H2></A>
+<A HREF="#4.2."><H2>4.2. Personnalised links </H2></A>
+<A HREF="#4.3."><H2>4.3. General remarks on the links </H2></A>
+<A HREF="#5."><H1>5. Ruler separator </H1></A>
+<A HREF="#6."><H1>6. Tables </H1></A>
+<A HREF="#7."><H1>7. Bold, Italique, underscored, dashed </H1></A>
+<A HREF="#8."><H1>8. Summary </H1></A>
+<A HREF="#9."><H1>9. Html file insertion </H1></A>
+<A HREF="#10."><H1>10. Preformatted text </H1></A>
+<A HREF="#11."><H1>11. Options </H1></A>
+<A HREF="#11.1."><H2>11.1. Background </H2></A>
+<A HREF="#11.2."><H2>11.2. Page title </H2></A>
+<A HREF="#11.3."><H2>11.3. Content </H2></A>
+<A HREF="#11.4."><H2>11.4. Style sheet </H2></A>
+<A HREF="#11.5."><H2>11.5. Naked output html </H2></A>
+<A HREF="#11.6."><H2>11.6. Help </H2></A>
+<A HREF="#11.7."><H2>11.7. Personnalisation file </H2></A>
+<A HREF="#12."><H1>12. Advanced functionnality existing in txt2ml and not txt2mlsp </H1></A>
+<A HREF="#12.1."><H2>12.1. Complex tables </H2></A>
+<A HREF="#13."><H1>13. Conclusion </H1></A>
+
+<HR>
+<P></P>
+<A NAME="1."></A>
+<H1>1. Titles</H1>
+
+<A NAME="1.1."></A>
+<H2>1.1. Document title</H2>
+<P> The first line of the document is considered to be the page title. It is then in the TITLE section of the HEAD section of the html file, and highlighted in one way or another in the html file.</P><P></P>
+<A NAME="1.2."></A>
+<H2>1.2. Section titles</H2>
+<P> Titles start by a number followed by a dot (ex : "1. Paragraph title"). A sub-title start with a number followed by a dot and then a second number followed by another dot (ex : "1.2. Sub-title"), and so on for all titles, sub-titles, sub-sub-titles, sub-sub-sub-titles, ...</P><P></P><P> You do not have to worry about the exact numbering of the titles. The only think that count is the title level. All numbers are worked out automatically in the html file. So you may always number your section 1. 1.1. 1.1.1. . </P><P></P>
+<A NAME="2."></A>
+<H1>2. Lists</H1>
+<P> They start by the symbol "*", "-" or "+". This symbol must be preceded by one or many spaces. The space number corresponds to the list level.</P><P></P><P> Example :</P><P> "Proposed fruits :</P><TABLE BORDER=0><TR><TD COLSPAN=1>&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=2 >+ Apples</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;- red</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;+ golden</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;+ red love</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;&nbsp;- yellow</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=2 >+ peaches</TD>
+</TR>
+<TR><TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=2 >+ apricots "</TD>
+</TR>
+</TABLE>
+<P></P><P> will become :</P><UL><LI> Apples</LI>
+<UL><LI> red</LI>
+<UL><LI> golden</LI>
+<LI> red love</LI>
+</UL>
+<LI> yellow</LI>
+</UL>
+<LI> peaches</LI>
+<LI> apricots</LI>
+</UL>
+<P></P>
+<A NAME="3."></A>
+<H1>3. Images</H1>
+<P> Text words which extendion is .gif, .jpg, .jpeg or .png are considered as being images and are automatically loaded in the document.</P><P> Example : "This shows an image&nbsp;&nbsp;new.gif" will give "This shows an image&nbsp;&nbsp;new.gif"</P><P> If the name of an image is alone on a line then the image is loaded and centered in the page. If the next line starts with the word "Fig" then this line is considered as being a comment of the preceding image and will be centered (as the image).</P><P> Example :</P><PRE>
+new.gif
+Fig: Nice picture isn't it
+</PRE>
+<P> deviendra</P><CENTER><IMG SRC="new.gif"></CENTER>
+<CENTER><I>Fig: Jolie image, n'est ce pas?</I></CENTER>
+<P></P><P> Remark : for an image not to be loaded in a document, you should only place a "!" beyond is name. Example :&nbsp;&nbsp;!new.gif will become&nbsp;&nbsp;new.gif .</P><P></P>
+<A NAME="4."></A>
+<H1>4. Links</H1>
+
+<A NAME="4.1."></A>
+<H2>4.1. Direct links</H2>
+<P> Text such as&nbsp;&nbsp;http://www.freealter.com or&nbsp;&nbsp;ftp://ftp.lip6.fr or&nbsp;&nbsp;url:/local/link.hxs are transformed into links toward the indicated url.</P><P> Example : ' http://www.freealter.com or&nbsp;&nbsp;ftp://ftp.lip6.fr' or&nbsp;&nbsp; url:new.gif becoe <A HREF="http://www.freealter.com">http://www.freealter.com</A> or <A HREF="ftp://ftp.lip6.fr">ftp://ftp.lip6.fr</A> or&nbsp;&nbsp;<A HREF="new.gif">new.gif</A></P><P> In the same way&nbsp;&nbsp;file:/directory/file becomes a link to the corresponding file,&nbsp;&nbsp;mailto:nom@adresse.org is a link for a mail adress or&nbsp;&nbsp;news:newsgroup.name for a link to a newsgroup.</P><P> To put a relative link, use the syntax&nbsp;&nbsp;url:file . For example&nbsp;&nbsp;url:./tutorial.html will become <A HREF="./tutorial.html">./tutorial.html</A> .</P><P></P>
+<A NAME="4.2."></A>
+<H2>4.2. Personnalised links</H2>
+<P> If you wish to have your own text within a link, you must use the following syntax : 'name of the link'=link ; the text appearing under the link is surrounded by a single cote.</P><P> Then the text "Thanks to visit&nbsp;&nbsp;'our site'=http://www.freealter.com" will appear as "Thanks to visit <A HREF="http://www.freealter.com">our site</A>" or "this is&nbsp;&nbsp;'my mail'=mailto:damien@chrisment.org" will become "this is <A HREF="mailto:damien@chrisment.org">my mail</A> "</P><P> The caracter quote is supported in the name of a link (no space before the quote). Example : "weather forecast&nbsp;&nbsp;' summer as'winter' here'=http://www.meteo.fr" will become "weather forecast <A HREF="http://www.meteo.fr"> summer as'winter' here</A> ".</P><P></P>
+<A NAME="4.3."></A>
+<H2>4.3. General remarks on the links</H2>
+<P> If you wish a text preceding a link not to be taken as such, you must have it preceded by the caracter "!". So "! http://www.freealter.com" will appear as&nbsp;&nbsp;http://www.freealter.com .</P><P></P>
+<A NAME="5."></A>
+<H1>5. Ruler separator</H1>
+<P> A line starting with 2 minux "--" or more indicates a rule separator.</P><P> Example :</P><PRE>
+--
+</PRE>
+<P> will give</P><HR>
+<P></P>
+<A NAME="6."></A>
+<H1>6. Tables</H1>
+<P> The basic caracter allowing to create a table is the pipe "|".</P><P> A table starts with a certain number of "|". This number minus 1 corresponds to the border width of the table (so one pipe gives a table without border).</P><P> Each cell of a table is separated by a "|".</P><P> A text line corresponds to a table row.</P><P> A table is finished when a line does not start with "|".</P><P></P><P> Example : </P><PRE>
+|| cell one| cell 2 | cell 3
+| second row | cell 2 |cell 3
+| last row | cell 2 |cell 3
+</PRE>
+<P> will give</P><TABLE BORDER=1><TR><TD COLSPAN=1> cell one</TD>
+<TD COLSPAN=1> cell 2 </TD>
+<TD COLSPAN=1> cell 3</TD>
+</TR>
+<TR><TD COLSPAN=1> second row </TD>
+<TD COLSPAN=1> cell 2 </TD>
+<TD COLSPAN=1>cell 3</TD>
+</TR>
+<TR><TD COLSPAN=1> last row </TD>
+<TD COLSPAN=1> cell 2 </TD>
+<TD COLSPAN=1>cell 3</TD>
+</TR>
+</TABLE>
+<P> If a line of a table does not have the same number of cell as the first row, then the row is automatically completed with empty cells.</P><P></P><P> Example : </P><PRE>
+|| cell one| cell 2 | cell 3
+| second row 
+| last row | cell 2 |cell 3
+</PRE>
+<P> will give</P><TABLE BORDER=1><TR><TD COLSPAN=1> cell one</TD>
+<TD COLSPAN=1> cell 2 </TD>
+<TD COLSPAN=1> cell 3</TD>
+</TR>
+<TR><TD COLSPAN=1> second row </TD>
+<TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=1> last row </TD>
+<TD COLSPAN=1> cell 2 </TD>
+<TD COLSPAN=1>cell 3</TD>
+</TR>
+</TABLE>
+<P></P><P> The "|" in a table may be immediatly followed by a number. This number corresponds to the number of columns that the cell will occupy (by default no number = 1 column).</P><P></P><P> Example : </P><PRE>
+||2 double cell | next cell | cell 4
+| second row | second cell 
+|3 3 columns cell !new.gif
+| last row |2 double  cell | last cell
+</PRE>
+<P> will give :</P><TABLE BORDER=1><TR><TD COLSPAN=2 >double cell </TD>
+<TD COLSPAN=1> next cell </TD>
+<TD COLSPAN=1> cell 4</TD>
+</TR>
+<TR><TD COLSPAN=1> second row </TD>
+<TD COLSPAN=1> second cell </TD>
+<TD COLSPAN=1>&nbsp;</TD>
+<TD COLSPAN=1>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=3 >3 columns cell <IMG SRC="new.gif"></TD>
+<TD COLSPAN=1>&nbsp;</TD>
+</TR>
+<TR><TD COLSPAN=1> last row </TD>
+<TD COLSPAN=2 >double&nbsp;&nbsp;cell </TD>
+<TD COLSPAN=1> last cell</TD>
+</TR>
+</TABLE>
+<P> As you may see on the preceding example, a picture or links may be placed in a table cell. </P><P></P>
+<A NAME="7."></A>
+<H1>7. Bold, Italique, underscored, dashed</H1>
+<P> To display a text in bold italique, underscored or dashed, you just need to place a certain number of ' fro each side of the text.</P><UL><LI> 2 ' to put in <B>bold</B>.</LI>
+<LI> 3 ' to put in <I>italique</I>.</LI>
+<LI> 4 ' to put in <U>underscored</U>.</LI>
+<LI> 5 ' to put in <S>dashed</S>.</LI>
+</UL>
+<P></P><P> Bold, italique, underscored and dashed work also on many lines.</P><P></P>
+<A NAME="8."></A>
+<H1>8. Summary</H1>
+<P> The summary of the document with links to paragraph may be added wherever you wish in the html document. For that, a text line must only have the key word summary and it must be placed at the start of the line.</P><P> The txt2ml calling option -summary_level or -s allows to choose the number of title level to include in the summary (by default 3).</P><P></P>
+<A NAME="9."></A>
+<H1>9. Html file insertion</H1>
+<P> Files with html code (a footer for example) may be inserted wherever you wish. The text line must start with the key word "include" followed by the name of the file with a .htm or .html extension . The content of the file is copied at the current place.</P>
+<A NAME="10."></A>
+<H1>10. Preformatted text</H1>
+<P> The sign of start and end of a preformatted text is 4 caracters = one after the other at the start of a line.</P><P> Example : </P><PRE>
+ ====
+This is a preformatted text
+        on many lines
+	and the text ''stays'' as
+	+ it was before
+ ====
+</PRE>
+<P> will become :</P><PRE>
+This is a preformatted text
+        on many lines
+	and the text ''stays'' as
+	+ it was before
+</PRE>
+<P>Beware, &lt; are not substituted in PRE sections, then html tags are allowed and used within these sections. To the contrary out of PRE sections, < are substituted in &amp;lt; and then html tags are nor allowed nor used.
+
+<A NAME="11."></A>
+<H1>11. Options</H1>
+
+<A NAME="11.1."></A>
+<H2>11.1. Background</H2>
+<P> To have a background image, you may use the option -background "fichier" (or -bg "fichier"). To have a background color just put it after -background : -background "#abcedf" (or -b "#abcdef") with abcdef the hexadecimal value corresponding to the wished color.</P><P></P>
+<A NAME="11.2."></A>
+<H2>11.2. Page title</H2>
+<P> To give a title to a web page, there is&nbsp;&nbsp;a -title option : -title "title of page" (or -t "title of page"). If you do not activate this option, then the first line of your text file is considered as being the title of the document and is used in the title section of the header of the html file, and is highlighted at the beginning of the html page (by default it is centered and put within h1 tags).</P><P> If you do not wish your document to highlight the title, you may use the option -no_title_inside or -nti.</P><P></P>
+<A NAME="11.3."></A>
+<H2>11.3. Content</H2>
+<P> A list of titles with a link to each corresponding section may be added at the beginning (option -top_content or -top) or at the end (-bottom_content or -bottom) from the created html document. To display this list at the beginning and at the end of the html document you may use the -contents or -ct option.</P><P></P>
+<A NAME="11.4."></A>
+<H2>11.4. Style sheet</H2>
+<P> You may use your own style sheet in your page. The option is -css "file_name". This file must start with the tag <STYLE> and end with the tag </STYLE> or a <LINK> tag may be defined in it.</P><P></P>
+<A NAME="11.5."></A>
+<H2>11.5. Naked output html</H2>
+<P> It is possible to create htlm code with the tags HTML, HEAD and BODY. This allows to create html files (for example a footer) that will be easily inserted in other pages thanks to the command include "file_name". The option is -no_head or -nh.</P><P></P>
+<A NAME="11.6."></A>
+<H2>11.6. Help</H2>
+<P> The help for using txt2Ml may be displayed in calling txt2ml with the option -help or -h.</P><P></P>
+<A NAME="11.7."></A>
+<H2>11.7. Personnalisation file</H2>
+<P> It is possible to modify the tags used for displaying a certain item. This is possible in giving your own personnalisation file with the -perso (or -p) option followed by a file name. Your perso file should respect the syntax of the perso.tcl file&nbsp;&nbsp;that is given in example with txt2ml. This file holds a copy of the values used as default. </P><P></P>
+<A NAME="12."></A>
+<H1>12. Advanced functionnality existing in txt2ml and not txt2mlsp</H1>
+
+<A NAME="12.1."></A>
+<H2>12.1. Complex tables</H2>
+<P> The tables presented before may have sometimes limits. They can neither hold lists nor other tables. This is due to the fact that a line in the texte file is a line in the table. To overcome this limitation, there is an advanced way to create table with a modified syntax.</P><P></P><P> An advanced table starts with the string "@@|". As in the preceding tables, the pipe number ("|") minus 1 gives the width of the border. These pipes may be followed by a number indicating the number of columns used by a cell. The number of spaces within a cell is taken into account for the width of the cell.</P><P></P><P> A new line is reached each time the string "@|" starts a new text line. If a row does not have the same number of cell as the first table row then it is filled with empty cells.</P><P> The string "|@@" indicates the end of a complex table.</P><P></P><P> If you wish to place a list or another table (an advanced table is mandatory, not a base table) in a cell, you must place this cell alone on a line. To add other cells on the same line, you just need to add a line starting with a "|".</P><P></P><P> The content of a cell starts after the first space after the piper. Then, to start a list in a cell, do not forget to add a space before the list start sign (*,- or +).</P><P> Le contenu d'une case commence après le premier espace suivant le pipe. Ainsi, pour commencer une liste dans une case, n'oubliez pas d'ajouter un espace avant votre marqueur de liste (+,-,*).</P><P></P><P> Some examples are better than long explanations.</P><P></P><P> Example 1 :</P><PRE>
+@@||2 Advanced table with 2 included tables
+@| @@|3 Table without border
+@| one | zwei | trois
+@|3 3 cells for me
+|@@
+| @@||2 Table of the right
+@| one | and two
+@| !new.gif three | four
+@|2 2 cells for me
+|@@
+|@@
+</PRE>
+<P> will give :</P><TABLE BORDER=1><TR><TD COLSPAN=2> Advanced table with 2 included tables<BR></TD></TR>
+<TR><TD COLSPAN=1><TABLE BORDER=0><TR><TD COLSPAN=3> Table without border<BR></TD></TR>
+<TR><TD COLSPAN=1> one </TD>
+<TD COLSPAN=1> zwei </TD>
+<TD COLSPAN=1> trois</TD>
+</TR>
+<TR><TD COLSPAN=3> 3 cells for me<BR></TD></TR></TABLE>
+</TD><TD COLSPAN=1><TABLE BORDER=1><TR><TD COLSPAN=2> Table of the right<BR></TD></TR>
+<TR><TD COLSPAN=1> one </TD>
+<TD COLSPAN=1> and two</TD>
+</TR>
+<TR><TD COLSPAN=1> <IMG SRC="new.gif"> three </TD>
+<TD COLSPAN=1> four</TD>
+</TR>
+<TR><TD COLSPAN=2> 2 cells for me<BR></TD></TR></TABLE>
+</TD></TR></TABLE>
+<P></P><P> Example 2 : </P><PRE>
+@@||2 Advanced table
+@|  + list in a table
+ + next item
+   still in the same item
+   + sub list
+| @@|||2 New table
+@|  one | two
+@|2 double three
+@|2 !new.gif four
+|@@	
+@|2 Waouuu  cool !!
+|@@	
+</PRE>
+<P> will give :</P><TABLE BORDER=1><TR><TD COLSPAN=2> Advanced table<BR></TD></TR>
+<TR><TD COLSPAN=1><UL><LI> list in a table</LI>
+</UL>
+<UL><LI> next item</LI>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;still in the same item</P><UL><LI> sub list</LI>
+</UL>
+</UL>
+</TD><TD COLSPAN=1><TABLE BORDER=2><TR><TD COLSPAN=2> New table<BR></TD></TR>
+<TR><TD COLSPAN=1>&nbsp;&nbsp;one </TD>
+<TD COLSPAN=1> two</TD>
+</TR>
+<TR><TD COLSPAN=2> double three<BR></TD></TR>
+<TR><TD COLSPAN=2>&nbsp;&nbsp;new.gif four<BR></TD></TR></TABLE>
+</TD></TR>
+<TR><TD COLSPAN=2> Waouuu&nbsp;&nbsp;cool !!<BR></TD></TR></TABLE>
+<P></P>
+<A NAME="13."></A>
+<H1>13. Conclusion</H1>
+<P> Thanks for having read this tutorial. Now you need practice. A summary of the text file syntax and of the calling options of txt2ml is available in the file : <A HREF="recap.html">recap.html</A> . The same file is available also as : <A HREF="recapsp.html">recapsp.html</A> for txt2mlsp.</P></BODY></HTML>

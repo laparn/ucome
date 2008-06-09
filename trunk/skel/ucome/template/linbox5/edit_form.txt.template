@@ -1,0 +1,34 @@
+<HTML>
+<!-- vim: set syntax=html: -->
+<HEAD>
+<TITLE><!-- BEGIN TITLE --><!-- END TITLE --></TITLE>
+<!-- edit_form.txt.tmpl -->
+</HEAD>
+
+<BODY bgcolor="#fffbf0"  bgcolor="#FFFFFF">
+<!-- edit_form.txt.tmpl -->
+<!-- TEngine section : TITLE, FORM -->
+<!-- TEngine variables in FORM : export_filename, content, dir -->
+<!-- BEGIN FORM -->
+<FORM ACTION="${FAS_VIEW_CGI}" METHOD=POST >
+<INPUT TYPE=HIDDEN NAME="file" VALUE="${export_filename}">
+<INPUT TYPE=HIDDEN NAME="action" VALUE="edit">
+<P><B>Thanks for typing ${export_filename} hereunder</B><BR>
+<CENTER><textarea name="content" rows="40" cols="68">${content}</textarea><input type=hidden name="ok" value="1"></CENTER>
+<CENTER>
+	<TABLE border="0">
+		<TR>
+			<TD>
+			<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+			</TD>
+			<TD>
+			<a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}">
+			<img src="${icons_url}/cancel.gif" border="0" alt="Annuler">
+			</a>
+				</TD>
+			</TR>
+		</TABLE>
+	</CENTER>
+	</FORM>
+<!-- END FORM -->
+</BODY></HTML>

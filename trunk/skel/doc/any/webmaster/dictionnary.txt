@@ -1,0 +1,276 @@
+UCome - Dictionnary of all file types and actions
+
+1. File types
+1.1. Text
+Extension : .txt
+Generic type : ascii file
+This is in fact txt2mlsp format. Please refer to the manual concerning txt2ml. It means that it is converted in html in trying to produce a pleasing result. Just write files as you would like to see them on output.
+
+Please refer to 'the tutorial'=fas:/any/doc/tutoriel_txt2ml.txt and also to a 'summary of the whole syntax'=fas:/any/doc/recap_txt2ml.txt .  
+
+There are 2 properties allowing to choose :
+ * the file in which the html elements used for the list elements, h1, h2, ...., tables, paragraphs, ... are taken (txt.perso_tcl)
+ * the css style file for the html (txt.file)
+
+6.2. Tmpl
+Extension : .tmpl
+Generic type : ascii file
+This is html without any graphical navigation frames : no menu, no news, nothing. So if you want to include existing html files in a UCome site, just take them, drop them in a directory, and in the file_type property put "tmpl" for this file. If you add text in the menu.name and menu.order property, the file will also appear in the menu. 
+
+6.3. Comp
+Extension : .comp
+Generic type : ascii file
+Composite files. These files allow to describe different parts of a final file. Each part may be itself of different sort. A part of a composite file may be pure txt, txt2ml, html. It may refer to another part of the composite file (a block) or it may be a file. If it is a file, then UCome is used to display the file. Then variables may be passed to UCome as if it was called from a navigator.
+
+The file controlling to what correspond each file part is called a form file. OK, ok, this vocabulary is confusing. I accept an other one if you wish to propose.
+
+The format of the file is :
+================================
+key1 value1 key2 value2 ...
+===============================
+A value may span on multiple lines then it is enclosed in { }. It is the format of an "array get" in tcl.
+
+6.5. fashtml
+Extension : .html
+A pure html file with all menu, navigation widgets, sections, ... Ready to display, except that there may be relative links in it (in img or links) that would be broken. Then it must be transformed into htmf (f for final).
+
+6.6. htmf
+Directly sent on the output.
+
+6.4. Gif
+Extension : .gif
+Generic type : binary file
+gif files are directly displayed.
+
+code
+.c
+.h
+.cpp
+.tcl
+.cgi
+
+# Composite type from a main template, each section
+# will be filled with either txt, txt2ml, html, body of a file,
+# or a procedure
+
+
+css
+
+csv
+
+dir
+doc
+domp
+
+gif
+
+htmf
+
+form
+
+internet
+
+set INTERNET_DIR "${ROOT}/any/internet"
+
+
+set conf(extension.jpg) jpeg
+set conf(extension.jpeg) jpeg
+jpeg
+
+# extension for log
+set ::conf(extension.log) logfile
+logfile
+set UCOME_LOG_BASE "${FAS_VIEW_CGI}?file=/any/internet/log/"
+
+
+# Standard functions for not binary files (txt, tmpl, html, htmf)
+namespace eval not_binary {
+
+order_dir
+
+
+# When an order file is met, then we try to get the corresponding file
+# in html and add the javascript for asking for a new order the next time
+order
+
+# All other extensions
+other
+
+password
+
+fashtml
+mpeg
+
+
+pdf
+
+png
+
+tiffg3
+
+# extension for openoffice
+sxc
+sxd
+sxi
+sxw
+
+tmpl
+2. Actions
+2.1. admin_path
+For example, / > any > tcl , the path till the current file or directory. All elements are links to the edit_form action for the corresponding directory. Used in the edit_form.comp .
+2.2. admin
+Just allow to jump at / to show the administration page which is there.
+
+2.3. allow_action_final
+2.4. allow_action_form
+Edition of all rights for the current file/directory. * represents anybody.
+
+2.5. allow_action
+List of actions that were chosen for having their rights modified.
+
+2.6. archive_full
+Create an archive of new file (used in Ecim project, deprecated).
+
+2.7. binary 
+All procedures common to binary files, especially the display.
+
+2.8. change_look
+Change the look in :
+ * taking all env values defined in the file look.form in the directory for the look and putting them in the .mana/.val property file at root of the site.
+
+2.9. clean_cache_form
+Action proposing to clean the cache of all files.
+
+2.10. clean_cache
+The real cleaning of the cache directory.
+
+2.11. copy_form
+A message proposing to copy the current file/directory somewhere else and asking for the somewhere else.
+
+2.12. copy
+Effective copy of a file/directory somewhere. If it is a directory a recursive copy is done.
+
+2.13. create_index
+Create an index for searching within files. swish-e is used. At start of the file tcl/mimeprocs/create_index.tcl it is possible to set where swish-e is located.
+
+2.14. delete_form
+A window proposing to delete a file/directory. If a directory is going to be deleted, all files and directories in this directory are recursively displayed. A confirmation is asked.
+
+2.15. delete
+The effective file/directory deletion.
+
+edit_form
+edit
+copy
+env
+
+# Just a procedure to show the current environment
+
+
+
+# All functions for flattening an existing site
+# I will start from the root directory, and
+# create a lololol... with list of files and directories
+
+# Then I will need a function for going threw this list 
+# and applying one function or the other.
+
+# A function will be to do a http query on each file having
+# a name or being used and the second will be 
+# to put all files and figures in a common tree
+
+
+
+
+# full_menu is an action. You may ask it on any file
+# and it will send you back the full menu and submenus, ...
+# for all directory/files and subdirectory of
+# the current file/directory. It needs no input.
+# It may be used for getting a map of a site.
+
+
+# It would be a good idea to factorise the code with menu.
+# It is just a copy with some minor modifications
+full_menu
+
+	set local_conf(html.htmldoc) "/usr/bin/htmldoc -t pdf14 --webpage --no-title --linkstyle underline --size A4 --left 1.00in --right 0.50in --top 0.50in --bottom 0.50in --header ... --footer t.1 --tocheader ... --tocfooter t.1 --portrait --color --no-pscommands --compression=1 --jpeg=0 --fontsize 11.0 --fontspacing 1.2 --headingfont Helvetica --bodyfont Helvetica --headfootsize 10.0 --headfootfont Helvetica-Oblique --charset 8859-1 --links --no-truetype --pagemode document --pagelayout single --firstpage p1 --pageeffect none --pageduration 10 --effectduration 1.0 --no-encryption --permissions all --browserwidth 1024"
+list_actions
+
+login_form
+
+login
+
+logout
+
+menu_form
+
+# menu is an action. You may ask it on any file
+# and it will send you back the menu corresponding
+# to the current file. It needs no input.
+# the file that was send before.
+menu
+
+# mini_menu is an action. You may ask it on any file
+# and it will send you back the mini menu corresponding
+# to the current file. It needs no input.
+# A mini menu is just the list of the "sections" at
+# a level defined by mini_menu.root env variable.
+mini_menu
+
+new
+
+next
+
+nice_fax_name
+path
+prop_form
+
+prop
+
+search
+
+	# we will use swish-e 2.0.x for searching
+	set local_conf(search.swish-e) /usr/bin/swish-e
+
+# TO BE DONE - TAKE INTO ACCOUNT IMPORTED VARIABLES
+# IN comp::2edit_form
+
+# In this case, I will come here after having selected a file.
+# So, I must :
+#  * know what file was selected,
+#  * then get back all content of _cgi_uservar that was stored
+#    in the session variable,
+#  * then ask for the display of the edit_form or something else of the file.
+
+# no extensions for prop_form
+show_action_list
+
+# show_debug_file is an action
+# you give it a debug_file_name and it shows it.
+# It is also used for displaying main_log files. Just add a mainlog=1 at the call
+
+show_debug_file
+
+# This is a pure trick. To simplify the way, I display
+# selection file, I will come here, and it will just
+# redirect toward the display of the current directory
+# This is due to a recursion problem and also to
+# simplify the url in the treedir.
+show_select_file
+
+show_target_list
+# Display a list of allowed target for this file
+
+# small is an action
+small
+test_display_error
+title
+treedir
+txt4index
+txt4index_tree
+upload
+whoami
+
+2. Domp file types
+2.1. bus1
+2.2. todo

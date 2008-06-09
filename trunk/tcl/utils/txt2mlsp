@@ -1,0 +1,1596 @@
+#!/bin/sh 
+# FTP daemon for testing the ftp client (modules/ftp).
+# -*- tcl -*- \
+exec tclsh "$0" ${1+"$@"}
+#  
+# txt2mlsp, a txt to html converter written in tcl
+#
+# (c) copyright 1999-2000 Damien Chrisment <damien.chrisment@freealter.com>
+#                         and Free&ALter Soft
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#                                                                           
+# 16/11/99 : modif AL - bug when having $ in [ ] and when & was between [ ] 
+#            SUBST_ was appearing in the chain.
+# 21/11/99 : - add add_p after title (h1...h6) so that css works better
+#            - add test in some of lexer "start" matchings, so that if a single
+#              table was open we close it even if there is no new line after 
+#              its last line. (single table are closed at the first line that
+#              doesn't begin with a "|")
+#            - start ".*" {texte}  changed to start ".+" {texte} so that
+#              break will be added only if there is some text. 
+#              ('*'= 0 or more whereas '+'= 1 or more)
+#            - start "^--+ *$" {hr} changed to start "^--+ *\n" {hr} so that
+#              ruler will apply only if -- is alone in the sentence.
+#              "-->" wont become a ruler followed by ">", it will stay "-->"
+#            - add ALT tag when we use an IMG tag.
+#            - modif so that subst_1 will not erase subst_10. We use a downto
+#              method instead of from 0 to length, so that subst_10 will be
+#              substitute before subst_1
+#            - pict_links modified to support links to files like 
+#              "file:/home/damien/devel/test.html"
+# 3/2/2000 : AL. added no_auto_index option for having no automatic indexes 
+#            generated
+# 25/2/2000 : - special chars substitution is now done after tcl command
+#               subst so that specials char between [] won't be substitute
+# 26/06/2000 : - add substitution for \ (ie c:\test)
+# 30/06/2000 : - update with al version. Now we use rcs to manage version
+# 02/07/2000 : - remove bug in the regsub for special chars. 
+#                regsub was applying on $data instead of $new-data
+#              - change in pict_links on "link with it's own name" syntax 
+#                so that name can contain some '   (like "l'avion")
+# 04/07/2000 : - lot of changes in pict_links so that making links will
+#                be easyer (new way to do local links, no more http://.)
+# 06/07/2000 : - add substitution for $ which aren't between []
+#              - solve bug with option -nai on cpt value in title which 
+#                was one unit too high (ie H2 instead of H1) 
+#              - add summary command
+# 09/07/2000 : - add of bold, italic, underline and strike through support
+#              - solve bug in summary (& tcl substitution in previous 
+#                substitution like &eacute; that are in titles)
+#              - A NAME links are no more using the title name and are only 
+#                pointing on it's number
+# 10/07/2000 : - new simple syntax for preformated area, the old one was
+#                complex and had too much bugs.
+# 28/07/2000 : - values of variables in the perso.tcl file are no more 
+#                in a separated file (proc set_default_vars).
+# 31/07/2000 : - options so that titles or summaries number are not displayed.
+# 22/02/2001 : - add tags for end of paragraphe and introduce tags for NAME balisis.
+#                also create special tags for SRC= COLSPAN= and BORDER=.
+# 10/04/2001 : - try to suppress the \n at the end of a PRE section
+#                within add_pre
+# 04/09/2001 : - add -relative_to_absolute option, allowing to create
+#                the absolute path name of a picture, if it is relative.
+# 07/11/2001 : - I suppress the add_p add_close_p after the add_h. I do
+#                not understand what it brings. AL
+# 12/05/2003 : - Add an option to load the tag start/end from an array formated file
+#                instead of a tcl source
+# 28/06/2003 : - Simplified version without tcllex and without complex tables
+# $Header: /xiii3/home/damien/Devel/txt2ml,v 1.4 2000/07/09 16:53:24 damien Exp damien $
+#
+
+set DEBUG 0 
+set version "1.4c"
+
+proc fdebug { args } {
+    global DEBUG
+    if $DEBUG {
+	uplevel 1 [lindex $args 0]
+    }
+}
+
+
+# the substitution of & by &amp; is done first so that we wont subsitute the &
+# that will come in the next substitutions
+
+#set special_char_list [ list {\&} {\&amp;} {\\} {\&#92;} {\$} {\&#36;} {<} {\&lt;} {>} {\&gt;} {\"} {\&quot;} {\\241|¡} {\&iexcl;} {\\242|¢} {\&cent;} {\\243|£} {\&pound;} {\\244|¤} {\&curren;} {\\245|¥} {\&yen;} {\\246|¦} {\&brvbar;} {\\247|§} {\&sect;} {\\250|¨} {\&uml;} {\\251|©} {\&copy;} {\\252|ª} {\&ordf;} {\\253|«} {\&laquo;} {\\254|¬} {\&not;} {\\255|­} {\&shy;} {\\256|®} {\&reg;} {\\260|°} {\&deg;} {\\261|±} {\&plusmn;} {\\262|²} {\&sup2;} {\\263|³} {\&sup3;} {\\264|´} {\&acute;} {\\265|µ} {\&micro;} {\\266|¶} {\&para;} {\\267|·} {\&middot;} {\\270|¸} {\&cedil;} {\\271|¹} {\&sup1;}    {\\272|º} {\&ordm;}    {\\273|»} {\&raquo;} {\\277|¿} {\&iquest;}  {\\300|À} {\&Agrave;} {\\301|Á} {\&Aacute;}  {\\302|Â} {\&Acirc;}  {\\303|Ã} {\&Atilde;}  {\\304|Ä} {\&Auml;} {\\305|Å} {\&Aring;}  {\\306|Æ} {\&AElig;}  {\\307|Ç} {\&Ccedil;}  {\\310|È} {\&Egrave;}  {\\311|É} {\&Eacute;}  {\\312|Ê} {\&Ecirc;}  {\\313|Ë} {\&Euml;}  {\\314|Ì} {\&Igrave;}  {\\315|Í} {\&Iacute;}  {\\316|Î} {\&Icirc;}  {\\317|Ï} {\&Iuml;}  {\\320|Ð} {\&ETH;}  {\\321|Ñ} {\&Ntilde;}  {\\322|Ò} {\&Ograve;}  {\\323|Ó} {\&Oacute;} {\\324|Ô} {\&Ocirc;}  {\\325|Õ} {\&Otilde;}  {\\326|Ö} {\&Ouml;}  {\\327|×} {\&times;}  {\\330|Ø} {\&Oslash;}  {\\331|Ù} {\&Ugrave;} {\\332|Ú} {\&Uacute;}  {\\333|Û} {\&Ucirc;} {\\334|Ü} {\&Uuml;}  {\\335|Ý} {\&Yacute;}  {\\336|Þ} {\&THORN;}  {\\337|ß} {\&szlig;}  {\\340|à} {\&agrave;}  {\\341|á} {\&aacute;}  {\\342|â} {\&acirc;}  {\\343|ã} {\&atilde;}  {\\344|ä} {\&auml;}  {\\345|å} {\&aring;}  {\\346|æ} {\&aelig;}  {\\347|ç} {\&ccedil;}  {\\350|è} {\&egrave;}  {\\351|é} {\&eacute;}  {\\352|ê} {\&ecirc;}  {\\353|ë} {\&euml;}  {\\354|ì} {\&igrave;}  {\\355|í} {\&iacute;}  {\\356|î} {\&icirc;} {\\357|ï} {\&iuml;}  {\\360|ð} {\&eth;} {\\361|ñ} {\&ntilde;} {\\362|ò} {\&ograve;}  {\\363|ó} {\&oacute;}  {\\364|ô} {\&ocirc;}  {\\365|õ} {\&otilde;}  {\\366|ö} {\&ouml;}  {\\367|÷} {\&divide;} {\\370|ø} {\&oslash;}  {\\371|ù} {\&ugrave;}  {\\372|ú} {\&uacute;} {\\373|û} {\&ucirc;}  {\\374|ü} {\&uuml;}  {\\375|ý} {\&yacute;}  {\\376|þ} {\&thorn;}  {\\377|ÿ} {\&yuml;} ]
+#set tcl_special_char_list [ list ]
+
+set special_char_list [ list {\&} {\&amp;} {\\} {\&#92;} {\$} {\&#36;} {\\241|¡} {\&iexcl;} {\\242|¢} {\&cent;} {\\243|£} {\&pound;} {\\244|¤} {\&curren;} {\\245|¥} {\&yen;} {\\246|¦} {\&brvbar;} {\\247|§} {\&sect;} {\\250|¨} {\&uml;} {\\251|©} {\&copy;} {\\252|ª} {\&ordf;} {\\253|«} {\&laquo;} {\\254|¬} {\&not;} {\\255|­} {\&shy;} {\\256|®} {\&reg;} {\\260|°} {\&deg;} {\\261|±} {\&plusmn;} {\\262|²} {\&sup2;} {\\263|³} {\&sup3;} {\\264|´} {\&acute;} {\\265|µ} {\&micro;} {\\266|¶} {\&para;} {\\267|·} {\&middot;} {\\270|¸} {\&cedil;} {\\271|¹} {\&sup1;}    {\\272|º} {\&ordm;}    {\\273|»} {\&raquo;} {\\277|¿} {\&iquest;}  {\\300|À} {\&Agrave;} {\\301|Á} {\&Aacute;}  {\\302|Â} {\&Acirc;}  {\\303|Ã} {\&Atilde;}  {\\304|Ä} {\&Auml;} {\\305|Å} {\&Aring;}  {\\306|Æ} {\&AElig;}  {\\307|Ç} {\&Ccedil;}  {\\310|È} {\&Egrave;}  {\\311|É} {\&Eacute;}  {\\312|Ê} {\&Ecirc;}  {\\313|Ë} {\&Euml;}  {\\314|Ì} {\&Igrave;}  {\\315|Í} {\&Iacute;}  {\\316|Î} {\&Icirc;}  {\\317|Ï} {\&Iuml;}  {\\320|Ð} {\&ETH;}  {\\321|Ñ} {\&Ntilde;}  {\\322|Ò} {\&Ograve;}  {\\323|Ó} {\&Oacute;} {\\324|Ô} {\&Ocirc;}  {\\325|Õ} {\&Otilde;}  {\\326|Ö} {\&Ouml;}  {\\327|×} {\&times;}  {\\330|Ø} {\&Oslash;}  {\\331|Ù} {\&Ugrave;} {\\332|Ú} {\&Uacute;}  {\\333|Û} {\&Ucirc;} {\\334|Ü} {\&Uuml;}  {\\335|Ý} {\&Yacute;}  {\\336|Þ} {\&THORN;}  {\\337|ß} {\&szlig;}  {\\340|à} {\&agrave;}  {\\341|á} {\&aacute;}  {\\342|â} {\&acirc;}  {\\343|ã} {\&atilde;}  {\\344|ä} {\&auml;}  {\\345|å} {\&aring;}  {\\346|æ} {\&aelig;}  {\\347|ç} {\&ccedil;}  {\\350|è} {\&egrave;}  {\\351|é} {\&eacute;}  {\\352|ê} {\&ecirc;}  {\\353|ë} {\&euml;}  {\\354|ì} {\&igrave;}  {\\355|í} {\&iacute;}  {\\356|î} {\&icirc;} {\\357|ï} {\&iuml;}  {\\360|ð} {\&eth;} {\\361|ñ} {\&ntilde;} {\\362|ò} {\&ograve;}  {\\363|ó} {\&oacute;}  {\\364|ô} {\&ocirc;}  {\\365|õ} {\&otilde;}  {\\366|ö} {\&ouml;}  {\\367|÷} {\&divide;} {\\370|ø} {\&oslash;}  {\\371|ù} {\&ugrave;}  {\\372|ú} {\&uacute;} {\\373|û} {\&ucirc;}  {\\374|ü} {\&uuml;}  {\\375|ý} {\&yacute;}  {\\376|þ} {\&thorn;}  {\\377|ÿ} {\&yuml;}]
+set tcl_special_char_list [ list ]
+
+set GINCLUDE_DIR "."
+
+# initialisation of an array from range l_limit to u_limit
+# with the value init_var
+proc init {the_array l_limit u_limit init_var} {
+    upvar $the_array local_array
+    for {set i $l_limit} {$i<=$u_limit} {incr i} {
+	set local_array($i) $init_var
+    }
+}
+
+# store date in a file
+proc write_file { filename data } {
+    set fileid [open $filename "w"]
+    puts $fileid $data
+    close $fileid
+}
+
+# add links and pictures in a line
+proc pict_links {line} {
+    upvar $line local_line
+    global _
+    # if there are some pictures, we load them
+    regsub -all {(!)?(!| )(([^ ;!]+)[.](gif|jpg|jpeg|png))} $local_line \
+	{ [if {!( ([regexp "http://" \3 match]) || ([regexp "https://" \3 match]) || ([regexp "ftp://" \3 match]) || ([regexp "url:" \3 match]) )} {
+		# it's not a direct link
+		if {( ("\1" == "!") \&\& ("\2" == "!") )} then {
+		    # not to link exemple
+		    return "\2\3" 
+		} elseif {"\2" == "!"} then {
+			# the picture was a "not to link" picture so 
+			# we just remove the eventual !
+			return "\3"
+		} else {
+		    # we really got a picture
+		    return "\1$_(open_IMG)\3$_(close_IMG)"
+		}
+	    } else {
+		return "&"
+	    }]} local_line
+    set local_line [subst $local_line]
+    # if there is a \n at the end of the line, we remove it
+    # the major effect is that the html file will be nicer 
+    # (line <A HREF="...">&</A> not troncated) ;-)
+    regsub "\n" $local_line "" local_line
+
+    # direct links
+		regsub -all {(!| )(http://|https://|ftp://|file:/|mailto:|news:|url:|fas:)([^ \"]+)} $local_line \
+    { [ if {"\1" == " "} then {
+	    # when it's an url we don't keep the "url:"
+            # as the link is a local file
+            if {"\2" == "url:"} then {
+		return "$_(open_A) href=\"\3\">\3$_(close_A)"
+	    } else {
+		return "$_(open_A) href=\"\2\3\">\2\3$_(close_A)"
+	    }
+        } else {
+	    # expression hasn't to be linked
+	    return "\2\3"
+	}]} local_line
+    set local_line [subst $local_line]
+
+    # if there are some links
+    regsub -all {(!| )('([^=]+)')(=)(http://|https://|ftp://|file:/|mailto:|news:|url:|fas:)([^ \"]+)} $local_line \
+    { [ if {"\1" == " "} then {
+#puts stderr "1=\1; 2=\2; 3=\3; 4=\4; 5=\5; 6=\6; 7=\7;"
+	    # link with its own name
+            if {"\5" == "url:"} then {
+		# when it's an url we don't keep the "url:"
+		# as the link is a local file
+		return "$_(open_A) href=\"\6\">\3$_(close_A)"
+	    } else {
+		return "$_(open_A) href=\"\5\6\">\3$_(close_A)"
+	    }
+        } else {
+	    # expression hasn't to be linked
+	    return "\2\4\5\6"
+	}]} local_line
+    set local_line [subst $local_line]
+
+    # Final case, at start of a line
+    regsub -all {^('([^=]+)')(=)(http://|https://|ftp://|file:/|mailto:|news:|url:|fas:)([^ \"]+)} $local_line \
+    { [ # link with its own name
+        if {"\4" == "url:"} then {
+		# when it's an url we don't keep the "url:"
+		# as the link is a local file
+		return "$_(open_A) href=\"\5\">\2$_(close_A)"
+	} else {
+		return "$_(open_A) href=\"\4\5\">\2$_(close_A)"
+	}
+    ]} local_line
+    set local_line [subst $local_line]
+    # all spaces that are not alone are significant.
+    # substitution is made by double space so that the html file
+    # will not be full of $_(SPACE) (ie between 2 words).
+    regsub -all "  " $local_line "$_(REGSUB_SPACE)$_(REGSUB_SPACE)" local_line
+}
+
+# default value setting
+proc set_default_vars {} {
+    global _
+    
+    set _(open_IMG) "<img class=\"content_img\" alt=\"\" src=\""
+    set _(close_IMG) "\" />"
+    set _(open_A) "<a"
+    set _(close_A) "</a>"
+    # table tags
+    set _(open_TABLE) "<table>"
+    set _(close_TABLE) "</table>"
+    set _(open_TABLE_plus) "<table border=\""
+    set _(open_TABLE_plus_close_BORDER) "\">"
+    set _(close_TABLE_plus) "</table>"
+    set _(open_TD) "<td>"
+    set _(close_TD) "</td>"
+    set _(open_TD_plus) "<td colspan=\""
+    set _(open_TD_plus_close_COLSPAN) "\">"
+    set _(close_TD_plus) "</td>"
+    set _(open_TD_TEXT) ""
+    set _(close_TD_TEXT) ""
+    set _(open_TR) "<tr>"
+    set _(close_TR) "</tr>"
+    
+    set _(BREAK) "<br />"
+    set _(P) ""
+    set _(close_P) "<br />"
+    #set _(P) "<p>"
+    #set _(close_P) "</p>"
+    set _(link_mark) "<a title=\""
+    set _(close_link_mark) "\"></a>"
+    set _(RULER) "<hr />"
+    #set _(RULER) "<img src=\"/home/httpd/cgi-bin/test-damien/Images/Rulers/Line017.gif\" width=100% />"
+    set _(open_UL) "<ul>"
+    set _(close_UL) "</ul>"
+    # JV, bugfix for list inclusion
+    set _(list_item_overlap) "<li style=\"background-image:none;\">"
+    set _(close_list_item_overlap) "</li>"
+    set _(list_item_0) "<li>"
+    set _(close_list_item_0) "</li>"
+    set _(list_item_1) "<li>"
+    set _(close_list_item_1) "</li>"
+    set _(list_item_2) "<li>"
+    set _(close_list_item_2) "</li>"
+    set _(list_item_3) "<li>"
+    set _(close_list_item_3) "</li>"
+    set _(list_item_4) "<li>"
+    set _(close_list_item_4) "</li>"
+    set _(list_item_5) "<li>"
+    set _(close_list_item_5) "</li>"
+    #set _(open_UL) "<dl>"
+    #set _(close_UL) "</dl>"
+    #set _(list_item_0) "<DD><IMG ALIGN=TOP SRC=\"/home/httpd/cgi-bin/test-damien/Images/Others/Ball001.gif\">"
+    #set _(list_item_1) "<DD><IMG ALIGN=TOP SRC=\"/home/httpd/cgi-bin/test-damien/Images/Others/Ball000.gif\">"
+    #set _(list_item_2) "<DD><IMG ALIGN=TOP SRC=\"/home/httpd/cgi-bin/test-damien/Images/Others/Ball002.gif\">"
+    #set _(list_item_3) "<DD><IMG ALIGN=TOP SRC=\"/home/httpd/cgi-bin/test-damien/Images/Others/Ball003.gif\">"
+    #set _(list_item_4) "<DD><IMG ALIGN=TOP SRC=\"/home/httpd/cgi-bin/test-damien/Images/Others/Ball004.gif\">"
+    #set _(list_item_5) "<DD><IMG ALIGN=TOP SRC=\"/home/httpd/cgi-bin/test-damien/Images/Others/Ball009.gif\">"
+    
+    set _(open_PRE) "<pre>"
+    set _(close_PRE) "</pre>"
+    # The document title
+    set _(open_DOC_TITLE) "<h1>"
+    set _(close_DOC_TITLE) "</h1>"
+    # for titles
+    set _(open_H1) "<h1>"
+    set _(close_H1) "</h1>"
+    set _(open_H2) "<h2>"
+    set _(close_H2) "</h2>"
+    set _(open_H3) "<h3>"
+    set _(close_H3) "</h3>"
+    set _(open_H4) "<h4>"
+    set _(close_H4) "</h4>"
+    set _(open_H5) "<h5>"
+    set _(close_H5) "</h5>"
+    set _(open_H6) "<h6>"
+    set _(close_H6) "</h6>"
+    
+    # set to NO if you dont want to display title number
+    set _(PRINT_H1_NB) "YES"
+    set _(PRINT_H2_NB) "YES"
+    set _(PRINT_H3_NB) "YES"
+    set _(PRINT_H4_NB) "YES"
+    set _(PRINT_H5_NB) "YES"
+    set _(PRINT_H6_NB) "YES"
+
+    # for summaries
+    set _(open_S1) "<b>"
+    set _(close_S1) "</b><br />\n"
+    set _(open_S2) "<b>&nbsp;&nbsp;"
+    set _(close_S2) "</b><br />\n"
+    set _(open_S3) "<b>&nbsp;&nbsp;&nbsp;&nbsp;"
+    set _(close_S3) "</b><br />\n"
+    set _(open_S4) "<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+    set _(close_S4) "</b><br />\n"
+    set _(open_S5) "<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+    set _(close_S5) "</b><br />\n"
+    set _(open_S6) "<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+    set _(close_S6) "</b><br />\n"
+
+    
+    # set to NO if you dont want to display title number
+    set _(PRINT_S1_NB) "YES"
+    set _(PRINT_S2_NB) "YES"
+    set _(PRINT_S3_NB) "YES"
+    set _(PRINT_S4_NB) "YES"
+    set _(PRINT_S5_NB) "YES"
+    set _(PRINT_S6_NB) "YES"
+
+    # bold
+    set _(open_B) "<b>"
+    set _(close_B) "</b>"
+    # italic
+    set _(open_I) "<i>"
+    set _(close_I) "</i>"
+    # underline
+    set _(open_U) "<u>"
+    set _(close_U) "</u>"
+    # strike through
+    set _(open_S) "<s>"
+    set _(close_S) "</s>"
+    # a simple space
+    set _(SPACE) "&nbsp;"
+    set _(REGSUB_SPACE) "\\&nbsp;"
+    
+    # for picture lines (picture alone in the line)
+    set _(pre_IMG) ""
+    set _(post_IMG) ""
+    # for figure lines
+    set _(pre_FIG) "<I>"
+    set _(post_FIG) "</I>"
+    # for contents
+    set _(open_CONTENTS) "<I>Contents : "
+    set _(close_CONTENTS) "</I>"
+    set _(open_A_CONTENTS) "<a href=\""
+    set _(end_open_A_CONTENTS) "\">"
+    set _(close_A_CONTENTS) "</a>"
+    
+    # begin-end of web page
+    set _(open_HTML) "<HTML>"
+    set _(close_HTML) "</HTML>"
+    set _(open_BODY) "<BODY "
+    set _(close_open_BODY) ">"
+    set _(close_BODY) "</BODY>"
+    global version
+    set _(open_HEAD) "<HEAD>\n<META NAME=\"generator\" CONTENT=\"txt2ml v$version\">"
+    set _(close_HEAD) "</HEAD>"
+    set _(open_TITLE) "<TITLE>"
+    set _(close_TITLE) "</TITLE>"
+}
+
+# procs with tags
+proc add_open_content {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_CONTENTS)\n"
+}
+
+proc add_content {file number title_item} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_A_CONTENTS) href=\"\#$number\">$title_item$_(close_A_CONTENTS)$_(SPACE)"
+}
+
+proc add_doc_title {file title} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_DOC_TITLE)$title$_(close_DOC_TITLE)"
+}
+
+proc add_close_content {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_CONTENTS)\n"
+}
+
+proc add_close_file {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_BODY)$_(close_HTML)"
+}
+
+proc add_open_file {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_HTML)"
+}
+
+proc add_open_head {file title} {
+    upvar $file local_file
+    global _ version
+    append local_file "$_(open_HEAD)\n$_(open_TITLE)$title$_(close_TITLE)\n"
+}
+
+proc add_close_head {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_HEAD)\n"
+}
+
+proc add_css_data {file data} {
+    upvar $file local_file
+    global _
+    append local_file "$data\n"
+}
+
+proc add_open_body {file background} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_BODY) $background$_(close_open_BODY)\n"
+}
+
+proc add_close_table {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_TABLE)\n"
+}
+
+proc add_open_table {file border} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_TABLE_plus)$border$_(open_TABLE_plus_close_BORDER)$_(open_TR)"
+}
+
+proc add_close_line_and_table {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_TR)$_(close_TABLE)\n"
+}
+
+proc add_open_td_col {file colspan} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_TD_plus)$colspan$_(open_TD_plus_close_COLSPAN)"
+}
+
+proc add_close_td {file } {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_TD)"
+}
+
+proc add_td_col {file number sentence} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_TD_plus)$number$_(open_TD_plus_close_COLSPAN)$_(open_TD_TEXT)$sentence$_(close_TD_TEXT)$_(close_TD_plus)\n"
+}
+
+proc add_cell_text {file sentence} {
+	upvar $file local_file
+	global _
+	append local_file "$_(open_TD_TEXT)$sentence$_(close_TD_TEXT)"
+}
+
+proc add_open_tab_line {file } {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_TR)"
+}
+
+proc add_close_tab_line_open_tab_line {file } {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_TR)\n$_(open_TR)"
+}
+
+proc add_close_tab_line {file } {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_TR)\n"
+}
+
+
+proc add_break {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(BREAK)"
+}
+
+proc add_p {file} {
+    upvar $file local_file
+    global _
+    append local_file "\n$_(P)"
+}
+
+proc add_close_p {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_P)"
+}
+	
+
+proc add_close_ul {file} {
+    upvar $file local_file
+    global _
+    global list_counter
+    incr list_counter -1
+    append local_file "$_(close_UL)"
+    # JV: bugfix for list inclusion.
+    if {$list_counter > 0 } then {
+        append local_file "$_(close_list_item_overlap)"
+    }
+}
+
+proc add_pre {file data} {
+    upvar $file local_file
+    global _
+    # Due to the last \n before the closing ==========
+    # the last \n is too much
+    # I try to suppress it
+    #regsub "\n$_(close_PRE)" "$_(open_PRE)$data$_(close_PRE)" "GARGLLLLLL!$_(close_PRE)" final_data
+    #append local_file "$final_data\n"
+    append local_file "$_(open_PRE)$data$_(close_PRE)\n"
+}
+
+proc add_open_pre {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(open_PRE)\n"
+}
+
+proc add_close_pre {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(close_PRE)\n"
+}
+
+proc add_ruler {file} {
+    upvar $file local_file
+    global _
+    append local_file "$_(RULER)\n"
+}
+
+proc add_picture {file pict_line} {
+    upvar $file local_file
+    global _
+    # if it is a relative link then I create a special open_IMG case
+    # a relative link is not like http: or file: and does not have / at start
+    global REL2ABS_FLAG
+    if $REL2ABS_FLAG {
+   	if { ![regexp {[^:]*:} $pict_line match] && ![regexp {^/} $pict_line match] } {
+            global dirname
+            append local_file "$_(pre_IMG)$_(open_IMG)[file join ${dirname} [string trimright $pict_line]]$_(close_IMG)$_(post_IMG)\n"
+        } else {
+            append local_file "$_(pre_IMG)$_(open_IMG)[string trimright $pict_line]$_(close_IMG)$_(post_IMG)\n"
+	}
+    } else {
+        append local_file "$_(pre_IMG)$_(open_IMG)[string trimright $pict_line]$_(close_IMG)$_(post_IMG)\n"
+    }
+}
+
+proc add_figure {file fig_line} {
+    upvar $file local_file
+    global _
+    append local_file "$_(pre_FIG)$fig_line$_(post_FIG)\n"
+}
+
+proc add_data {file data} {
+    upvar $file local_file
+    global _
+    append local_file "${data}\n"
+}
+
+proc add_open_list_item {file list_level str} {
+    upvar $file local_file
+    global _
+    # For each list that is opened, I will increment this value
+    # Then I can ask for closing all opened lists
+    global list_counter 
+    incr list_counter
+    # JV, bugfix for list inclusion
+    if {$list_counter > 1 } then {
+	append local_file "$_(list_item_overlap)"
+    }
+    append local_file "\n$_(open_UL)$_(list_item_$list_level)$str$_(close_list_item_$list_level)\n"
+}
+
+proc close_list { file } {
+	upvar $file local_file
+	global list_counter
+	while { $list_counter > 0 } {
+		add_close_ul local_file
+	}
+	global space_list_in_table
+	global current_table
+	set space_list_in_table($current_table) [list ]
+}
+
+proc add_list_item {file list_level str} {
+    upvar $file local_file
+    global _
+    append local_file "$_(list_item_$list_level)$str$_(close_list_item_$list_level)\n"
+}
+
+proc add_link {file name} {
+    upvar $file local_file
+    global _
+    append local_file "\n$_(link_mark)$name$_(close_link_mark)\n"
+}
+
+proc add_h6 {file number name} {
+    upvar $file local_file
+    global _
+    if { $_(PRINT_H6_NB) == "YES"} then {
+	append local_file "$_(open_H6)$number $name$_(close_H6)\n" 
+    } else {
+	append local_file "$_(open_H6)$name$_(close_H6)\n"
+    }
+}
+
+proc add_h {file cpt number name} {
+    upvar $file local_file
+    global _
+    if { $_(PRINT_H${cpt}_NB) == "YES"} then {
+	append local_file "$_(open_H$cpt)$number $name$_(close_H$cpt)\n"
+    } else {
+	append local_file "$_(open_H$cpt)$name$_(close_H$cpt)\n"
+    }
+}
+
+proc add_s {file cpt number name} {
+    upvar $file local_file
+    global _
+    if { $_(PRINT_S${cpt}_NB) == "YES"} then {
+	append local_file "$_(open_A_CONTENTS) \#${number}$_(end_open_A_CONTENTS)$_(open_S$cpt)$number $name $_(close_S$cpt)$_(close_A_CONTENTS)\n"
+    } else {
+	append local_file "$_(open_A_CONTENTS) \#$number$_(end_open_A_CONTENTS)$_(open_S$cpt)$name $_(close_S$cpt)$_(close_A_CONTENTS)\n"
+    }
+}
+
+proc process_line { line } {
+	global lexer_state title_array title_list summary_data
+	global summary_level space_list_in_table new_line_nb
+	global last_indentation_in_table last_rule open_table
+	global current_table open_cell pre_space current_line_in
+	global nb_of_cells_in output_data
+	regsub -all "\t" $line "        " line
+	set str [string trimleft $line]
+	# number of space from the beginning of $line to the first char
+	set space_nb [expr [string length $line] - [string length $str]]
+	if  { $space_nb == 0} then {
+		# we are in the standard case and lists must be closed
+		#set standard 1
+		close_list output_data
+	}
+
+	switch -regexp -- $line  {
+		{^[0-9]+\.} {
+			fdebug {puts "process_line : title"}
+			
+			# It is a title, I must extract it
+			# found title 
+			set cpt 0
+			# if a single table is opened then we close it
+			if {$open_table} then {
+			    add_close_table output_data
+			    set open_table 0
+			}
+			# Close all opened lists
+			close_list output_data
+			# Extracting the length of the title index
+			set current_title_index ""
+			while { [regexp {(^[0-9]+\.)(.*)$} $line match index_start remaining] } {
+				incr cpt
+				append current_title_index $index_start
+				set line $remaining
+				fdebug {puts "process_line : title - line => $line"}
+			}
+			set name [string trim $line]
+			global no_auto_index_flag
+			if { $no_auto_index_flag } {
+			    # I take the index of the file
+			    # I need to know the "depth" of the title
+			    set title_number_list [split $current_title_index "."]
+			    # I then split into a list all elements separated by points
+			    # and then I evaluate the length of the list
+			    set cpt [expr [llength $title_number_list] - 1]
+			    set number $current_title_index
+			} else { 
+			    # a title number lower than the last title number implies an incrementation
+			    if {$cpt <= $title_array(last_cpt)} then {
+				set title_array($cpt) [expr $title_array($cpt) + 1]; }\
+			    else {init title_array [array size title_array] $cpt 1}
+			    # set of the title number
+			    for {set i 1; set number ""} {$i<=$cpt} {incr i} {
+				set number "$number$title_array($i)." 
+			    }
+			    # we reset the numbers that are after the one we have just incremented
+			    init title_array [expr $cpt + 1] [expr [array size title_array] - 1] 1
+			    set title_array(last_cpt) $cpt
+			}
+			# adding the title name (only first level) to title_list (contents option)
+			if {$cpt == 1} then {
+			    lappend title_list $number $name
+			}
+			# adding title to the summary list
+			if {$cpt <= $summary_level} then {
+			    add_s summary_data $cpt $number $name
+			}
+			# if the title has more than 5 numbers then it will be in H6
+			if {$cpt >= 6} then {
+			    # append output_data "\n<A NAME=\"$name\"></A><A NAME=\"$number\"></A>\n"
+			    #add_link output_data $name
+			    add_link output_data $number
+			    # add links and pictures
+			    pict_links name
+			    # append output_data "<H6>$number $name</H6>\n" 
+			    # append output_data "$_(open_H6)$number $name$_(close_H6)\n" 
+			    add_h6 output_data $number $name
+			    add_p output_data
+			    add_close_p output_data
+			} else { 
+			    # append output_data "\n<A NAME=\"$name\"></A><A NAME=\"$number\"></A>\n"
+			    #add_link output_data $name
+			    add_link output_data $number
+			    # add links and pictures
+			    pict_links name
+			    # append output_data "<H$cpt>$number $name</H$cpt>\n"
+			    # append output_data "$_(open_H$cpt)$number $name$_(close_H$cpt)\n"
+			    add_h output_data $cpt $number $name
+			    # AL WARNING I DO NOT UNDERSTAND THE ADDITION OF ADD_P AFTER A TITLE
+			    # I REMOVE IT
+			    #add_p output_data
+			    #add_close_p output_data
+			}
+			set last_rule TITLE
+		}
+		{^--+ *$} {
+			fdebug {puts "process_line : hr"}
+			# found hr
+			# if a single table is opened then we close it
+			if {$open_table} then {
+			    # append output_data "</TABLE>\n"
+			    # append output_data "$_(close_TABLE)\n"
+			    add_close_table output_data
+			    set open_table 0
+			}
+			# Close all opened lists
+			close_list output_data
+			# append output_data "<HR>\n"
+			# append output_data "$_(RULER)\n"
+			add_ruler output_data 
+			set last_rule RULER
+		}
+		{^[ \t]*[^ !\t]*\.(gif|jpeg|jpg|png) *} { 
+			fdebug {puts "process_line : image"}
+			# picture
+			# if a single table is opened then we close it
+			if {$open_table} then {
+			    # append output_data "</TABLE>\n"
+			    # append output_data "$_(close_TABLE)\n"
+			    add_close_table output_data
+			    set open_table 0
+			}
+			# Close all opened lists
+			close_list output_data
+
+			add_picture output_data $line
+			set last_rule PICT
+		}
+		{^ *Fig.*$} { 
+			fdebug {puts "process_line : figure comment"}
+			# picture comment?
+			# if a single table is opened then we close it
+			if {$open_table} then {
+			    # append output_data "</TABLE>\n"
+			    # append output_data "$_(close_TABLE)\n"
+			    add_close_table output_data
+			    set open_table 0
+			}
+			# Close all opened lists
+			close_list output_data
+			# we remove \n at the end of the line
+			# the major effect is that the html file will be nicer 
+			# (line <I>$figure_line</I> not troncated) ;-)
+			regsub "\n" $line "" line
+			if { $last_rule == "PICT" } then {
+			    # append output_data "<I>$figure_line</I>\n"
+			    # append output_data "$_(pre_FIG)$figure_line$_(post_FIG)\n"
+			    add_figure output_data $line
+			} else { 
+				# ??? What to do ???
+				# [lexer current] reject
+				# I copy what is in default
+				# AL - trying to catch start and end for each paragraph
+				pict_links line
+				add_p output_data
+				append output_data $line
+				# append output_data "<br />"
+				# append output_data "$_(BREAK)"
+				#add_break output_data
+				add_close_p output_data
+			}
+			set last_rule FIGURE
+		}
+		{^(include)[ ]+.+\.(html|htm)[ \t]*} {
+			fdebug {puts "process_line : include"}
+			# file to include
+			# if a single table is opened then we close it
+			if {$open_table} then {
+			    # append output_data "</TABLE>\n"
+			    # append output_data "$_(close_TABLE)\n"
+			    add_close_table output_data
+			    set open_table 0
+			}
+			regexp "(include )(.*)(\n)" $line match no_use filename new_line
+			if [file readable $filename] then {
+			    set fileid [open $filename "r"]
+			    # end of file?
+			    set data [read $fileid]
+			    add_data output_data $data
+			} else {
+			    puts stderr "file $filename not found or not readable"
+			}
+			set last_rule HTML
+			# we leave the lexer so that the line will not match another rule too
+    		}
+		{^(ginclude)[ ]+.+\.(html|htm)[ \t]*} {
+			fdebug {puts "process_line : ginclude"}
+			# file to include from a global directory
+			# if a single table is opened then we close it
+			if {$open_table} then {
+			    # append output_data "</TABLE>\n"
+			    # append output_data "$_(close_TABLE)\n"
+			    add_close_table output_data
+			    set open_table 0
+			}
+			regexp "(ginclude )(.*)(\n)" $line match no_use filename new_line
+			global GINCLUDE_DIR
+			set real_filename [file join $GINCLUDE_DIR [file tail $filename]]
+			if [file readable $real_filename] then {
+			    set fileid [open $real_filename "r"]
+			    # end of file?
+			    set data [read $fileid]
+			    add_data output_data $data
+			} else {
+			    puts stderr "file $real_filename not found or not readable"
+			}
+			set last_rule HTML
+			# we leave the lexer so that the line will not match another rule too
+    		}
+		{^summary *} {
+			fdebug {puts "process_line : summary"}
+			# summary will be include here
+			# Close all opened lists
+			close_list output_data
+			add_data output_data "SUMMARY_SUBST"
+			set last_rule SUMMARY
+		}
+		{^[ \t]+[\*\+-] +.+$} {
+			fdebug {puts "process_line : list"}
+			fdebug {puts "space_list_in_table($current_table) => $space_list_in_table($current_table)"}
+			# Found a list
+			set list $line
+			# if a single table is opened then we close it
+			if {$open_table} then {
+			    # append output_data "</TABLE>\n"
+			    # append output_data "$_(close_TABLE)\n"
+			    add_close_table output_data
+			    set open_table 0
+			}
+			regsub -all "\t" $list "        " list
+			set str [string trimleft $list]
+			# number of space from the beginning of $list to the [+-*]
+			set space_nb [expr [string length $list] - [string length $str]]
+			set last_indentation_in_table($current_table) $space_nb
+			set last_element [lindex  $space_list_in_table($current_table) end]
+			#set last_element [lindex $space_list_in_table($current_table) [expr [llength $space_list_in_table($current_table)] - 1]]
+			set str [string trimleft $str \"*+-\"]
+			# add links and pictures
+			pict_links str
+			if {$space_nb > $last_element} then {
+			    lappend space_list_in_table($current_table) $space_nb
+			    # append output_data "<UL><LI>$str\n"
+			    set list_level [expr [llength $space_list_in_table($current_table)]%6]
+			    # append output_data "$_(open_UL)$_(list_item_$list_level)$str\n"
+			    add_open_list_item output_data $list_level $str
+			} elseif {$space_nb == $last_element} then {
+			    # append output_data "<LI>$str\n"
+			    set list_level [expr [llength $space_list_in_table($current_table)]%6]
+			    # append output_data "$_(list_item_$list_level)$str\n"
+			   
+			    add_list_item output_data $list_level $str
+			} else {
+			    set already_in 0
+			    set newlist [list]
+			    for {set i 0} {$i< [llength $space_list_in_table($current_table)]} {incr i} {
+				set i_element [lindex $space_list_in_table($current_table) $i]
+				if { $i_element< $space_nb} then {
+				    lappend newlist $i_element 
+				} elseif {$i_element > $space_nb} then {
+				    # append output_data "</UL>\n"
+				    # append output_data "$_(close_UL)\n"
+				    add_close_ul output_data
+			        } elseif {$i_element == $space_nb} then {
+				    set already_in 1
+				    lappend newlist $i_element
+				}
+			    }
+			    set space_list_in_table($current_table) $newlist
+			    if {$already_in == 1} then {
+				# append output_data "<LI>$str\n"
+				set list_level [expr [llength $space_list_in_table($current_table)]%6]
+				# append output_data "$_(list_item_$list_level)$str\n"
+				add_list_item output_data $list_level $str
+			    } else {
+				lappend space_list_in_table($current_table) $space_nb
+				# append output_data "<UL><LI>$str\n"
+				set list_level [expr [llength $space_list_in_table($current_table)]%6]
+				# append output_data "$_(open_UL)$_(list_item_$list_level)$str\n"
+				add_open_list_item output_data $list_level $str
+			    }
+			}
+			set last_rule LIST
+		    }
+		    {^[\|]+.*} {
+			fdebug {puts "process_line : simple table"}
+			# Close all opened lists
+			close_list output_data
+		        set s_table_line $line
+			global _
+			set border_ok 0
+			set border -1
+			set list [split $s_table_line {|}]
+			foreach {i} $list {
+			    if [regexp "(^\[1-9\]\[0-9\]* )(.*)" $i match number sentence] then {
+
+			    } else {
+				set number 1
+				set sentence $i
+			    }
+			    if {! $border_ok} then {
+				# we are at the beginning of the line
+				if {$sentence == ""} then {
+				    # we count the amount of |
+				    incr border
+				} else {
+				    # there are no more | at the beginning of the line
+				    set border_ok 1
+				    # if we are not yet in a table then we opened a new one
+				    if {! $open_table} then {
+					# append output_data "<TABLE BORDER=$border><TR>"
+					# append output_data "$_(open_TABLE_plus) BORDER=$border>$_(open_TR)"
+					add_open_table output_data $border
+					set open_table 1
+					set current_line_in($current_table) 1
+					set nb_of_cells_in($current_line_in($current_table),$current_table) 0
+				    } else {
+					# else it's just another new line in the table
+					# append output_data "<TR>"
+					# append output_data "$_(open_TR)"
+					add_open_tab_line output_data
+					incr current_line_in($current_table)
+					set nb_of_cells_in($current_line_in($current_table),$current_table) 0
+				    }
+				    # add links and pictures
+				    if {[string trim $sentence] == ""} then {
+					# add spaces for empty cells
+					regsub -all " " $sentence "$_(REGSUB_SPACE)" sentence
+				    } else {
+					# add links and pictures
+					pict_links sentence
+				    }
+				    add_td_col output_data $number $sentence
+				    incr nb_of_cells_in($current_line_in($current_table),$current_table) $number
+				}
+			    } else {
+				# add links and pictures
+				if {[string trim $sentence] == ""} then {
+				    # add spaces for empty cells
+				    regsub -all " " $sentence "$_(REGSUB_SPACE)" sentence
+				} else {
+				    # add links and pictures
+				    pict_links sentence
+				}
+				add_td_col output_data $number $sentence
+				incr nb_of_cells_in($current_line_in($current_table),$current_table) $number
+			    } 
+			}
+			# complete the table line with empty cells if needed
+			if { $nb_of_cells_in($current_line_in($current_table),$current_table) != $nb_of_cells_in(1,$current_table)} then {
+			    for {set i $nb_of_cells_in($current_line_in($current_table),$current_table)} {$i < $nb_of_cells_in(1,$current_table)} {incr i} {
+				global _
+				add_td_col output_data "1" "$_(SPACE)"
+			    }
+			}
+			# append output_data "</TR>\n"
+			# append output_data "$_(close_TR)\n"
+			add_close_tab_line output_data
+			set last_rule SINGLE_TABLE
+		}
+		{^ *\n$} {
+			fdebug {puts "process_line : empty line"}
+			if {$open_table} then {
+			    # append output_data "</TABLE>\n"
+			    # append output_data "$_(close_TABLE)\n"
+			    add_close_table output_data
+			    set open_table 0
+			}
+			# Close all opened lists
+			close_list output_data
+			add_p output_data
+			append output_data "&nbsp;"
+			add_close_p output_data
+			set last_rule EMPTY
+		}
+		default {
+			fdebug {puts "process_line : default"}
+			set texte $line
+			# the sentence has nothing particular
+			# if a single table is opened then we close it
+			if {$open_table} then {
+			    # append output_data "</TABLE>\n"
+			    # append output_data "$_(close_TABLE)\n"
+			    add_close_table output_data
+			    set open_table 0
+			}
+			# Close all opened lists
+			close_list output_data
+			# ?????????????????????
+			# Why a space at the beginning ?
+			#set texte " $texte"
+			# add links and pictures
+			pict_links texte
+			# AL - trying to catch start and end for each paragraph
+			add_p output_data
+			append output_data $texte
+			# append output_data "<br />"
+			# append output_data "$_(BREAK)"
+			#add_break output_data
+			add_close_p output_data
+			set last_rule TEXT
+		}
+	}
+	fdebug {puts "process_line - last_rule : $last_rule"}
+}
+
+
+proc print_help {} {
+    global version
+    puts "Usage : txt2ml \[OPTION\]... -f \[FILE\]... "
+    puts "Convert txt file into html file (version $version)\n"
+    puts "-file, -f                   txt file name"
+    puts "-output_file, -o            output file name, default is stdout"
+    puts "-title, -t                  web page title"
+    puts "-no_title_inside, -nti      title does not apppear in the web page"
+    puts "                            (but is still used for the title tag)"
+    puts "-no_auto_index, -nai        title numerotation is not auto generated"
+    puts "                            the value in txt file is keeped"
+    puts "-no_head, -nh               remove the html/body/head tags so that the"
+    puts "                            output file can be include in other pages"
+    puts "-background, -bg            web page background, default is no background"
+    puts "-css                        name of the file which contains the style definition"
+    puts "                            file must begin with <STYLE> and end with </STYLE>"
+    puts "                            or contain a <LINK > tag"
+    puts "-perso, -p                  name of the tcl file which contains your personalisation file"
+    puts "                            Warning : this option is not for css"
+    puts "-contents, -ct              add links to titles at top and bottom of the page"
+    puts "                            equivalent to -top_content -bottom_content"
+    puts "-top_content, -top          add links to titles at top of the page"
+    puts "-bottom_content, -bottom    add links to titles at bottom of the page"
+    puts "-summary_level, -s          max level of title to add in the summary" 
+    puts "-re, -relative_to_absolute  relative img filenames are converted"
+    puts "                            into an absolute path in using the directory"
+    puts "                            of the filename as a basis"
+    puts "-help, -h                   print help"
+}
+
+
+
+set title_array(last_cpt) 0
+set title_array(1) 1
+# list of titles, needed for top_content and bottom_content
+set title_list [list]
+set current_table 0
+set space_list_in_table($current_table) [list ] 
+set new_line_nb 0
+set last_indentation_in_table($current_table) 0
+set current_line_in($current_table) 0
+set nb_of_cells_in($current_line_in($current_table),$current_table) 0
+set last_rule 0
+set open_table 0
+set open_cell 0
+set subst_list [list]
+set subst_cpt 0
+set is_pre 0
+
+set data ""
+set output_data ""
+set final_data ""
+set summary_data ""
+
+set u_nb 0
+set i_nb 0
+set b_nb 0 
+set s_nb 0
+
+set summary_level 3
+#set pre_space 8
+set title ""
+set no_title_inside 0
+set no_head 0
+set background ""
+set top_content 0
+set bottom_content 0
+set state select_args_flag
+set filename ""
+set output_filename ""
+set css_file ""
+set perso_file ""
+
+# How many opened files ?
+set list_counter 0
+# If I need to translate relative links in taking
+# the filename as a base, the next flag is 1
+set REL2ABS_FLAG 0
+
+
+# 1 if no indexes are generated
+set no_auto_index_flag 0
+
+# if a title is on the command line then 1 else 0
+set title_found 0
+
+if {$argc == 0} then {
+    print_help
+    exit
+}
+foreach arg $argv {
+    switch -- $state {
+	select_args_flag {
+	    switch -- $arg {
+		-t -
+		-title { # web page title
+		    set state title_flag
+		}
+		-nti -
+		-no_title_inside { #title only used for title tag
+		    set no_title_inside 1
+		}
+		-nh -
+		-no_head { # not a real web page : no html/body/head tags...
+		    set no_head 1
+		}
+		-bg -
+		-background { # web page background, default is no background
+		    set state bg_flag
+		}
+		-ct -
+		-contents { # links to titles at top and bottom of the page
+		    set top_content 1
+		    set bottom_content 1
+		}    
+		-top -
+                -top_content { # links to titles at top of the page
+		    set top_content 1
+		}
+		-bottom -
+		-bottom_content { # links to titles at bottom of the page
+		    set bottom_content 1
+		}       
+                -h -
+		-help { # print help
+		    print_help
+		    exit
+		}
+		-f -
+		-file { # file name
+		    set state file_flag
+		}
+		-gi -
+		-gi* {
+		    set state ginclude_flag
+		}
+		-o -
+		-output_file { # output filename
+		    set state output_file_flag
+		}
+		-css { # use of a style sheets
+		    set state css_flag
+		}
+		-p -
+		-perso { # your own style file (not css)
+		    set state perso_flag
+		}
+		-pa -
+		-parray { # an array in array get format with all style
+		    set state parray_flag
+		}
+		-nai -
+		-no_auto_index { # indexes are not touched or generated
+		    # we use what is in the txt file
+		    set no_auto_index_flag 1
+		}
+		-s -
+		-summary_level { # level of title which will be in the summary
+		    set state summary_level_flag
+		}
+		-re -
+		-relative_to_absolute {
+			# use dirname to add at start of IMG tag
+			set REL2ABS_FLAG 1
+		}
+		default { 
+		    puts stderr "$arg : Unknown Option\n"
+		    print_help
+		    exit
+		}
+	    }
+	}
+	title_flag {
+	    set title $arg
+	    set state select_args_flag
+	    set title_found 1
+	}
+	bg_flag {
+	    set background $arg
+	    if [regexp {\#[a-fA-F0-9]+} $arg match] then {
+		set background "bgcolor=\"$arg\""
+	    } else {
+		set background "BACKGROUND=\"$arg\""
+	    }
+	    set state select_args_flag
+	}
+	file_flag {
+	    set filename $arg
+	    set state select_args_flag
+	}
+	ginclude_flag {
+	    set GINCLUDE_DIR $arg
+	    set state select_args_flag
+	}
+	output_file_flag {
+	    set output_filename $arg
+	    set state select_args_flag
+	}
+	css_flag {
+	    set css_file $arg
+	    set state select_args_flag
+	}
+	perso_flag {
+	    set perso_file $arg
+	    set state select_args_flag
+	}
+	parray_flag {
+	    set perso_array_file $arg
+	    set state select_args_flag
+	}
+	summary_level_flag {
+	    set summary_level $arg
+	    set state select_args_flag
+	}
+	default {
+	    puts stderr "This should not happen - error in txt2ml. Please report to Free&ALter Soft."
+	    exit
+	}
+    }                         
+}
+
+set dirname [file dirname $filename]
+cd $dirname
+if [file readable $filename] then {
+    # perso variables are set to their default values
+    set_default_vars
+    # if there is perso file we read it
+    if {$perso_file != ""} then {
+	source $perso_file
+    }
+    if {[info exists perso_array_file] } {
+    	if { [file readable $perso_array_file] } {
+		catch {
+			set fid [open $perso_array_file]
+			array set _ [read $fid]
+			close $fid
+		}
+	}
+    }
+		
+    set fileid [open $filename "r"]
+    # First line
+    set first_line 1
+    # end of file?
+    set all_file [read $fileid]
+    close $fileid
+    foreach data [split $all_file "\n"] {
+    	fdebug {puts "PROCESSING LINE $data" }
+
+	# conversion of special characters
+	# should be done after tcl commands substitution so that an "é"
+	# between [] won't be subst with a &eacute;
+	# foreach { item1 item2 } $special_char_list {
+	#     regsub -all $item1 $data $item2 data
+	# }
+	
+	# JV: dirty patch to replace some specials characters
+	regsub -all "\u0092" $data "\u0027" data
+	#regsub -all "\&" $data "\&amp;" data
+	regsub -all "\u0080" $data "Euros" data
+	regsub -all "\u0085" $data "..." data
+	# 
+	#regsub -all {@} $data {\&#64;} data
+
+	# is the text preformated?
+	if {[regexp "^===(=)+( )*$" $data match]} then {
+	    # beginning or end of preformated area
+	    if {$is_pre} then {
+		# we were in a preformated area
+		# we leave it
+		set is_pre 0
+		add_close_pre output_data
+	    } else {
+		# we open a new preformated area
+		set is_pre 1
+		add_open_pre output_data
+	    }
+	} else {
+	    # other lines
+	    if {$is_pre} then {
+		# we are in a preformated area so we add
+		# the line without modifying it
+		add_data output_data $data
+	    } else {
+		# not a preformated line or area
+		# In pre areas, I keep the &. So you may type
+		# special characters and tags directly
+		regsub -all "\&" $data "\&amp;" data
+		regsub -all {@} $data {\&#64;} data
+
+	# we substitute tcl commands so that lexer doesn't look at them
+	set l [string length $data]
+	set nb_open 0
+	set new_data ""
+	for {set i 0} {$i< $l } {incr i} {
+	    set current_char [string index $data $i]
+	    if { $current_char == {[} } then {
+		#set last_char [string index $data [expr $i - 1]]
+		#puts stderr "$last_char"
+		#if {$last_char != "\\"} then {
+		if { $nb_open == "0"} then {
+		    # this is the first opened [
+		    set open_position $i
+		}
+		incr nb_open
+		#	} else {
+		#    puts stderr "not a real open bracket"
+		#   set new_data "$new_data$current_char"
+		#}
+	    } elseif { $current_char == {]} } then {
+		if { $nb_open == "1"} then {
+		    # the ] corresponds to the first opened [
+		    set subst [string range $data $open_position $i]
+		    # we substitute the tcl command and put it in a list
+		    # so that we can put back it when the lexer will have done its work.
+		    lappend subst_list "$subst"
+		    set new_data "$new_data\SUBST_$subst_cpt"
+		    incr subst_cpt
+		    set nb_open 0
+		} else {
+		    # the ] corresponds to an opened [ but is inside another pair of []
+		    set nb_open [expr $nb_open - 1]
+		}
+	    } elseif { $nb_open == "0"} then {
+		# we let the characters that are not inside the []
+		set new_data "$new_data$current_char"
+	    }
+	}
+
+	# conversion of special characters
+	# should be done after tcl commands substitution so that an "é"
+	# between [] won't be subst with a &eacute;
+	foreach { item1 item2 } $tcl_special_char_list {
+	    regsub -all $item1 $new_data $item2 new_data
+	} 
+	
+	#puts stderr $new_data
+	#regsub -all {\$} $data "DOLLAR_SUBST" data
+	#regsub -all {\$} $new_data {\&\#36;} new_data
+	# AL changed &/#36 in &#36
+	#regsub -all {\&} $new_data {\&#38;} new_data
+	regsub -all {\$} $new_data {\&#36;} new_data
+
+	if { !$is_pre } {
+		regsub -all {<} $new_data {\&lt;} new_data
+	}
+
+	# if there is a "|" that ended the string, then we add a space
+	# so that the lexer see that this a table cell
+	# (space after "|" is required for table cell; as it is hard for
+	# a user not to forget some space, we add it for him if needed)
+	set data_length [string length $new_data]
+	if {$data_length != "0"} then {
+	    # we use a new_data2 for cases like @@||2
+	    set new_data2 [string trimright $new_data "0123456789"]
+	    set data_length2 [string length $new_data2]
+	    # the test with "string last" should only be done if data is not
+	    # empty, else a space would be added to empty lines (if {-1 == -1})
+	    if {[expr $data_length2 - 1] == [string last "|" $new_data]} then {
+		# we use $data_length2 which is the length of data after the
+		# removal of the eventual numbers (for colspan) after the | 
+		append new_data " "
+		#set new_data "$new_data "
+	    }
+	}
+	
+	# first we do substitution for bold, italic and underline
+	# we count the number of substitution for each type of substitution
+	incr s_nb [regsub -all "'''''" $new_data "S_SUBST" new_data]
+	incr u_nb [regsub -all "''''" $new_data "U_SUBST" new_data]
+	incr i_nb [regsub -all "'''" $new_data "I_SUBST" new_data]
+	incr b_nb [regsub -all "''" $new_data "B_SUBST" new_data]
+
+	set data "$new_data\n"
+	if $first_line {
+	    set first_line 0
+	    if $title_found {
+		# if option -t is specified then the first line
+		# is not considered to be the title
+		# I use this title for the text
+		# And I normally process the first line
+		process_line $data
+		#web eval $data
+	    } else {
+		set title $new_data
+	    }
+	} else {
+	    process_line $data
+	    #web eval $data
+	}
+    }
+}   }
+
+    # we close the tables which are not closed at the end of the txt file
+    while {$current_table != 0} { 
+	# first we close all the lists that were opened in the last cell
+	for {set i 1} {$i<= [llength $space_list_in_table($current_table)]} {incr i} {
+	    # append output_data "</UL>\n"
+	    # append output_data "$_(close_UL)\n"
+	    add_close_ul output_data
+	}
+	set space_list_in_table($current_table) [list ] 
+	# if the last cell was not close we do it
+	if $open_cell then {
+	    # append output_data "</TD>\n"
+	    # append output_data "$_(close_TD)\n"
+	    add_close_td output_data
+	    set open_cell 0
+	}
+	# append output_data "</TR></TABLE>\n"
+	# append output_data "$_(close_TR)$_(close_TABLE)\n"
+	# complete the table line with empty cells if needed
+	if { $nb_of_cells_in($current_line_in($current_table),$current_table) != $nb_of_cells_in(1,$current_table)} then {
+	    for {set i $nb_of_cells_in($current_line_in($current_table),$current_table)} {$i < $nb_of_cells_in(1,$current_table)} {incr i} {
+		add_td_col output_data "1" $_(REGSUB_SPACE)
+	    }
+	}
+	add_close_line_and_table output_data
+	set current_table [expr $current_table - 1]
+    }
+
+    if $bottom_content then {
+	# append output_data "<HR>"
+	# append output_data "<I>Contents : \n"
+	# append output_data "$_(open_CONTENTS)\n"
+	add_open_content output_data
+	foreach { title_nb title_item} $title_list {
+	    # append output_data "<A HREF=\"\#$title_item\">$title_item</A>$_(SPACE)"
+	    # append output_data "$_(open_A_CONTENTS) HREF=\"\#$title_item\">$title_item$_(close_A_CONTENTS)$_(SPACE)"
+	    add_content output_data $title_nb $title_item
+	}
+	# append output_data "</I>\n"
+	# append output_data "$_(close_CONTENTS)\n"
+	add_close_content output_data
+    }
+
+    if !$no_head then {
+	# we cant put top_contents in the html doc until the scan of the txt file is finished
+	# append output_data "</BODY></HTML>"
+	# append output_data "$_(close_BODY)$_(close_HTML)"
+	add_close_file output_data
+	# append final_data "<HTML>"
+	# append final_data "$_(open_HTML)"
+	add_open_file final_data
+	# append final_data "<HEAD><TITLE>$title</TITLE>\n"
+	# append final_data "$_(open_HEAD)$_(open_TITLE)$title$_(close_TITLE)\n"
+	add_open_head final_data $title
+	# append style if needed
+	if { $css_file != ""} then {
+	    if [file readable $css_file] then {
+		set fileid [open $css_file "r"]
+		# end of file?
+		while { [gets $fileid data] >= 0 }  {
+		# append final_data "$data\n"
+		    add_css_data final_data $data
+		}
+	    } else {
+		puts stderr "file $css_file not found or not readable"
+	    }
+	} else {
+	}
+	# append final_data "</HEAD>\n"
+	# append final_data "$_(close_HEAD)\n"
+	add_close_head final_data
+	# append final_data "<BODY $background>\n"
+	# append final_data "$_(open_BODY) $background>\n"
+	add_open_body final_data $background
+    }
+    if !$no_title_inside then {
+	# add the title at the top of the web page.
+	add_doc_title final_data $title
+    }
+    if $top_content then {
+	# append final_data "<I>Contents : \n"
+	# append final_data "$_(open_CONTENTS)\n"
+	add_open_content final_data
+	foreach { title_nb title_item} $title_list {
+	    # append final_data "<A HREF=\"\#$title_item\">$title_item</A>$_(SPACE)"
+	    # append final_data "$_(open_A_CONTENTS) HREF=\"\#$title_item\">$title_item$_(close_A_CONTENTS)$_(SPACE)"
+	    add_content final_data $title_nb $title_item
+	}
+	# append final_data "</I>\n"
+	# append final_data "$_(close_CONTENTS)\n"
+	add_close_content final_data
+    }
+    append final_data $output_data
+    #regsub -all "DOLLAR_SUBST" $final_data {$} final_data
+    # we put back the tcl commands
+    set l [llength $subst_list]
+    # modif so that subst_1 will not erase subst_10
+    #for {set i 0} {$i < $l} {incr i} 
+    incr l -1
+    for {set i $l} {$i >= 0} {incr i -1} {
+	# -all is needed in case the word "SUBST_$i" has been use many times 
+	# (ie if it was in a title, it will appear in the A name too)
+	# But if there are more than 
+	if { [regexp {&} [lindex $subst_list $i] match] } {
+		# AL MODIF PERMETTANT D'AVOIR DES & DANS LES CHAINES [ ]
+		regsub -all {\&} [lindex $subst_list $i] {\\\&} data_to_subst
+		regsub  "SUBST_$i" $final_data "$data_to_subst" final_data
+	} else {
+		regsub  "SUBST_$i" $final_data [lindex $subst_list $i] final_data
+	}
+    } 
+    # subtitution for bold, italic, underline, strike through
+    # bold
+    for {set i 1} {$i <= ${b_nb}} {incr i} {
+	if {($i % 2) == 1} then {
+	    regsub "B_SUBST" $final_data "$_(open_B)" final_data
+	} else {
+	    regsub "B_SUBST" $final_data "$_(close_B)" final_data
+	}
+    }
+    # italic
+    for {set i 1} {$i <= ${i_nb}} {incr i} {
+	if {($i % 2) == 1} then {
+	    regsub "I_SUBST" $final_data "$_(open_I)" final_data
+	} else {
+	    regsub "I_SUBST" $final_data "$_(close_I)" final_data
+	}
+    }
+    # underline
+    for {set i 1} {$i <= ${u_nb}} {incr i} {
+	if {($i % 2) == 1} then {
+	    regsub "U_SUBST" $final_data "$_(open_U)" final_data
+	} else {
+	    regsub "U_SUBST" $final_data "$_(close_U)" final_data
+	}
+    }
+    # strike through
+    for {set i 1} {$i <= ${s_nb}} {incr i} {
+	if {($i % 2) == 1} then {
+	    regsub "S_SUBST" $final_data "$_(open_S)" final_data
+	} else {
+	    regsub "S_SUBST" $final_data "$_(close_S)" final_data
+	}
+    }
+
+    # adding the summary to the right places
+    # should be only one place but more summaries are allowed
+    # we substitute & in summary_data with \& so that all the &  that 
+    # are coming from things like &eacute; won't be replace by 
+    # "SUMMARY_SUBST" in final_data. 
+    # (& is a special char in tcl substitution)
+    regsub -all {&} $summary_data {\\&} summary_data
+    regsub -all "SUMMARY_SUBST" $final_data "$summary_data" final_data
+
+    if {$output_filename != ""} then {
+	# output in a filename
+	write_file $output_filename $final_data
+    } else {
+	# default output
+	puts $final_data
+    }
+} else {
+    puts stderr "$filename : no such file or file not readable"
+}

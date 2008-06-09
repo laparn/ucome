@@ -1,0 +1,260 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->treedir2 - title<!-- END TITLE --></title>
+		<!-- fr/sliqua/treedir.tmpl -->
+<STYLE type="text/css">
+body {
+margin-top : 10px; 
+margin-right : 20px; 
+margin-bottom : 20px; 
+margin-left : 20px; 
+font-family : Arial, Helvetica, sans-serif; 
+font-weight : normal; 
+} 
+
+
+a.dash:link {
+border-bottom : 1px dashed; 
+} 
+
+a.dash:visited {
+border-bottom :  1px dashed; 
+} 
+
+a.dash:hover {
+border-bottom :  1px solid; 
+} 
+
+h1 , h2 , h3 , h4 , h5 , h6 {
+font-family : "Trebuchet MS", Verdana, "Lucida Sans", Arial, Geneva, Helvetica, Helv, "Myriad Web", Syntax, sans-serif; 
+font-weight : normal; 
+} 
+
+.head , .headbox , .dynabox , a.leftmenu , a.activeleftmenu, a.topmenu {
+font-weight : bold; 
+text-decoration : none; 
+font-size : 80%; 
+font-family : Verdana, "Lucida Sans", Arial, Geneva, Helvetica, Helv, "Myriad Web", Syntax, sans-serif; 
+} 
+
+a 																	{color : #000000; } 
+.topnav a:hover, .dynabox .headbox a:hover							{color : #ffffff; }
+
+.pos0 , body 														{background-color : #ffffff; color : #000000; } 
+.pos1 , .mainbox , .dynabox , a.leftmenu:link , a.leftmenu:visited 	{background-color : #d0e1f5; border : #000000; color : #000000; } 
+a.activeleftmenu:link , a.activeleftmenu:visited 	{background-color : #98c2f0; border : #000000; color : #000000; } 
+.pos2 , .topnav , a.leftmenu:hover  	{background-color : #98c2f0; color : #000000; border : #000000; } 
+
+a.activeleftmenu:hover 	{background-color : #d0e1f5; color : #000000; border : #000000; } 
+
+.neg0 																{background-color : #000000; } 
+.neg1 , a.topmenu:hover												{background-color : #4d75a0; color : #ffffff; border : #000000; } 
+.neg2 , .headbox , a.topmenu:link , a.topmenu:visited 				{background-color : #7d9fc4; color : #ffffff; border : #000000; } 
+
+a.leftmenu:link , a.activeleftmenu:link{
+display : block; 
+padding-top : 2px; 
+padding-right : 2px; 
+padding-bottom : 2px; 
+padding-left : 2px; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 1px; 
+border-bottom-width : 1px; 
+border-left-width : 1px; 
+width : 145px; 
+font-weight : normal; 
+text-align : left; 
+} 
+
+a.leftmenu:hover , a.activeleftmenu:hover {
+display : block; 
+padding-top : 2px; 
+padding-right : 2px; 
+padding-bottom : 2px; 
+padding-left : 2px; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 1px; 
+border-bottom-width : 1px; 
+border-left-width : 1px; 
+width : 145px; 
+font-weight : normal; 
+text-align : left; 
+} 
+
+a.leftmenu:visited , a.activeleftmenu.visited {
+display : block; 
+padding-top : 2px; 
+padding-right : 2px; 
+padding-bottom : 2px; 
+padding-left : 2px; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 1px; 
+border-bottom-width : 1px; 
+border-left-width : 1px; 
+width : 145px; 
+font-weight : normal; 
+text-align : left; 
+} 
+
+a.topmenu:link {
+display : inline; 
+padding-top : 5px; 
+padding-right : 0; 
+padding-bottom : 5px; 
+padding-left : 0; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 0; 
+border-bottom-width : 0; 
+border-left-width : 1px; 
+text-align : center;  
+} 
+
+a.topmenu:hover {
+background-color : #4d75a0; 
+display : inline; 
+padding-top : 5px; 
+padding-right : 0; 
+padding-bottom : 5px; 
+padding-left : 0; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 0; 
+border-bottom-width : 0; 
+border-left-width : 1px; 
+text-align : center; 
+} 
+
+a.topmenu:visited {
+display : inline; 
+padding-top : 5px; 
+padding-right : 0; 
+padding-bottom : 5px; 
+padding-left : 0; 
+border-style : solid; 
+border-top-width : 0; 
+border-right-width : 0; 
+border-bottom-width : 0; 
+border-left-width : 1px; 
+text-align : center; 
+} 
+
+.headbox {
+display : block; 
+padding-top : 2px; 
+padding-right : 2px; 
+padding-bottom : 2px; 
+padding-left : 2px; 
+border-top-width : 1px; 
+border-right-width : 1px; 
+border-bottom-width : 1px; 
+border-left-width : 1px; 
+border-style : solid; 
+width : 145px; 
+text-align : left; 
+} 
+
+.topbox {
+border : 1px solid ;
+border-width : 1px 1px 1px 1px; 
+} 
+
+.topnav {
+border : solid ; 
+border-width : 1px 1px 1px 1px; 
+padding-top : 3px;
+padding-bottom : 0; 
+} 
+
+.mainbox {
+border : solid ; 
+border-width : 1px 0 1px 1px; 
+padding-top : 5px; 
+padding-left : 5px; 
+padding-right : 5px; 
+padding-bottom : 5px; 
+} 
+
+.mainbox p {
+font-size : 85%; 
+} 
+
+.mainbox p a {
+font-weight : bold; 
+font-size : 90%; 
+} 
+
+.dynabox {
+border : 1px dashed ; 
+text-align : center; 
+} 
+
+.dynabox .headbox {
+border-style : dashed; 
+border-top-style : solid; 
+border-right-width : 0; 
+border-left-width : 0; 
+padding-top : 3px; 
+padding-left : 0; 
+padding-right : 0; 
+padding-bottom : 3px; 
+} 
+
+.dynacontent {
+padding-top : 3px; 
+padding-left : 5px; 
+padding-right : 5px; 
+padding-bottom : 3px; 
+text-align : left; 
+font-size : 70%; 
+font-weight : normal; 
+}
+</STYLE>
+	</head>
+
+	<body bgcolor="white" >
+		<!-- fr/sliqua/treedir.tmpl -->	
+		<!-- BEGIN DIRTREE --><!-- DIRTREE -->
+		<div class="headbox">Tree</div>
+			<!-- BEGIN DIR -->
+			<!-- DIR -->
+				<A CLASS="leftmenu" HREF="$url">
+				<!-- BEGIN SPACE --><!-- SPACE -->&nbsp;&nbsp;&nbsp;<!-- /SPACE --><!-- END SPACE -->
+                		<IMG SRC="${icons_url}/folder.gif" BORDER="0">$content</A>
+			<!-- /DIR -->
+			<!-- END DIR -->
+			<!-- BEGIN ACTIVEDIR -->
+			<!-- ACTIVEDIR -->
+				<A CLASS="activeleftmenu" HREF="$url">
+				<!-- BEGIN ACTIVESPACE --><!-- ACTIVESPACE -->&nbsp;&nbsp;&nbsp;<!-- /ACTIVESPACE --><!-- END ACTIVESPACE --> 
+                		<IMG SRC="${icons_url}/folder.open.gif"  BORDER="0">$content</A>
+			<!-- /ACTIVEDIR -->
+			<!-- END ACTIVEDIR -->
+			<!-- BEGIN EXACTDIR -->
+			<!-- EXACTDIR -->
+				<A CLASS="activeleftmenu" HREF="$url">
+				<!-- BEGIN EXACTSPACE --><!-- EXACTSPACE -->&nbsp;&nbsp;&nbsp;<!-- /EXACTSPACE --><!-- END EXACTSPACE -->
+                		<IMG SRC="${icons_url}/folder.open.gif"  BORDER="0"><b>$content</b></A>
+                
+			<!-- /EXACTDIR -->
+			<!-- END EXACTDIR -->
+			<!-- BEGIN CURRENTDIR -->
+			<!-- END CURRENTDIR -->
+		</div>
+		<!-- /DIRTREE --><!-- END DIRTREE -->
+		<br />
+		<!-- BEGIN CACHE -->
+		<div class="headbox">Actions</div>
+<A class="leftmenu" HREF="fas:${export_filename}&action=clean_cache_form">Clean the cache</A>
+<A class="leftmenu" HREF="fas:${export_filename}&action=flatten">Flatten the site</A>
+<A class="leftmenu" HREF="fas:${export_filename}&action=txt4index_tree">Prepare indexing</A>
+<A class="leftmenu" HREF="fas:${export_filename}&action=create_index">Index</A>
+		<!-- END CACHE -->
+		</div>
+	</body>
+</html>

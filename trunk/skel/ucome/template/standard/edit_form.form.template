@@ -1,0 +1,45 @@
+<HTML>
+<!-- vim: set syntax=html: -->
+  <HEAD>
+    <TITLE><!-- BEGIN TITLE --><!-- END TITLE --></TITLE>
+    <!-- edit_form.form.tmpl -->
+  </HEAD>
+<BODY bgcolor="#fffbf0"  bgcolor="#FFFFFF">
+<!-- edit_form.form.tmpl -->
+<!-- TEngine section : TITLE, FORM -->
+<!-- TEngine variables in FORM : export_filename, content, dir -->
+<!-- BEGIN FORM -->
+	<FORM ACTION="${FAS_VIEW_CGI}" METHOD=POST >
+	<INPUT TYPE=HIDDEN NAME="file" VALUE="${export_filename}">
+	<INPUT TYPE=HIDDEN NAME="action" VALUE="edit">
+	<P><B>Thanks for typing your comp file hereunder</B><BR>
+	<TABLE WIDTH="100%">
+		<TR>
+			<TD>Template to use :</TD>
+			<TD ><input name="template_name" value="${template_name}" size="${width}"><input type="image" name="template_name.fs" src="${icons_url}/select_file.gif" border="0" valign="bottom"></td>
+		</TR>
+	</TABLE>
+	<CENTER>
+		<TABLE>
+			<TR>
+				<TD>
+					<input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+				</TD>
+				<TD>
+					<a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}">
+						<img src="${icons_url}/cancel.gif" border="0" alt="Annuler">
+					</a>
+				</TD>
+			</TR>
+		</TABLE>
+	</CENTER>
+	</FORM>
+<!-- END FORM -->
+</BODY></HTML>
+
+
+
+
+
+
+

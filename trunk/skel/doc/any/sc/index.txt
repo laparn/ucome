@@ -1,0 +1,14 @@
+Screenshots
+Click on the link for seeing the whole screenshot
+| sc/thumb_index_doc.jpg | 'Index of the documentation with the classical look'=url:sc/index_doc.jpg
+| sc/thumb_txt_file.jpg | 'The corresponding text file'=url:sc/txt_file.jpg
+| sc/thumb_edit_txt.jpg | 'Edition of the text file'=url:sc/edit_txt.jpg
+| sc/thumb_prop.jpg | 'Properties associated with a text file'=url:sc/prop.jpg
+| sc/thumb_auth.jpg | 'Authorisation management for a file'=url:sc/auth.jpg
+| sc/thumb_edit_dir.jpg | 'Directory edition'=url:sc/edit_dir.jpg
+| sc/thumb_edit_todo_dir.jpg | 'A directory full of todo files'=url:sc/edit_todo_dir.jpg
+| sc/thumb_todo.jpg | 'A composite todo file'=url:sc/todo.jpg
+| sc/thumb_edit_todo.jpg | 'Edition of a composite todo file'=url:sc/edit_todo.jpg
+| sc/thumb_todo_dir.jpg | 'Elegant viewing of a directory with todo files'=url:sc/todo_dir.jpg
+| sc/thumb_form.jpg | 'The form file content used to define a todo composite file'=url:sc/form.jpg
+

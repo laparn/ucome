@@ -1,0 +1,2 @@
+title.width 50 global.title {Block definitions for a todo item} global.template todo.template date.width 16 title.textentry 1 title.type txt content.type txt2ml date.textentry 1 date.type txt global.title.fr {Définition des blocs pour une page de type "A faire"} content.cols 80  content.rows 20
+

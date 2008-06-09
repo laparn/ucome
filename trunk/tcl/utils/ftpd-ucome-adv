@@ -1,0 +1,31 @@
+#!/bin/sh 
+# FTP daemon for testing the ftp client (modules/ftp).
+# -*- tcl -*- \
+exec tclsh8.4 "$0" ${1+"$@"}
+
+# This ftpd runs on port 7777, uses ROOT of ucome as root dir and does 
+# use the same procedure as ucome for the authentification, as well as the data.
+# File access is strictly restricted under $ROOT a normalisation process
+# is used to enforce that.
+# Files is .mana directory are also vorbidden for manipulation.
+
+#package require ftpd
+package require log
+
+::log::lvSuppressLE emergency
+#::log::lvSuppressLE debug
+
+if { [file readable conf.tcl] } {
+	source conf.tcl
+} else {
+	# ROOT is where the site is located
+	set ROOT /home/httpd/ucome
+	# FAS_PROG_ROOT is the directory where all tcl 
+	# procedures are stored
+	set FAS_PROG_ROOT /home/httpd/ucome_ecim/tcl
+	set FAS_FTPD_URL ftp://xiii.metz2:7777
+}
+
+source ${FAS_PROG_ROOT}/utils/ftpd-adv.tcl
+
+source ${FAS_PROG_ROOT}/utils/ftpd-ucome-common.tcl

@@ -1,0 +1,211 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+		<!-- fr/tmpl.tmpl -->
+	</head>
+
+	<body bgcolor="white" alink="#660033" vlink="#999900" >
+		<!-- fr/tmpl.tmpl -->	
+		<table border="0" cellpadding="0" cellspacing="0" align="left" width="800" >
+			<tr>
+				<td width="146"><img src="fas:/fas_view/any/index/espaceur.gif" width="136" height="1"></td>
+				<td width="73"><img src="fas:/fas_view/any/espaceur.gif" width="73" height="1"></td>
+				<td width="581"><img src="fas:/fas_view/any/espaceur.gif" width="581" height="1"></td>
+			</tr>
+			<tr height="30">
+				<td colspan="3" bgcolor="#660033" height="30"><a href="fas:/fas_view/any/fr/index.txt"><img src="fas:/fas_view/any/index/logo_top.gif" width="800" height="81" border=0></A></td>
+			</tr>
+			<tr align="center" valign="top">
+				<td colspan="2">
+					<!-- BEGIN MENU -->
+					<!-- MENU -->
+					<table border=0 cellpadding="0" cellspacing="0" cellwidth="219" align="left">
+						<tr height="44" bgcolor="#999900">
+							<td bgcolor="#999900" width="146" height="44" align="center" valign="top"><font color="white" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" size="4">&nbsp;</font><font color="white"> </font></td>
+							<td bgcolor="#ffffff" width="73" height="44" align="center" valign="top"><IMG SRC="fas:/fas_view/any/index/fas_01.gif" width="73" height="44"></td>
+
+						</tr>
+						<!-- BEGIN SECTION -->
+						<!-- SECTION -->
+						<tr>
+							<td bgcolor="#999900" width="146" align="left" valign="top">
+                             <A HREF="$url"><font color="white" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" size="5"><b>$content</b></font></A>
+                            </td>
+							<td bgcolor="#ffffff" width="73" align="center" valign="top"></td>
+						</tr>
+						<!-- /SECTION -->
+						<!-- END SECTION -->
+						<!-- BEGIN ACTIVESECTION -->
+						<!-- ACTIVESECTION -->
+						<tr>
+							<td bgcolor="#999900" width="146" align="left" valign="top">
+                             <A HREF="$url"><font color="white" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" size="5"><b>$content</b></font></A>
+                            </td>
+							<td bgcolor="#ffffff" width="73" align="center" valign="top"></td>
+						</tr>
+						<!-- /ACTIVESECTION -->
+						<!-- END ACTIVESECTION -->
+						<!-- BEGIN SUBSECTION -->
+						<!-- SUBSECTION -->
+						<tr >
+							<td bgcolor="#999900" width="146" >
+                              <TABLE border="0" width="146" cellpadding="0" cellspacing="0">
+                                <TR>
+                                  <TD width="97" bgcolor="#660033"><FONT color="white" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" size="2">&nbsp;&nbsp;</FONT><A HREF="$url"><b>
+            				<FONT color="white" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" size="2">$content</FONT></b></A></TD>
+                                  <TD width="31"><A HREF="$url"><IMG border="0" src="fas:/fas_view/any/index/free_index02.gif" width="31" height="24"></A></TD>
+                                  <TD width="13" bgcolor="#999900">&nbsp;</TD>
+                                </TR>
+                              </TABLE>
+                            </td>
+							<td bgcolor="#ffffff" width="73" height="26" align="center" valign="top"></td>
+						</tr>
+						<!-- /SUBSECTION -->
+						<!-- END SUBSECTION -->
+						<!-- BEGIN ACTIVESUBSECTION -->
+						<!-- ACTIVESUBSECTION -->
+						<tr >
+							<td bgcolor="#999900" width="146" >
+                              <TABLE border="0" width="146" cellpadding="0" cellspacing="0">
+                                <TR>
+                                  <TD width="97" bgcolor="#660033"><FONT color="white" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" size="2">&nbsp;&nbsp;</FONT><A HREF="$url"><b>
+                                    <FONT color="white" face="Arial,Helvetica" size="2">$content</FONT></b></A></TD>
+                                  <TD width="31"><A HREF="$url"><IMG border="0" src="fas:/fas_view/any/index/free_index01.gif" width="31" height="24"></A></TD>
+                                  <TD width="13" bgcolor="#999900">&nbsp;</TD>
+                                </TR>
+                              </TABLE>
+                            </td>
+							<td bgcolor="#ffffff" width="73" height="26" align="center" valign="top"></td>
+						</tr>
+						<!-- /ACTIVESUBSECTION -->
+						<!-- END ACTIVESUBSECTION -->
+						<!-- BEGIN SUBSUBSECTION -->
+						<!-- SUBSUBSECTION -->
+						<tr >
+							<td bgcolor="#999900" width="146" >
+                              <TABLE border="0" width="146" cellpadding="0" cellspacing="0">
+                                <TR>
+                                  <TD width="97" bgcolor="#999900" valign=center><b><font color="white" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" size="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </font></b><A HREF="$url"><b><FONT color="white" face="Helvetica" size="1">$content</FONT></b></A></TD>
+                                  <TD width="31"><A HREF="$url"><IMG border="0" src="fas:/fas_view/any/index/free_index03.gif" width="31" height="24"></A></TD>
+                                  <TD width="13" bgcolor="#999900">&nbsp;</TD>
+                                </TR>
+                              </TABLE>
+                            </td>
+							<td bgcolor="#ffffff" width="73" height="26" align="center" valign="top"></td>
+						</tr>
+						<!-- /SUBSUBSECTION -->
+						<!-- END SUBSUBSECTION -->
+						<!-- BEGIN ACTIVESUBSUBSECTION -->
+						<!-- ACTIVESUBSUBSECTION -->
+						<tr >
+							<td bgcolor="#999900" width="146" >
+                              <TABLE border="0" width="146" cellpadding="0" cellspacing="0">
+                                <TR>
+                                  <TD width="97" bgcolor="#999900" valign=center><b><font color="white" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular" size="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </font></b><A HREF="$url"><b><FONT color="white" face="Helvetica" size="1">$content</FONT></b></A></TD>
+                                  <TD width="31"><A HREF="$url"><IMG border="0" src="fas:/fas_view/any/index/free_index04.gif" width="31" height="24"></A></TD>
+                                  <TD width="13" bgcolor="#999900">&nbsp;</TD>
+                                </TR>
+                              </TABLE>
+                            </td>
+							<td bgcolor="#ffffff" width="73" height="26" align="center" valign="top"></td>
+						</tr>
+						<!-- /ACTIVESUBSUBSECTION -->
+						<!-- END ACTIVESUBSUBSECTION -->
+						<!-- BEGIN MENU_ENTRY -->
+						<!-- END MENU_ENTRY -->
+						<tr>
+							<td width="146" height="137" valign="top"><img src="fas:/fas_view/any/index/index_19.gif" width="146" height="136"></td>
+							<td width="73" height="137" valign="top" bgcolor="#ffffff"></td>
+						</tr>
+						<tr>
+							<td width="146" valign="top" bgcolor="#ffffff"><center><A HREF="fas:/fas_view/any/eng"><img border="0" src="fas:/fas_view/any/index/Great_Britain.gif"></A></CENTER></td>
+							<td width="73" height="137" valign="top" bgcolor="#ffffff"></td>
+						</tr>
+						<tr>
+						        <td>Rechercher</td>
+						</tr>
+						<tr>
+						    <form action="http://localhost/cgi-bin/mana/fas_view.cgi" method="post">
+							<input type="hidden" name="action" value="search">
+							<TR VALIGN="MIDDLE" >
+							<TD> 
+							<input name="search_string" value="" width="15">
+							</TD>
+							</TR>
+						     </form>
+						</tr>
+					</table>
+					<!-- /MENU -->
+					<!-- END MENU -->
+				</td>
+				<td width="581" align="center" valign="top">
+					<table border="0" cellpadding="0" cellspacing="3" width="581" height="28" align="right" valign="top">
+						<tr>
+							<td colspan=3 ><br><!-- BEGIN CONTENT --><!-- CONTENT -->CONTENU<!-- /CONTENT --><!-- END CONTENT --></td>
+						</tr>
+						<!-- BEGIN BOTTOM -->
+						<!-- BOTTOM -->
+						<tr>
+							<td colspan="3" width="581" height="22" align="center"><BR><font size="2" color="#660033">
+	<A HREF="fas:/fas_view/any/fr">Accueil</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Services">Services</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Services/Support">Support</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Services/Support/beowulf.txt">Beowulf</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Services/Support/samba.txt">Samba</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Services/Support/cvs.txt">CVS</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Services/Support/linux.txt">Linux</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Services/Support/ptolemy.txt">Ptolemy</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Services/Developpements">Développements</A>
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Produits">Produits</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Produits/Distrib">Free&ALter Soft for ...</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/Produits/Rrooll">RrOoLl</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/ProjetsLibres">Libre</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/ProjetsLibres/siglab">SigLab</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/ProjetsLibres">Tcl/Tk</A> 
+		<FONT COLOR="#ff0000">|</FONT>
+	 <A HREF="fas:/fas_view/any/fr/ProjetsLibres/pto">Ptolemy</A> 
+
+<HR></td>
+						</tr>
+						<tr >
+							<td valign="top"><font size="1">Free&amp;ALter Soft - Technopole Metz 2000 - 152, rue de Grigy - 57070 METZ<br>
+								Etablissement : 32, bd Paul Vaillant-Couturier - 93100 MONTREUIL<br>
+								
+								E-mail : arnaud.laprevote@freealter.com<br>
+								Siren : 410 293 435 Siret: 410 293 435 00021 APE: 721Z </font></td>
+							<td width="40" valign="top"></td>
+							<td valign="top" align="right"><font size="1">
+								T&eacute;l : (+33) (0)3 87 75 55 21 - Fax : (+33) (0)3 87 75 19 26<br>
+								T&eacute;l : (+33) (0)1 48 57 62 33 - Fax : (+33) (0)1 48 57 90 75<br>
+
+Copyright Free&amp;ALter Soft 2001<br>
+								Reproduction et copie autoris&eacute;es sans modifications. </font></td>
+						</tr>
+						<!-- /BOTTOM -->
+						<!-- END BOTTOM -->
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>
+

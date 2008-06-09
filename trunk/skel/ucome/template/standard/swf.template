@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!-- vim: set syntax=html: -->
+<head>
+<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+</head>
+<body bgcolor="#ffffff" margin="0">
+<!-- BEGIN CONTENT -->
+<script type="text/javascript" src="fas:/any/js/swfobject.js"></script>
+<div id="flashcontent"><strong>Attention, vous ne disposez pas de flash ou d'une version adéquate, merci de mettre à jour.</strong></div>
+
+<script type="text/javascript">
+	// <![CDATA[
+	var so = new SWFObject("${FAS_VIEW_CGI}?file=${export_filename}", "sotester", "800", "600", "7", "#FF6600");
+	so.write("flashcontent");
+	// ]]>
+</script>
+<!-- END CONTENT -->
+</body>

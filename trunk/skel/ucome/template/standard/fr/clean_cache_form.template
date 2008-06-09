@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!-- vim: set syntax=html: -->
+<head>
+  <title>NETTOYAGE DU CACHE</title>
+  <!-- fr/clean_cache_form.tmpl -->
+</head>
+  <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+  <!-- fr/clean_cache_form.tmpl -->
+   <table bgcolor="#e0e0e0" width="100%" cellpadding="1" cellspacing="0" border="0">
+     <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#ffffff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td>                      
+                   <div align="Center">                   
+                     <h2>Nettoyage du cache</h2>
+                       <b>Vous &ecirc;tes sur le point de supprimer tous les fichiers du cache</b><br> </b>                    
+                       <!-- BEGIN FORM --><!-- /FORM -->
+                        <A HREF="${FAS_VIEW_CGI}?file=${export_filename}&action=clean_cache"><IMG SRC="${icons_url}/ok.gif" border="0" alt="Nettoyage du cache"></A>&nbsp;
+                        <a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}"><img src="${icons_url}/cancel.gif" border="0" alt="Annuler"></a>
+                         </form>
+    	               <!-- /FORM -->
+    	               <!-- END FORM -->
+                     </div>
+                   </td>
+                 </tr>
+               </tbody>             
+             </table>
+           </td>
+         </tr>
+       </tbody>       
+     </table>
+  </body>
+</html>

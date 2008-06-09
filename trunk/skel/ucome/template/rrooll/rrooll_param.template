@@ -1,0 +1,15 @@
+		//<script language="JavaScript">
+		/************************************************
+		// get some useful values
+		************************************************/
+		//-- time to wait before the page begins scrolling
+		var start_delay = <!-- BEGIN START_DELAY -->3000<!-- END START_DELAY -->;
+		//-- time to wait before refresh when at the end of the page
+		var end_delay = <!-- BEGIN END_DELAY -->4000<!-- END END_DELAY -->;
+		//-- time to wait between two lines
+		var scroll_delay = <!-- BEGIN LINE_JUMP_DELAY -->40<!-- END LINE_JUMP_DELAY -->;
+		//-- the URL for the page to refresh
+		var call_back = <!-- BEGIN RROOLL_URL --><!-- END RROOLL_URL -->;
+		// please don't remove the ";" at the end of each declaration !
+		//</script>
+

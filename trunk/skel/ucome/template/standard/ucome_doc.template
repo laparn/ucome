@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Documentation for ${current_filetype}</title>
+	</head>
+	<body>
+		<!-- BEGIN TOP --><a href="fas:${export_filename}&action=ucome_doc&filetype=${previous}">&lt;&lt;Previous</a> - <a href="fas:${export_filename}&action=ucome_doc">List</a> - <a href="fas:${export_filename}&action=ucome_doc&filetype=${next}">Next&gt;&gt;</a><br><!-- END TOP -->
+		<h1>Documentation for <!-- BEGIN FILETYPE --><!-- END FILETYPE --></h1>
+		<h2>Description</h2>
+		<!-- BEGIN DOC --><!-- END DOC -->
+		<h2>Common informations</h2>
+		<ul>
+			<li>Mimetype : <!-- BEGIN MIMETYPE --><!-- END MIMETYPE --></li>
+			<li>List of file extensions : <!-- BEGIN EXTENSION_LIST --><!-- END EXTENSION_LIST --></li>
+			<li><!-- BEGIN NEW -->${current_filetype} may be created<!-- END NEW --><!-- BEGIN NOT_NEW -->This file can not be created<!-- END NOT_NEW --></li>
+			<li><!-- BEGIN ACTION -->${current_filetype} is an action<!-- END ACTION --><!-- BEGIN NOT_ACTION -->${current_filetype} is not an action<!-- END NOT_ACTION --></li>
+		</ul>
+		<!-- BEGIN LOCAL_CONF_BLOCK -->
+		<h2>Local configuration</h2>
+		<ul>
+			<!-- BEGIN LOCAL_CONF --><li>${key} : ${value}</li><!-- END LOCAL_CONF -->
+
+		</ul>
+		<!-- END LOCAL_CONF_BLOCK -->
+		<!-- BEGIN ENV_BLOCK -->
+		<h2>List of environment properties</h2>
+		<ul>
+			<!-- BEGIN ENV --><li>${env_name} - ${env_desc} - ${env_level}</li><!-- END ENV -->
+		</ul>
+		<!-- END ENV_BLOCK -->
+		<!-- BEGIN BOTTOM --><a href="fas:${export_filename}&action=ucome_doc&filetype=${previous}">&lt;&lt;Previous</a> - <a href="fas:${export_filename}&action=ucome_doc">List</a> - <a href="fas:${export_filename}&action=ucome_doc&filetype=${next}">Next&gt;&gt;</a><br><!-- END BOTTOM -->
+	</body>
+</html>

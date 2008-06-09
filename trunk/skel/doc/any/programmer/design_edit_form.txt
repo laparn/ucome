@@ -1,0 +1,59 @@
+Design of form edition
+
+This is not a trivial thing. In a form (file with .form extension), there are a definition of :
+ * associated html template (global.template),
+ * global.title, global.title.fr or title.sp or ... : to have the title of the form,
+ * definition of the type for each block :
+   * txt,
+   * html,
+   * txt2ml
+   * file
+   * block : point to another block
+
+For txt, html and txt2ml the options are :
+ * block_name.width = width of the textentry,
+ * block_name.height = height of the textarea,
+ * block_name.cols = width of the textarea.
+
+For the block type, there is only one option, the block on which you point to.
+ * block_name.block : name of the block to which you point. This block must the name of one of the other block in the template.
+
+Then there is the file type. And here there is a bunch of possibilities :
+ * either it is the content of a file => the filename is enough,
+ * but it may be also the current filename => no name needs to be given,
+ * in all these cases, fas_view is called for this file, and then, you may give the options associated with it. To be precise, block_name.cgi_uservar.prop_xxx will be considered as given as parameters when asked for the display of the file
+ 
+If you wish a block not to be editable, you may use the block_name.no_edit property (set it to 1) 
+
+Concerning the file case, the following possibilities exist :
+ * menu,
+  * block_name.cgi_uservar.action : menu
+ * treedir,
+  * block_name.cgi_uservar.action : treedir
+  * block_name.cgi_uservar_import.url_start 1 => url_start is taken from the original (current) imported variables.
+ * list of a directory with comp files and some of associated content,
+  * block_name.cgi_uservar.action : edit_form
+  * filename should be a directory
+  * block_name.cgi_uservar.display : list of comp_elt.name_of_block.content separated by ","
+  * dir.comp.desire_form : name of the form on which the composite file must be based,
+  * noadd = 1 : no display of a section to add a file.
+ * normal list of a directory :
+  * block_name.cgi_uservar.action : edit_form
+  * block_name.cgi_uservar.file : should be a directory
+  * block_name.cgi_uservar.display : list of what to display (title, date, ...)
+ * I miss an RSS feed.
+
+So I need to know, how I am going to present that :
+ * first screen = display template
+ * second screen = list of all the "top" blocks of the template and the corresponding type if there is one. Blocks that are not present in the comp file are noted as "not in the comp file". Blocks that are in the comp file, but are not in the template are displayed but can be suppressed. With a list it is possible to change the type. The "types" are not only html, txt2ml, txt, block, file, but also treedir, menu, dir_list, dir_comp_list. There is always a checkbox to allow or deny the possibility to edit the content.
+ * under each block name and type, there is the list of the current argument. A button allows to edit all the arguments.
+ * when editing the arguments corresponding to a type of block, they appear and when validated the original list of blocks is displayed with the new values.
+ * there is a special button to commit the changes and really record them in the form. All parameters are kept in the session parameter.
+
+I need to allow the creation of a new type, in a local way for each type.  This will be done as with the "new" mecanism. I choose a name for some procedures, and if these procedures exists, I will have the possibility to call them. First, I will need the list of new_block_type_list (base type + type). Then foreach new_block_type_list, there will be a function base_type::display.type_name that will handle the display of the type and the parameter, base_type::get_value.type_name will handle the way the block type parameters are obtained.  
+ 
+I need to put everything in the session. It should not be difficult. So I put :
+ * block_list :
+ * for each block :
+  * block_name, sublist with parameter_name, current_value, to be deleted or not ????
+ 

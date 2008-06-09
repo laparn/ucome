@@ -1,0 +1,4 @@
+Portabilité
+Debian est disponible et fonctionne sur les architectures suivantes : Alpha, ARM, HP PA-RISC, IBM S/390, Intel x86, Intel IA-64, Motorola 68k, MIPS/MIPSel, PowerPC, SPARC.
+
+

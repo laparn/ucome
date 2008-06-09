@@ -1,0 +1,95 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+		<link  rel="stylesheet" type="text/css" href="fas:/template/droll/css/style.css" title="Standard stylesheet" />
+	</head>
+
+	<body bgcolor="white" >
+		<!-- droll/treedir.tmpl -->	
+		<!-- BEGIN DIRTREE --><!-- DIRTREE -->
+		<table border=0 cellpadding=2 cellspacing=0 width="100%">
+			<tr>
+				<td nowrap class="tableHead1">
+					<b>Treedir</b>
+				</td>
+			</tr>
+			<tr class=tableBody1>
+				<td>
+					<table border=0 cellpadding=1 cellspacing=0 width="100%">
+			<!-- BEGIN DIR -->
+			<!-- DIR -->
+				<tr>
+					<td>
+						<A HREF="$url">
+						<!-- BEGIN SPACE --><!-- SPACE -->&nbsp;&nbsp;&nbsp;<!-- /SPACE --><!-- END SPACE -->
+                				<IMG SRC="${icons_url}/folder.gif" BORDER="0">$content</A>
+					</td>
+				</tr>
+			<!-- /DIR -->
+			<!-- END DIR -->
+			<!-- BEGIN ACTIVEDIR -->
+			<!-- ACTIVEDIR -->
+				<tr>
+					<td bgcolor="#e0e0e0">
+						<A  HREF="$url">
+						<!-- BEGIN ACTIVESPACE --><!-- ACTIVESPACE -->&nbsp;&nbsp;&nbsp;<!-- /ACTIVESPACE --><!-- END ACTIVESPACE --> 
+                				<IMG SRC="${icons_url}/folder.open.gif"  BORDER="0">$content</A>
+					</td>
+				</tr>
+			<!-- /ACTIVEDIR -->
+			<!-- END ACTIVEDIR -->
+			<!-- BEGIN EXACTDIR -->
+			<!-- EXACTDIR -->
+				<tr>
+					<td bgcolor="#d0d0d0">
+						<A HREF="$url">
+						<!-- BEGIN EXACTSPACE --><!-- EXACTSPACE -->&nbsp;&nbsp;&nbsp;<!-- /EXACTSPACE --><!-- END EXACTSPACE -->
+                				<IMG SRC="${icons_url}/folder.open.gif"  BORDER="0"><b>$content</b></A>
+               				</td> 
+				</tr>
+			<!-- /EXACTDIR -->
+			<!-- END EXACTDIR -->
+			<!-- BEGIN CURRENTDIR -->
+			<!-- END CURRENTDIR -->
+		</table>
+		<br>
+		<!-- /DIRTREE --><!-- END DIRTREE -->
+		<!-- BEGIN CACHE -->
+		<table border=0 cellpadding=2 cellspacing=0 width="100%">
+			<tr>
+				<td nowrap class="tableHead1">
+					<b>Actions</b>
+				</td>
+			</tr>
+			<tr class=tableBody1>
+				<td>
+					<table border=0 cellpadding=1 cellspacing=0 width="100%">
+						<tr>
+							<td>
+							<A HREF="fas:${export_filename}&action=clean_cache_form">Clean the cache</A>
+							</td>
+						<tr>
+						<tr>
+							<td>
+							<A HREF="fas:${export_filename}&action=flatten">Flatten the site</A>
+							</td>
+						</tr>
+						<tr>
+							<td> 
+							<A HREF="fas:${export_filename}&action=txt4index_tree">Prepare indexing</A>
+							</td>
+						</tr>
+						<tr>
+							<td>
+							<A  HREF="fas:${export_filename}&action=create_index">Index</A>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<!-- END CACHE -->
+	</body>
+</html>

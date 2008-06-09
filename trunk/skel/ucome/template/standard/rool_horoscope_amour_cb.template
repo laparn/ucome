@@ -1,0 +1,143 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+	 <body>
+	 <script type='text/javascript' src='/js/x_load.js'></script> 
+	 <script type='text/javascript'>
+		xInclude('/js/x_core.js', '/js/x_slide.js', '/js/x_popup.js', '/js/x_timer.js');
+	</script>
+
+
+		<script language="javascript">
+			var isNav4, isIE4;
+			if (parseInt(navigator.appVersion) >= 4 ) {
+				isNav4 = (navigator.appName == "Netscape" )
+				isIE4 = (navigator.appName.indexOf("Microsoft") != -1)
+			}
+			var i=0;
+			var yinc=1;
+			var winlen;
+			var doclen;
+			var yd;
+			
+			if (isNav4) {
+				winlen=self.innerHeight;
+			}
+		
+			function scroll() {
+				if (isNav4) {
+					if (i<=0) {
+						doclen = document.getElementById("data").scrollHeight-document.getElementById("data").offsetHeight;
+						yd=doclen;
+						yinc = 1;
+						i = 1;
+						setTimeout("scroll()",start_delay);
+					} else if (i == 9999) {	
+						parent.parent.document.location.href=call_back; 
+					} else if (i >= (yd+50)) {
+						i = 9999;
+						setTimeout("scroll()",end_delay);
+					} else {
+						document.getElementById("data").scrollTop = i;
+						i += yinc;    
+						setTimeout("scroll()",scroll_delay);
+					}
+				} else if (isIE4) {
+					if ( i <= 0 ) {
+						winlen=document.body.clientHeight;
+						doclen=document.body.scrollHeight;
+						yd = doclen - winlen;
+						yinc = 1;
+						i = 1;
+						setTimeout("scroll()",start_delay);
+					} else if (i == 9999) {
+						location.href=call_back;
+					} else if (i >= (yd+50)) {
+						i = 9999;
+						setTimeout("scroll()",end_delay);
+					} else {
+						document.getElementById("data").scrollTop = i;
+						i += yinc;    
+						setTimeout("scroll()",scroll_delay);
+						if (i == 10) {
+							xSlideTo(document.getElementById("signe"),10,10,100);
+					}
+				}
+			}
+			
+			function start_onload() {
+				window.onResize="position_elements";
+				scroll();
+			}
+		</script>
+		<!-- order: custom -->
+		<style type="text/css">
+			H1 {
+				padding-top:0px;
+				padding-bottom:0px;
+				margin-top:0px;
+				margin-bottom:0px;
+				text-align:center;
+			}
+		
+			body {
+				font-size: 55px;
+				background-image: url(fas:/template/standard/internet/fas_heart_paper.png);
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			
+			#top {
+				position:fixed;
+				top : 0px;
+				left: 0px;
+				width: 100%;
+				height: 5Opx;
+			}
+			
+			#data {
+				position:fixed;
+				width:100%;
+				top: 150px;
+				bottom: 10px;
+				font-size:55px;
+				overflow:hidden;
+			}
+
+			#logo {
+				position:fixed;
+				left:0px;
+				top:0px;
+				
+			}
+			
+			.bigsize {
+				font-size: 55px;
+			}
+
+			.content {
+				padding:10px;
+			}
+		</style>
+		<!-- <img id="logo" src="fas:icons/horoscope/amour.png" /> -->
+		<h1 id="signe"><!-- BEGIN SIGNE --><!-- END SIGNE --></h1>
+		<div id="data">
+		<table>
+		<tr>
+			<td align="center">	
+				<strong>Amour</strong>
+				<!--img src="fas:icons/horoscope/amour.png" /><br /-->
+			</td>
+			<td class="content">
+			<p class="bigsize">
+				<!-- BEGIN AMOUR --><!-- END AMOUR -->
+			</p>
+			</td>
+		</tr>
+		</table>
+		</div><!-- End Data -->
+	</body>
+</html>

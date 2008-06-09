@@ -1,0 +1,10 @@
+<html>
+	<body>
+		<!-- BEGIN CURRENT_BLOCK --><!--END CURRENT_BLOCK -->
+		<!-- BEGIN STANDARD_BLOCK -->
+		&nbsp;<span class="small">o</span>
+		<a class="nav" href="${url}">${text}</a>
+		<br />
+		<!-- END STANDARD_BLOCK -->
+	</body>
+</html>

@@ -1,0 +1,1 @@
+content.content {S'il y a un pb, je dois pouvoir envoyer un message. Suivant ce que j'ai le droit de faire (afficher ou non le menu par exemple) j'afficherai un message avec ou sans menu par exemple, dans le répertoire courant ou pas. A utiliser en cas de refus sur une action.} #### /domp/todo.form title.content {Création d'une action message} date.content {11 mai 2003}

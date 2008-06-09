@@ -1,0 +1,11 @@
+[Dir css]
+Dirs=
+Files=rool.css
+
+[Project Dir]
+Dirs=css
+Files=rrooll_param.template/rrooll.template/standard.template
+
+[Project File]
+Name=RRooLL3
+Type=Default

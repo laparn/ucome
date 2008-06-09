@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!-- vim: set syntax=html: -->
+<head>
+  <title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+  <!-- copy_form.tmpl -->
+</head>
+  <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+  <!-- copy_form.tmpl -->  
+   <table bgcolor="#e0e0e0" width="100%" cellpadding="1" cellspacing="0" border="0">
+     <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#ffffff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td>                      
+                   <div align="Center">                   
+                     <h2>Copy</h2>
+                       <b>You are up to copy <br> <!-- BEGIN FILENAME -->test<!-- END FILENAME --></b>                    
+                       <!-- BEGIN FORM --><!-- /FORM -->
+                         <form action="${FAS_VIEW_CGI}" method="Post">
+                           <input type="hidden" name="file" value="${export_filename}">
+                           <input type="hidden" name="action" value="copy">
+                           into : <input name="new_name" value="${target_dir}" size="30"><br>
+                   
+                           <table>
+                             <tbody>
+                               <tr>
+                                 <td valign="Top"><input type="image" name="Copy" src="${icons_url}/ok.gif" border="0"></td>
+                                 <td valign="Top"><a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}"><img src="${icons_url}/cancel.gif" border="0" alt="Cancel"></a></td>
+                               </tr>
+                             </tbody>                     
+                           </table>
+                         </form>
+    	               <!-- /FORM -->
+    	               <!-- END FORM -->
+                     </div>
+                   </td>
+                 </tr>
+               </tbody>             
+             </table>
+           </td>
+         </tr>
+       </tbody>       
+     </table>
+  </body>
+</html>

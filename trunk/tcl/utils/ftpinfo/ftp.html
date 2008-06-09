@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html><head>
+
+<title>Active FTP vs. Passive FTP, a Definitive Explanation</title><style type="text/css">
+<!--
+ A {text-decoration: none}
+ a:hover { text-decoration: underline }
+ p {margin: 3px 6px 6px 6px}
+-->
+</style></head>
+
+<body bgcolor="#ffffff" link="#000066" vlink="#000066" alink="#000066" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0">
+<!-- Main Table Start -->
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tbody><tr>
+<td valign="top"><!-- Inside Primary Table Start --><table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tbody><tr>
+<td bgcolor="#000066" valign="top" colspan="2"><img src="ftp_files/header.gif" width="610" height="58" alt="Slacksite.com"></td>
+</tr>
+<tr>
+<td bgcolor="#ffffff" valign="top" colspan="2"><img src="ftp_files/spacer.gif" width="610" height="1" alt=" "></td>
+</tr>
+<tr>
+<td bgcolor="#000000" valign="top" colspan="2" align="left">
+
+<!-- Black Bar Table Start -->
+<table cellspacing="0" cellpadding="0" width="610" border="0">
+<tbody><tr>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/about.html"><img src="ftp_files/aboutslacksite.gif" width="125" height="22" alt="About Slacksite" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/contact.html"><img src="ftp_files/contactus.gif" width="105" height="22" alt="Contact Us" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/discussion"><img src="ftp_files/discussion.gif" width="105" height="22" alt="Discussion" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/search"><img src="ftp_files/search.gif" width="80" height="22" alt="Search" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/legal.html"><img src="ftp_files/legalinfo.gif" width="95" height="22" alt="Legal Info" border="0"></a></td>
+<td bgcolor="#000000" valign="top"><a href="http://slacksite.com/advertising.html"><img src="ftp_files/advertising.gif" width="100" height="22" alt="About Slacksite" border="0"></a></td>
+</tr>
+</tbody></table>
+<!-- Black Bar Table End -->
+</td>
+</tr>
+
+<tr><!-- Start Menu Column -->
+<td bgcolor="#9999ff" valign="top"><font face="Arial, Verdana, Helvetica" size="+0"><strong>
+</strong></font><p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/">Home</a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/apache/">Apache Documents </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/solaris/">Solaris Documents </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/technotes/">Solaris TechNotes </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/slackware/">Slackware Documents </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/other/">Other Technical Docs </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/humour/">Humour </a></strong></font></p>
+<p><font face="Arial, Verdana, Helvetica" size="+0"><strong><a href="http://slacksite.com/logos.html">Logos </a></strong></font></p>
+
+<!-- Begin Stupid Graphics -->
+
+<hr width="80%">
+<p align="center">
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp_files/apachebutton.gif" alt="Apache on Linux Slackware" width="120" height="53" vspace="10" border="1">
+</strong></font></p>
+<p align="center">
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp_files/vi_anim.gif" alt="Powered by vi" border="1" width="90" height="28" hspace="0" vspace="4">
+</strong></font></p>
+<p align="center">
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp_files/php.gif" alt="Powered by PHP" border="1" width="88" height="31" hspace="0" vspace="4">
+</strong></font></p>
+<p align="center">
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp_files/mysql-05.gif" alt="Powered by mySQL" border="1" width="88" height="31" hspace="0" vspace="4">
+</strong></font></p>
+<hr width="80%">
+
+<!-- End Stupid Graphics -->
+<p>
+<font face="Arial, Verdana, Helvetica" size="+0"><strong><img src="ftp_files/spacer.gif" width="1" height="350">
+</strong></font></p>
+</td><!-- End Menu Column --><!-- Start Main Content Cell -->
+<td bgcolor="#ffffff" valign="top">
+
+
+<br>
+<center><h1>Active FTP vs. Passive FTP, a Definitive Explanation</h1></center>
+
+
+<p>
+</p><h3>Contents:</h3>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#basics">The Basics</a></li>
+<li><a href="#active">Active FTP</a></li>
+<li><a href="#actexample">Active FTP Example</a></li>
+<li><a href="#passive">Passive FTP</a></li>
+<li><a href="#pasvexample">Passive FTP Example</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="http://slacksite.com/other/ftp-appendix1.html">Appendix 1: Configuration of Common FTP 
+Servers</a></li>
+</ul>
+
+
+<br>
+<h3><a name="intro">Introduction</a></h3>
+<p>
+One of the most commonly seen questions when dealing with firewalls and
+other Internet connectivity issues is the difference between
+active and passive FTP and how best to support either or both of
+them.  Hopefully the following text will help to clear up some of the
+confusion over how to support FTP in a firewalled environment.
+</p>
+<p>
+This may not be <i>the</i> definitive explanation, as the title claims, 
+however, I've heard enough good feedback and seen this document linked in 
+enough places to know that quite a few people have found it to be useful.  
+I am always looking for ways to improve things though, and if you find 
+something that is not quite clear or needs more explanation, please let me 
+know!  Recent additions to this document include the examples of both 
+active and passive command line FTP sessions.  These session examples 
+should help make things a bit clearer.  They also provide a 
+nice picture into what goes on behind the scenes during an FTP session.  
+Now, on to the information...
+</p>
+
+<br>
+<h3><a name="basics">The Basics</a></h3>
+<p>
+FTP is a TCP based service exclusively.  There is no UDP component to
+FTP.  FTP is an unusual service in that it utilizes two ports, a 'data' 
+port and a 'command' port (also known as the control port).  Traditionally
+these are port 21 for the command port and port 20 for the data
+port.  The confusion begins however, when we find that depending on the
+mode, the data port is not always on port 20.
+</p>
+
+<br>
+<h3><a name="active">Active FTP</a></h3>
+<p>
+In active mode FTP the client connects from a random unprivileged
+port (N &gt; 1024) to the FTP server's command port, port 21. Then, the
+client starts listening to port N+1 and sends the FTP command <code>PORT
+N+1</code> to the FTP server.  The server will then connect back to the
+client's specified data port from its local data port, which is port 20.
+</p>
+<p>
+From the server-side firewall's standpoint, to support active mode FTP
+the following communication channels need to be opened:
+</p><ul>
+<li>FTP server's port 21 from anywhere (Client initiates connection)</li>
+<li>FTP server's port 21 to ports &gt; 1024 (Server responds to
+client's control port)</li>
+<li>FTP server's port 20 to ports &gt; 1024 (Server initiates data
+connection to client's data port)</li>
+<li>FTP server's port 20 from ports &gt; 1024 (Client sends ACKs to
+server's data port)</li>
+</ul>
+
+<p>
+When drawn out, the connection appears as follows:
+</p><center>
+<img src="ftp_files/activeftp.gif">
+</center>
+In step 1, the client's command port contacts the server's command port
+and sends the command <code>PORT 1027</code>.  The server then sends an
+ACK back to the client's command port in step 2.  In step 3 the server
+initiates a connection on its local data port to the data port the client
+specified earlier.  Finally, the client sends an ACK back as shown in step
+4.
+
+
+<p>
+The main problem with active mode FTP actually falls on the client
+side.  The FTP client doesn't make the actual connection to the data port
+of the server--it simply tells the server what port it is listening on and
+the server connects back to the specified port on the client.  From the
+client side firewall this appears to be an outside system initiating a
+connection to an internal client--something that is usually blocked.
+</p>
+
+<br>
+<h3><a name="actexample">Active FTP Example</a></h3>
+<p>  
+Below is an actual example of an active FTP session.  The only things that 
+have been changed are the server names, IP addresses, and user names.  In 
+this example an FTP session is initiated from testbox1.slacksite.com 
+(192.168.150.80), a linux box running the standard FTP command line client, 
+to testbox2.slacksite.com (192.168.150.90), a linux box running ProFTPd 
+1.2.2RC2.  The debugging (<code>-d</code>) flag is used with the FTP 
+client to show what is going on behind the scenes.  Everything in <font color="red">red</font> is the debugging output which shows the actual FTP 
+commands being sent to the server and the responses generated from those 
+commands.  Normal server output is shown in black, and user input is in 
+<strong>bold</strong>.
+</p>
+
+<p>
+There are a few interesting things to consider about this dialog.  Notice 
+that when the <code>PORT</code> command is issued, it specifies a port on 
+the <i>client</i> (192.168.150.80) system, rather than the server.  We 
+will see the opposite behavior when we use passive FTP.   While we are on 
+the subject, a quick note about the format of the <code>PORT</code> 
+command.  As you can see in the example below it is formatted as a series 
+of six numbers separated by commas.  The first four octets are the IP 
+address while the second two octets comprise the port that will be used 
+for the data connection.  To find the actual port multiply the fifth octet 
+by 256 and then add the sixth octet to the total.  Thus in the example 
+below the port number is ( (14*256) + 178), or 3762.  A quick check with 
+<code>netstat</code> should confirm this information.
+</p>
+
+<pre>testbox1: {/home/p-t/slacker/public_html} % <strong>ftp -d testbox2</strong>
+Connected to testbox2.slacksite.com.
+220 testbox2.slacksite.com FTP server ready.
+Name (testbox2:slacker): <strong>slacker</strong>
+<font color="red">---&gt; USER slacker</font>
+331 Password required for slacker.
+Password: <strong>TmpPass</strong>
+<font color="red">---&gt; PASS XXXX</font>
+230 User slacker logged in.
+<font color="red">---&gt; SYST
+215 UNIX Type: L8</font>
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp&gt; <strong>ls</strong>
+<font color="red">ftp: setsockopt (ignored): Permission denied
+---&gt; PORT 192,168,150,80,14,178</font>
+200 PORT command successful.
+<font color="red">---&gt; LIST</font>
+150 Opening ASCII mode data connection for file list.
+drwx------   3 slacker    users         104 Jul 27 01:45 public_html
+226 Transfer complete.
+ftp&gt; <strong>quit</strong>
+<font color="red">---&gt; QUIT</font>
+221 Goodbye.
+</pre>
+
+<br>
+<h3><a name="passive">Passive FTP</a></h3>
+<p>
+In order to resolve the issue of the server initiating the connection to
+the client a different method for FTP connections was developed.  This was
+known as passive mode, or <code>PASV</code>, after the command used by the
+client to tell the server it is in passive mode.
+</p>
+
+<p>
+In passive mode FTP the client initiates both connections to the server,
+solving the problem of firewalls filtering the incoming data port
+connection to the client from the server.  When opening an FTP connection,
+the client opens two random unprivileged ports locally (N &gt; 1024 and
+N+1).  The first port contacts the server on port 21, but instead of then
+issuing a <code>PORT</code> command and allowing the server to connect
+back to its data port, the client will issue the <code>PASV</code>
+command.  The result of this is that the server then opens a random
+unprivileged port (P &gt; 1024) and sends the <code>PORT P</code> command
+back to the client.  The client then initiates the connection from port
+N+1 to port P on the server to transfer data.
+</p>
+<p>
+From the server-side firewall's standpoint, to support passive mode FTP
+the following communication channels need to be opened:
+</p><ul>
+<li>FTP server's port 21 from anywhere (Client initiates connection)</li>
+<li>FTP server's port 21 to ports &gt; 1024 (Server responds to client's
+control port)</li>
+<li>FTP server's ports &gt; 1024 from anywhere (Client initiates data
+connection to random port specified by server)</li>
+<li>FTP server's ports &gt; 1024 to remote ports &gt; 1024 (Server sends
+ACKs (and data) to client's data port)</li>
+</ul>
+
+
+<p>
+When drawn, a passive mode FTP connection looks like this:
+</p><center>
+<img src="ftp_files/passiveftp.gif">
+</center>
+In step 1, the client contacts the server on the command port and issues
+the <code>PASV</code> command.  The server then replies in step 2 with
+<code>PORT 2024</code>, telling the client which port it is listening to
+for the data connection.  In step 3 the client then initiates the data
+connection from its data port to the specified server data port.  Finally,
+the server sends back an ACK in step 4 to the client's data port.
+
+
+<p>
+While passive mode FTP solves many of the problems from the client side,
+it opens up a whole range of problems on the server side.  The biggest
+issue is the need to allow any remote connection to high numbered ports on
+the server.  Fortunately, many FTP daemons, including the popular WU-FTPD
+allow the administrator to specify a range of ports which the FTP server
+will use.  See <a href="http://slacksite.com/other/ftp-appendix1.html">Appendix 1</a> for more 
+information.
+</p>
+<p>
+The second issue involves supporting and troubleshooting 
+clients which do (or do not) support passive mode.  As an example, the
+command line FTP utility provided with Solaris does not support passive
+mode, necessitating a third-party FTP client, such as ncftp.
+</p>
+<p>
+With the massive popularity of the World Wide Web, many people prefer to
+use their web browser as an FTP client.  Most browsers only support
+passive mode when accessing ftp:// URLs.  This can either be good or bad
+depending on what the servers and firewalls are configured to support.
+</p>
+
+<br>
+<h3><a name="pasvexample">Passive FTP Example</a></h3>
+<p>
+Below is an actual example of a passive FTP session.  The only things that 
+have been changed are the server names, IP addresses, and user names.  In 
+this example an FTP session is initiated from testbox1.slacksite.com 
+(192.168.150.80), a linux box running the standard FTP command line client, 
+to testbox2.slacksite.com (192.168.150.90), a linux box running ProFTPd 
+1.2.2RC2.  The debugging (<code>-d</code>) flag is used with the FTP 
+client to show what is going on behind the scenes.  Everything in <font color="red">red</font> is the debugging output which shows the actual FTP 
+commands being sent to the server and the responses generated from those 
+commands.  Normal server output is shown in black, and user input is in 
+<strong>bold</strong>.
+</p>
+
+<p>
+Notice the difference in the <code>PORT</code> command in this example as 
+opposed to the active FTP example.  Here, we see a port being opened on 
+the <i>server</i> (192.168.150.90) system, rather than the client.  See 
+the discussion about the format of the <code>PORT</code> command above, in 
+the <a href="http://slacksite.com/other/actexample">Active FTP Example section</a>.
+</p>
+
+<pre>testbox1: {/home/p-t/slacker/public_html} % <strong>ftp -d testbox2</strong>
+Connected to testbox2.slacksite.com.
+220 testbox2.slacksite.com FTP server ready.
+Name (testbox2:slacker): <strong>slacker</strong>
+<font color="red">---&gt; USER slacker</font>
+331 Password required for slacker.
+Password: <strong>TmpPass</strong>
+<font color="red">---&gt; PASS XXXX</font>
+230 User slacker logged in.
+<font color="red">---&gt; SYST
+215 UNIX Type: L8</font>
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp&gt; <strong>passive</strong>
+Passive mode on.
+ftp&gt; <strong>ls</strong>
+<font color="red">ftp: setsockopt (ignored): Permission denied
+---&gt; PASV</font>
+227 Entering Passive Mode (192,168,150,90,195,149).
+<font color="red">---&gt; LIST</font>
+150 Opening ASCII mode data connection for file list
+drwx------   3 slacker    users         104 Jul 27 01:45 public_html
+226 Transfer complete.
+ftp&gt; <strong>quit</strong>
+<font color="red">---&gt; QUIT</font>
+221 Goodbye.
+</pre>
+
+<br>
+<h3><a name="summary">Summary</a></h3>
+<p>
+The following chart should help admins remember how each FTP mode works:
+</p><pre> Active FTP :
+     command : client &gt;1024 -&gt; server 21
+     data    : client &gt;1024 &lt;- server 20
+
+ Passive FTP :
+     command : client &gt;1024 -&gt; server 21
+     data    : client &gt;1024 -&gt; server &gt;1024
+</pre>
+
+<p>
+A quick summary of the pros and cons of active vs. passive FTP is also in 
+order:  
+</p>
+<p>Active FTP is beneficial to the FTP server admin, but detrimental 
+to the client side admin.  The FTP server attempts to make connections to 
+random high ports on the client, which would almost certainly be blocked 
+by a firewall on the client side.  Passive FTP is beneficial to the 
+client, but detrimental to the FTP server admin.  The client will make 
+both connections to the server, but one of them will be to a random high 
+port, which would almost certainly be blocked by a firewall on the server 
+side.
+</p>
+<p>
+Luckily, there is somewhat of a compromise.  Since admins running FTP 
+servers will need to make their servers accessible to the greatest number 
+of clients, they will almost certainly need to support passive FTP.  The 
+exposure of high level ports on the server can be minimized by specifying 
+a limited port range for the FTP server to use.  Thus, everything except 
+for this range of ports can be firewalled on the server side.  While this 
+doesn't eliminate all risk to the server, it decreases it tremendously.  
+See <a href="http://slacksite.com/other/ftp-appendix1.html">Appendix 1</a> for more information.
+
+
+<br>
+</p><h3><a name="references">References</a></h3>
+<p>
+An excellent reference on how various internet protocols work and the
+issues involved in firewalling them can be found in the O'Reilly and
+Associates book, <i>Building Internet Firewalls, 2nd Ed</i>, by Brent
+Chapman and Elizabeth Zwicky.
+</p>
+<p>
+Finally, the definitive reference on FTP would be RFC 959, which sets 
+forth the official specifications of the FTP protocol.  RFCs can be 
+downloaded from numerous locations, including <a href="ftp://nic.merit.edu/documents/rfc/rfc0959.txt">ftp://nic.merit.edu/documents/rfc/rfc0959.txt</a>.
+</p>
+ <hr>
+
+<!-- Formatting Spaces: Do Not Remove -->                                
+                                                                         
+                                                                         
+                                                                         
+                                                                         
+            </td><!-- End Main Content Cell -->
+</tr>
+</tbody></table>
+<!-- Inside Primary Table End -->
+</td>
+</tr>
+</tbody></table>
+<!-- Main Table End -->
+</body></html>

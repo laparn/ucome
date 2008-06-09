@@ -1,0 +1,62 @@
+<STYLE type="text/css">
+BODY {
+background: white;
+background-position: left top;
+font-family: Arial;
+font-size: 11t;
+color: #000000;
+}
+P  {
+text-align: justify;
+font-family: Arial;
+font-size: 11t;
+color: #000000;
+}
+BR  {
+text-align: justify;
+font-family: Arial;
+font-size: 11t;
+color: #000000;
+}
+TD  {
+text-align: justify;
+font-family: Arial;
+font-size: 11t;
+color: #000000;
+}
+I  {                                                                            
+font-family: Arial;                                                         
+font-style: italic;                                                             
+font-size: 11pt;                                                                
+color: #000000;                                                                 
+}   
+UL {
+text-align: left;
+font-family: Arial;
+font-size: 11pt;
+color: #000000;
+}
+UL UL {
+text-align: left;
+font-family: Arial;
+font-size: 11pt;
+color: #000000;
+list-style: disc;
+}
+UL UL UL {
+text-align: left;
+font-family: Arial;
+font-size: 11pt;
+color: #000000;
+}
+PRE {                                                                           
+font-family: courier;
+font-size: 8pt;                                                                
+color: #000000;                                                                 
+}                                                                               
+.renvoi {
+color: #660033;
+font-family: Arial;
+font-size: 8pt;
+}
+</STYLE>

@@ -1,0 +1,17 @@
+All parts composing a page
+
+Consider this page, it is built in fact from a lot of action.
+
+ * 'the title'=fas:/any/programmer/all_part.txt&action=title
+ * 'the content'=fas:/any/programmer/all_part.txt&action=view&target=nomenu
+ * 'the top menu'=fas:/any/programmer/all_part.txt&action=mini_menu
+ * 'the menu'=fas:/any/programmer/all_part.txt&action=menu
+ * 'the path'=fas:/any/programmer/all_part.txt&action=path
+ * 'the allowed actions'=fas:/any/programmer/all_part.txt&action=show_action_list
+ * 'the login name'=fas:/any/programmer/all_part.txt&action=whoami
+ * 'Next link'=fas:/any/programmer/all_part.txt&action=next
+ * 'Previous link'=fas:/any/programmer/all_part.txt&action=next&previous=1
+ * 'the search form'=fas:/any/programmer/all_part.txt&action=search_form
+
+
+

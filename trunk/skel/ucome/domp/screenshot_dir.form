@@ -1,0 +1,1 @@
+global.template screenshot_dir_domp.template title.type txt2ml title.textentry 1 title.width 40 dir.type file dir.cgi_uservar.action view dir.cgi_uservar.dir.template screenshot_dir.template dir.cgi_uservar.view.display image,title dir.cgi_uservar.target nomenu dir.cgi_uservar.view.order title

@@ -1,0 +1,390 @@
+Advanced Template Mechanism for Tcl - ATEMT
+
+1. Goal - usage
+Le but est de créer un mécanisme avancé de template pour le tcl. Il est trivial de créer des templates en tcl :
+
+=========================
+    # the whole trick is in the uplevel statement
+    # It executes the subst with variables existing when PutsTemplate was
+    # called
+    db_puts "[uplevel 1 subst [list $data]]"
+==========================
+
+Tout le code tcl ou les variables contenus dans la chaine data sont évalués. Unfortunately, this is not enough. As soon as you wish to have templates for tables, it does not work anymore :
+ * there is no way to repeat the substitution on part of the template (a row of a table for example).
+
+And this is a pb for professional programmers. Inspired by phplib, I propose to create a new mechanism, that will rely on "blocks" in a template.
+
+A template would look like that :
+=========================
+&lt;html>
+&lt;body>
+&lt;!-- BEGIN TOP -->
+$header
+&lt;!-- END BLOCK -->
+&lt;!-- BEGIN FIRST_BLOCK -->
+&lt;CENTER>&lt;H1>$TITLE&lt;/H1>&lt;/CENTER>
+&lt;!-- END FIRST_BLOCK -->
+&lt;P>&lt;/P>
+&lt;TABLE>
+	&lt;!-- BEGIN TITLE_ROW -->
+	&lt;TR>
+		&lt;!-- BEGIN HEADER -->
+			&lt;TD ALIGN=CENTER>
+				&lt;B>$variable_description&lt;/B>
+			&lt;/TD>
+		&lt;!-- END HEADER -->
+	&lt;/TR>
+	&lt;!-- END TITLE_ROW -->
+	&lt;!-- BEGIN DATA_ROW -->
+	&lt;TR>
+		&lt;!-- BEGIN DATA -->
+			&lt;TD ALIGN=CENTER>
+				&lt;B>$variable&lt;/B>
+			&lt;/TD>
+		&lt;!-- END DATA -->
+	&lt;/TR>
+	&lt;!-- END DATA_ROW -->
+&lt;/TABLE>
+&lt;!-- BEGIN FOOTER -->
+$footer
+&lt;!-- END FOOTER -->
+&lt;/BODY>
+&lt;/HTML>
+=================================
+
+And would be processed in the following way :
+
+1. Commandes
+1.1. atemt_set
+Usage :
+=====================
+atemt::atemt_set block_name [html]
+atemt::atemt_set block_name -bl [block_list]
+=====================
+Allow to initialise a block with a content. By default, we consider that html must be considered as a template and the resulting block list created. With -bl option (block list), the content of the _attemt variable (a block list) is directly given.
+If there is only one argument, the content of _atemt (the block list) is sent back.
+
+1. atemt_subst
+1.1. Option -all
+======================================
+set atemt::_atemt(THIS_BLOCK) [atemt::atemt_subst -all THIS_BLOCK]
+======================================
+
+As usual, all variables are substituted. If there is an error in a block (the variable is not there) then, the block is ignored. Tags giving its place stay there but are empty.
+
+====================================
+set atemt::_atemt(THIS_BLOCK) [atemt_subst -all -no BLOCK_IN_THIS_BLOCK THIS_BLOCK]
+====================================
+
+All variables are substituted in all blocks of the THIS_BLOCK but the block BLOCK_IN_THIS_BLOCK.
+
+1.2. Option -block
+=======================================
+set result [atemt_subst -block DATA $templ]
+=======================================
+
+Only the block marks as being "data" is substituted. Many blocks may be named :
+
+=======================================
+set atemt::_atemt(THIS_BLOCK)  [atemt_subst -block DATA -block footer $templ]
+=======================================
+
+1.3. Option -append
+Finally there is a special way to process things :
+
+=======================================
+set atemt::_atemt(THIS_BLOCK) [atemt_subst -append DATA THIS_BLOCK]
+=======================================
+In this case, the rendering will be a normal rendering of the block data + a repetition of this block just after its substitution.
+
+========================================
+set atemt::_atemt(THIS_TEMPLATE) [atemt_subst -end "data" THIS_TEMPLATE]
+========================================
+Will end up the substitution and suppress the template that where not yet substituted.
+
+2. How the staff is programmed (roughly)
+
+2.1. atemt_subst
+It is really the key of the system.
+
+So first the processing of the options :
+========================================
+-all : all_flag
+-no : fill a list of no_subst (many no may be given),
+-block : fill a list of block to substitute
+-append : fill a list of block to substitute and add after there existence,
+-end "name of block" : html is taken, remaining block that where not substituted
+are suppressed.
+-vn : no evaluation. Blocks are substituted if required,
+     but variables are not substituted within them.
+==========================================
+
+Then, extract all blocks of first level of the current file, and the name and options associated with them. 
+
+Now do the substitution on these different blocks if necessary. It works in the following way :
+ * if not in no_subst, substitute,
+   * then if in append, first make a copy of the preceding block and insert it in the list, the next time, we will jump this element,
+   * when substituting, mark the block as having been substituted (replace BLOCK with ELOCK). The substitution is a recursive process. All options are passed to the next level. There is a fast mecanism to which a structure ??? is passed in order not to process all options each time (there are the same).
+
+When in the end or end all process, look for non substituted blocks and remove them.
+
+2.3. Splitting of html
+So I need to split some html with BEGIN END, it may also be hierarchic, then I need to take that into account. The algoithm should be :
+ * take first part till first block,
+ * extract block name, search now for end of block. Take the code till the end, search for a BEGIN and a END. If END is before BEGIN, it is ok, else, take again code from BEGIN, search for END, ... I need a counter to know at which level I am. At the end I will have the number of blocks in a given block. It amy be a good idea, to create a structure similar to what I am creating for the main block (lol with code at start, first block, ...),
+
+ * now html till next code, ...
+ * 
+
+I create a list of list, with code or template, a name (or no name if code) and the core of the html (or anything else). 
+
+2.4. Evaluation of html
+I need to go through the complex preceding lol, and evaluate the necessary parts step by step, when necessary
+
+
+
+5. Using
+Before using a template, it must be prepared. This is done with the procedure
+split_template.
+================================================
+split_template - transform the current template into a result
+result is a lol with each list being :
+   * [html|block] : flag saying if html or block
+    * name of the block if it is a block
+    * or pure html text if html, or a lol with the same format as this one
+So the result is a graph, html being a leaf and block being a node.
+=================================================
+
+There are 2 procedures get_cache_template and write_cache_template, that allows to get and to save a preprocessed template (the extraction of the block is fairly slow, and it occurs each time a template is split. It is very interesting to cache the result for the next time).
+
+For more details, just try test0.tcl and test1.tcl and look how they are written.
+
+3. Example 1 - test0.tcl
+
+The code is the following :
+===============================
+#!/usr/bin/tclsh
+
+# The next line is here for interactive test of this programm
+# If you launch it twice from the command line (source ....)
+# it will work
+
+puts "################################################"
+puts "############ test_atemt0.tcl####################"
+puts "# Display the content of atemt::_atemt after   #"
+puts "# the split of a template                      #"
+puts "################################################"
+catch { unset atemt::_atemt }
+
+
+source atemt.tcl
+
+puts "############# starting test.tmpl ##############"
+set fid [open test.tmpl]
+set tmpl [read $fid]
+
+atemt::split_template test.tmpl $tmpl
+
+parray atemt::_atemt
+
+close $fid
+puts "############# ending test.tmpl ##############"
+puts "############# starting test1.tmpl ##############"
+unset atemt::_atemt
+set fid [open test1.tmpl]
+set tmpl [read $fid]
+
+atemt::split_template test1.tmpl $tmpl
+
+parray atemt::_atemt
+
+close $fid
+puts "############# ending test1.tmpl ##############"
+puts "############# starting test2.tmpl ##############"
+unset atemt::_atemt
+set fid [open test2.tmpl]
+set tmpl [read $fid]
+
+atemt::split_template test2.tmpl $tmpl
+
+parray atemt::_atemt
+
+close $fid
+puts "############# ending test2.tmpl ##############"
+====================================
+
+And it gives :
+====================================
+################################################
+############ test_atemt0.tcl####################
+# Display the content of atemt::_atemt after   #
+# the split of a template                      #
+################################################
+############# starting test.tmpl ##############
+atemt::_atemt(test)      = {html {$toto}}
+atemt::_atemt(test.tmpl) = {html {Test of block creation
+}} {block test} {html {
+Avec une ligne en plus à la fin }} {block test2} {html { et encore du baratin.
+Et puis une dernière ligne
+}}
+atemt::_atemt(test2)     = {html {$titi}}
+############# ending test.tmpl ##############
+############# starting test1.tmpl ##############
+atemt::_atemt(test)       = {html {
+Ceci est un test avec le bloc test
+}}
+atemt::_atemt(test1.tmpl) = {html {Test of block creation
+I am going to test with a missing END statement - test1
+}} {block test} {html {
+Avec une ligne en plus à la fin &lt;!-- BEGIN test2 >un deuxième block et encore du baratin.
+Et puis une dernière ligne
+}}
+############# ending test1.tmpl ##############
+############# starting test2.tmpl ##############
+atemt::_atemt(test)       = {html {
+Ceci est un test avec le bloc test
+}}
+atemt::_atemt(test2)      = {html {Test of block creation
+}} {block test} {html {
+Avec une ligne en plus à la fin 
+Et puis une dernière ligne
+}}
+atemt::_atemt(test2.tmpl) = {block test2} {html {
+}}
+############# ending test2.tmpl ##############
+==============================================
+
+
+
+
+4. Example 2 - test1.tcl
+============================================
+#!/usr/bin/tclsh
+
+catch { unset atemt::_atemt }
+source atemt.tcl
+
+puts "############# starting test.tmpl ##############"
+set fid [open test.tmpl]
+set tmpl [read $fid]
+
+puts "### Input template is :"
+puts "$tmpl"
+puts "###"
+atemt::split_template test.tmpl $tmpl
+
+close $fid
+set toto "Première variable de test"
+set titi "Deuxième variable de test"
+puts "### Defining"
+puts "###### toto  ->$toto"
+puts "###### titi  ->$titi"
+puts "### Substituting variable in all blocks, and blocks in test.tmpl"
+puts "######## subst -ab"
+set atemt::_atemt(test.tmpl) [atemt::atemt_subst -ab test.tmpl]
+parray atemt::_atemt
+puts "######## subst -end"
+set current_result [atemt::atemt_subst -end test.tmpl]
+puts "### result is :"
+puts "$current_result"
+puts "#############################"
+puts "############# ending first test.tmpl ##############"
+puts "############# blocking test2 substitution ##############"
+set fid [open test.tmpl]
+set tmpl [read $fid]
+
+catch { unset atemt::_atemt }
+atemt::split_template test.tmpl $tmpl
+
+
+close $fid
+set toto "Une nouvelle variable de test"
+set titi "Deuxième variable de test"
+
+set atemt::_atemt(test.tmpl) [atemt::atemt_subst -ab -no test2 test.tmpl]
+parray atemt::_atemt
+puts "######## subst -end"
+set current_result [atemt::atemt_subst -end test.tmpl]
+puts "### result is :"
+puts "$current_result"
+puts "#############################"
+puts "############# ending test of only test ##############"
+puts "############# SUBSTITUTING ONLY TEST but with insertion \
+      and second substitution ##############"
+set fid [open test.tmpl]
+set tmpl [read $fid]
+
+catch { unset atemt::_atemt }
+atemt::split_template test.tmpl $tmpl
+
+
+close $fid
+set toto "Une nouvelle variable de test"
+
+set atemt::_atemt(test.tmpl) [atemt::atemt_subst -insert -block test test.tmpl]
+set toto "Une seconde variable pour test"
+set current_result [atemt::atemt_subst -end -insert -block test test.tmpl]
+puts "$current_result"
+puts "############# ending test of only test twice with insert ##############"
+===================================
+
+And the result is :
+====================================
+############# starting test.tmpl ##############
+### Input template is :
+Test of block creation
+<!-- BEGIN test >$toto<!-- END test >
+Avec une ligne en plus à la fin <!-- BEGIN test2 >$titi<!-- END test2> et encore du baratin.
+Et puis une dernière ligne
+
+###
+### Defining
+###### toto  ->Première variable de test
+###### titi  ->Deuxième variable de test
+### Substituting variable in all blocks, and blocks in test.tmpl
+######## subst -ab
+atemt::_atemt(test)      = {html {$toto}}
+atemt::_atemt(test.tmpl) = {html {Test of block creation
+}} {html {Première variable de test}} {html {
+Avec une ligne en plus à la fin }} {html {Deuxième variable de test}} \
+{html { et encore du baratin.
+Et puis une dernière ligne
+}}
+atemt::_atemt(test2)     = {html {$titi}}
+######## subst -end
+### result is :
+Test of block creation
+Première variable de test
+Avec une ligne en plus à la fin Deuxième variable de test et encore du baratin.
+Et puis une dernière ligne
+
+#############################
+############# ending first test.tmpl ##############
+############# blocking test2 substitution ##############
+atemt::_atemt(test)      = {html {$toto}}
+atemt::_atemt(test.tmpl) = {html {Test of block creation
+}} {html {Une nouvelle variable de test}} {html {
+Avec une ligne en plus à la fin }} {block test2} \
+{html { et encore du baratin.
+Et puis une dernière ligne
+}}
+atemt::_atemt(test2)     = {html {$titi}}
+######## subst -end
+### result is :
+Test of block creation
+Une nouvelle variable de test
+Avec une ligne en plus à la fin  et encore du baratin.
+Et puis une dernière ligne
+
+#############################
+############# ending test of only test ##############
+############# SUBSTITUTING ONLY TEST but with insertion and \
+        second substitution ##############
+Test of block creation
+Une nouvelle variable de testUne seconde variable pour test
+Avec une ligne en plus à la fin  et encore du baratin.
+Et puis une dernière ligne
+
+############# ending test of only test twice with insert ##############
+======================================

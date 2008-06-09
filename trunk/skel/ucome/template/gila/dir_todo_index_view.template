@@ -1,0 +1,53 @@
+<!-- BEGIN CREATE_FORM -->
+<!-- CREATE_FORM -->
+<!-- END CREATE_FORM -->
+                        <!-- BEGIN FILE_TABLE_HEADER -->
+                        <!-- FILE_TABLE_HEADER -->
+                                <div class="sideBarText"><strong><!-- BEGIN COMP_ELT.DATE.CONTENT_HEADER -->
+                                <!-- COMP_ELT.DATE.CONTENT_HEADER -->
+                                <!-- /COMP_ELT.DATE.CONTENT_HEADER -->
+                                <!-- END COMP_ELT.DATE.CONTENT_HEADER --></strong></div><br />
+                                <!-- BEGIN COMP_ELT.TITLE.CONTENT_HEADER -->
+                                <!-- COMP_ELT.TITLE.CONTENT_HEADER -->
+                                <!-- /COMP_ELT.TITLE.CONTENT_HEADER -->
+                                <!-- END COMP_ELT.TITLE.CONTENT_HEADER -->
+                                <!-- BEGIN DEFAULT_HEADER -->
+                                <!-- DEFAULT_HEADER -->
+                                <!-- /DEFAULT_HEADER -->
+                                <!-- END DEFAULT_HEADER -->
+				<!-- BEGIN HEADER_CELL -->
+				<!-- END HEADER_CELL -->
+                        <!-- /FILE_TABLE_HEADER -->
+                        <!-- END FILE_TABLE_HEADER -->
+                        <!-- BEGIN FILE_LIST -->
+                        <!-- FILE_LIST -->
+				<div class="sideBarText">
+				<!-- BEGIN COMP_ELT.DATE.CONTENT -->
+				<!-- COMP_ELT.DATE.CONTENT -->
+				<strong>
+					<A HREF="fas:$file">${comp_elt.date.content}</A>
+				</strong>
+				<!-- /COMP_ELT.DATE.CONTENT -->
+				<!-- END COMP_ELT.DATE.CONTENT -->
+				<!-- BEGIN COMP_ELT.TITLE.CONTENT -->
+				<!-- COMP_ELT.TITLE.CONTENT -->
+					${comp_elt.title.content}
+				<!-- /COMP_ELT.TITLE.CONTENT -->
+				<!-- END COMP_ELT.TITLE.CONTENT -->
+				<!-- BEGIN FILE_CELL -->
+				<!-- END FILE_CELL -->
+				</div>
+                        <!-- /FILE_LIST -->
+                        <!-- END FILE_LIST -->
+                        <!-- BEGIN FILE_LIST_ODD -->
+                        <!-- FILE_LIST_ODD -->
+				<!-- BEGIN FILE_CELL -->
+				<!-- END FILE_CELL -->
+                        <!-- /FILE_LIST_ODD -->
+                        <!-- END FILE_LIST_ODD -->
+			<!-- BEGIN ALL_FILE_ROWS -->
+			<!-- ALL_FILE_ROWS -->
+				<!-- BEGIN FILE_ROW -->
+				<!-- END FILE_ROW -->
+			<!-- /ALL_FILE_ROWS -->
+			<!-- END ALL_FILE_ROWS -->

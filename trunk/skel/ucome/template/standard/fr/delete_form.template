@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!-- vim: set syntax=html: -->
+<head>
+  <title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+  <!-- fr/delete_form.tmpl -->
+</head>
+  <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+   <table bgcolor="#e0e0e0" width="100%" cellpadding="1" cellspacing="0" border="0">
+     <!-- fr/delete_form.tmpl -->
+     <tbody>
+       <tr>
+         <td> 				             
+      	   <table bgcolor="#ffffff" width="100%" border="0">
+             <tbody>
+               <tr>
+                 <td>                      
+                   <div align="Center">                   
+                     <h2>Suppression</h2>
+                       <b>Vous &ecirc;tes sur le point de supprimer le <!--BEGIN FILETYPE --><!--END FILETYPE --> <br> <!-- BEGIN FILENAME --><!-- END FILENAME --></b>                    
+                       <!-- BEGIN FORM --><!-- /FORM -->
+                        <table>
+                             <tbody>
+                               <tr>
+                                 <td valign="Top"><a href="${FAS_VIEW_CGI}?file=${export_filename}&action=delete"><img alt="Delete" src="${icons_url}/ok.gif" border="0"></a></td>
+                                 <td valign="Top"><a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}"><img src="${icons_url}/cancel.gif" border="0" alt="Annuler"></a></td>
+                               </tr>
+                             </tbody>                     
+                           </table>
+                         </form>
+    	               <!-- /FORM -->
+    	               <!-- END FORM -->
+                     </div>
+                   </td>
+                 </tr>
+               </tbody>             
+             </table>
+           </td>
+         </tr>
+       </tbody>       
+     </table>
+  </body>
+</html>

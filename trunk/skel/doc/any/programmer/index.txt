@@ -1,0 +1,941 @@
+Design of UCome - Your Content Management
+
+1. General remark
+Tcl is a "glue" language. A language that does not try to do everything, but allows to "glue" different programs, different libraries in a single coherent application, that may have a graphical interface. This web application tryes to extend this concept to the management of data in a web site. It will not do everything. No. It will allow to "glue" all intelligent programs that exist to publish existing data on the web as easily as possible. It will allow you to work as little code as possible to jump in the application. Once you jumped in, you will benefit of all the other modules that exist. For example, as soon as you are able to output html, you will benefit of the automatic creation of the menu depending of the place of the file in the directories.
+
+What it means today is that, Free&ALter Soft deals with some filetype and some actions. Now, there is the rest : we do not provide a tex filetype, a gnuplot filetype, an xml filetype, a sgml filetype, an autocad, a dxf, a xfig, a tiff, a ...  filetype. Because you use more these applications than we do, then you are much more able to have them fit in this environment. And if there is a real integration problem, it means we missed something and we will try to correct that.
+
+UCome tryes to be like Tcl (which is in my mind a very ambitious goal) :
+ * small,
+ * very quickly efficient,
+ * extremely useful,
+ * easy and fun to extend,
+ * allowing the reuse of code.
+
+This is done with some fairly extreme choices :
+ * a UCome site is only based on files. No database, not any. This has drawbacks : it is harder to get the list of last modified files, or to do some complex queries. It has enormous advantages. Easy to port. Easy to set up. Easy to back up, to synchronize, to administer. Strictly respect the structure of your hard disk, and easily transform part of your hard disk, with existing file in a web site. As a unix guru said once to me : "file is a very powerful and underused concept".
+ * with each file and directories, "properties" are defined. A property is a variable attached to a file. All the right management in UCome is done with properties, the style used for displaying a file is a property, the name in the menu of a file, the order in the menu, ... all that are properties. There are a lot of "programmer" properties that are used to know where cache, icons, template, ... are stored. There are default values for all. Properties are inherited from the top to the bottom. Properties defined at the root of a site are defined (if not overwritten) for all files of the site.
+ * UCome is fully template based. The goal is to have a real separation between the look designer, the content providers, the webmaster and the programmer. So there is no special, new, nice, blablabla, new template language. The only tag to know is &lt;!-- BEGIN BLOCK_NAME -->xxxxx&lt;!-- END BLOCK_NAME --> which allows to create a block in a template. That's all. What will be put in each block is defined in a "form file" or directly in a program.
+UCome must be improved in terms of performance and speed. I hope that the direct integration of a http server or the use of mod_dtcl or equivalent will allow that.
+
+All files are given relative to the ROOT of the cgi. For example, in the tutorial example, /tmp is used as a ROOT directory.
+
+2. File structure of a site
+Here the first / may also be a full path (always the same) for example /freealterorg .
+|| File or Directory | Function
+| /any | directory in which the files constituting the web site are stored as well as the corresponding properties
+| /any/.mana/.val | the file in which the properties of /any (common to all files then) are stored
+| /any/toto.txt | a file that will be displayed
+| /any/.mana/toto.txt | the file in whihc the properties specific to /any/toto.txt are stored
+| /cache | directory in which all cached files of all types are stored. This directory and all subdirectoies must be readable, writable for the user under which the http daemon runs.
+| /cache/html | directory in which all composite files get from other other files are cached
+| /cache/html/any/toto.txt&&& | html file obtained from /any/toto.txt. The &&& means here that no values where exported with the file, and no cooky are set or used.
+| /session | directory in which session files are stored. In a session file, session variables are stored.
+| /icons | directory in which the icons used for the site management are stored.
+| /style | directory in which the perso files and style files for txt2ml are stored.
+| /template | directory in which all templates are stored.
+| /comp | directory in which composite files for the different actions are stored
+
+3. File structure of the programs
+So from one side there is the cgi program fas_view.cgi or whatever name you choose for it. On the other side, there is the full programm tree. It looks like that :
+=======================================
+ucome
+ |----fas_view.cgi  : the basic cgi program
+ |----icons : directory of icons used for the interface,
+ |----skel  : a skeleton directory used for creating a new site
+ |            just look at the previous paragraph to have the details
+ |            of what is there
+ |----tcl   : directory with all tcl programs and procedure
+       |----fas_debug.tcl : allow to start or stop the debug on each
+       |                    part of UCome
+       |----fas_env.tcl : procedures to handle the property files
+       |----fr.tcl : french messages for UCome
+       |----atemt.tcl : library for handling html template files
+       |----fas_debug_procedures.tcl : debugging procedures
+       |----fas_depend.tcl : procedures for managing the dependencies
+       |----fas_menu.tcl : procedures for menu generation from file and
+       |                   directory structures
+       |----fas_basic_proc.tcl : some basic procedures,
+       |----fas_display.tcl : the main procedures, especially fas_display
+       |----fas_session.tcl : procedures for handling the sessions
+       |----cgi.tcl : the famous, wonderful, extraordinary, ... cgi.tcl
+       |              library of the famous, wonderful, extraordinary Don Libes.
+       |              All these statements are very underestimated. He made
+       |              the living of FAS during 3 years thanks to cgi.tcl.
+       |              I just use it for importing variables, cookies and files.
+       |----mimeprocs : directory in which source files for all file types and
+               |        actions are defined
+               |----any.tcl : procedures for defining names of template or comp
+               |----binary.tcl : procedures similar for all binary (non ascii) types
+               |----clean_cache.tcl : action - clean the whole cache
+               |----clean_cache_form.tcl : action - ask for the cleaning of the cache
+               |----comp.tcl : filetype - composite type (txt, txt2ml, html content or a file)
+               |----copy.tcl : action - copying of a file
+               |----copy_form.tcl : action - screen for preparing the copy of a file
+               |----delete_form.tcl : action - screen for preparing the deletion of a file
+               |----delete.tcl : action - deletion of a file
+               |----dir.tcl : filetype - all procedures for handling the display of directories
+               |----edit.tcl : action - edition of a file
+               |----edit_form.tcl : action - screen for preparing the edition of a file
+               |----flatten.tcl : action - "flattening" of a file. A UCome site is transformed in a static site
+               |----gif.tcl : filetype - gif files
+               |----htmf.tcl : filetype - html files with only absolute links
+               |----html.tcl : filetype - html files
+               |----jpeg.tcl : filetype - jpeg files
+               |----menu.tcl : action - generation of the navigation menu or bar of a file
+               |----new.tcl : action - new file
+               |----not_binary.tcl : procedures used for ascii files
+               |----order.tcl : filetype - files for creating an autorolling newspaper. 
+               |	       Each file defines the file that will roll and the parameters defining the
+	       |               rolling speed. In the future, transition between file should also be defined.
+               |----order_dir.tcl : filetype - directory full of order files. When asking for the display 
+               |	       of this directory, the file corresponding to the current order file is displayed.
+	       |	       A session parameter is used to know what the current order file is.
+	       |	       Each time the next order file is displayed.
+               |----other.tcl : procedures defining some standard procedures
+               |----pdf.tcl : filetype - pdf files
+               |----png.tcl : filetype - png files
+               |----prop.tcl : action - take into account proposed properties for a file or a directory
+               |----prop_form.tcl : action - display of properties associated with a file or a directory
+               |----title.tcl : action - get the title of a file
+               |----tmpl.tcl : filetype - html file without menu bar
+               |----treedir.tcl : filetype - obsolete - add a tree of directories at the left of a content
+               |----treedir2.tcl : action - send back the tree of directory associated to a file
+               |----txt.tcl : filetype - txt2ml files
+               |----upload.tcl : action - uploading of files
+========================================
+
+1. How files are displayed in general
+It works in the following way :
+ * the cgi is called with a file (/fas_view/any/toto.txt for example). For example, there is a link with the following url http://the_host/cgi-bin/mana/fas_view.cgi?file=/any/toto.txt .
+ * all variables associated with the toto.txt are loaded (starting from variables associated with /, then /fas_view, then /fas_view/any, then /fas_view/any/toto.txt).
+ * the language for the display of messages is initialised,
+ * the type of file (# the mimetype) is determined, here it is txt,
+ * display_file is called. It is the main function that will from all previous informations display the file. It is a recursive function that will :
+   * call ${mimetype}::new_type. This function will say in which filetype the current file must be transformed. If an error is returned then the file is directly sent on the output ($mimetype::display is called),
+   * if a new type was returned, it looks if the file was previously computed (is in the corresponding cache directory). If it is, it checks for all the corresponding dependencies. If there is nothing to do, then the cached file is sent back. Else, the function $mimetype::2$new_type is called. The result of this function is cached. And display_file is called again on this new file.
+
+Let me take a small example. Consider a txt file, such as toto.txt. So I call fas_view.cgi with file=/any/toto.txt as a parameter. It is seen that toto.txt is a txt file. Then txt::new_type is called. It sends back comp (composite type). So the function txt::2comp is called. This function operates the conversion of toto.txt into html. The result is cached in /cache/comp/any/toto.txt&&& (more on the &&& after). It is now a pure html file thanks to the call of txt2ml in txt::2comp. Remark that txt2ml is an external program. It could be any programm written in any language. As long as you can call it from the command line, you can use the command. The only constraint is that the function (here txt::2comp) must send back the result of the conversion command.
+So display_file is called another one time on this cached file. It is known that it is a comp (composite) file. comp::new_type is called. It answers that the next filetype should be html. The cache is checked and either the corresponding html file is taken or the function comp::2html is called. In this last case, the result is cached in /cache/html/any/toto.txt&&&.
+Now display_file is called yet another one time (borring no ?). html::new_type is called. It answers that the next filetype should be htmf. htmf is an html file where all relative links are changed in absolute links. It concerns links as well as image filename (src attribute). So cache is checked, or html::2htmf is called. The html is parsed and all necessary link and images are changed in absolute addresses. In this last case, the result is cache in /cache/htmf/any/toto.txt&&&.
+display_file is called for the last time. htmf::new_type sends back an error. Then htmf::display is called, and the file is displayed.
+
+To summarize :
+|| File to display | filetype | new filetype | function called on it | result
+| /any/toto.txt | txt | comp | txt::2comp | /cache/comp/any/toto.txt&&&
+| /cache/comp/any/toto.txt&&& | comp | html | comp::2html | /cache/html/any/toto.txt&&&
+| /cache/html/any/toto.txt&&& | html | htmf | html::2htmf | /cache/htmf/any/toto.txt&&&
+| /cache/htmf/any/toto.txt&&& | html | an error is sent back | htmf::display | stdout
+
+1.1. Details of txt::2html
+Note for the reader. I am not sure that the code description is for everybody. You should read the following if you intend to write or modify code for UCome. Else, well maybe you are curious.
+
+OK, OK, I know I said that I was using txt::2comp and I am going to explain txt::2html. Just take a look at the code and you will see that txt::2comp is a nearly (more on that later) pure call to txt::2hml . Then I explain txt::2html.
+
+The next code is taken from the tcl/mimeprocs/txt.tcl file.
+
+==========================================
+	# This procedure will translate a txt into html 
+	# The dependencies are the following :
+	#  - eventually $env(perso.tcl), $env(style)
+	proc 2html { current_env filename } {
+		upvar $current_env env
+
+		set real_filename [get_real_filename txt $filename env]
+
+		# I need the following informations
+		# perso and style files, 
+		# cachetmpl directory
+
+		# Basically, the output depends on the input file
+		fas_depend::set_dependency $real_filename file
+
+		# The output depends on some variables in the env files
+		fas_depend::set_dependency $filename env
+
+		# The next flag indicates if the output file needs
+		# or does not need to be created.
+		set end_command ""
+		if { [info exists env(txt.perso_tcl)] } {
+			set end_command " -p [add_root $env(txt.perso_tcl)] "
+			fas_depend::set_dependency [add_root $env(txt.perso_tcl)] file
+		}
+		if { [info exists env(txt.style)] } {
+			append end_command " -css [add_root $env(txt.style)] "
+			fas_depend::set_dependency [add_root $env(txt.style)] file
+		}
+
+
+		# And now starting txt2ml
+		variable local_conf
+		fas_debug "txt::2html :|$local_conf(txt.txt2ml) $end_command -f $real_filename -o" 
+		set fid [eval open \"|$local_conf(txt.txt2ml) $end_command -f $real_filename -o\"]
+		set content ""
+		if { [catch { set content [read $fid]} error] } {
+			fas_display_error "txt::2html - \
+			[translate "problem while processing"] \
+			$real_filename&lt;br>$error" -file $filename 
+		}
+		#fas_debug "txt::2html content => $content" 
+		return $content
+	}
+=============================================
+
+=============================================
+	proc 2html { current_env filename } {
+=============================================
+Definition of the 2html procedure. 2xxx is always called with 2 arguments. A pointer on the property associative array (hash) of the current filename, and the original filename of the file (not the cache name, but the real original name).
+
+=============================================
+		upvar $current_env env
+=============================================
+fas_env will hold all the properties of the current file.
+
+=============================================
+		set real_filename [get_real_filename txt $filename env]
+=============================================
+This is hot. filename is the real file name in any. However nothing says that it is a txt file. With the transformation pipe build in UCome, it may come from the cache. So in fact get_real_filename returns either filename directly if filename is of type txt, or it returns the name of the file in the cache. real_filename is the name of the "real" file that must now be converted to html. real_filename is the name of the file that should really be converted into html.
+
+=============================================
+		# Basically, the output depends on the input file
+		fas_depend::set_dependency $real_filename file
+=============================================
+I indicate for the next processing that the output depends on the file $real_filename. This will be used to know if the cached file is enough or not before calling fas_display the next time.
+
+=============================================
+		# The output depends on some variables in the env files
+		fas_depend::set_dependency $filename env
+=============================================
+If the properties related to $filename changed, the process will have to be called again the next time. Beware, I am half happy of this imprecision. I think that I should put fas_env variables with values in the dependency file. If this variable always have this value, the dependency are met. It would be much more precise. Here each time any property file is touched on the path to filename, the dependency are broken. Enough for now, but could be better.
+
+============================================= 
+		# I need the following informations
+		# perso and style files, 
+		# cachetmpl directory
+
+		set end_command ""
+		if { [info exists env(txt.perso_tcl)] } {
+			set end_command " -p [add_root $env(txt.perso_tcl)] "
+			fas_depend::set_dependency [add_root $env(txt.perso_tcl)] file
+		}
+===============================================
+The txt2ml command has a certain number of options. The perso.tcl defines the html that is used before and after each type of element. For example, it is there that you say that for level 1 title you wish &lt;H1> start tag and &lt;/H1> tag. But you may put much more complex things. I want to be able to say which perso.tcl file I use for each file. If requires a txt.perso_tcl property is defined for the file (or inherited from the previous directories). If this property is defined, it is also a dependency for the result.
+
+===============================================
+		if { [info exists env(txt.style)] } {
+			append end_command " -css [add_root $env(txt.style)] "
+			fas_depend::set_dependency [add_root $env(txt.style)] file
+		}
+=============================================
+Same thing for the style option of txt2ml. Here also I set a dependency.
+
+=============================================
+		# And now starting txt2ml
+		variable local_conf
+=============================================
+local_conf is an associative array related to the txt namespace. I put in it the exact position of txt2ml.
+
+=============================================
+		fas_debug "txt::2html :|$local_conf(txt.txt2ml) $end_command -f $real_filename -o" 
+=============================================
+I am not satisfied of the easyness of debug in UCome. I welcome all ideas. However I put some tools to help it. Basically, you have 2 commands :
+ * fas_debug_parray this_array "message" : print on debug stream the array this_array,
+ * fas_debug "message": that will display the next message, if the DEBUG variable is set to 1 in fas_debug.tcl file AND txt::LOCAL_DEBUG is set to 1. This is also set in fas_debug.tcl file. It allows to debug only one portion or the other of UCome.
+
+For having this facility, you must use the code 
+=============================================
+	global DEBUG_PROCEDURES
+	eval $DEBUG_PROCEDURES
+=============================================
+at the beginning of the namespace.
+
+I PERSONNALY STRONGLY RECOMMAND THAT ALL DEBUG MESSAGE STARTS BY THE NAMESPACE  or CURRENT FILE THEN THE NAME OF THE PROCEDURE WHERE YOU ARE. PLEASE. IT HELPS A LOT WHEN UNDERSTANDING THE DEBUG MESSAGE.
+
+
+=============================================
+		set fid [eval open \"|$local_conf(txt.txt2ml) $end_command -f $real_filename -o\"]
+=============================================
+So the command txt2ml is called with the good options. The output is on stdout and we catch it with the usual mechanism in tcl.
+
+=============================================
+		set content ""
+		if { [catch { set content [read $fid]} error] } {
+			fas_display_error "txt::2html - \
+			[translate "problem while processing"] \
+			$real_filename&lt;br>$error" -file $filename 
+		}
+=============================================
+We put the result in content.
+
+=============================================
+		return $content
+=============================================
+And finally we return the content.
+
+2. What about actions ?
+You may ask how actions can occure on a file. This is very simple. actions such as delete_form, delete, copy_form, copy, prop_form, prop, ... are just considered as a filetype as others.
+
+An action is always associated with a file. When an action is given to fas_view.cgi, $mimetype::new_type is called as usual. However, in this function, $action is sent back as if it was a mimetype. And then the function $mimetype::2$action is called.
+
+Here there are 2 cases. Either actions are different for each file type (txt, html, gif, ...) or there are strictly the same (copy_form, delete_form, copy, delete, prop_form, prop). 
+
+2.1. Actions similar for all file types
+In this last case, most of the time, the function $filetype::2$action, will just send back an empty string. As these functions are the same for all filetypes, but as they must be defined in each filetype (that have a different namespace), I decided to put them in a string and to eval this string in the namespace. Just look at :
+/tcl/fas_basic_proc.tcl
+
+You will see that a string STANDARD_PROCEDURES is defined. I just show a small part of it :
+===============================
+set STANDARD_PROCEDURES {
+	proc 2copy_form { current_env filename } {
+		# In fact, I have nothing to do, because
+		# the file is not important. I send back nothing
+		return ""
+	}
+	
+	proc 2copy { current_env filename } {
+		# In fact, I have nothing to do, because
+		# the file is not important. I send back nothing
+		return ""
+	}
+}
+================================
+
+As you see, 2copy_form will always send back "" (an empty string). That is logical as to propose a form to ask in what to copy a file, does not depend on the file type. 
+
+So now, nothing is returned by xxx::2copy_form . An empty cache file is created. Now, display_file is called again from this file with the filetype copy_form. So, copy_form::new_type is called. It sends back comp. So the procedure copy_form::2comp is called. Here I am going to do as if it was copy_form::2html. comp is a fairly special case and I will explain it later. 
+
+So copy_form::2html is called. This function will display a form for defining the target of the copy. You will find it in the file tcl/mimeprocs/copy_form.tcl Let us look in it :
+
+=============================================
+namespace eval copy_form {
+        #...code code code ...
+	proc 2html { current_env filename } {
+		upvar $current_env fas_env
+		# First the dependencies :
+		fas_depend::set_dependency $filename file
+		# First, I will use treedir after, and I am must prepare
+		# the url to use when cliking on a directory.
+		set treedir2::local_conf(url_start) "?action=copy_form&file=[rm_root $filename]&dir="
+
+		# Getting the template
+		set template_name [any::get_template_name fas_env copy_form.template]
+		fas_depend::set_dependency $template_name file
+
+		atemt::read_file_template_or_cache "COPY_TEMPLATE" "$template_name" 
+
+		# Setting some blocks in the template
+		atemt::set_html FILENAME "[rm_root $filename]"
+		atemt::set_html TITLE "[translate "Copy form for"] [rm_root $filename]"
+
+		# Preparing the variables
+		set export_filename [rm_root $filename]
+		set dir [rm_root [file dirname $filename]]
+		set target_dir [fas_get_value dir -default "$dir"]
+
+		# No reason to do substitution here
+		set atemt::_atemt(COPY_TEMPLATE) \
+			[atemt::atemt_subst -block FORM -block TITLE -block FILENAME COPY_TEMPLATE]
+		# Here there is filename and dir to substitute
+		return [atemt::atemt_subst -end COPY_TEMPLATE]
+	}
+        #...code code code ...
+}
+==========================================
+
+This action is of the "template" type. It means that it will fetch for a template, define some variables and then substitute the variables in the template. Then it send back the template. So :
+
+=============================================
+	proc 2html { current_env filename } {
+=============================================
+Definition of the 2html procedure. 2xxx is always called with 2 arguments. A pointer on the property associative array (hash) of the current filename, and the original filename of the file (not the cache name, but the real original name).
+
+=============================================
+		upvar $current_env fas_env
+=============================================
+fas_env will hold all the properties of the current file.
+
+=============================================
+		# First the dependencies :
+		fas_depend::set_dependency $filename file
+=============================================
+If the file $filename changed, then I must reprocess the file. So the first time the process is done (the cache file does not exist), I define the dependencies associated with the cache file. In this case, I must say that I could avoid to set this dependency. Even it the file changed, the html used to prepare the copy does not change.
+
+=============================================
+		# First, I will use treedir after, and I must prepare
+		# the url to use when cliking on a directory.
+		set treedir2::local_conf(url_start) "?action=copy_form&file=[rm_root $filename]&dir="
+=============================================
+On the left of the screen, there will be a tree of directory that will be displayed. This tree will be used to select a directory in which to copy the file. So when you click on a directory, the same preparation copy screen is displayed, but in the target file text entry, the name of the directory on which you clicked is displayed. This is not the usual way a tree of directory is displayed. Most of the time, an edit_form on a directory is called. To change the behaviour of the treedir2 action is parameter is used. There are 2 different solutions. Either you put this additionnal parameter in fas_env. Or you put it in a global array either conf or _cgi_uservar. Or you put it in a variable of the corresponding treedir2 namespace. That is what is done here.
+
+=============================================
+		# Getting the template
+		set template_name [any::get_template_name fas_env copy_form.template]
+		fas_depend::set_dependency $template_name file
+=============================================
+We get the file name of the template that will be used. get_template_name is a special function for that. The idea is that we will use a standard way for the template. Basically, if you ask for copy_form.template, you will receive the name of a "$fas_env(templatedir)/copy_form.tmpl". Or "/template/copy_form.tmpl" if there is no templatedir property defined. Here, the dependency is obvious. If the template changes, the page changes. Then it is a dependency of the output.
+
+=============================================
+		atemt::read_file_template_or_cache "COPY_TEMPLATE" "$template_name" 
+=============================================
+Now you load the template. To be precise you put in the array atemt::_atemt for each block of a template the corresponding list of block and html. The name of the template is COPY_TEMPLATE, which means that the element where the full list corresponding to the file is loaded is atemt::_atemt(COPY_TEMPLATE).
+
+=============================================
+		# Setting some blocks in the template
+		atemt::set_html FILENAME "[rm_root $filename]"
+		atemt::set_html TITLE "[translate "Copy form for"] [rm_root $filename]"
+=============================================
+In the file /template/copy_form.tmpl there are different blocks. They are the following :
+ * TITLE : what is between &lt;title> and &lt;/title>
+ * FILENAME : filename used in the title at top of the page
+ * FORM : the form itself with the text entries
+ * the rest that is in COPY_TEMPLATE
+
+So here we put some html in the FILENAME and TITLE blocks.
+
+
+=============================================
+		# Preparing the variables
+		set export_filename [rm_root $filename]
+		set dir [rm_root [file dirname $filename]]
+		set target_dir [fas_get_value dir -default "$dir"]
+=============================================
+In the different blocks, we will require some variables that will be substituted. We prepare them here. So you may wonder what the rm_root function is. All filenames within UCome are given related to ROOT (defined in fas_view.cgi). However, when you really access files, you need to access the real file and give the real filename. So you are all the time adding and removing ROOT to paths. So I created add_root and rm_root functions. And their use is very common. So common that sometimes, you get lost.
+
+So here you prepare export_filename and dir variables. These variables are present in the template and will be substituted. target_dir is the target file or directory where the file will be copied. fas_get_value will take the value either from the imported values or from cookies or if it is not defined will use $dir as a start.
+
+=============================================
+		# No reason to do substitution here
+		set atemt::_atemt(COPY_TEMPLATE) \
+		   [atemt::atemt_subst -block FORM -block TITLE -block FILENAME COPY_TEMPLATE]
+=============================================
+Now we do the following thing. We go through COPY_TEMPLATE. When we find the blocks FORM, TITLE and FILENAME, we substitute the variables in them. After that the resulting html is put in COPY_TEMPLATE.
+
+=============================================
+		# Here there is filename and dir to substitute
+		return [atemt::atemt_subst -end COPY_TEMPLATE]
+=============================================
+We go through COPY_TEMPLATE and remove all blocs that were not substituted within it (here there are no). Then with put all the html together and return this html string. That's it.
+
+The resulting html is cached in /cache/html/any/toto.txt&action=copy_form&& and then fas_display is once again called on this html. It is converted in htmf which means that all relative image sources and links are converted into absolute urls. This is due to the fact that when relative url are in the html, as the url of is the url of a cgi, relative links do not work. Then everything must be converted in absolute urls.
+
+2.2. A second example of action similar for all file types
+I explained the copy_form action, now I am going to show how it works for copy. There is something interesting in it. I will not detail as much as previously. 
+
+The code is taken from tcl/mimeprocs/copy.tcl
+=============================================
+eval namespace copy {
+    # ... code code code
+    # This procedure will translate create the html text for a copy
+    proc 2html { current_env filename } {
+        upvar $current_env fas_env
+        global FAS_VIEW_CGI
+        set target_name [rm_root $filename]
+
+        fas_depend::set_dependency 1 always
+
+        set message  ""
+        # First I must import the target name
+        if { [catch { set target_name [fas_get_value new_name] }] } {
+            set message "[translate "No target filename or directory was proposed."]"
+        } else {
+                
+            # Processing the copy
+            set real_target [add_root $target_name]
+            
+            if { ![file writable $real_target] && \
+             [file exists $real_target] && \
+             ![file writable [file directory $real_target]] } {
+                set message "[translate "is not writable, please choose another target"]"
+            } else {
+                if { [catch {file copy $filename $real_target} error] } {
+                    set message "[translate "Problem while copying "] \
+                     &lt;A HREF=\"${FAS_VIEW_CGI}?file=[rm_root "$filename"]\"> \
+                    ${filename}&lt;/A> [translate "into"] \
+                    ${target_name}&lt;br>${error}&lt;br>"
+                } else {
+                    # Obviously, I must also copy the property file
+                    if { [file readable [env_filename $filename]] } {
+                        if { [catch {file copy [env_filename $filename] \
+                         [env_filename $real_target] } error] } {
+                            set message "[translate "Problem while copying "] \
+                            [translate " environment variables of"] \
+                            &lt;A HREF=\"${FAS_VIEW_CGI}?file=[rm_root "$filename"]\">\
+                            [rm_root ${filename}]&lt;/A> [translate "into"] \
+                            [translate " environment variables of"] \
+                            ${target_name}&lt;br>${error}&lt;br>"
+                        } else {
+                            set message "[translate "Succesful copy of"]  \
+                            &lt;A HREF=\"${FAS_VIEW_CGI}?file=[rm_root $filename]\">\
+                            [rm_root ${filename}]&lt;/A> \
+                            [translate "into"] \
+                            &lt;A HREF=\"${FAS_VIEW_CGI}?file=${target_name}\">\
+                            ${target_name}&lt;/A>."
+                        }
+                    } else {
+                        set message "[translate "Succesful copy of"]  \
+                        &lt;A HREF=\"${FAS_VIEW_CGI}?file=[rm_root $filename]\">\
+                        [rm_root ${filename}]&lt;/A> [translate "into"] \
+                        &lt;A HREF=\"${FAS_VIEW_CGI}?file=${target_name}\">\
+                        ${target_name}&lt;/A>."
+                    }
+                }
+            }
+        }
+        # And now displaying the result
+        set dir [rm_root [file dirname $filename]]
+        # No reason to do substitution here
+        # I try to display display the result directly in 
+        # the message place of the directory display.
+        global _cgi_uservar
+        unset _cgi_uservar
+        set _cgi_uservar(message) "$message"
+        global DEBUG
+        if $DEBUG {
+            set _cgi_uservar(debug) "$DEBUG"
+        }
+        set _cgi_uservar(action) "edit_form"
+        set dir [file dirname $filename]
+        global conf
+        display_file dir $dir fas_env conf
+        exit
+    }
+    # ... code code code
+}
+================================================
+
+================================================
+proc 2html { current_env filename } {
+	upvar $current_env fas_env
+	global FAS_VIEW_CGI
+	set target_name [rm_root $filename]
+
+	fas_depend::set_dependency 1 always
+=================================================
+Nothing new here, except that copy::2html will always be processed : dependency can never be met. This is written in the fas_depend::set_dependency 1 always line.
+
+=================================================
+	set message  ""
+=================================================
+At the end of this function, I will display in one way or another a message. It works, it did not work for this or that reason. I initialise the message.
+
+=================================================
+	# First I must import the target name
+	if { [catch { set target_name [fas_get_value new_name] }] } {
+=================================================
+I get new_name, the name of the target file or directory for the copy. If it does not exist, an error occures.
+
+=================================================
+		set message "[translate "No target filename or directory was proposed."]"
+=================================================
+So an error occured, I put the reason in the message. Ooops, by the way, you see the internationalisation in action. Basically, the language is defined in the property language. If there exists a $fas_env(language)::_($message) then the message is translated. Else it is directly output. You can see that in the tcl/fr.tcl and the translate functions in the tcl/fas_basic_proc.tcl file. When asking for a template (get_template_name), it is also looked if the asked template exists in a subdirectory $fas_env(language) of the template directory.
+
+=================================================
+	} else {
+			
+		# Processing the copy
+		set real_target [add_root $target_name]
+=============================================
+I have a target filename. I prepare the real target in adding ROOT.
+			
+=============================================
+		if { ![file writable $real_target] && \
+		 [file exists $real_target] && \
+		 ![file writable [file directory $real_target]] } {
+=============================================
+Will I be able to process the copy ? I verify that I can write the target.
+
+=============================================
+			set message "[translate "is not writable, please choose another target"]"
+=============================================
+Another error, I esplain the problemn in message.
+
+=============================================
+		} else {
+			if { [catch {file copy $filename $real_target} error] } {
+=============================================
+Yahoo, I process the copy. How great. And catch it.
+
+
+=============================================
+				set message "[translate "Problem while copying "] \
+				 &lt;A HREF=\"${FAS_VIEW_CGI}?file=[rm_root "$filename"]\"> \
+					${filename}&lt;/A> [translate "into"] \
+					${target_name}&lt;br>${error}&lt;br>"
+=============================================
+Hmmm, an error occured, I put it in message.
+
+=============================================
+	} else {
+		# Obviously, I must also copy the property file
+		if { [file readable [env_filename $filename]] } {
+			if { [catch {file copy [env_filename $filename] \
+			 [env_filename $real_target] } error] } {
+				set message "[translate "Problem while copying "] \
+				[translate " environment variables of"] \
+					&lt;A HREF=\"${FAS_VIEW_CGI}?file=[rm_root "$filename"]\">\
+					[rm_root ${filename}]&lt;/A> [translate "into"] \
+					[translate " environment variables of"] \
+					${target_name}&lt;br>${error}&lt;br>"
+				} else {
+=============================================
+Till now, I just bother with the file. I also copy the property file at the required place, and check if everything was ok.
+
+=============================================
+			set message "[translate "Succesful copy of"]  \
+				&lt;A HREF=\"${FAS_VIEW_CGI}?file=[rm_root $filename]\">\
+				[rm_root ${filename}]&lt;/A> \
+				[translate "into"] \
+				&lt;A HREF=\"${FAS_VIEW_CGI}?file=${target_name}\">\
+				${target_name}&lt;/A>."
+=============================================
+Everything was fine, I prepare a success message.
+
+=============================================
+			}
+				} else {
+					set message "[translate "Succesful copy of"]  \
+					&lt;A HREF=\"${FAS_VIEW_CGI}?file=[rm_root $filename]\">\
+					[rm_root ${filename}]&lt;/A> [translate "into"] \
+					&lt;A HREF=\"${FAS_VIEW_CGI}?file=${target_name}\">\
+					${target_name}&lt;/A>."
+				}
+			}
+		}
+	}
+=============================================
+No property file to copy, the copy was successful. I prepare the success message.
+
+=============================================
+	# And now displaying the result
+	set dir [rm_root [file dirname $filename]]
+	# No reason to do substitution here
+	# I try to display display the result directly in 
+	# the message place of the directory display.
+=============================================
+Here starts the real trick. And I think that the fact that it works show the real power of UCome (from a programmer point of view). Well, basically, everything was fine, life is nice, the copy had its result. Should I create a new template and display the result there ? Why not, but in any case, what I will do is in most cases after this screen go back to the original directory to do something else. So why not put the message in this screen directly ? Then, in fact, what we do is :
+ * forget everything,
+ * do as if we were calling fas_view.cgi from scratch in wishing for a directory edit_form to display.
+
+That is what is done hereunder.
+
+=============================================
+	global _cgi_uservar
+	unset _cgi_uservar
+=============================================
+I can not export variables through http post. So I do "as if". With cgi.tcl it is simple :
+ * all variables imported are put in the _cgi_uservar array (beware this is an undocumented function of cgi.tcl). 
+
+Then I delete this array, and initialise it with what I wish (an action, the DEBUG value and the message). That is what is hereunder.
+=============================================
+	set _cgi_uservar(message) "$message"
+	global DEBUG
+	if $DEBUG {
+		set _cgi_uservar(debug) "$DEBUG"
+	}
+	set _cgi_uservar(action) "edit_form"
+	set dir [file dirname $filename]
+=============================================
+
+=============================================
+	global conf
+	display_file dir $dir fas_env conf
+=============================================
+
+And I call display_file. So it will go from dir to comp, from comp to html, from html to htmf and finish.
+
+=============================================
+	exit
+=============================================
+I certainly do not want that it continues after having done the display then I exit of the cgi. So effectively, nothing will be cached for the current file/action. It is perfect, as I do not wish anything to be cached.
+
+I honnestly think that the capacity of doing the previous trick is very, very powerful. It allows at any place to finally show something totally different. And do not worry, all cache functions are on. You just jumped from a pipe to another because you required it. Frankly, when I programm fas_display, I was not at all thinking to that, but I needed it hard for copy. Then I thought a little on it, and tryed. I thought that intellectually it should work. But I was very pleased when I veryfied it.
+
+2.2. Actions different for each file type
+In the other case, there will be a different processing for the different filetype. This is the case of the edit_form action. The edition of a directory is different of the edition of a text file, which is also different of the edition of a gif file. So in this case, there will be a 2edit_form with a real content for each filetype. On the contrary, when arriving in edit_form.tcl, there is a 2comp function (in fact 2html), and in this 2html procedure, basically, the input is taken and is sent back, and that is all.
+
+1. Use of composite for full design
+It gives a lot of flexibility to be able to create a page by assembling different contents and / or different program outputs. For each part of a page, an atomic action is used to do the display. For example, a treedir action will always be used for displaying a tree of directories on the screen. In the same way, the menu on a page is an autonom program that send back a menu bar. This menu bar is built thanks to the file and directory structure and the tmpl.name and tmpl.order properties that give the name and the order in which a name appears in the menu.
+
+Using such a structure is interesting, because each part of the page is an atomic action or file. It is very easy then to reuse functions in one or the other part of the program.
+
+1.1. Basics of the composite file type
+First of all, you must understand that it is a dance with 3 actors :
+ * the html skeleton is defined in a template file, which is html with blocks defined in it (cf atemt library description).
+ * the form file in which we describe what type of content is necessary for each block in the template. The basic types are :
+   * txt : a pure text,
+   * html : an html text,
+   * txt2ml : a text with txt2ml syntax and look enhancement,
+   * file : a file will be included at the block place.
+ * the file in which the content of the different parts are defined (file with .comp extension),
+
+In order not to bother, a comp file is just an array that is saved. So for example :
+===================================================================
+#### /fas_view/comp/test.form title.content {Fichier de test du type composite} \
+s0.content {&lt;UL>&lt;LI>one&lt;/LI>&lt;LI>two&lt;/LI>&lt;LI>three&lt;/LI>&lt;/UL>} s1.content {1. Test * test1 
+ * test1 
+ * test3
+ 
+|| Merci | txt
+| 2ml | Merci
+} s2.filename {/fas_view/any/fr/index.txt} s4.filename {/tas_view/any/toto.txt}
+===================================================================
+Here we say that this composite file, is related to the form file /fas_view/comp/test.form. If the #### section was not defined in this file, the function get_comp_name would be called to get the form name. It would output /comp/$filetype.$action.form or /comp/$action.form if the previous was not existing. Concerning the block title, its content will be '''Fichier de test du type composite'''. Concerning the block s0, its content is some html code, concerning s1 it is some txt2ml content and finally, the block s2 will take its content of the file index.txt and s4 from toto.txt.
+
+The corresponding form file is the following :
+==============================================
+global.template test.template title.type txt s0.type html \
+s1.type txt2ml s2.type file s3.type file s3.cgi_uservar.action menu s4.type file
+==============================================
+The template to use is test.template. It has 5 blocks TITLE, S0, S1, S2, S3, and S4. TITLE is of type txt content (it is a pure content in txt format), S0 is of type html content, S1 is of type txt2ml, S2, S3 and S4 are of type file. We saw that the filename for S2 and S4 were defined in the composite file. For S3 display_file will be called, but with the current filename as entry and with the action menu. So the menu associated to the current file will be generated.
+
+The template file test.tmpl is here the following :
+================================================
+&lt;html>
+    &lt;head>
+        &lt;meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+        &lt;title>&lt;!-- BEGIN TITLE -->TITRE&lt;!-- END TITLE -->&lt;/title>
+    &lt;/head>
+
+    &lt;body bgcolor="white" alink="#660033" vlink="#999900" >
+        &lt;!-- BEGIN FORM_START -->&lt;FORM ACTION="${FAS_VIEW_CGI}" METHOD=POST >
+            &lt;INPUT TYPE=HIDDEN NAME="file" VALUE="${export_filename}">
+            &lt;INPUT TYPE=HIDDEN NAME="action" VALUE="edit">&lt;!--END FORM_START -->
+        &lt;table border="0" cellpadding="0" cellspacing="0" align="left" width="800" >
+            &lt;tr>
+                &lt;td width="146">&lt;img src="fas:/fas_view/any/index/espaceur.gif" width="136" height="1">&lt;/td>
+                &lt;td width="73">&lt;img src="fas:/fas_view/any/index/espaceur.gif" width="73" height="1">&lt;/td>
+                &lt;td width="581">&lt;img src="fas:/fas_view/any/index/espaceur.gif" width="581" height="1">&lt;/td>
+            &lt;/tr>
+            &lt;tr height="30">
+                &lt;td colspan="3" bgcolor="#660033" height="30">&lt;a href="fas:/fas_view/any/index.txt">
+                &lt;img src="fas:/fas_view/any/index/logo_top.gif" width="800" height="81" border=0>&lt;/A>&lt;/td>
+            &lt;/tr>
+            &lt;tr align="center" valign="top">
+                &lt;td colspan="2">
+                    &lt;!-- BEGIN S3 -->
+                    &lt;!-- END S3 -->
+                &lt;/td>
+                &lt;td width="581" align="center" valign="middle">
+                    &lt;table border="0" cellpadding="0" cellspacing="3" width="581" height="28" align="right">
+                        &lt;tr>
+                            &lt;td colspan=3 >&lt;br>&lt;!-- BEGIN S0 -->&lt;!-- S0 -->&lt;!-- /S0 -->&lt;!-- END S0 -->&lt;/td>
+                        &lt;/tr>
+                        &lt;tr>
+                            &lt;td colspan=3 >
+                                &lt;hr>
+                            &lt;/td>
+                        &lt;/tr>
+                        &lt;tr >
+                            &lt;td valign="top">&lt;!-- BEGIN S1 -->&lt;!-- S1 -->&lt;!-- /S1 -->&lt;!-- END S1 -->&lt;/td>
+                        &lt;/tr>
+                        &lt;tr >
+                            &lt;td valign="top">&lt;!-- BEGIN S2 -->&lt;!-- S2 -->&lt;!-- /S2 -->&lt;!-- END S2 -->&lt;/td>
+                        &lt;/tr>
+                        &lt;tr >
+                            &lt;td valign="top">&lt;!-- BEGIN S4 -->&lt;!-- S4 -->&lt;!-- /S4 -->&lt;!-- END S4 -->&lt;/td>
+                        &lt;/tr>
+                    &lt;/table>
+                &lt;/td>
+            &lt;/tr>
+            &lt;!-- BEGIN FORM_END -->
+            &lt;tr>
+                &lt;td colspan=3 align="center">
+                    &lt;TABLE>
+                        &lt;TR>
+                            &lt;TD>
+                                &lt;input type="image" name="ok" src="${icons_url}/ok.gif" border="0">
+                            &lt;/TD>
+                            &lt;TD>
+                                &lt;a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}">
+                                    &lt;img src="${icons_url}/cancel.gif" border="0" alt="Annuler">
+                                &lt;/a>
+                            &lt;/TD>
+                        &lt;/TR>
+                    &lt;/TABLE>
+                    &lt;/FORM>
+                &lt;/td>
+            &lt;/tr>
+            &lt;!--END FORM_END -->
+        &lt;/table>
+    &lt;/body>
+
+&lt;/html>
+=================================================
+
+When asking for the display of the composite file. The resulting html is the following (I added some carriage return for having a nice display, do not take them into account) :
+==================================================
+&lt;html>
+    &lt;head>
+        &lt;meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+        &lt;title>Fichier de test du type composite&lt;/title>
+    &lt;/head>
+
+    &lt;body bgcolor="white" alink="#660033" vlink="#999900" >
+        
+        &lt;table border="0" cellpadding="0" cellspacing="0" align="left" width="800" >
+            &lt;tr>
+                &lt;td width="146">&lt;img src="/cgi-bin/mana/fas_view.cgi? 
+                file=/fas_view/any/index/espaceur.gif" width="136" height="1">&lt;/td>
+                &lt;td width="73">&lt;img src="/cgi-bin/mana/fas_view.cgi?
+                file=/fas_view/any/index/espaceur.gif" width="73" height="1">&lt;/td>
+                &lt;td width="581">&lt;img src="/cgi-bin/mana/fas_view.cgi?
+                file=/fas_view/any/index/espaceur.gif" width="581" height="1">&lt;/td>
+            &lt;/tr>
+            &lt;tr height="30">
+                &lt;td colspan="3" bgcolor="#660033" height="30">&lt;a href="/cgi-bin/mana/fas_view.cgi?
+                file=/fas_view/any/index.txt">
+                &lt;img src="/cgi-bin/mana/fas_view.cgi?file=/fas_view/any/index/logo_top.gif"
+                width="800" height="81" border=0>&lt;/A>&lt;/td>
+            &lt;/tr>
+            &lt;tr align="center" valign="top">
+                &lt;td colspan="2">
+                    Encore un test
+                &lt;/td>
+                &lt;td width="581" align="center" valign="middle">
+                    &lt;table border="0" cellpadding="0" cellspacing="3" width="581"
+                    height="28" align="right">
+                        &lt;tr>
+                            &lt;td colspan=3 >&lt;br>&lt;UL>&lt;LI>
+                            one&lt;/LI>&lt;LI>two&lt;/LI>&lt;LI>three
+                            &lt;/LI>&lt;/UL>&lt;/td>
+                        &lt;/tr>
+                        &lt;tr>
+                            &lt;td colspan=3 >
+                                &lt;hr>
+                            &lt;/td>
+                        &lt;/tr>
+                        &lt;tr >
+                            &lt;td valign="top">
+
+&lt;center>&lt;table BORDER=0 CELLSPACING=0 CELLPADDING=0 NOSAVE>
+  &lt;tr>
+    &lt;td>&lt;img SRC="/cgi-bin/mana/fas_view.cgi?file=
+    /fas_view/any/index/G_normal.gif" height=30 width=30>&lt;/td>
+    &lt;td bgcolor="#660033">&lt;font color="#FFFFFF" face="Arial" size="4">&lt;b>
+1. Test
+    &lt;/b>&lt;/font>
+    &lt;/td>
+    &lt;td>&lt;img SRC="/cgi-bin/mana/fas_view.cgi?file=/fas_view/any/index/D_normal.gif"
+    height=30 width=30>&lt;/td>
+  &lt;/tr>
+&lt;/table>&lt;/center>
+&lt;UL>&lt;LI> test1&lt;/LI>
+&lt;LI> test1&lt;/LI>
+&lt;LI> test3&lt;/LI>
+&lt;/UL>
+&lt;P>&lt;CENTER>&lt;TABLE  BGCOLOR="EAEAC0" BORDER=1>&lt;TR>&lt;TD valign="top"
+COLSPAN=1> Merci &lt;/TD>
+&lt;TD valign="top" COLSPAN=1> txt &lt;/TD>
+&lt;/TR>
+&lt;TR>&lt;TD valign="top" COLSPAN=1> 2ml &lt;/TD>
+&lt;TD valign="top" COLSPAN=1> Merci&lt;/TD>
+&lt;/TR>
+&lt;/TABLE>&lt;/CENTER>
+
+&lt;/td>
+                        &lt;/tr>
+                        &lt;tr >
+                            &lt;td valign="top">Encore un test&lt;/td>
+                        &lt;/tr>
+                        &lt;tr >
+                            &lt;td valign="top">
+
+&lt;center>&lt;table BORDER=0 CELLSPACING=0 CELLPADDING=0 NOSAVE>
+  &lt;tr>
+    &lt;td>&lt;img SRC="/cgi-bin/mana/fas_view.cgi?
+    file=/fas_view/any/index/G_normal.gif" height=30 width=30>&lt;/td>
+    &lt;td bgcolor="#660033">&lt;font color="#FFFFFF" face="Arial" size="4">&lt;b>
+/tas_view/any/toto.txt
+    &lt;/b>&lt;/font>
+    &lt;/td>
+    &lt;td>&lt;img SRC="/cgi-bin/mana/fas_view.cgi?file=
+    /fas_view/any/index/D_normal.gif" height=30 width=30>&lt;/td>
+  &lt;/tr>
+&lt;/table>&lt;/center>
+
+&lt;/td>
+                        &lt;/tr>
+                    &lt;/table>
+                &lt;/td>
+            &lt;/tr>
+            
+        &lt;/table>
+    &lt;/body>
+
+&lt;/html>
+===============================================
+The different blocks have been substituted by the corresponding contents.
+1.2. And now piping in a comp
+So consider the delete_form action. It will display a screen showing a deleting confirmation, and on the left a tree of directory. We will use a template of the following kind :
+
+============================================
+&lt;html>
+    &lt;head>
+        &lt;meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+        &lt;title>&lt;!-- BEGIN TITLE -->TITRE&lt;!-- END TITLE -->&lt;/title>
+    &lt;/head>
+
+    &lt;body bgcolor="white" >
+        &lt;table border="0" cellpadding="0" cellspacing="0" align="left">
+            &lt;tr align="center" valign="top">
+                &lt;td >
+                    &lt;!-- BEGIN TREEDIR -->
+                    &lt;!-- TREEDIR -->
+                    &lt;!-- /TREEDIR -->
+                    &lt;!-- END TREEDIR -->
+                &lt;/td>
+                &lt;td  align="center" valign="top" width="4" bgcolor="#ffffff">
+                    &lt;img src="${icons_url}/espaceur.gif" width="4">
+                &lt;/td>
+                &lt;td  align="center" valign="top" width="1" bgcolor="#808080"
+                cellpadding="2">
+                    &lt;img src="${icons_url}/espaceur.gif" width="1">
+                &lt;/td>
+                &lt;td  align="center" valign="top" width="4" bgcolor="#ffffff">
+                    &lt;img src="${icons_url}/espaceur.gif" width="4">
+                &lt;/td>
+                &lt;td  align="center" valign="top"> 
+                    &lt;br>&lt;!-- BEGIN CONTENT -->
+                        &lt;!-- CONTENT -->CONTENU&lt;!-- /CONTENT -->
+                    &lt;!-- END CONTENT -->
+                &lt;/td>
+            &lt;/tr>
+        &lt;/table>
+    &lt;/body>
+
+&lt;/html>
+============================================
+
+Now, we use a composite file to say how to fill each part of the template. This file is in the /comp directory, and its name is delete_form.form. This is the standard name created by the get_comp_name function.
+============================================
+global.template admin.template title.type file title.cgi_uservar.action title \
+treedir.type file treedir.cgi_uservar.action treedir2 content.type html
+============================================
+In this file, we see that the template to use is admin.template. Then concerning the title block, we see that its type is file ('''title.type file'''). The display of this file will use display_file with a special option : -nodisplay. Only the content will be sent back. display_file will be called as if the following variable were exported to it through http : action will be set to title ('''title.cgi_uservar.action title'''). In an implicit way the filename to use is the filename of the current file displayed. 
+
+After that the TREEDIR section will be filled. Another one time it is of file type. Then fas_display will be used. However this time the action is treedir2 ('''treedir.cgi_uservar.action treedir2'''). The filename to use is always the current one.
+
+Finally, the CONTENT block is defined. It is of html type. Which means that the content is strictly static and given in the content.content key. But nothing is defined ? Where is it hidden ? Hey, hey, hey.
+
+Now we are going to look at txt::2delete . Remember, it is a standard procedure defined in STANDARD_PROCEDURES of fas_basic_proc.tcl . Here is it.
+=========================================
+	proc 2delete { current_env filename } {
+		# In fact, I have nothing to do, because
+		# the file is not important. I send back nothing
+		return ""
+	}
+========================================
+Well, nothing marvellous here.
+
+So let us look at delete::2comp in tcl/mimeprocs/delete.tcl
+========================================
+	proc 2comp { current_env args } {
+		fas_debug "delete_form::2comp - $args"
+		upvar $current_env env
+		array set tmp ""
+		set tmp(content.content) [extract_body [eval 2html env $args]]
+		return "[array get tmp]"
+	}
+========================================
+You've got it ? We output a pure composite file with content.content define as html. We use extract_body to only take what is in the body. 2html gives a pure html file. And this file will be cache as another. Even if it is a composite file. And we defined in it the content of the CONTENT block which is html.
+

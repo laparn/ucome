@@ -1,0 +1,8 @@
+Webmaster manual
+
+1. Changing the look
+First, the basic : please go at the root of the site, or clik on admin in the list of actions.
+/any/webmaster/admin_page.png
+/any/webmaster/change_look1.png
+/any/webmaster/change_look2.png
+/any/webmaster/change_look_result.png

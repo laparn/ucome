@@ -1,0 +1,50 @@
+<html>			
+<!-- vim: set syntax=html: -->
+  <head>		
+    <title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+    <!-- search.tmpl -->
+  </head>
+
+  <body bgcolor="#FFFFFF" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+    <!-- search.tmpl -->
+    <div align=center>
+      <h1>
+	<!-- BEGIN TOP_TITLE -->
+	<!-- END TOP_TITLE -->
+      </h1>
+	<b><!-- BEGIN QUERY --><!-- END QUERY --></b>
+    </div>
+
+    <div align=center>
+      <table>
+	  <tr>
+	    <td>
+	      Score
+	    </td>
+	    <td>
+	      Filename
+	    </td>
+	    <td>
+	      Preview
+	    </td>
+	  </tr>	  
+	<!-- BEGIN ROW -->
+	  <tr>
+	    <td>
+	      $score
+	    </td>
+	    <td>
+	      <a href="$url">$filename</a>
+	    </td>
+	    <td>
+	      $context_line_before<br>
+	      $context_line<br>
+	      $context_line_after<br>
+	    </td>
+	  </tr>
+	  <!-- END ROW -->
+      </table
+    </div>
+    
+  </body>
+</html>

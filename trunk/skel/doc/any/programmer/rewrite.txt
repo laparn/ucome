@@ -1,0 +1,25 @@
+LoadModule rewrite_module /usr/lib/apache/1.3/mod_rewrite.so
+
+ScriptAlias /mailman/ /usr/lib/cgi-bin/mailman/
+<Directory /usr/lib/cgi-bin/mailman/ >
+  Options -Indexes -FollowSymLinks -Includes +ExecCgi
+  AllowOverride None
+</Directory>
+
+# Static pages
+RewriteEngine on
+
+# Utils
+RewriteRule ^/mailman(.*) /usr/lib/cgi-bin/mailman$1 [l,t=application/x-httpd-cgi]
+RewriteRule ^/pipermail(.*) /var/lib/mailman/archives/public$1 [l]
+RewriteRule ^/icons(.*) /home/linbox/public/com/icons$1 [l]
+RewriteRule ^/webalizer(.*) /var/www/webalizer$1 [l]
+
+# favicon
+
+RewriteRule ^/favicon.ico /home/freealter/favicon.ico [l]
+
+
+
+
+RewriteRule ^/en/products? /ucome.rvt?file=/any/en/Produits [l]

@@ -1,0 +1,93 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<!-- vim: set syntax=html: -->
+<head>
+   <title><!-- BEGIN HEAD_TITLE --><!-- END HEAD_TITLE --></title>
+   <link rel="stylesheet" type="text/css" href="fas:/template/sinorca/css/sinorca-grey.css" title="Grey boxes stylesheet" />
+   <link rel="stylesheet alternative" type="text/css" href="fas:/template/sinorca/css/sinorca-white.css" title="White boxes stylesheet" />
+   <link rel="stylesheet" type="text/css" href="fas:/template/sinorca/css/color-scheme.css" />
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+   <!-- todo.tmpl -->
+</head>
+<body>
+<!-- todo.tmpl -->
+    <div id="top"></div>
+  
+    <!-- ###### Header ###### -->
+
+    <div id="upperMenuBar">
+      <div class="LHS">
+        &nbsp;Login as : <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;|&nbsp;
+        <a href="fas:${file}&action=login_form" class="topmenu" title="Login">Login</a>
+      </div>
+      <div class="RHS">
+      </div>
+    </div>
+
+    <div id="header">UCome - Your Content Management</div>
+
+    <form id="headerSearch" action="./index.html" method="get">
+      <div>
+        <!-- input type="text" class="text" value="Search..." / -->
+      
+        <!-- ###### Dynamic text box version:
+        <input class="text" type="text" value="Search..."
+               onFocus="if (this.value == 'Search...') this.value=''; else this.select();"
+               onBlur="if (this.value == '') this.value='Search...';" />
+             ###### -->
+
+        <!-- input type="submit" class="submit" value="GO" / -->
+      </div>
+    </form>
+
+    <div id="lowerMenuBar">
+         <!-- BEGIN ALLOW --><!-- END ALLOW -->
+    </div>
+
+    <!-- ###### Side Boxes ###### -->
+    <!-- BEGIN MENU -->
+    <!-- END MENU -->
+    <!-- BEGIN TODO --><!-- END TODO -->
+    <!-- div class="sideMenuBox lighterBG" -->
+    <div class="sideTextBox" >
+        Questions or Comments? Advice for me or from me? Please <a href="mailto:info@no-spam-ucome.org" class="dash" title="email the author">email me.</a>
+    </div>
+
+    <!-- ###### Body Text ###### -->
+
+    <div id="bodyText">
+			<!-- FORM START --><!-- BEGIN FORM_START --><form ACTION="${FAS_VIEW_CGI}" METHOD=POST ><input TYPE=HIDDEN NAME="file" VALUE="${export_filename}"><input TYPE=HIDDEN NAME="action" VALUE="edit"><!--END FORM_START --><!-- /FORM_START -->
+			<div align="center"><h1><!-- BEGIN TITLE --><!-- END TITLE --></h1></div>
+			<div ><!-- BEGIN DATE --><!-- END DATE --></div>
+			<div ><!-- BEGIN CONTENT --><!-- END CONTENT --></div>
+		<!-- BEGIN FORM_END --><!-- FORM_END -->
+		<center><table WIDTH="100%" >
+			<tr>
+			<td ALIGN=CENTER COLSPAN="3">
+			<table>
+				<tr>
+				<td><input type="image" name="ok" src="${icons_url}/ok.gif" border="0"></td>
+
+				<td><a href="${FAS_VIEW_CGI}?action=edit_form&file=${dir}"><img SRC="${icons_url}/cancel.gif" ALT="Annuler" BORDER=0 ></a></td>
+				</tr>
+			</table>
+			</td>
+			</tr>
+		</table></center>
+
+	</form><!-- /FORM_END --><!--END FORM_END -->
+    </div>
+    <!-- ###### Footer ###### -->
+    <div id="footer">
+      <div>
+        <span class="footerLHS">
+            UCome - Created by  <a class="footerLHS" href="http://freealter.com" title="Free&amp;ALter Soft">Free&amp;ALter Soft</a>
+        </span>
+      </div>
+
+      <div>
+        Look closely adapted from <a href="http://oswd.com">OSWD</a> Sinorca design shareright &copy; 2003 Han &nbsp;
+      </div>
+    </div>
+  </body>
+</html>

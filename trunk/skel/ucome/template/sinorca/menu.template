@@ -1,0 +1,88 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+                <link rel="stylesheet" type="text/css" href="fas:/template/sinorca/css/sinorca-grey.css" title="Grey boxes stylesheet" />
+                <link rel="stylesheet alternative" type="text/css" href="fas:/template/sinorca/css/sinorca-white.css" title="White boxes stylesheet" />
+                <link rel="stylesheet" type="text/css" href="fas:/template/sinorca/css/color-scheme.css" />
+	</head>
+
+	<body bgcolor="white" alink="#660033" vlink="#999900" >
+	        <!-- sinorca/menu.tmpl -->
+		<!-- BEGIN MENU -->
+		<!-- MENU -->
+          	  <div class="sideMenuBox">
+		     <div>Menu</div>
+		     <!-- BEGIN SECTION0 -->
+		     <!-- SECTION0 -->
+			  <a href="${url}">&rsaquo;${content}</a> 
+		     <!-- /SECTION0 -->
+		     <!-- END SECTION0 -->
+		     <!-- BEGIN ACTIVESECTION0 -->
+		     <!-- ACTIVESECTION0 -->
+			  <span class="thisPage"><a class="activeleftmenu" href="${url}">&raquo;${content}</a></span> 
+		     <!-- /ACTIVESECTION0 -->
+		     <!-- END ACTIVESECTION0 -->
+		     <!-- BEGIN EXACTSECTION0 -->
+		     <!-- EXACTSECTION0 -->
+			  <span class="thisPage"><a class="activeleftmenu" href="${url}">&raquo;${content}</a></span> 
+		     <!-- /EXACTSECTION0 -->
+		     <!-- END EXACTSECTION0 -->
+		     <!-- BEGIN SECTION1 -->
+		     <!-- SECTION1 -->
+			  <a href="${url}">&nbsp;&nbsp;&rsaquo;${content}</a> 
+		     <!-- /SECTION1 -->
+		     <!-- END SECTION1 -->
+		     <!-- BEGIN ACTIVESECTION1 -->
+		     <!-- ACTIVESECTION1 -->
+			  <span class="thisPage"><a href="${url}">&nbsp;&nbsp;&raquo;${content}</a></span>
+		     <!-- /ACTIVESECTION1 -->
+		     <!-- END ACTIVESECTION1 -->
+		     <!-- BEGIN EXACTSECTION1 -->
+		     <!-- EXACTSECTION1 -->
+			  <span class="thisPage"><a href="${url}">&nbsp;&nbsp;&raquo;${content}</a></span>
+		     <!-- /EXACTSECTION1 -->
+		     <!-- END EXACTSECTION1 -->
+		     <!-- BEGIN SECTION2 -->
+		     <!-- SECTION2 -->
+			  <a  href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+		     <!-- /SECTION2 -->
+		     <!-- END SECTION2 -->
+		     <!-- BEGIN ACTIVESECTION2 -->
+		     <!-- ACTIVESECTION2 -->
+			  <span class="thisPage"><a href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+		     <!-- /ACTIVESECTION2 -->
+		     <!-- END ACTIVESECTION2 -->
+		     <!-- BEGIN EXACTSECTION2 -->
+		     <!-- EXACTSECTION2 -->
+			  <span class="thisPage"><a href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+		     <!-- /EXACTSECTION2 -->
+		     <!-- END EXACTSECTION2 -->
+
+		     <!-- BEGIN GENERIC_SECTION -->
+		     <!-- GENERIC_SECTION -->
+			  <a  href="${url}"><!-- BEGIN GENERIC_SPACE -->&nbsp;&nbsp;<!-- END GENERIC_SPACE -->${content}</a> 
+		     <!-- /GENERIC_SECTION -->
+		     <!-- END GENERIC_SECTION -->
+		     <!-- BEGIN GENERIC_ACTIVESECTION -->
+		     <!-- GENERIC_ACTIVESECTION -->
+			  <span class="thisPage"><a href="${url}"><!-- BEGIN GENERIC_ACTIVESPACE -->&nbsp;&nbsp;<!-- END GENERIC_ACTIVESPACE -->${content}</a> 
+		     <!-- /GENERIC_ACTIVESECTION -->
+		     <!-- END GENERIC_ACTIVESECTION -->
+		     <!-- BEGIN GENERIC_EXACTSECTION -->
+		     <!-- GENERIC_EXACTSECTION -->
+			  <span class="thisPage"><a href="${url}"><!-- BEGIN GENERIC_EXACTSPACE -->&nbsp;&nbsp;<!-- END GENERIC_EXACTSPACE -->${content}</a> 
+		     <!-- /GENERIC_EXACTSECTION -->
+		     <!-- END GENERIC_EXACTSECTION -->
+
+		     <!-- BEGIN MENU_ENTRY -->
+		     <!-- END MENU_ENTRY -->
+		</div>
+              
+		<!-- /MENU -->
+		<!-- END MENU -->
+		<!-- BEGIN CONTENT --><!-- END CONTENT -->
+		<!-- BEGIN BOTTOM --><!-- END BOTTOM -->
+	</body>
+</html>

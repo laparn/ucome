@@ -1,0 +1,4 @@
+global.template nomenu_standard.template global.title "Block definitions for the template for looking at a text file without any menu" global.title.fr "Définition des blocs pour le canevas permettant de visualiser un fichier texte" title.type file title.cgi_uservar.action title content.type html 
+
+
+

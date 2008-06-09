@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim: set syntax=html: -->
+<!-- yes, you may use another editor, but, vim is BETTER -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=iso-8859-1" />
+    <meta name="author" content="inspired by haran from Sinorca OSWD" />
+    <link rel="stylesheet" type="text/css" href="fas:/template/sinorca/css/sinorca-grey.css" title="Grey boxes stylesheet" />
+    <link rel="stylesheet alternative" type="text/css" href="fas:/template/sinorca/css/sinorca-white.css" title="White boxes stylesheet" />
+    <link rel="stylesheet" type="text/css" href="fas:/template/sinorca/css/color-scheme.css" />
+    <title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+  </head>
+
+  <body>
+    <div id="top"></div>
+  
+    <!-- ###### Header ###### -->
+
+    <div id="upperMenuBar">
+      <div class="LHS">
+        &nbsp;Connecté en tant que : <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;|&nbsp;
+        <a href="fas:${file}&action=login_form" class="topmenu" title="Login">Se logger</a>
+      </div>
+      <div class="RHS">
+       <!-- BEGIN PATH --><!-- END PATH -->
+      </div>
+    </div>
+
+    <div id="header">UCome - Votre gestion de contenus</div>
+
+    <form id="headerSearch" action="./index.html" method="get">
+      <div>
+        <!-- input type="text" class="text" value="Search..." / -->
+      
+        <!-- ###### Dynamic text box version:
+        <input class="text" type="text" value="Search..."
+               onFocus="if (this.value == 'Search...') this.value=''; else this.select();"
+               onBlur="if (this.value == '') this.value='Search...';" />
+             ###### -->
+
+        <!-- input type="submit" class="submit" value="GO" / -->
+      </div>
+    </form>
+
+    <div id="lowerMenuBar">
+         <!-- BEGIN ALLOW --><!-- END ALLOW -->
+    </div>
+
+    <!-- ###### Side Boxes ###### -->
+    <!-- BEGIN MENU -->
+    <!-- END MENU -->
+    <div class="sideMenuBox lighterBG" >
+    <div><a href="fas:/any/todo">A faire</a></div>
+    <!-- BEGIN TODO --><!-- END TODO -->
+    </div>
+
+    <div class="sideTextBox" >
+        Des questions, des commentaires ? Des conseils de moi ou pour moi ? Merci de m'envoyer un <a href="mailto:info@no-spam-ucome.org" class="dash" title="mail à l'auteur">mail.</a>
+    </div>
+
+    <!-- ###### Body Text ###### -->
+
+    <div id="bodyText">
+	<!-- BEGIN CONTENT --><!-- CONTENT -->CONTENT<!-- /CONTENT --><!-- END CONTENT -->
+    </div>
+    
+    <!-- ###### Footer ###### -->
+
+    <div id="footer">
+      <div>
+        <span class="footerLHS">
+            UCome - Créé par  <a class="footerLHS" href="http://linbox.com" title="Linbox/Free&amp;ALter Soft">Linbox/Free&amp;ALter Soft</a>
+        </span>
+      </div>
+
+      <div>
+        Look pris chez <a href="http://oswd.com">OSWD</a> Sinorca design shareright &copy; 2003 Haran. Merci Haran.&nbsp;
+      </div>
+    </div>
+  </body>
+</html>

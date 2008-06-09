@@ -1,0 +1,29 @@
+<html>
+	<body>
+		<table border="1">
+			<!-- BEGIN HEADER_ROW -->
+			<tr bgcolor="#e0e0e0">
+				<!-- BEGIN HEADER_DATA -->
+				<th>$content</th>
+				<!-- END HEADER_DATA -->
+			</tr>
+			<!-- END HEADER_ROW -->
+			<!-- BEGIN EVEN_ROW -->
+			<tr bgcolor="#c0ffc0" >
+				<!-- BEGIN DATA -->
+				<td>$content</td>
+				<!-- END DATA -->
+			</tr>
+			<!-- END EVEN_ROW -->
+			<!-- BEGIN ODD_ROW -->
+			<tr bgcolor="#ffc0ff" >
+				<!-- BEGIN DATA -->
+				<!-- END DATA -->
+			</tr>
+			<!-- END ODD_ROW -->
+		<!-- BEGIN CURRENT_ROW -->
+		<!-- END CURRENT_ROW -->
+		</table>
+	</body>
+</html>
+

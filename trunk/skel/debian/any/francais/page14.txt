@@ -1,0 +1,10 @@
+Inclus un ensemble complet d'applications bureautiques :
+ * éditeurs WYSIWYG 
+   * traitements de texte,
+   * logiciels de présentation,
+   * logiciels de dessins vectoriels,
+   * logiciels de dessins d'organigrammes, schémas, graphes,
+ * calendriers,
+ * tableurs,
+ * bases de données,
+ * etc ;

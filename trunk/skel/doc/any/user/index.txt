@@ -1,0 +1,471 @@
+UCome - A quick navigation in functions
+
+''Author :'' 
+''Arnaud LAPREVOTE''
+Free&ALter Soft
+Email : arnaud.laprevote@freealter.com
+
+1. Using ucome
+1.1. Cruising
+1.1. Editing 
+1.2. Copying
+1.2. Creating a new text file
+1.3. Deleting
+1.4. Uploading a file
+1.3. Managing the menu
+1.4. Understanding the properties
+1.4. Logging in and out
+1.5. The file structure
+1.6. Testing with an html file
+1.7. Testing a docbook file
+1.8. Managing autorisations
+1.9. Searching
+1.10. Indexing files
+1.11. Caching of files
+2. Ucome for webmaster
+2.1. Creating a new look
+2.1.1. Changing the menu look
+2.2. List of all templates and use
+2.3. Understanding which template do what
+2.4. Playing with lists in a directory
+2.5. Creating your own composite file type
+3. Ucome for administrator
+3.1. Creating users
+3.2. Managing users
+3.3. Managing rights
+4. Ucome for programmers
+4.1. File structure
+4.2. Creating a new filetype
+4.3. Creating a new action
+
+5. A small analysis of 2 UCome screenshots
+5.1. The content block
+I suppose that you put as adviced the test site in /tmp at the default place. I also suppose that you are using the cgi version of UCome. Now, let us take a look at different screenshots.
+
+First, just take a look at : 
+===============================================
+http://localhost/cgi-bin/ucometest/fas_view.cgi?file=/any
+===============================================
+
+You should see something like that :
+sc/index_doc.jpg
+Fig. 1 : the first doc page of the test site.
+
+We are going to look closely at this page. On it you see blocks :
+sc/index_doc_comment.jpg
+Fig. 2 : blocks of the page.
+
+These blocks have different functions. The block numbered "I" is the central content of the page. Yes, just go in /tmp/ucometest/any, and look at index.txt with a text editor. You will see :
+=============================================
+Welcome to UCoMe
+
+''A small and efficient web content management system.''
+1. Features
+ * native management of text, html, gif, jpeg, png and pdf,
+ * integrated composite file type allowing to create small data sets in minutes,
+ * fas-converter allows management of word, excel and powerpoint files,
+ * full web management of files with user authorisations file by file, directory by directory,
+ * automatic generation of navigation from directory and file structure,
+ * to each file a set of variables is associated allowing simple and efficient extension programmation,
+ * wiki functions but with a much nicer look and a more organized structure of the site,
+ * a special mode allows to create "rolling" newspaper from the web content,
+ * fully internationalised (english and french today). Easy additions of new languages.
+
+''ORGANIZE KNOWLEDGE and INFORMATION SHARING QUICKLY AND EASILY THANKS TO UCOME.''
+=============================================
+
+which is exactly, the central content of the page. Obviously, it is not as nice as the html page. But it is the content.
+
+5.2. The menu block
+As you are in /tmp/ucometest/any, just take a look at the files and directories that are there, with a '''ls -a''' command. You see :
+=========================================
+code  doc  done  images  index.txt  .mana  sc  todo
+=========================================
+
+And by the way in the directory .mana there is :
+=========================================
+index.txt  .val
+=========================================
+
+Here we have nearly all informations that explain the menu that we see on the screenshot. Because, this menu is reflecting the file and directory structure regarding the current file index.txt . In fact, it is a graphical version of a tree of files and directories.
+
+Instead of the name of the file, a ''property'' of the file is used. This property may be read in the '''environment''' file .mana/index.txt that I display hereunder :
+======================================
+view.comp /comp/txt_with_todo.form menu.order 1 menu.name Home
+======================================
+
+The syntax of the file is "key value key value key value". If there are spaces in a value, you must enclose it within accolades like that {a name with spaces} or within " like that "a name with spaces". Here we have 3 values.
+ * view.comp : the name of the file where each block in the html page is defined,
+ * menu.order : for the action menu (creation of the menu) the order property defining the place of the element in the menu,
+ * menu.name : the name used in the menu for the file.
+
+You may also access a file properties in asking for them (Link ''::Prop::'' at the top of the page index.txt). You would see :
+sc/prop.jpg
+Fig. 3 : the properties of a file.
+
+The difference between the file and the proposed page, is just that you do not need to know the name of the possible properties and that there are different "levels" of properties : user, webmaster and admin.
+
+To know how a directory will be displayed in a menu, we use the special file .val in the directory .mana to define the properties specific to a file. So here we have :
+
+|| Path | Type | Property menu.order | Property menu.name
+| /tmp/ucometest/any/index.txt | Text file | 1 | Home
+| /tmp/ucometest/any/code | Directory | 5 | Source code
+| /tmp/ucometest/any/doc | Directory | 1 | Documentation
+| /tmp/ucometest/any/done | Directory | not defined | not defined
+| /tmp/ucometest/any/images | Directory | not defined | not defined
+| /tmp/ucometest/any/sc | Directory | 3 | Screenshots
+| /tmp/ucometest/any/todo | Directory | 4 | To do
+
+And the menu looks like that :
+sc/index_doc_menu.jpg
+Fig. 4 : zoom on the menu of the first page.
+
+4. Allowed action block
+It is the following block at top of the page
+sc/allowed_action_block.jpg
+Fig. 5 : zoom on the block of allowed action.
+
+It lists all the actions that are allowed on the file that is currently displayed or on its directory. ''::Login::'' is a special case that will be explained later.
+
+4.1. View
+As you may see there are 2 ''::View::'' menu item. OK, I should change that and have 2 different terms. However, both are right.
+
+The first ''::View::'' allows to see the original file as it is. For example, if you click on it for the /any/index.txt original file, then, you will see something like that :
+sc/txt_file.jpg
+Fig. 6 : text file corresponding to the content of the first index page.
+This is the original file used as the central content of the page. Obviously, it uses a simple wiki-like syntax. You will find more details in the documentation concerning txt2ml on this syntax. The file may also have been a html file without menu, style, ... The click on the first view would have given the display of the original file whatever it is (doc, sxw, ...).
+
+The second ''::View::'' menu will cause the final display of the file with all blocks, the rendering of the file in html, ...
+4.2. Edit
+If you click on ''::Edit::'' at top of the page, you will be able to edit the file. You will see :
+sc/edit_txt.jpg
+Fig. 7 : edition of a text file
+You have the possibility to change the text content of the file. There is a different edition action for the different type of files. However, concerning text (in fact enhanced text), tmpl (html without menus) and html, the edition page is the same. Once you finished to change the file, you can click on the green OK button at the bottom of the text entry to have the changes taken into account.
+To learn the syntax of enriched text (txt2ml) please refer to the 'corresponding tutorial'=fas:tutoriel_txt2ml.tmpl and to the 'recapitulation'=fas:recap_txt2ml.tmpl .
+4.3. Rights
+sc/rights.jpg
+Fig. 8 : edition of the rights of a file
+There may be different users of a file.
+4.4. Directory
+
+4.5. Edit directory
+sc/edit_dir.jpg
+Fig. 9 : edition of the files of the directory of the current file.
+5. Adding a file
+We are going to add a file to the whole site. Basically, there are 2 solutions. Either you do it manually, on the server, or you use the web administration interface. 
+
+5.2. With the web interface
+From your web navigator, on the following url :
+'''http://localhost/cgi-bin/ucometest/fas_view.cgi?file=/any&action=edit_form'''
+You see at the top of the file "New file Type", a menu with "On extension" and a text entry. Just type "test.txt" in the text entry, then click on the button OK just after. A text area appears. Just type in it the text hereunder ('''Test of UCome ...'''). And clik on the OK button at the bottom of the page.
+
+=======================================
+Test of UCome
+
+1. Does it work ?
+ * for you,
+ * for me, yes.
+
+2. May I get tables ?
+It is trivial for simple tables :
+|| First column | Second column
+| Arnaud | ''LAPREVOTE''
+|2 Even a 2 columns cell
+
+============================
+
+You are back on the administration form of the directory /any. Just clik on the property button at the end of the row test.txt. A list of possible properties to modify appears. Click on the checkbutton just at the end of tmpl.name row, put Test in the corresponding text entry. Just do the same on the tmpl.order row, and put 4 in the text entry. Click on the OK button at the bottom of the page.
+
+You are back on the administration page for the directory. Click on the test.txt link. The corresponding page appears. And as you see in the menu, the page is there. If you click on the index page for this directory, the index.txt page appears, and on the left menu, you see the Test entry.
+
+You see how trivial it is to add a page and to integrate it in the whole site.
+
+5.1. Manually
+So just copy the small text hereabove in the file /tmp/ucometest/test.txt .
+
+Then enter in the directory /tmp/ucometest/.mana . Create the file test.txt there. And in this file just put :
+=====================================
+tmpl.name "Test" tmpl.order 4
+=====================================
+
+Now, just ask for the display of this file in a web navigator :
+'''http://localhost/cgi-bin/ucometest/fas_view.cgi?file=/any/test.txt'''
+
+If you ask for the administration of the directory ('''http://localhost/cgi-bin/ucometest/fas_view.cgi?file=/any&action=edit_form'''), your file is available within the page. If you click on the property button at the end of the line of your file, then you should see the 2 properties that you defined for your file (tmpl.name and tmpl.order).
+
+5.3. Uploading an image
+5. Action
+Ucome is organized in a very orthogonal way. You will always ask for a file, and you will always perform an action on a file. So a basic call to Ucome is always :
+=================================
+http://your_host/cgi-bin/ucometest/fas_view.cgi?file=/any/a_file&action=view
+=================================
+
+However, the ''view'' action is the default action. The other actions are edit_form, copy_form, prop_form, delete_form, edit, copy, delete, prop, new, flatten_form, flatten, clean_cache_form, clean_cache, ... Each action has different parameters that may be given through the properties associated to a file or in the url (&xxxx=yyyy).
+
+Each action will have a different behaviour depending of the filetype. If the behaviour is not the one that your are waiting for, please, contact the Ucome team.
+
+7. Basic administration of a Ucome site
+7.1. Changing the look
+I hope that this is a nice function of ucome. To the contrary of a lot of system, when you choose a look, you do not change only the style sheet, you really change totally the look. 
+To get that, it is very simple. Just jump at fas:/ . You may go there in editing a page, then in clicking on the link / at the top of the directory tree at the right. From this page, you may change the look, administrate users, free the cache, and also manage the indexation of the site for full site search.
+
+Choose the first choice : look administration. You should see a list of images representing the look of the site. Just click on one, and the look will be changed.
+
+7.2. User administration
+
+7.3. Cleaning the cache
+
+6. Composite files
+There is a special kind of file in Ucome : the composite files. These files are generic containers for text, html, files or action. I am going to explain that in a more detailed way.
+
+The rendering of a composite file is done in looking at 3 successive different files :
+ * the content definition file (extension .comp),
+ * the form file,
+ * the template file.
+
+The template file is an html file in which sections were defined. A section TOTO is defined by enclosing it in the tags :
+===========================================
+&lt;!-- BEGIN TOTO -->
+An introduction to toto section
+&lt;!-- END TOTO -->
+============================================
+
+Once you defined your sections in a file, you are going to explain in the form file how there are defined. Is it a text or html content, a file to include, or the result of an action.
+
+A form file has the following syntax :
+===========================================
+global.template test.template \
+title.type txt \
+s0.type html \
+s1.type txt2ml \
+s2.type file \
+s3.type file \
+s3.cgi_uservar.action menu \
+s3.no_edit 1 \
+s4.type file
+===========================================
+(beware, everything is on a single line, I just show it like that for presentation reasons).
+
+It then encloses :
+ * the name of the corresponding template for this form file (global.template test.template),
+ * for each section, the type of the section (section_name.type txt). The type may be :
+  * txt,
+  * txt2ml,
+  * html,
+  * block,
+  * file.
+
+For each section type, there will be different options. Options for a section are always named in the following way :
+=======================================
+section_name.option_name
+=======================================
+
+A section type defines 2 things :
+ * the way data are displayed within the template,
+ * the way data are edited and asked for edition of the content.
+
+The edition of content in a composite file (for adding a new file or editing an existing one) is always done within the corresponding template. You can only edit the content of a section, not the associated properties.
+
+As the edition is done within the template, it sets some problem when you have sections that are within the header of the file. The main problem is for the "title" in the header. That is the reason why, there is a block section type. 
+
+A block section will allow to take the content of another section to put it in the block. For the <title></title> section, it is easy to take the content of a title that will appear somewhere in the page. It will give the following options in the form file :
+=================================
+head_title.type block head_title.block title title.type txt
+=================================
+
+And the corresponding template :
+==================================
+&lt;!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+&lt;html>
+&lt;head>
+   &lt;title>&lt;!-- BEGIN HEAD_TITLE -->&lt;!-- END HEAD_TITLE -->&lt;/title>
+&lt;/head>
+&lt;body bgcolor="#ffffff">
+	&lt;center>&lt;h1>&lt;!-- BEGIN TITLE -->&lt;!--END TITLE -->&lt;/h1>
+	&lt;hr width="80%">&lt;/center>
+	&lt;p>&lt;!-- BEGIN CONTENT -->&lt;!--END CONTENT>&lt;/p>
+&lt;/body>
+&lt;/html> 
+========================================
+
+Concerning the text, txt2ml and html section types, the following options exist :
+ * no_edit : set to any value (1 for example), for avoiding the edition of this section, when the whole template is edited,
+ * cols : width in characters of the text area used to edit the section (default value is 30),
+ * rows : height in characters of the text aread used to edit the section (default value is 10),
+ * textentry : set to any value. If this option exists, then a text entry and not a text area is used to edit this section,
+ * width : width of the textentry (default value is 30).
+
+As you see there are a lot of options to change the way values are entered.
+
+The file section is a little special. It has a lot of power. A section of type file waits for a file name. The corresponding file will be processed with the option associated and the obtained content (in html) will be put at the section place in the template.
+
+Corresponding portion of the template file
+==============================
+&lt;!-- BEGIN CONTENT -->&lt;!-- END CONTENT -->
+=============================
+
+Corresponding part of the Form file
+============================
+content.type file content.width 40
+============================
+
+Corresponding part of the composite file
+===========================
+content.filename /ucome/site1/any/test/test.txt
+===========================
+
+Do not get worried with the strange appearance of the composite file, you will never, never be asked to type that. When creating or editing a file, you will just have to select a file through a graphical interface.
+
+In fact, you can ask for actions on the file that are displayed. 
+
+10. Adding a "todo list" to a page
+Our goal here is the following :
+ * we have a directory with "todo" files. There is a file by todo. There is a nice composite definition file in the comp directory.
+ * we want to show the list of date and title of the file, with a link toward the full news or todo at the end of the file index.txt in the directory /any.
+
+This should be done in a very graphical way. But it is not yet possible (somebody wishes to try ?). So what we are going to do is fairly simple.
+ * we must add a new section in the template to the file of which we we want to add "Todo" list section,
+ * we must ask for having a list of the directory in the todo directory in this section.
+
+OK. So how do we do that ?
+First, we must find the template file that is used for the current file. When we look at the index.txt file, we "view" (action) a file of type "txt". Then, the form used is ${templatedir}/../comp/txt.view.form . In this file, there is a global.template key, followed by a value.
+===============================
+global.template standard.template \
+global.title "Block definitions for the template for looking at a text file" \
+global.title.fr "Définition des blocs pour le canevas permettant de \
+visualiser un fichier texte" \
+title.type file \
+title.cgi_uservar.action title \
+menu.type file \
+menu.cgi_uservar.action menu \
+content.type html
+===============================
+
+We found that standard.template is the normal template file. It is in {template_dir}/standard.template (in my case /template/standard.template or /template/fr/standard.template).
+
+So here we have a perfect template. Now, we copy it in standard_with_todo.template. And we add a block (where we wish) TODO . A part of the file looks like that for example :
+===============================
+	&lt;tr>
+		&lt;td colspan=3 >&lt;br>&lt;!-- BEGIN CONTENT -->
+			&lt;!-- CONTENT -->
+			CONTENU&lt;!-- /CONTENT -->
+			&lt;!-- END CONTENT -->
+		&lt;/td>
+	&lt;/tr>
+	&lt;tr>
+		&lt;td colspan=3 >
+			&lt;!-- BEGIN TODO -->&lt;!-- END TODO -->
+			&lt;hr>
+		&lt;/td>
+	&lt;/tr>
+=============================
+
+So now, this file must be taken into account for index.txt . We copy txt.view.form in txt_with_todo.view.form .
+
+And we add the demand for the list of the directory. We need to ask for the display of the todo directory, with an edit_form action, a no_add flag (no addition of a new todo item), only the date and the title to display.
+==============================
+global.template standard_with_todo.template \
+global.title "Block definitions for the template for looking \
+  at a text file with a todo list after that"
+global.title.fr "Définition des blocs pour le canevas permettant de \
+visualiser un fichier texte avec une liste à faire derrière"\
+title.type file \
+title.cgi_uservar.action title \
+menu.type file \
+menu.cgi_uservar.action menu \
+content.type html \
+todo.type file \
+todo.cgi_uservar.action edit_form \
+todo.cgi_uservar.noadd 1 \
+todo.cgi_uservar.dir.title "To do" \
+todo.cgi_uservar.filename "/any/todo" \
+todo.cgi_uservar.display "comp_elt.date.content,comp_elt.title.content" \ 
+todo.cgi_uservar.dir.comp.desired_type todo \
+todo.cgi_uservar.dir.template dir_todo_index_view.tmpl
+===============================
+
+And this control file, must be taken into account. So  the property view.form for the file index.txt must be set to the value /comp/txt_with_todo.view.form .
+
+The properties todo.cgi_uservar are converted into imported values while calling fas_view. So in fact, we put in the TODO section, what would be displayed if we were looking at the following url :
+==============================
+fas_view.cgi?filename=/any/todo&action=edit_form&\
+noadd=1&display="comp_elt.date.content,comp_elt.title.content"\
+&comp.desired_type=todo&dir.template=dir_todo_index_view.tmpl
+==============================
+This displays the content of the directory /any/todo, for the comp files of type todo, we just ask for the date.content and title.content for each file. We use the template for the directory which is dir_todo_index_view.tmpl".
+
+If we look in this template we find :
+=====================================
+        &lt;div align=center>
+                &lt;table>
+                        &lt;!-- BEGIN FILE_TABLE_HEADER -->
+                        &lt;!-- FILE_TABLE_HEADER -->
+                        &lt;tr bgcolor=#E0E0E0>
+                                &lt;!-- BEGIN COMP_ELT.DATE.CONTENT_HEADER -->
+                                &lt;!-- COMP_ELT.DATE.CONTENT_HEADER -->
+                                &lt;td>
+                                        &lt;b>Date&lt;/b>
+                                &lt;/td>
+                                &lt;!-- /COMP_ELT.DATE.CONTENT_HEADER -->
+                                &lt;!-- END COMP_ELT.DATE.CONTENT_HEADER -->
+                                &lt;!-- BEGIN COMP_ELT.TITLE.CONTENT_HEADER -->
+                                &lt;!-- COMP_ELT.TITLE.CONTENT_HEADER -->
+                                &lt;td align="center">
+                                        &lt;b>Title&lt;/b>
+                                &lt;/td>
+                                &lt;!-- /COMP_ELT.TITLE.CONTENT_HEADER -->
+                                &lt;!-- END COMP_ELT.TITLE.CONTENT_HEADER -->
+                                &lt;!-- BEGIN DEFAULT_HEADER -->
+                                &lt;!-- DEFAULT_HEADER -->
+                                &lt;td align="center">
+                                        &lt;b>$content&lt;/b>
+                                &lt;/td>
+                                &lt;!-- /DEFAULT_HEADER -->
+                                &lt;!-- END DEFAULT_HEADER -->
+				&lt;!-- BEGIN HEADER_CELL -->
+				&lt;!-- END HEADER_CELL -->
+                        &lt;/tr>
+                        &lt;!-- /FILE_TABLE_HEADER -->
+                        &lt;!-- END FILE_TABLE_HEADER -->
+                        &lt;!-- BEGIN FILE_LIST -->
+                        &lt;!-- FILE_LIST -->
+                        &lt;tr bgcolor=#C0FFC0>
+				&lt;!-- BEGIN COMP_ELT.DATE.CONTENT -->
+				&lt;!-- COMP_ELT.DATE.CONTENT -->
+				&lt;td align="center">
+					&lt;A HREF="fas:$file">${comp_elt.date.content}
+				&lt;/td>
+				&lt;!-- /COMP_ELT.DATE.CONTENT -->
+				&lt;!-- END COMP_ELT.DATE.CONTENT -->
+				&lt;!-- BEGIN COMP_ELT.TITLE.CONTENT -->
+				&lt;!-- COMP_ELT.TITLE.CONTENT -->
+				&lt;td>
+					${comp_elt.title.content}
+				&lt;/td>
+				&lt;!-- /COMP_ELT.TITLE.CONTENT -->
+				&lt;!-- END COMP_ELT.TITLE.CONTENT -->
+				&lt;!-- BEGIN FILE_CELL -->
+				&lt;!-- END FILE_CELL -->
+                        &lt;/tr>
+                        &lt;!-- /FILE_LIST -->
+                        &lt;!-- END FILE_LIST -->
+                        &lt;!-- BEGIN FILE_LIST_ODD -->
+                        &lt;!-- FILE_LIST_ODD -->
+                        &lt;tr bgcolor=#FFC0FF>
+				&lt;!-- BEGIN FILE_CELL -->
+				&lt;!-- END FILE_CELL -->
+                        &lt;/tr>
+                        &lt;!-- /FILE_LIST_ODD -->
+                        &lt;!-- END FILE_LIST_ODD -->
+			&lt;!-- BEGIN ALL_FILE_ROWS -->
+			&lt;!-- ALL_FILE_ROWS -->
+				&lt;!-- BEGIN FILE_ROW -->
+				&lt;!-- END FILE_ROW -->
+			&lt;!-- /ALL_FILE_ROWS -->
+			&lt;!-- END ALL_FILE_ROWS -->
+                &lt;/table>
+====================================
+
+Plus some form definitions at beginning and at the end which are not relevant here and that could be avoided.
+
+OK, ok, ok, yes, it should be graphical with a user interface. Yes (and it is planned not so far away).

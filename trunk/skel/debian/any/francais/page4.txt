@@ -1,0 +1,2 @@
+Continuité
+Le système de paquetage de Debian permet une migration facile vers de nouvelles versions de programmes sans exiger de réinstallation ni écraser votre ancienne configuration. Les dépendances entre programmes sont gérées automatiquement et vous permettent d'effectuer les mises à jour à partir de tout type de media : disquettes, CD-ROMs ou directement depuis Internet.

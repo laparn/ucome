@@ -1,0 +1,55 @@
+Ideas for extending Ucome
+
+1. General
+ * graphical interface for creating the menu of a directory in one page :
+   * show all files,
+   * checkbox for having the file (or the directory) or not having in the menu,
+   * 2nd step show the existing menu (or a default on) and allows for each file to put it above an item or at the end (the existing menu is represented as a menu button each entry is "above" "Name in the menu" "Name of the file" and the last one is at the end). After ok, ranks are worked out from what was given for each menu item ? Or I do that file by file in the property ?
+ * basically, each property must be settable through a graphical interface based on the usage of the property, not in the rough way it is done.
+ * graphical composition of the form file especially for the actions on file (directory, directory of comp file, action x, y or z, ...)
+
+ * add groups (groups of actions) and groups of people,
+ * create workflow. A workflow is a change in the property right of a file + an action to warn a people or a group
+ * add access via ftp to the file : a lot of vfs exists for ftp so it would be cool (in OO, vim, emacs, or through real virtual file system) for remotely working on the files (strangely it seems now to work).
+
+2. Filetypes
+ * A calendar filetype (if possible ical or vcal file or a structure with a file by ? month or week)
+ * Edition of csv
+ * Add a sql filetype (connection, query, query for checking dependency)
+ * Add OpenOffice tranformation based on some clever macro of other system like fas-converter
+ * Comp : create a "reference" type allowing to refer to another file (get the name of the company from elsewhere)
+ * Fax : display and creation
+ * latex : interfacing with latex2html, pdf conversion
+ * docbook :
+ * man : 
+ * info :
+ * tar.gz zip : possibility to use a tar.gz as a real (read only) tree of files. For modifications, they are stored in a corresponding directory, and a procedure allow to "recreate" the archive to take into account what was changed.
+
+3. Action
+ * Improve the search to be able to do some complex search on composite files
+ * Synchronisation of 2 remotes sites through http
+ * Possibility to mail a file (either in ori, html or pdf) + keep an history of the sent mails (no use an adress where things are also sent allways)
+ * Management and storage of history for files. Each time a file is modified, before the modification a copy is made with the same name at the same place in the history tree (like cache directory), but a suffix xxxxxx. (xxxxxx being the clock now) is added to the file. You can ask for the history of the file.  It is possible to ask for the differences between the current file and the history file, or to retrieve the an old file at the same place or at a previous place with the same name or another one
+
+4. Fax engine
+4.1. Reception
+ * the list of directory should be more explicit :
+   * title of the file is the date in an understandable format,
+   * last fax must appear first,
+   * one click to delete a fax,
+   * list of directory show the first page of the fax,
+   * better menu organisation for going further than 3 stages,
+
+   * create a 2nice_name action : 031220 => 20/12/2003 at XX:YY from yyyy
+   * create a special display action for having action small on the first page
+   * add delete button,
+   * add a button for changing the title of the page => use it as a comment,
+   * pack everything for displaying the directory
+
+ * sending :
+    * first just fax of a file (then pdf -> tiffg3 conversion -> sent+log of the sending+ storage of what was sent ?+ cleaning of this history ?),
+    * then possibility to "attach" many files to a fax.
+
+5. Cosmetic
+ * in sinorca, path is badly integrated. There is too much space between Todo and the first item on index.txt,
+ * for menu, I must improve the visibility of the "active" and "exact current" section.

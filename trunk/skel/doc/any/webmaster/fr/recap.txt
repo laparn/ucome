@@ -1,0 +1,138 @@
+Récapitulatif
+
+1. Equivalences texte-html pour txt2ml et txt2mlsp
+@@|| ''TEXTE'' | ''HTML''
+@| 1ere ligne du fichier		| Titre de la page
+@| 1. Titre paragraphe	                | Titre de paragraphe
+@| 3.2. Sous-Titre paragraphe	        | Sous-Titre de paragraphe
+@| Listes :
+
+"Les fruits proposés :
+@@|   |2 + pommes
+@| |    |  - printanières
+@| |    |  |  + golden
+@| |    |  |  + red love
+@| |    |  - tardives
+@| |2 + poires  
+@| |2 + abricots "
+|@@
+| 
+Les fruits proposés :
+    * pommes
+	- printanières
+	  + golden
+	  + red love
+	- tardives
+    * poires
+    * abricots
+@| Images :
+"Ceci montre une image !new.gif"
+"Ceci montre une image !!new.gif"
+
+"!new.gif"
+"Fig: Jolie image, n'est ce pas?"
+| 
+Ceci montre une image new.gif
+Ceci montre une image !new.gif
+
+new.gif
+Fig: Jolie image, n'est ce pas?
+(l'image et le commentaire sont centrés)
+@| 
+====
+
+''gras''
+
+'''italique'''
+
+''''souligné''''
+
+'''''barré'''''
+====
+|
+''gras''
+'''italique'''
+''''souligné''''
+'''''barré'''''
+@| Liens :
+"!http://www.freealter.com ou !ftp://ftp.lip6.fr"
+"!url:tutoriel.html ou !url:new.gif"
+"Merci de visiter !'notre site'=http://www.freealter.com"
+"!!http://www.freealter.com"
+|
+http://www.freealter.com ou ftp://ftp.lip6.fr
+url:tutoriel.html ou url:new.gif
+Merci de visiter 'notre site'=http://www.freealter.com
+!http://www.freealter.com
+@| Barre de séparation
+"--"
+|
+--
+@| Tableaux simples
+=======
+||2 case double | case suivante | case 4
+| seconde ligne | seconde case 
+|3 case à 3 colonnes !new.gif
+| dernière ligne |2 case double | dernière case
+=================
+|
+@@||2 case double | case suivante | case 4
+@| seconde ligne | seconde case 
+@|3 case à 3 colonnes new.gif
+@| dernière ligne |2 case double | dernière case
+|@@
+@| summary
+| Inclus le sommaire à l'endroit courant
+@| "include toto.html"
+| Inclus le texte de toto.html à l'endroit courant
+|@@
+
+
+2. Syntaxe spécifique à txt2ml
+@@|| ''Texte'' | ''Html''
+@| Tableaux évolués
+===========================
+@@||2 Tableau évolué avec 2 tableaux à l'intérieur
+@| @@|3 tableau sans contour
+@| un | deux | trois
+@|3 3 cases pour moi
+|@@
+| @@||2 tableau de droite
+@| une | et deux
+@| !new.gif trois | quatre
+@|2 2 cases pour moi 
+|@@
+|@@
+=========================
+|
+@@||2 Tableau évolué avec 2 tableaux à l'intérieur
+@| @@|3 tableau sans contour
+@| un | deux | trois
+@|3 3 cases pour moi
+|@@
+| @@||2 tableau de droite
+@| une | et deux
+@| new.gif trois | quatre
+@|2 2 cases pour moi 
+|@@
+|@@
+
+|@@
+
+3. Options
+||2 Usage : txt2ml [OPTIONS]... -f nom_fichier_texte
+| -file, -f                   | Nom du fichier texte.
+| -output_file, -o            | Nom du fichier html produit. Par défaut le code html produit est envoyé sur la sortie standard.
+| -title, -t                  | Titre de la page web.
+| -no_title_inside, -nti      | Le titre de la page ne réapparait pas dans la page, mais il est toujours utilisé pour le marqueur de titre de page.
+| -no_auto_index, -nai        | La numérotation des titres n'est pas automatiquement générée. Les valeurs du fichier txt sont conservées.
+| -no_head, -nh		      | Pas de tags HTML, HEAD, BODY dans la page. Utilisé pour produire des fichiers que l'on peut inclure dans une autre page.
+| -background, -bg            | Fond de la page web. Pas de fond par défaut.
+| -css                        | Nom du fichier qui contient la définition de style. Ce fichier doit commencer par la balise <STYLE> et finir par </STYLE>, ou contenir une balise <LINK >.
+| -perso, -p                  | Nom du fichier tcl qui contient votre fichier de personnalisation. Attention : cette option n'est pas celle pour les feuilles de styles et n'est à utiliser que par des utilisateurs avertis.
+| -contents, -ct              | Ajoute des liens vers les différents paragraphes au sommet et au pied de la page. Option équivalente à -top_content -bottom_content.
+| -top_content, -top          | Ajoute au sommet de la page des liens vers les paragraphes.
+| -bottom_content, -bottom    | Ajoute au pied de la page des liens vers les paragraphes.
+| -summary_level, -s          | Niveau maximum de titres à inclure dans le sommaire. 3 par défaut.
+| -help, -h                   | Affiche l'aide.
+
