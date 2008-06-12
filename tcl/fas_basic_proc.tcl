@@ -364,7 +364,7 @@ proc fas_cgi_set { name value } {
 # This procedure will search for a variable in fas_env, session and _cgi_uservar
 # The priority is exactly in the other order
 proc fas_get_value { name args } {
-	fas_fastdebug {fas_basic_proc::fas_get_value name => $name args => $args}
+	#fas_fastdebug {fas_basic_proc::fas_get_value name => $name args => $args}
 	set state parse_args
 	set DEFAULT_VALUE_FLAG 0
 	set NO_ENV_FLAG 0

@@ -56,8 +56,9 @@ namespace eval menu {
 		return [list menu::menu]
 	}
 		
-
 	proc 2fashtml { current_env filename } {
+		fas_fastdebug {menu::2fashtml - entering}
+		main_log "menu::2fashtml - entering"
 		upvar $current_env fas_env
 		return  [generic2fashtml fas_env -f $filename ]
 	}
@@ -131,6 +132,7 @@ namespace eval menu {
 		set root_menu_dir [add_root [fas_name_and_dir::get_menu_start_dir fas_env]]
 
 		fas_debug "menu::content2fashtml - root_menu_dir -> $root_menu_dir"
+		main_log "menu::content2fashtml - root_menu_dir -> $root_menu_dir"
 
 		if { $CONTENT_TYPE == "file" } {
 			# Basically, the output depends on the input file

@@ -1,0 +1,47 @@
+/* Default Style (Opera inspired) */
+div.domMenu_menuBar {
+	width: 100%;
+	border: 0px;
+	text-align: center;	
+	background-color: #EA4F26;
+}
+
+
+div.domMenu_menuElement a:visited {
+	font-weight:bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+div.domMenu_menuElement {
+    font-weight:bold;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    border-top:	1px solid #FFFFFF;
+    border-bottom: 1px solid #000000;
+}
+div.domMenu_menuElementHover {
+	color: #000000;
+	text-decoration: underline;
+}
+div.domMenu_subMenuBar {
+    border: solid #7E7E7E 1px;
+    background-color: #FFFFFF;
+    padding-bottom: 1px;
+}
+div.domMenu_subMenuElement {
+    font-family: Arial, sans-serif; 
+    font-size: 12px;
+    /* border: solid #CCCCCC 1px;
+    margin: 1px 1px 0 1px; */
+    color: #0F0F0F;
+    padding: 2px 7px;
+}
+div.domMenu_subMenuElementHover {
+    /* background-color: #EFEFEF; */
+    background-color: #EA4F26;
+    color: #FFFFFF;
+    font-weight: bold;
+}

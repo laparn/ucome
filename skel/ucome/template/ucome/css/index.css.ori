@@ -1,0 +1,76 @@
+.index_side_menu 
+{
+	margin: 15px 10px 10px 10px;
+	padding-top: 10px;
+	background-image: url(ucome.rvt?file=/template/linbox5/img/fd-table4.gif);
+	background-repeat: no-repeat;
+}
+
+.index_side_menu h1
+{
+	display: list-item;
+	list-style-image: url(ucome.rvt?file=/template/linbox5/img/cub4.gif);
+	list-style-position: inside;
+	font-size: 12px; 
+}
+
+.index_side_section
+{
+	border:	1px dotted #EA4F26;
+	padding: 4px;
+	margin-bottom: 10px;
+}
+
+.index_side_section_title 
+{
+	color: #2d2d2d;
+	font-weight: bold;
+	font-size: 10px;
+	line-height: 150%;
+	padding-bottom: 2px;
+	margin-bottom: 4px;
+	border-bottom:	1px dashed #EA4F26;
+}
+
+div#index_left 
+{
+	width: 550px;
+	height:	100%;
+	background-color: #FFFFFF; 
+}
+
+div#index_right 
+{	
+	width: 210px;
+	height: 100%;
+	background-image: url(ucome.rvt?file=/template/linbox5/img/fd-gris.gif);
+	background-repeat:repeat-x;
+}
+
+.index_text 
+{		
+	margin: 15px 20px 10px 20px;
+	padding: 10px 15px 10px 10px;
+	background-image: url(ucome.rvt?file=/template/linbox5/img/fd-table4.gif);
+	background-repeat: no-repeat; 
+}
+
+.index_text h2 
+{ 
+	font-size: 12px;
+	padding: 4px;
+	border: 1px dotted #FF3300;
+}
+
+.linkbox 
+{
+	float: left;
+	width: 	33%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background-image:url(ucome.rvt?file=/template/linbox5/img/cub5.gif);
+	background-repeat:no-repeat;
+ 	background-position:10px 12px;
+	text-indent: 22px;
+	line-height: 150%;
+}

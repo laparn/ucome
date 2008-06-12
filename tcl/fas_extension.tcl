@@ -3,10 +3,16 @@
 proc all_extensions { } {
 	global conf
 	set conf(extension.c) code
+	set conf(extension.f) code
+	set conf(extension.f90) code
+	set conf(extension.f77) code
+	set conf(extension.f95) code
+	set conf(extension.py) code
 	set conf(extension.h) code
 	set conf(extension.cpp) code
 	set conf(extension.tcl) code
 	set conf(extension.cgi) code
+	set conf(extension.template) code
 	set conf(extension.comp) comp
 	set conf(extension.com) comp
 	set conf(extension.css) css
@@ -17,17 +23,20 @@ proc all_extensions { } {
 	set conf(extension.fashtml) fashtml
 	set conf(extension.form) form
 	set conf(extension.gif) gif
+	set conf(extension.gz) tgz
 	set conf(extension.htmf) htmf
 	set conf(extension.int) internet
 	set conf(extension.internet) internet
+	set conf(extension.js) js
 	set conf(extension.jpg) jpeg
 	set conf(extension.jpeg) jpeg
-	set ::conf(extension.log) logfile
-	set ::conf(extension.log) logfile
+	set conf(extension.log) logfile
+	set conf(extension.log) logfile
+	set conf(extension.mp4) mp4
+	set conf(extension.mpeg21) mpeg21
 	set conf(extension.mpeg) mpeg
 	set conf(extension.mpg) mpeg
 	set conf(extension.avi) avi
-	set conf(extension.mp4) mp4
 	set conf(extension.order) order
 	set conf(extension.ord) order
 	set conf(extension.or) order
@@ -47,5 +56,6 @@ proc all_extensions { } {
 	set conf(extension.tcl) code
 	set conf(extension.ws3) code
 	set conf(extension.rvt) code
-	set conf(extension.js) js
+	set conf(extension.xml) xml
+	set conf(extension.xspf) xspf
 }
