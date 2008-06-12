@@ -32,8 +32,8 @@ catch {set tiffg3::LOCAL_DEBUG_COLOR "#44FF44"}
 catch {set swf::LOCAL_DEBUG 1}
 catch {set swf::LOCAL_DEBUG_COLOR "#66FF66"}
 
-catch {set not_binary::LOCAL_DEBUG 1}
-catch {set rrooll::LOCAL_DEBUG 1}
+catch {set not_binary::LOCAL_DEBUG 0}
+catch {set rrooll::LOCAL_DEBUG 0}
 catch {set txt::LOCAL_DEBUG 0}
 catch {set tmpl::LOCAL_DEBUG 1}
 catch {set fashtml::LOCAL_DEBUG 0}
@@ -44,8 +44,10 @@ catch {set pdf::LOCAL_DEBUG 0}
 catch {set comp::LOCAL_DEBUG 1}
 catch {set comp::LOCAL_DEBUG_COLOR "#00FFFF"}
 catch {set domp::LOCAL_DEBUG 1}
-catch {set menu::LOCAL_DEBUG 0}
+catch {set menu::LOCAL_DEBUG 1}
+catch {set menu::LOCAL_DEBUG_COLOR "#0000FF"}
 catch {set mini_menu::LOCAL_DEBUG 0}
+catch {set mini_menu::LOCAL_DEBUG_COLOR "#FFFF00"}
 catch {set title::LOCAL_DEBUG 0}
 
 catch {set doc::LOCAL_DEBUG 0}
@@ -65,7 +67,7 @@ catch {set xml::LOCAL_DEBUG 0}
 catch {set next::LOCAL_DEBUG 0}
 
 catch {set order_dir::LOCAL_DEBUG 0}
-catch {set edit_form::LOCAL_DEBUG 1}
+catch {set edit_form::LOCAL_DEBUG 0}
 catch {set delete_form::LOCAL_DEBUG 0}
 catch {set edit::LOCAL_DEBUG 0}
 catch {set treedir::LOCAL_DEBUG 0}
@@ -99,4 +101,4 @@ catch {set menu_form::LOCAL_DEBUG_COLOR "00FF00"}
 catch {set password::LOCAL_DEBUG 1}
 catch {set password::LOCAL_DEBUG_COLOR "00FF00"}
 catch {set full_menu::LOCAL_DEBUG 0}
-catch {set candidate_order::LOCAL_DEBUG 1}
+catch {set candidate_order::LOCAL_DEBUG 0}

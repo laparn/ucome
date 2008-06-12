@@ -2,7 +2,7 @@
 # vim: set syntax=tcl:
 
 ############### FILE USED FOR COMMAND LINE TESTING
-set test "/any/index.html"
+set test "/any"
 ##################################################
 
 # ROOT where all documents are to be found
@@ -15,12 +15,12 @@ set FAS_UPLOAD_CGI $FAS_VIEW_CGI
 if { [file readable conf.tcl] } {
 	source conf.tcl
 } else {
-	set ROOT /tmp/ucometest
+	set ROOT /var/lib/ucome
 
 	# FAS_PROG_ROOT is the directory where all tcl 
 	# procedures are stored
-	set FAS_PROG_ROOT /home/ludo/source/mana/tcl
-	set FAS_VIEW_URL /cgi-bin/ucometest/${FAS_VIEW_CGI}
+	set FAS_PROG_ROOT /home/arnaud/google/ucome/tcl
+	set FAS_VIEW_URL /cgi-bin/${FAS_VIEW_CGI}
 }
 
 ############### SOURCING OF ALL PROCEDURES
@@ -150,6 +150,9 @@ cgi_eval {
 					foreach src [glob -nocomplain ${FAS_PROG_ROOT}/mimeprocs/*.tcl ] {
 						source $src
 					}
+					# I need to source again the debug file or the debug instructions are not 
+					# taken into account
+					source ${FAS_PROG_ROOT}/fas_debug.tcl
 					display_file $filetype $file fas_env conf
 				} else {
 					set final_filename [fas_depend::get_final_filename]
@@ -165,6 +168,7 @@ cgi_eval {
 						foreach src [glob -nocomplain ${FAS_PROG_ROOT}/mimeprocs/*.tcl ] {
 							source $src
 						}
+						source ${FAS_PROG_ROOT}/fas_debug.tcl
 						display_file $filetype $file fas_env conf
 					}
 						

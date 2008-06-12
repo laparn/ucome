@@ -1,0 +1,90 @@
+a:link {
+	color: #000000;
+	text-decoration: underline;
+}
+
+a:visited {
+	color: #000000;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #999999;
+	text-decoration: none;
+}
+
+a:active {
+	color: #EA4F26;
+	text-decoration: underline;
+}
+
+.small {
+	font-size: 9px;
+}
+
+.small a:link {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.small a:visited {
+	color: #000000;
+	text-decoration: underline;
+}
+.small a:hover {
+	color: #666666;
+	text-decoration: none;
+}
+.small a:active {
+	color: #999999;
+	text-decoration: none;
+}
+
+.top_menu a:link {
+	font-weight:bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.top_menu a:visited {
+	font-weight:bold;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.top_menu a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.top_menu a:active {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.top_menu_sel a:link,
+.menu_1 a:link {
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
+}
+
+.top_menu_sel a:visited, .menu_1 a:visited {
+	font-weight:bold;
+	color: #000000;
+	text-decoration: none;
+}
+
+.top_menu_sel a:hover, .menu_1 a:hover {
+	color: #FF3300;
+	text-decoration: underline;
+}
+
+.top_menu_sel a:active, .menu_1 a:active {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.menu_2 a:link, a:visited, a:hover, a:active {
+	font-weight: normal;
+}
