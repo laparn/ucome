@@ -19,6 +19,11 @@
 			<tr class=tableBody1>
 				<td>
 					<table border=0 cellpadding=1 cellspacing=0 width="100%">
+		     				<!-- BEGIN BEGIN_SECTION --><!-- BEGIN_SECTION -->
+						<tr>
+							<td><a href="${url}">${content}</a></td>
+						</tr>
+		     				<!-- /BEGIN_SECTION --><!-- END BEGIN_SECTION -->
 		     				<!-- BEGIN SECTION0 -->
 		     				<!-- SECTION0 -->
 						<tr>
@@ -107,7 +112,6 @@
 						<!-- BEGIN MENU_ENTRY -->
 						<!-- END MENU_ENTRY -->
 						<tr>
-							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 						</tr>
 					</table>

@@ -330,10 +330,22 @@ namespace eval menu {
 		# I suppose that I have an ordered list of elements
 		# I just have to go through this ordered list and to add the elements
 		# to the template.
-		if { [ atemt::exists "BEGIN_SECTION" ] } {
+
+		# This is the "Home / Root / Accueil allowing to go back to the root 
+		if { [ atemt::exists "BEGIN_SECTION" ] && ( $section_level == "0" ) } {
+			set url $rooturl
+			# I need to find the string to display for $root
+			read_full_env $root root_env
+			if { [info exists root_env(menu.name)]} {
+				# parray dir_env
+				set content $root_env(menu.name)
+			} else {
+				set content [file tail $root]
+			}
 			atemt::atemt_set MENU_ENTRY -bl [atemt::atemt_set BEGIN_SECTION]
 			atemt::atemt_set MENU -bl [atemt::atemt_subst_insert MENU_ENTRY MENU]
 		}
+		# Now the remaining
 		foreach menu_list $menu_lol {
 			# is this part active or not ?
 			#if { $section_level == 0 } {		

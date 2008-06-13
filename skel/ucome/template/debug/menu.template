@@ -4,14 +4,13 @@
 <html>
  <head>
   <title>
-			<!-- BEGIN TITLE -->TITRE<!-- END TITLE -->
+   <!-- BEGIN TITLE -->TITRE<!-- END TITLE -->
   </title>
  </head>
 
  <body>
-		<!-- debug/menu.tmpl --> 
-		<!-- BEGIN MENU -->
-		<!-- MENU -->
+  <!-- debug/menu.tmpl --> 
+   <!-- BEGIN MENU --><!-- MENU -->
      <table bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr>
        <td>
@@ -23,101 +22,45 @@
          </tr>
          <tr>
           <td bgcolor="#ffffff">
-		     				<!-- BEGIN SECTION0 -->
-		     				<!-- SECTION0 -->
-			  						&nbsp;<span class="small">o</span>
-											<a class="nav" href="${url}">${content}</a> 
-           <br />
-		     				<!-- /SECTION0 -->
-		     				<!-- END SECTION0 -->
-		     				<!-- BEGIN ACTIVESECTION0 -->
-		     				<!-- ACTIVESECTION0 -->
-           &nbsp;<span class="small">></span>
-           <a class="nav" href="${url}">${content}</a>
-           <br />
-											<!-- /ACTIVESECTION0 -->
-											<!-- END ACTIVESECTION0 -->
-		     				<!-- BEGIN EXACTSECTION0 -->
-		     				<!-- EXACTSECTION0 -->
-           &nbsp;<span class="small">></span>
-           <a class="nav" href="${url}">${content}</a>
-           <br />
-											<!-- /EXACTSECTION0 -->
-											<!-- END EXACTSECTION0 -->
-											<!-- BEGIN SECTION1 -->
-											<!-- SECTION1 -->
-			  						&nbsp;&nbsp;&nbsp;<span class="small">o</span>
-											<a class="nav" href="${url}">${content}</a> 
-           <br />
-											<!-- /SECTION1 -->
-											<!-- END SECTION1 -->
-											<!-- BEGIN ACTIVESECTION1 -->
-											<!-- ACTIVESECTION1 -->
-											&nbsp;&nbsp;&nbsp;<span class="small">></span>
-											<a class="nav" href="${url}">${content}</a>
-											<br />
-											<!-- /ACTIVESECTION1 -->
-											<!-- END ACTIVESECTION1 -->
-											<!-- BEGIN EXACTSECTION1 -->
-											<!-- EXACTSECTION1 -->
-											&nbsp;&nbsp;&nbsp;<span class="small">></span>
-											<a class="nav" href="${url}">${content}</a>
-											<br />
-											<!-- /EXACTSECTION1 -->
-											<!-- END EXACTSECTION1 -->
-											<!-- BEGIN SECTION2 -->
-											<!-- SECTION2 -->
-			  						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="small">o</span>
-											<a class="nav" href="${url}">${content}</a> 
-											<br />
-											<!-- /SECTION2 -->
-											<!-- END SECTION2 -->
-											<!-- BEGIN ACTIVESECTION2 -->
-											<!-- ACTIVESECTION2 -->
-			  						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="small">></span>
-											<a class="nav" href="${url}">${content}</a> 
-											<br />
-											<!-- /ACTIVESECTION2 -->
-											<!-- END ACTIVESECTION2 -->
-											<!-- BEGIN EXACTSECTION2 -->
-											<!-- EXACTSECTION2 -->
-			  						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="small">></span>
-											<a class="nav" href="${url}">${content}</a> 
-											<br />
-											<!-- /EXACTSECTION2 -->
-											<!-- END EXACTSECTION2 -->
-
-											<!-- BEGIN GENERIC_SECTION -->
-											<!-- GENERIC_SECTION -->
-			  						<!-- BEGIN GENERIC_SPACE -->&nbsp;&nbsp;<!-- END GENERIC_SPACE --><span class="small">o</span>
-											<a class="nav" href="${url}">${content}</a> 
-											<br />
-											<!-- /GENERIC_SECTION -->
-											<!-- END GENERIC_SECTION -->
-											<!-- BEGIN GENERIC_ACTIVESECTION -->
-											<!-- GENERIC_ACTIVESECTION -->
-			  						<!-- BEGIN GENERIC_ACTIVESPACE -->&nbsp;&nbsp;<!-- END GENERIC_ACTIVESPACE --><span class="small">></span>
-											<a class="nav" href="${url}">${content}</a> 
-											<br />
-											<!-- /GENERIC_ACTIVESECTION -->
-											<!-- END GENERIC_ACTIVESECTION -->
-											<!-- BEGIN GENERIC_EXACTSECTION -->
-											<!-- GENERIC_EXACTSECTION -->
-			  						<!-- BEGIN GENERIC_EXACTSPACE --><!-- GENERIC_EXACTSPACE -->&nbsp;&nbsp;<!-- /GENERIC_EXACTSPACE --><!-- END GENERIC_EXACTSPACE --><span class="small">></span>
-											<a class="nav" href="${url}">${content}</a> 
-											<br />
-											<!-- /GENERIC_EXACTSECTION -->
-											<!-- END GENERIC_EXACTSECTION -->
-											<!-- BEGIN MENU_ENTRY -->
-											<!-- END MENU_ENTRY -->
+           <!-- BEGIN BEGIN_SECTION -->
+           <!-- BEGIN_SECTION -->&nbsp;<a class="nav" href="${url}">${content}</a><br /><!-- /BEGIN_SECTION --><!-- END BEGIN_SECTION -->
+           <!-- BEGIN SECTION0 -->
+           <!-- SECTION0 -->&nbsp;<span class="small">o </span><a class="nav" href="${url}">${content}</a><br /><!-- /SECTION0 --><!-- END SECTION0 -->
+           <!-- BEGIN ACTIVESECTION0 -->
+           <!-- ACTIVESECTION0 -->&nbsp;<span class="small"><font color="#00ff00">&gt; </font></span><a class="nav" href="${url}">${content}</a><br /><!-- /ACTIVESECTION0 --><!-- END ACTIVESECTION0 -->
+           <!-- BEGIN EXACTSECTION0 -->
+           <!-- EXACTSECTION0 -->&nbsp;<span class="small"><font color="#ff0000">&gt;&gt; </font></span><a class="nav" href="${url}">${content}</a><br /><!-- /EXACTSECTION0 --><!-- END EXACTSECTION0 -->
+           <!-- BEGIN SECTION1 -->
+           <!-- SECTION1 -->&nbsp;&nbsp;&nbsp;<span class="small">o </span><a class="nav" href="${url}">${content}</a><br /><!-- /SECTION1 --><!-- END SECTION1 -->
+           <!-- BEGIN ACTIVESECTION1 -->
+           <!-- ACTIVESECTION1 -->&nbsp;&nbsp;&nbsp;<span class="small"><font color="#00ff00">&gt; </font></span><a class="nav" href="${url}">${content}</a><br /><!-- /ACTIVESECTION1 --><!-- END ACTIVESECTION1 -->
+           <!-- BEGIN EXACTSECTION1 -->
+           <!-- EXACTSECTION1 -->&nbsp;&nbsp;&nbsp;<span class="small"><font color="#ff0000">&gt;&gt; </font></span><a class="nav" href="${url}">${content}</a><br /><!-- /EXACTSECTION1 --><!-- END EXACTSECTION1 -->
+           <!-- BEGIN SECTION2 -->
+           <!-- SECTION2 -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="small">o </span><a class="nav" href="${url}">${content}</a><br /><!-- /SECTION2 --><!-- END SECTION2 -->
+           <!-- BEGIN ACTIVESECTION2 -->
+           <!-- ACTIVESECTION2 -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><font color="#00ff00">&gt; </font></span><a class="nav" href="${url}">${content}</a><br /><!-- /ACTIVESECTION2 --><!-- END ACTIVESECTION2 -->
+           <!-- BEGIN EXACTSECTION2 -->
+           <!-- EXACTSECTION2 -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><font color="#ff0000">&gt;&gt; </font></span><a class="nav" href="${url}">${content}</a><br /><!-- /EXACTSECTION2 --><!-- END EXACTSECTION2 -->
+           <!-- BEGIN GENERIC_SECTION -->
+           <!-- GENERIC_SECTION --><!-- BEGIN GENERIC_SPACE -->&nbsp;&nbsp; <!-- END GENERIC_SPACE --><span class="small">o </span><a class="nav" href="${url}">${content}</a><br /><!-- /GENERIC_SECTION --><!-- END GENERIC_SECTION -->
+           <!-- BEGIN GENERIC_ACTIVESECTION --><!-- GENERIC_ACTIVESECTION -->
+            <!-- BEGIN GENERIC_ACTIVESPACE -->&nbsp;&nbsp;<!-- END GENERIC_ACTIVESPACE --><span class="small"><font color="#00ff00">&gt; </font></span>
+             <a class="nav" href="${url}">${content}</a><br />
+            <!-- /GENERIC_ACTIVESECTION -->
+           <!-- END GENERIC_ACTIVESECTION -->
+           <!-- BEGIN GENERIC_EXACTSECTION --><!-- GENERIC_EXACTSECTION -->
+            <!-- BEGIN GENERIC_EXACTSPACE --><!-- GENERIC_EXACTSPACE -->&nbsp;&nbsp;<!-- /GENERIC_EXACTSPACE --><!-- END GENERIC_EXACTSPACE --><span class="small"><font color="#ff0000">&gt;&gt; </font></span><a class="nav" href="${url}">${content}</a><br />
+            <!-- /GENERIC_EXACTSECTION -->
+           <!-- END GENERIC_EXACTSECTION -->
+           <!-- BEGIN MENU_ENTRY --><!-- END MENU_ENTRY -->
           </td>
          </tr>
         </table>
        </td>
       </tr>
      </table>
-		<!-- /MENU -->
-		<!-- END MENU -->
+		<!-- /MENU --><!-- END MENU -->
 	</body>
 </html>
 

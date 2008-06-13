@@ -19,8 +19,7 @@
     <div id="header">
     	<a href="http://www.ucome.org" class="headerTitle">UCome  <span>Your Content Management</span></a>
 	    <div class="headerLinks">
-		&nbsp;Login as : <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;|&nbsp;
-		<a href="fas:${file}&action=login_form" class="topmenu" title="Login">Login</a>
+		&nbsp;<!-- BEGIN WHOAMI --><!-- END WHOAMI -->
 	    </div>
     </div>
     <div class="menuBar">
@@ -31,9 +30,15 @@
     <div class="leftSideBar">
     	<!-- BEGIN MENU -->
     	<!-- END MENU -->
-	<div class="sideBarTitle">Just ask</div>
+	<div class="sideBarTitle">Search</div>
     	<span class="sideTextBox" >
-        Questions or Comments? Advice for me or from me? Please <a href="mailto:info@no-spam-ucome.org" class="dash" title="email the author">email me.</a></span>
+		<!-- BEGIN SEARCH --><!-- END SEARCH --></span>
+	<div class="sideBarTitle">Next / Previous</div>
+    	<span class="sideTextBox" >
+		<!-- BEGIN PREVIOUS --><!-- END PREVIOUS --> <!-- BEGIN NEXT --><!-- END NEXT --></span>
+	<div class="sideBarTitle">Sections</div>
+    	<span class="sideTextBox" >
+		<!-- BEGIN MINI_MENU --><!-- END MINI_MENU --></span>
     </div>
 
     <!-- ###### Body Text ###### -->
