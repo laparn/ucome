@@ -12,6 +12,11 @@
 		<!-- BEGIN MENU -->
 		<!-- MENU -->
 		     <div class="sideBarTitle">Menu</div>
+		     <!-- BEGIN BEGIN_SECTION -->
+		     <!-- BEGIN_SECTION -->
+			  <span class="thisPage"><a class="activeleftmenu" href="${url}">${content}</a></span> 
+		     <!-- /BEGIN_SECTION -->
+		     <!-- END BEGIN_SECTION -->
 		     <!-- BEGIN SECTION0 -->
 		     <!-- SECTION0 -->
 			  <a href="${url}">&rsaquo;${content}</a> 

@@ -54,15 +54,36 @@
          <tr>
           <td bgcolor="#ffffff">
            &nbsp;<span class="small">o</span>
-           <a class="nav" href="fas:${file}&action=login_form">Login as :</a><!-- BEGIN WHOAMI --><!-- END WHOAMI -->
+           <!-- BEGIN WHOAMI --><!-- END WHOAMI -->
            <br />
-												<!-- BEGIN ALLOW --><!-- END ALLOW -->
+           <!-- BEGIN ALLOW --><!-- END ALLOW -->
           </td>
          </tr>
         </table>
        </td>
       </tr>
      </table>
+     <br />
+     <!-- sidebox -->
+     <table bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+       <td>
+        <table border="0" cellpadding="3" cellspacing="1" width="100%">
+         <tr>
+          <td bgcolor="#cccccc">
+           &nbsp;Search
+          </td>
+         </tr>
+         <tr>
+          <td bgcolor="#ffffff">
+           <!-- BEGIN SEARCH --><!-- END SEARCH -->
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+     <!-- end sidebox -->
      <!-- end sidebox -->
      <br />
 
@@ -82,8 +103,10 @@
            <table border="0" cellpadding="8" cellspacing="1" width="100%">
             <tr>
              <td bgcolor="#ffffff">
-													<!-- BEGIN PATH --><!-- END PATH --><br>
-													<!-- BEGIN CONTENT --><!-- END CONTENT -->
+              <!-- BEGIN PATH --><!-- END PATH -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- BEGIN PREVIOUS --><!-- END PREVIOUS --> | <!-- BEGIN NEXT --><!-- END NEXT -->
+               <br /><br />
+
+               <!-- BEGIN CONTENT --><!-- END CONTENT -->
              </td>
             </tr>
            </table>
@@ -99,16 +122,9 @@
           <td>
            <table border="0" cellpadding="8" cellspacing="1" width="100%">
             <tr>
-             <td bgcolor="#ffffff" colspan="2">
-              <p>
-               Content questions? <a href="mailto:questions@ucome.org">press me</a>.
-               
-              </p>
-
-              <p>
-               Technical questions?
-               <a href="mailto:info@ucome.org">Touch me</a> gently.
-              </p>
+             <td bgcolor="#ffffff" colspan="2" align="center">
+              <!-- BEGIN MINI_MENU --><!-- END MINI_MENU --><br />
+               Content questions? <a href="http://www.ucomecms.org">press me</a> - Technical questions?  <a href="http://www.ucomecms.org">Touch me</a> gently.
              </td>
             </tr>
            </table>
