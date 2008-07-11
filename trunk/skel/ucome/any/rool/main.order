@@ -1,0 +1,24 @@
+#order_title: Les titres pour Metz
+#genre: News
+#geographical_location: France - Metz
+#keyword: actualit� r�gion �conomie
+#caption_language: french
+
+[ 0 ]
+file = /any/rool/0.domp
+line_jump_delay = 20
+start_delay = 3000
+end_delay = 3000
+
+[ 1 ]
+file = /any/rool/1.domp
+line_jump_delay = 20
+start_delay = 3000
+end_delay = 3000
+
+[ 2 ]
+file = /any/rool/1.domp
+line_jump_delay = 10
+start_delay = 10
+end_delay = 10
+
