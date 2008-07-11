@@ -10,11 +10,15 @@
 	        <!-- standard/menu.templ -->
 		<!-- BEGIN MENU -->
 		<!-- MENU -->
-          	  <div class="headbox">Menu</div>
 		     <!-- BEGIN MENU_ENTRY -->
 		     <!-- END MENU_ENTRY -->
 
 		     <!-- The same thing but for a new menu system based on numbers -->
+		     <!-- BEGIN BEGIN_SECTION -->
+		     <!-- BEGIN_SECTION -->
+			  <div class="headbox"><a href="${url}">${content}</a></div> 
+		     <!-- / BEGIN_SECTION -->
+		     <!-- END BEGIN_SECTION -->
 		     <!-- BEGIN SECTION0 -->
 		     <!-- SECTION0 -->
 			  <a class="leftmenu" href="${url}">${content}</a> 

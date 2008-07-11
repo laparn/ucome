@@ -1,0 +1,15 @@
+<html>
+<!-- vim: set syntax=html: -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+		<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+	</head>
+	<body>
+		<h1 style="align:center;"><!-- BEGIN TITLE --><!-- END TITLE --></h1>
+			<h2><!-- BEGIN DATES --><!-- END DATES --></h2>
+			<h2><!-- BEGIN PLACE --><!-- END PLACE --> <!-- BEGIN PRICE --><!-- END PRICE --></h2>
+			<h3><!-- BEGIN THEME1 --><!-- END THEME1 --></h3>
+	<div style="float:right;margin-left:10px;"><!-- BEGIN IMAGE --><!-- END IMAGE --></div>
+		<!-- BEGIN DESCRIPTION --><!-- END DESCRIPTION -->
+	</body>
+</html>

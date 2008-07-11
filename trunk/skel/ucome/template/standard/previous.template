@@ -1,1 +1,1 @@
-<!-- PREVIOUS --><!-- BEGIN CONTENT --><a href="fas:${url}&previous=1" alt="${content}">Previous</a><!-- END CONTENT --><!-- /PREVIOUS -->
+<!-- PREVIOUS --><!-- BEGIN CONTENT --><a class="leftmenu" href="fas:${url}&previous=1" alt="${content}">Previous</a><!-- END CONTENT --><!-- /PREVIOUS -->

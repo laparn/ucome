@@ -22,10 +22,10 @@
    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="topnav">
     <tr>
   	      <td align="left" class="head">
-		  	&nbsp;Login as : <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;
+		  	&nbsp; <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;
 		  </td>
     	  <td align="right"> 
-			<a href="fas:${file}&action=login_form" class="topmenu" title="Login">&nbsp;::Login::&nbsp;</a><!-- BEGIN ALLOW --><!-- END ALLOW -->
+			<!-- BEGIN ALLOW --><!-- END ALLOW -->
 		  </td>
 	</tr>
    </table>
@@ -37,47 +37,13 @@
         <tr> 
           <td valign="top" width="150"> <br />
 		  	<div>
-		<!-- BEGIN MENU -->
-		<!-- MENU -->
-          	  <div class="headbox">Menu</div>
-		     <!-- BEGIN SECTION -->
-		     <!-- SECTION -->
-			  <a class="leftmenu" href="${url}">${content}</a> 
-		     <!-- /SECTION -->
-		     <!-- END SECTION -->
-		     <!-- BEGIN ACTIVESECTION -->
-		     <!-- ACTIVESECTION -->
-			  <a class="activeleftmenu" href="${url}">${content}</a> 
-		     <!-- /ACTIVESECTION -->
-		     <!-- END ACTIVESECTION -->
-		     <!-- BEGIN SUBSECTION -->
-		     <!-- SUBSECTION -->
-			  <a class="leftmenu" href="${url}">&nbsp;&nbsp;${content}</a> 
-		     <!-- /SUBSECTION -->
-		     <!-- END SUBSECTION -->
-		     <!-- BEGIN ACTIVESUBSECTION -->
-		     <!-- ACTIVESUBSECTION -->
-			  <a class="activeleftmenu" href="${url}">&nbsp;&nbsp;${content}</a> 
-		     <!-- /ACTIVESUBSECTION -->
-		     <!-- END ACTIVESUBSECTION -->
-		     <!-- BEGIN SUBSUBSECTION -->
-		     <!-- SUBSUBSECTION -->
-			  <a class="leftmenu" href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
-		     <!-- /SUBSUBSECTION -->
-		     <!-- END SUBSUBSECTION -->
-		     <!-- BEGIN ACTIVESUBSUBSECTION -->
-		     <!-- ACTIVESUBSUBSECTION -->
-			  <a class="activeleftmenu" href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
-		     <!-- /ACTIVESUBSUBSECTION -->
-		     <!-- END ACTIVESUBSUBSECTION -->
-
-		     <!-- BEGIN MENU_ENTRY -->
-		     <!-- END MENU_ENTRY -->
-              
-		<!-- /MENU -->
-		<!-- END MENU -->
-              
-			  <br />
+		<!-- BEGIN MENU --> <!-- MENU --> <!-- /MENU --> <!-- END MENU --> 
+		<br />
+		<!-- BEGIN MINI_MENU --><!-- END MINI_MENU -->
+		<br />
+		<div class="headbox">Previous/next</div>
+		<!-- BEGIN NEXT --><!-- END NEXT -->
+		<!-- BEGIN PREVIOUS --><!-- END PREVIOUS -->
 			  
 			  <div class="dynacontent">
 			  <!-- BEGIN PATH --><!-- END PATH -->

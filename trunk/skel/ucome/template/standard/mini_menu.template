@@ -8,15 +8,15 @@
 	        <!-- standard/mini_menu.templ -->
 		<!-- BEGIN MINI_MENU -->
 		<!-- MINI_MENU -->
+                     <div class="headbox" >Sections</div>
 		     <!-- BEGIN MINI_MENU_ENTRY --><!-- END MINI_MENU_ENTRY -->
 		     <!-- BEGIN MNMN_SECTION --><!-- SECTION -->
-			  <a href="${url}">${content}</a> <font color="#ff0000">|</font> 
+			  <a class="leftmenu" href="${url}">${content}</a>  
 		     <!-- /MNMN_SECTION --><!-- END MNMN_SECTION -->
 		     <!-- BEGIN ACTIVE_MNMN_SECTION --><!-- MNMN_ACTIVESECTION -->
-			  &gt; <a href="${url}">${content}</a>  <font color="#ff0000">|</font> 
+			  <a class="activeleftmenu"  href="${url}">&gt; ${content}</a>  
 		     <!-- /ACTIVE_MNMN_SECTION --><!-- END ACTIVE_MNMN_SECTION -->
 		<!-- /MINI_MENU -->
 		<!-- END MINI_MENU -->
-		</div>
 	</body>
 </html>
