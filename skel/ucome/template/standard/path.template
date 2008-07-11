@@ -9,7 +9,7 @@
 	        <!-- sliqua/path.tmpl -->
 		<!-- BEGIN PATH -->
 		<!-- PATH -->
-		     <!-- BEGIN SECTION --><a href="fas:${path}">${content}</a>&gt;<!-- END SECTION -->
+		     <!-- BEGIN SECTION --><a href="fas:${path}">${content}</a> &gt;<!-- END SECTION -->
 		     <!-- BEGIN ENDSECTION --> ${content}<!-- END ENDSECTION -->
 		     <!-- BEGIN PATH_ENTRY --><!-- END PATH_ENTRY -->
 		<!-- /PATH -->

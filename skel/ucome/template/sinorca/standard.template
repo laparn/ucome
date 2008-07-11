@@ -20,19 +20,16 @@
 
     <div id="upperMenuBar">
       <div class="LHS">
-        &nbsp;Login as : <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;|&nbsp;
-        <a href="fas:${file}&action=login_form" class="topmenu" title="Login">Login</a>
+        &nbsp;<!-- BEGIN WHOAMI --><!-- END WHOAMI -->
       </div>
       <div class="RHS">
-         <!-- BEGIN PATH --><!-- END PATH -->
+	      <!-- BEGIN PREVIOUS --><!-- END PREVIOUS --> <!-- BEGIN NEXT --><!-- END NEXT -->
       </div>
     </div>
 
     <div id="header">UCome - Your Content Management</div>
-
-    <form id="headerSearch" action="./index.html" method="get">
-      <div>
-        <!-- input type="text" class="text" value="Search..." / -->
+        <!-- BEGIN SEARCH --><!-- END SEARCH -->
+        <!-- input type="text" class="text" value="Search..." -->
       
         <!-- ###### Dynamic text box version:
         <input class="text" type="text" value="Search..."
@@ -41,8 +38,6 @@
              ###### -->
 
         <!-- input type="submit" class="submit" value="GO" / -->
-      </div>
-    </form>
 
     <div id="lowerMenuBar">
          <!-- BEGIN ALLOW --><!-- END ALLOW -->
@@ -52,6 +47,9 @@
     <!-- BEGIN MENU -->
     <!-- END MENU -->
     <!-- div class="sideMenuBox lighterBG" -->
+    <div class="sideMenuBox lighterBG" >
+	    <!-- BEGIN MINI_MENU --><!-- END MINI_MENU -->
+    </div>
     <div class="sideTextBox" >
         Questions or Comments? Advice for me or from me? Please <a href="mailto:info@no-spam-ucome.org" class="dash" title="email the author">email me.</a>
     </div>
@@ -59,6 +57,7 @@
     <!-- ###### Body Text ###### -->
 
     <div id="bodyText">
+	<!-- BEGIN PATH --><!-- END PATH --><br />
 	<!-- BEGIN CONTENT --><!-- CONTENT -->CONTENT<!-- /CONTENT --><!-- END CONTENT -->
     </div>
     
@@ -67,7 +66,7 @@
     <div id="footer">
       <div>
         <span class="footerLHS">
-            UCome - Created by  <a class="footerLHS" href="http://linbox.com" title="Linbox/Free&amp;ALter Soft">Linbox/Free&amp;ALter Soft</a>
+            UCome - Created by  <a class="footerLHS" href="http://linbox.com" title="Linbox/Free&amp;ALter Soft/Mandriva">Linbox / Free&amp;ALter Soft / Mandriva</a>
         </span>
       </div>
 
