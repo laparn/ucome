@@ -19,17 +19,16 @@
 
     <div id="upperMenuBar">
       <div class="LHS">
-        &nbsp;Login as : <!-- BEGIN WHOAMI --><!-- END WHOAMI -->&nbsp;|&nbsp;
-        <a href="fas:${file}&action=login_form" class="topmenu" title="Login">Login</a>
+        &nbsp;<!-- BEGIN WHOAMI --><!-- END WHOAMI -->
       </div>
       <div class="RHS">
-      <!-- BEGIN PATH --><!-- END PATH -->
+	      <!-- BEGIN PREVIOUS --><!-- END PREVIOUS --> <!-- BEGIN NEXT --><!-- END NEXT -->
       </div>
     </div>
 
     <div id="header"><a href="http://www.linbox.com"><img src="fas:/template/linbox/img/logo_linbox_small.png" alt="Logo linbox"></a></div>
 
-	<!-- BEGIN SEARCH --><!-- END SEARCH --><!-- BEGIN PREVIOUS --><!-- END PREVIOUS --><!-- BEGIN NEXT --><!-- END NEXT -->
+	<!-- BEGIN SEARCH --><!-- END SEARCH -->
 
     <div id="lowerMenuBar">
          <!-- BEGIN ALLOW --><!-- END ALLOW -->
@@ -39,6 +38,9 @@
     <!-- BEGIN MENU -->
     <!-- END MENU -->
     <!-- div class="sideMenuBox lighterBG" -->
+    <div class="sideMenuBox" >
+	    <!-- BEGIN MINI_MENU --><!-- END MINI_MENU -->
+    </div>
     <div class="sideTextBox" >
         Questions or Comments? Advice for me or from me? Please <a href="mailto:info@no-spam-ucome.org" class="dash" title="email the author">email me.</a>
     </div>
@@ -46,6 +48,7 @@
     <!-- ###### Body Text ###### -->
 
     <div id="bodyText">
+	    <!-- BEGIN PATH --><!-- END PATH --><br />
 	<!-- BEGIN CONTENT --><!-- CONTENT -->CONTENT<!-- /CONTENT --><!-- END CONTENT -->
     </div>
     

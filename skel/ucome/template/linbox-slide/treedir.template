@@ -39,7 +39,7 @@
 		</div>
 		<!-- /DIRTREE --><!-- END DIRTREE -->
 		<!-- BEGIN CACHE -->
-		<div class="sideMenuBox lighterBG" >
+		<div class="sideTextBox lighterBG" >
 		<div>Actions</div>
 			<A class="thisPage" HREF="fas:${export_filename}&action=clean_cache_form">Clean the cache</A>
 			<A class="thisPage" HREF="fas:${export_filename}&action=flatten">Flatten the site</A>

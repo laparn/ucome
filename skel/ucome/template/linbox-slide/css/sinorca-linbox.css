@@ -88,9 +88,8 @@ dd {
   background-color: white;
   text-align: justify;
   line-height: 1.5em;
-  margin: 0 0 0 1.4em;
+  margin: 0 0 0 0;
   padding: 5mm 5mm 2mm 5mm;
-  border-left: 1px solid #999999;
 }
 
 #bodyText pre {
@@ -178,9 +177,6 @@ dd {
 }
 
 #headerSearch {
-  position: absolute;
-  right: 2mm;
-  top: 3.6em;
 }
 
 #headerSearch .text {
@@ -233,15 +229,24 @@ dd {
 /* ###### Side Boxes ###### */
 
 .sideMenuBox, .sideTextBox {
-  font-size: 40%;
   background-color: #f8f1eb;
-  width: 3.5em;
   border-bottom: 1px solid #999999;
   padding-top: 1em;
   padding-bottom: 1em;
-  float: left;
-  clear: left;
   border-right: 1px solid #999999;
+}
+
+.bottomMenuBox {
+  float: left;
+}
+.sideMenuBox {
+  width: 15.5em;
+  float: left;
+}
+
+.sideTextBox {
+  width: 15.5em;
+  float: right;
 }
 
 .sideMenuBox div, .sideTextBox div {
@@ -258,8 +263,7 @@ dd {
 }
 
 .sideMenuBox a:hover {
-  /* See: color-scheme.css */
-}
+  /* See: color-scheme.css */}
 
 .sideMenuBox .thisPage {
   display: block;
@@ -285,8 +289,9 @@ dd {
 
 .sideTextBox a {
   text-decoration: none;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+  display: block;
+  /* border-bottom-style: solid;
+  border-bottom-width: 1px; */
 }
 
 .sideTextBox a:hover {

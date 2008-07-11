@@ -1,5 +1,0 @@
-<html>
-	<body>
-		<!-- BEGIN CURRENT_BLOCK --><!--END CURRENT_BLOCK --><!-- BEGIN STANDARD_BLOCK --><a href="${url}" class="topmenu">${text}</a>&nbsp;|&nbsp;<!-- END STANDARD_BLOCK -->
-	</body>
-</html>

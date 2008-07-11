@@ -31,19 +31,25 @@
         <!-- input type="submit" class="submit" value="GO" / -->
       </div>
     </form>
-    <!-- ###### Side Boxes ###### -->
-    <!-- BEGIN MENU -->
-    <!-- END MENU -->
-    <!-- div class="sideMenuBox lighterBG" -->
     <!-- ###### Body Text ###### -->
-
     <div id="bodyText">
-	<!-- BEGIN CONTENT --><!-- CONTENT -->CONTENT<!-- /CONTENT --><!-- END CONTENT -->
+	    <!-- BEGIN CONTENT --><!-- CONTENT -->CONTENT<!-- /CONTENT --><!-- END CONTENT -->
+	    <br /><!-- BEGIN PREVIOUS --><!-- END PREVIOUS --><!-- BEGIN NEXT --><!-- END NEXT -->
     </div>
     
     <!-- ###### Footer ###### -->
     <div id="footerMAIN">
       <a href="http://linbox.com" title="Linbox/Free&amp;ALter Soft">Linbox/Free&amp;ALter Soft</a>
      </div>
+    <!-- ###### Side Boxes ###### -->
+    <!-- BEGIN MENU -->
+    <!-- END MENU -->
+    <div class="bottomMenuBox">
+	    <!-- BEGIN PATH --><!-- END PATH -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- BEGIN WHOAMI --><!-- END WHOAMI --><br /><br />
+	    Actions :<!-- BEGIN ALLOW --><!-- END ALLOW --><br /><br />
+	    Sections :<!-- BEGIN MINI_MENU --><!-- END MINI_MENU --><br /><br />
+	    <!-- BEGIN SEARCH --> <!-- END SEARCH --><br />
+    </div>
+    <!-- div class="sideMenuBox lighterBG" -->
   </body>
 </html>
