@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><!-- BEGIN TITLE -->TITRE<!-- END TITLE --></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="fas:/template/rool/css/standard_rool.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<script type="text/javascript" src="fas:/any/js/x_load.js"></script>
+<script type="text/javascript">
+	xInclude("fas:/any/js/rool.js");
+
+	window.onload = function() {
+		down("periode", 500, 1000);
+		right("theme1",1500,1000);
+		up("lieu",2500,1000);
+		appear("milieu",4000, 1000);
+		scroll(9000,8000,40);
+	}
+</script>
+<!-- rool/standard_rool.template -->
+<div id="entete">
+	<div id="periode"><!-- BEGIN DATES -->{dates of the event}<!-- END DATES --></div>
+    <div id="lieu"><!-- BEGIN PLACE -->{place where the event takes place}<!-- END PLACE --></div>
+	<div id="theme1"><!-- BEGIN THEME1 -->{theme of the event}<!-- END THEME1 --></div>
+</div>
+<div id="milieu">
+	<div id="titre"><!-- BEGIN TITLE --><!-- END TITLE --></div>
+	<div style="float:right;margin-left:10px;"><!-- BEGIN IMAGE --><!-- END IMAGE --></div>
+	<div id="descriptif"><!-- BEGIN DESCRIPTION --><!-- END DESCRIPTION --></div>
+</div>
+<div id="pieds">&nbsp;</div>
+
+</body>
+</html>

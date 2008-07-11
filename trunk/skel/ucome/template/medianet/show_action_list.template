@@ -1,5 +1,8 @@
 <html>
 	<body>
-		<!-- BEGIN CURRENT_BLOCK --><!--END CURRENT_BLOCK --><!-- BEGIN STANDARD_BLOCK --><a href="${url}" class="topmenu">${text}</a>&nbsp;|&nbsp;<!-- END STANDARD_BLOCK -->
+		<div class="bandeau">
+		Actions : 
+		<!-- BEGIN CURRENT_BLOCK --><!--END CURRENT_BLOCK --><!-- BEGIN STANDARD_BLOCK -->[<a href="${url}">${text}</a>] <!-- END STANDARD_BLOCK -->
+		</div><br />
 	</body>
 </html>

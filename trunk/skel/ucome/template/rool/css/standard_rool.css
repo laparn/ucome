@@ -1,0 +1,122 @@
+body {
+	width : 800px;
+	overflow: hidden;
+	background-color: #FFFFFF;
+	margin: 0px;
+	height : 100%;
+}
+/** Boîte no. 1 : Partie du dessus **/
+#entete {
+	position: absolute;
+	position: fixed !important;
+	background-image: url(fas:/template/rool/images/metz/haut.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-color: #FFFFFF;
+	margin: 0px;
+	padding: 0px;
+	top: 0px;
+	left: 0px;
+	height: 133px;
+	width: 800px;
+	vertical-align: top;
+	overflow: hidden;
+}
+#periode {
+	position: absolute;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	color: #FFFFFF;
+	margin: 0px;
+	top: 3px;
+	left: 30px;
+	height: 90px;
+	width: 500px;
+	vertical-align: middle;
+	visibility: hidden;
+}
+#lieu {
+	position: absolute;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 36px;
+	font-weight: bold;
+	color: #365997;
+	top: 3px;
+	left: 230px;
+	width: 567px;
+	height: 120px;
+	text-align: right;
+	vertical-align: top;
+	line-height: 36px;
+	visibility: hidden;
+}
+#theme1 {
+	position: absolute;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 30px;
+	line-height: 36px;
+	font-weight: bold;
+	color: #CF0101;
+	margin: 0px;
+	padding: 0px;
+	top: 86px;
+	left: 30px;
+	visibility: hidden;
+}
+/** Fin de partie du dessus **/
+
+/** Boîte no.2 : Partie du milieu **/
+#milieu {
+	background-color: #FFFFFF;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 32px;
+	color: #6e5000;
+	margin: 0px;
+	width: 790px;
+	visibility: hidden;
+	overflow: hidden;
+	padding-left: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+/** using a hack to avoid MSIE bugs **/
+html>body #milieu { padding-top: 134px; padding-bottom: 49px; }
+
+#titre{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 36px;
+	font-weight: bold;
+	color: #667fac;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #667fac;
+	margin: 0px;
+	padding-top: 10px;
+	top: 10px;
+	padding-left: 10px;
+	left: 10px;
+}
+#descriptif {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 32px;
+	color: #6e5000;
+	padding-bottom: 49px;
+	bottom: 49px;
+	padding-left: 20px;
+	left: 20px;
+	padding-top: 20px;
+}
+
+/** Boîte no.3 : Partie du bas **/
+#pieds {
+	position: absolute;
+	position: fixed !important;
+	background-image: url(fas:/template/rool/images/metz/bas.jpg);
+	background-repeat: no-repeat;
+	background-color: #8e9ebb;
+	height: 48px;
+	width: 800px;
+	bottom: 0px;
+	margin: 0px;
+	padding: 0px;
+}

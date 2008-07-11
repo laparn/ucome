@@ -11,67 +11,72 @@
 	        <!-- sinorca/menu.tmpl -->
 		<!-- BEGIN MENU -->
 		<!-- MENU -->
-          	  <div class="sideMenuBox">
-		     <div>Menu</div>
+          	  <div class="bandeau">
+		     Menu : 
+		     <!-- BEGIN BEGIN_SECTION -->
+		     <!-- BEGIN_SECTION -->
+			  <span >Root  <a href="${url}">${content}</a></span>, 
+		     <!-- /BEGIN_SECTION -->
+		     <!-- END BEGIN_SECTION -->
 		     <!-- BEGIN SECTION0 -->
 		     <!-- SECTION0 -->
-			  <a href="${url}">&rsaquo;${content}</a> 
+			  section <a href="${url}">${content}</a>, 
 		     <!-- /SECTION0 -->
 		     <!-- END SECTION0 -->
 		     <!-- BEGIN ACTIVESECTION0 -->
 		     <!-- ACTIVESECTION0 -->
-			  <span class="thisPage"><a class="activeleftmenu" href="${url}">&raquo;${content}</a></span> 
+			  <span>in section <a href="${url}">${content}</a></span>, 
 		     <!-- /ACTIVESECTION0 -->
 		     <!-- END ACTIVESECTION0 -->
 		     <!-- BEGIN EXACTSECTION0 -->
 		     <!-- EXACTSECTION0 -->
-			  <span class="thisPage"><a class="activeleftmenu" href="${url}">&raquo;${content}</a></span> 
+			  <span >current section <a href="${url}">${content}</a></span>, 
 		     <!-- /EXACTSECTION0 -->
 		     <!-- END EXACTSECTION0 -->
 		     <!-- BEGIN SECTION1 -->
 		     <!-- SECTION1 -->
-			  <a href="${url}">&nbsp;&nbsp;&rsaquo;${content}</a> 
+			  subsection <a href="${url}">${content}</a>, 
 		     <!-- /SECTION1 -->
 		     <!-- END SECTION1 -->
 		     <!-- BEGIN ACTIVESECTION1 -->
 		     <!-- ACTIVESECTION1 -->
-			  <span class="thisPage"><a href="${url}">&nbsp;&nbsp;&raquo;${content}</a></span>
+			  <span>in subsection <a href="${url}">${content}</a></span>,
 		     <!-- /ACTIVESECTION1 -->
 		     <!-- END ACTIVESECTION1 -->
 		     <!-- BEGIN EXACTSECTION1 -->
 		     <!-- EXACTSECTION1 -->
-			  <span class="thisPage"><a href="${url}">&nbsp;&nbsp;&raquo;${content}</a></span>
+			  <span>current subsection <a href="${url}">${content}</a></span>,
 		     <!-- /EXACTSECTION1 -->
 		     <!-- END EXACTSECTION1 -->
 		     <!-- BEGIN SECTION2 -->
 		     <!-- SECTION2 -->
-			  <a  href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+			  subsubsection <a  href="${url}">${content}</a>, 
 		     <!-- /SECTION2 -->
 		     <!-- END SECTION2 -->
 		     <!-- BEGIN ACTIVESECTION2 -->
 		     <!-- ACTIVESECTION2 -->
-			  <span class="thisPage"><a href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+			  <span >in subsubsection <a href="${url}">${content}</a> </span>,
 		     <!-- /ACTIVESECTION2 -->
 		     <!-- END ACTIVESECTION2 -->
 		     <!-- BEGIN EXACTSECTION2 -->
 		     <!-- EXACTSECTION2 -->
-			  <span class="thisPage"><a href="${url}">&nbsp;&nbsp;&nbsp;&nbsp;${content}</a> 
+			  <span >current subsubsection <a href="${url}">${content}</a> </span>,
 		     <!-- /EXACTSECTION2 -->
 		     <!-- END EXACTSECTION2 -->
 
 		     <!-- BEGIN GENERIC_SECTION -->
 		     <!-- GENERIC_SECTION -->
-			  <a  href="${url}"><!-- BEGIN GENERIC_SPACE -->&nbsp;&nbsp;<!-- END GENERIC_SPACE -->${content}</a> 
+			  subsubsubsection <a  href="${url}"><!-- BEGIN GENERIC_SPACE --><!-- END GENERIC_SPACE -->${content}</a>, 
 		     <!-- /GENERIC_SECTION -->
 		     <!-- END GENERIC_SECTION -->
 		     <!-- BEGIN GENERIC_ACTIVESECTION -->
 		     <!-- GENERIC_ACTIVESECTION -->
-			  <span class="thisPage"><a href="${url}"><!-- BEGIN GENERIC_ACTIVESPACE -->&nbsp;&nbsp;<!-- END GENERIC_ACTIVESPACE -->${content}</a> 
+			  <span >in subsubsubsection<a href="${url}"><!-- BEGIN GENERIC_ACTIVESPACE --><!-- END GENERIC_ACTIVESPACE -->${content}</a> </span>,
 		     <!-- /GENERIC_ACTIVESECTION -->
 		     <!-- END GENERIC_ACTIVESECTION -->
 		     <!-- BEGIN GENERIC_EXACTSECTION -->
 		     <!-- GENERIC_EXACTSECTION -->
-			  <span class="thisPage"><a href="${url}"><!-- BEGIN GENERIC_EXACTSPACE -->&nbsp;&nbsp;<!-- END GENERIC_EXACTSPACE -->${content}</a> 
+			  <span>in subsubsubsection<a href="${url}"><!-- BEGIN GENERIC_EXACTSPACE --><!-- END GENERIC_EXACTSPACE -->${content}</a> </span>,
 		     <!-- /GENERIC_EXACTSECTION -->
 		     <!-- END GENERIC_EXACTSECTION -->
 

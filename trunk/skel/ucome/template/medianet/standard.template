@@ -26,7 +26,15 @@
 
 <div class="milieu">
 <!-- BEGIN CONTENT --><!-- END CONTENT -->
-</div>   
-
+</div>
+<br />
+<!-- BEGIN MENU -->
+<!-- END MENU -->
+<br />
+<div class="bandeau"><!-- BEGIN PREVIOUS --><!-- END PREVIOUS --> <!-- BEGIN NEXT --><!-- END NEXT --> <!-- BEGIN WHOAMI --><!-- END WHOAMI --></div><br />
+<!-- BEGIN ALLOW --><!-- END ALLOW -->
+<!-- BEGIN MINI_MENU --><!-- END MINI_MENU -->
+<div class="bandeau">Search : <!-- BEGIN SEARCH --> <!-- END SEARCH --></div>
+    </div><br />
 </body>
 </html>

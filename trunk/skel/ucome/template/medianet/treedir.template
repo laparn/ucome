@@ -10,8 +10,8 @@
 	<body bgcolor="white" >
 		<!-- sinorca/treedir.tmpl -->	
 		<!-- BEGIN DIRTREE --><!-- DIRTREE -->
-          	<div class="sideMenuBox">
-		<div>Tree</div>
+          	<div class="bandeau">
+		<h1>Tree</h1>
 			<!-- BEGIN DIR -->
 			<!-- DIR -->
 				<A HREF="$url">
@@ -36,15 +36,15 @@
 			<!-- END EXACTDIR -->
 			<!-- BEGIN CURRENTDIR -->
 			<!-- END CURRENTDIR -->
-		</div>
+		</div><br />
 		<!-- /DIRTREE --><!-- END DIRTREE -->
 		<!-- BEGIN CACHE -->
-		<div class="sideMenuBox lighterBG" >
-		<div>Actions</div>
-			<A class="thisPage" HREF="fas:${export_filename}&action=clean_cache_form">Clean the cache</A>
-			<A class="thisPage" HREF="fas:${export_filename}&action=flatten">Flatten the site</A>
-			<A class="thisPage" HREF="fas:${export_filename}&action=txt4index_tree">Prepare indexing</A>
-			<A class="thisPage" HREF="fas:${export_filename}&action=create_index">Index</A>
+		<div class="bandeau" >
+		Actions :
+			<A HREF="fas:${export_filename}&action=clean_cache_form">Clean the cache</A>, 
+			<A HREF="fas:${export_filename}&action=flatten">Flatten the site</A>, 
+			<A HREF="fas:${export_filename}&action=txt4index_tree">Prepare indexing</A>,
+			<A HREF="fas:${export_filename}&action=create_index">Index</A>.
 		</div>
 		<!-- END CACHE -->
 	</body>
