@@ -1,0 +1,2 @@
+global.template standard_rool.template theme1.type html theme1.textentry 1 dates.type html place.type html place.textentry 1 title.type html title.textentry 1 description.type html description.cols 60 description.rows 30 infos.type html price.type html price.textentry 1 image.type image image.textentry 1
+
